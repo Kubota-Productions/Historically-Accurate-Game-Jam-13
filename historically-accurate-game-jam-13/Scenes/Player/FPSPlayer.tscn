@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://c5xf5awwvo5et"]
+
+[ext_resource type="Script" uid="uid://ds25qo7ubp17a" path="res://Scenes/Player/FPScamera.gd" id="2_22kdy"]
+[ext_resource type="Script" uid="uid://und72swrc33q" path="res://Scenes/Player/FPSplayer.gd" id="2_ryt0y"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jbdec"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1514709304 node_paths=PackedStringArray("collision_shape")]
+script = ExtResource("2_ryt0y")
+collision_shape = NodePath("CollisionShape3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=201103082]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_jbdec")
+
+[node name="CameraHolder" type="Node3D" parent="." unique_id=73516174 node_paths=PackedStringArray("player", "camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
+script = ExtResource("2_22kdy")
+player = NodePath("..")
+camera = NodePath("Camera3D")
+
+[node name="Camera3D" type="Camera3D" parent="CameraHolder" unique_id=359298848]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.90741765, 0)
