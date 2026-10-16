@@ -23,3 +23,71 @@ mono_crash.*.json
 *.exe
 # Uncomment if your project does not version PCK files as runtime dependencies.
 # *.pck
+.idea/
+
+# Local exported builds (keep the shared directory scaffold)
+/Builds/*
+!/Builds/.gdignore
+!/Builds/.gitkeep
+
+# Local editor settings and history (patterns apply at any directory depth)
+# VS Code / Cursor / VSCodium / Windsurf
+.vscode/
+.cursor/
+.windsurf/
+.history/
+# Visual Studio / Fleet / Zed
+.vs/
+.fleet/
+.zed/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+# Sublime Text workspace state (project definitions may be shared)
+*.sublime-workspace
+# Vim / Emacs / editor recovery files
+*.swp
+*.swo
+*~
+\#*\#
+.\#*
+
+# OS metadata and recycle bins
+.DS_Store
+._*
+.AppleDouble/
+.LSOverride
+.Spotlight-V100/
+.Trashes/
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.directory
+.Trash-*/
+
+# Local tool caches and environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+node_modules/
+*.tsbuildinfo
+
+# Logs and source-editor backup copies
+*.log
+*.bak
+*.blend1
+*.blend2
+
+# Credentials and local environment
+.env
+.env.*
+!.env.example
