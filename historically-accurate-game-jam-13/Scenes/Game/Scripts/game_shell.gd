@@ -3,6 +3,10 @@ extends Node
 enum Mode { MENU, PLAYING, PAUSED }
 
 const DIALOGUE_PATH := "res://GameData/Dialogue/opening.json"
+const FADE_OUT_SECONDS := 0.35
+const FADE_IN_SECONDS := 0.65
+const CHAPTER_HOLD_SECONDS := 1.6
+const INTRO_PAUSE_SECONDS := 0.35
 
 var mode: Mode = Mode.MENU
 var room: LaikaRoom
@@ -109,18 +113,21 @@ func start_game() -> void:
 	if not is_inside_tree():
 		return
 	menu.hide()
+	hud.hide()
 	pause.hide()
 	completion.close()
 	settings.hide()
 	dialogue.close()
 	_replace_room(&"training")
 	mode = Mode.PLAYING
-	hud.show()
 	hud.set_chapter("01  /  EARTH · TRAINING ROOM")
+	room.camera.make_current()
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	await _uncover()
+	await get_tree().create_timer(INTRO_PAUSE_SECONDS).timeout
 	if not is_inside_tree():
 		return
+	hud.show()
 	transitioning = false
 	room.begin()
 
@@ -195,11 +202,15 @@ func _depart() -> void:
 	if not is_inside_tree():
 		return
 	dialogue.close()
+	hud.hide()
 	_replace_room(&"station")
 	hud.set_chapter("02  /  ORBIT · STATION")
+	room.camera.make_current()
 	await _uncover()
+	await get_tree().create_timer(INTRO_PAUSE_SECONDS).timeout
 	if not is_inside_tree():
 		return
+	hud.show()
 	transitioning = false
 	room.begin()
 
@@ -250,15 +261,17 @@ func _cover(title: String) -> void:
 		_fade_tween.kill()
 	_fade_tween = create_tween()
 	_fade_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-	_fade_tween.tween_property(fade, "modulate:a", 1.0, 0.3).set_trans(Tween.TRANS_SINE)
+	_fade_tween.tween_property(fade, "modulate:a", 1.0, FADE_OUT_SECONDS).set_trans(Tween.TRANS_SINE)
 	await _fade_tween.finished
 
 
 func _uncover() -> void:
+	await get_tree().process_frame
+	await get_tree().process_frame
 	_fade_tween = create_tween()
 	_fade_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-	_fade_tween.tween_interval(0.35)
-	_fade_tween.tween_property(fade, "modulate:a", 0.0, 0.3).set_trans(Tween.TRANS_SINE)
+	_fade_tween.tween_interval(CHAPTER_HOLD_SECONDS if not transition_title.text.is_empty() else 0.15)
+	_fade_tween.tween_property(fade, "modulate:a", 0.0, FADE_IN_SECONDS).set_trans(Tween.TRANS_SINE)
 	await _fade_tween.finished
 	if is_instance_valid(fade):
 		fade.hide()

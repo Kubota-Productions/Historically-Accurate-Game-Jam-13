@@ -43,7 +43,7 @@ func _run() -> void:
 	await _press(&"ui_cancel")
 	_check(shell.menu.visible and not shell.settings.visible, "Escape returns from settings")
 	_check(root.gui_get_focus_owner() == shell.menu.get_node("%Settings"), "Settings focus is restored")
-	await shell.start_game()
+	await _observe_start_transition()
 	_check(shell.dialogue.active and not shell.room.control_enabled, "Greeting owns player input")
 	var greeting: Array = shell.dialogue._lines.duplicate(true)
 	var previous_time_scale := Engine.time_scale
@@ -233,12 +233,45 @@ func _target_is(id: StringName) -> bool:
 	return is_instance_valid(shell.room.target) and shell.room.target.interaction_id == id
 
 
-func _settle_transition() -> void:
-	for frame in range(3000):
-		if not shell.transitioning:
-			return
+func _observe_start_transition() -> void:
+	var started := false
+	var saw_reveal := false
+	var camera_stable := true
+	var input_blocked := true
+	var title_started: int = -1
+	var title_elapsed: int = 0
+	var revealed_at: int = -1
+	var reveal_transform: Transform3D
+	var deadline := Time.get_ticks_msec() + 15000
+	shell.start_game.call_deferred()
+	while (not started or shell.transitioning) and Time.get_ticks_msec() < deadline:
+		started = started or shell.transitioning
+		if started and shell.mode == shell.Mode.PLAYING:
+			input_blocked = input_blocked and not shell.room.control_enabled and not shell.dialogue.active
+			if shell.fade.visible and shell.fade.modulate.a >= 0.999:
+				if title_started < 0:
+					title_started = Time.get_ticks_msec()
+			else:
+				if not saw_reveal:
+					saw_reveal = true
+					title_elapsed = Time.get_ticks_msec() - title_started
+					reveal_transform = shell.room.camera.global_transform
+				camera_stable = camera_stable and root.get_camera_3d() == shell.room.camera
+				camera_stable = camera_stable and reveal_transform.is_equal_approx(shell.room.camera.global_transform)
+				if not shell.fade.visible and revealed_at < 0:
+					revealed_at = Time.get_ticks_msec()
 		await process_frame
-	_check(false, "Transition finishes within 3000 frames")
+	_check(saw_reveal and camera_stable and root.get_camera_3d() == shell.room.camera and reveal_transform.is_equal_approx(shell.room.camera.global_transform), "The player camera is stable throughout reveal and greeting")
+	_check(title_elapsed >= 1300, "The chapter title remains readable before revealing the room")
+	_check(revealed_at >= 0 and Time.get_ticks_msec() - revealed_at >= 250, "The room appears before the greeting starts")
+	_check(input_blocked and not shell.transitioning, "Input stays blocked until the opening transition finishes")
+
+
+func _settle_transition() -> void:
+	var deadline := Time.get_ticks_msec() + 15000
+	while shell.transitioning and Time.get_ticks_msec() < deadline:
+		await process_frame
+	_check(not shell.transitioning, "Transition finishes within fifteen seconds")
 
 
 func _check(condition: bool, message: String) -> void:
