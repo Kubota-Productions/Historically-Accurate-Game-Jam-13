@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ds25qo7ubp17a" path="res://Scenes/Player/FPScamera.gd" id="2_22kdy"]
 [ext_resource type="Script" uid="uid://und72swrc33q" path="res://Scenes/Player/FPSplayer.gd" id="2_ryt0y"]
-[ext_resource type="PackedScene" uid="uid://tqwgyxaviwsr" path="res://Assets/3D/Snout.glb" id="3_xrtr1"]
+[ext_resource type="PackedScene" uid="uid://bi1mvehj2r4uu" path="res://Assets/3D/Snoutsquished.glb" id="3_xrtr1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jbdec"]
 
@@ -21,8 +21,8 @@ player = NodePath("..")
 camera = NodePath("Camera3D")
 
 [node name="Camera3D" type="Camera3D" parent="CameraHolder" unique_id=359298848]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.90741765, 0)
-fov = 90.0
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.90741765, 0.01014179)
+fov = 120.0
 
-[node name="Snout" parent="CameraHolder" unique_id=1966567727 instance=ExtResource("3_xrtr1")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, -0.907, 0.7218584)
+[node name="Snoutsquished" parent="CameraHolder" unique_id=2060689437 instance=ExtResource("3_xrtr1")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, -0.90936494, 0.76910233)

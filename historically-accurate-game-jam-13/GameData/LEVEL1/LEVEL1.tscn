@@ -1,8 +1,11 @@
 [gd_scene format=3 uid="uid://dey2ol06a0irs"]
 
+[ext_resource type="PackedScene" uid="uid://7l5j66jr6abv" path="res://addons/screenspace_projection/screenspace_projection.tscn" id="1_ckpph"]
 [ext_resource type="PackedScene" uid="uid://c5xf5awwvo5et" path="res://Scenes/Player/FPSPlayer.tscn" id="1_npl10"]
 [ext_resource type="Texture2D" uid="uid://bfid7u0y7y80p" path="res://Assets/Textures/checkermat.png" id="1_sqsj1"]
 [ext_resource type="PackedScene" uid="uid://dtq0tw3wyee66" path="res://Assets/3D/Laika.blend" id="2_vpw66"]
+[ext_resource type="PackedScene" uid="uid://b1gpipc74tvjq" path="res://Assets/3D/TV.glb" id="5_4rgiu"]
+[ext_resource type="PackedScene" uid="uid://bubn572blfd61" path="res://Assets/3D/Capsuleinterior.glb" id="6_hhupa"]
 
 [sub_resource type="Environment" id="Environment_unb0y"]
 background_mode = 1
@@ -15,55 +18,74 @@ albedo_texture = ExtResource("1_sqsj1")
 
 [node name="Level1" type="Node3D" unique_id=1206311036]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=596383291]
+[node name="ScreenSpaceProjection" parent="." unique_id=2131587968 instance=ExtResource("1_ckpph")]
+strength = 1.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="ScreenSpaceProjection/ProjectionInput" parent_id_path=PackedInt32Array(2131587968, 1493971111) index="0" unique_id=596383291]
 environment = SubResource("Environment_unb0y")
 
-[node name="OmniLight3D" type="OmniLight3D" parent="WorldEnvironment" unique_id=2145583867]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.138712, 4.8776383, 2.602923)
-light_energy = 2.962
+[node name="OmniLight3D" type="OmniLight3D" parent="ScreenSpaceProjection/ProjectionInput/WorldEnvironment" unique_id=2145583867]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.239761, 3.3706994, 2.9148922)
+light_color = Color(0.8251134, 0.66138625, 0.5598457, 1)
+light_energy = 6.289
 light_indirect_energy = 3.376
 omni_range = 8.6870985
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1439190482]
+[node name="OmniLight3D2" type="OmniLight3D" parent="ScreenSpaceProjection/ProjectionInput/WorldEnvironment" unique_id=1367438605]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.2672765, 0.86011934, 4.237925)
+light_color = Color(0.5182201, 0.722175, 0.91596335, 1)
+light_energy = 6.289
+light_indirect_energy = 3.376
+omni_range = 8.6870985
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="ScreenSpaceProjection/ProjectionInput" parent_id_path=PackedInt32Array(2131587968, 1493971111) index="1" unique_id=1439190482]
 transform = Transform3D(1, 0, 0, 0, 0.37457645, 0.927196, 0, -0.927196, 0.37457645, 0, 1.0642776, 0)
 
-[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=512848015]
+[node name="CSGBox3D" type="CSGBox3D" parent="ScreenSpaceProjection/ProjectionInput" parent_id_path=PackedInt32Array(2131587968, 1493971111) index="2" unique_id=512848015]
 material_override = SubResource("StandardMaterial3D_ckpph")
 use_collision = true
 size = Vector3(20, 1, 20)
 
-[node name="CSGBox3D6" type="CSGBox3D" parent="." unique_id=735591718]
+[node name="CSGBox3D6" type="CSGBox3D" parent="ScreenSpaceProjection/ProjectionInput" parent_id_path=PackedInt32Array(2131587968, 1493971111) index="3" unique_id=735591718]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 19, 0)
 material_override = SubResource("StandardMaterial3D_ckpph")
 use_collision = true
 size = Vector3(20, 1, 20)
 
-[node name="CSGBox3D5" type="CSGBox3D" parent="." unique_id=1403151683]
+[node name="CSGBox3D5" type="CSGBox3D" parent="ScreenSpaceProjection/ProjectionInput" parent_id_path=PackedInt32Array(2131587968, 1493971111) index="4" unique_id=1403151683]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.5, 9.5, 0)
 material_override = SubResource("StandardMaterial3D_ckpph")
 use_collision = true
 size = Vector3(1, 20, 20)
 
-[node name="CSGBox3D4" type="CSGBox3D" parent="." unique_id=837249083]
+[node name="CSGBox3D4" type="CSGBox3D" parent="ScreenSpaceProjection/ProjectionInput" parent_id_path=PackedInt32Array(2131587968, 1493971111) index="5" unique_id=837249083]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.5, -10.5)
 material_override = SubResource("StandardMaterial3D_ckpph")
 use_collision = true
 size = Vector3(20, 20, 1)
 
-[node name="CSGBox3D3" type="CSGBox3D" parent="." unique_id=1686575376]
+[node name="CSGBox3D3" type="CSGBox3D" parent="ScreenSpaceProjection/ProjectionInput" parent_id_path=PackedInt32Array(2131587968, 1493971111) index="6" unique_id=1686575376]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.5, 10.5)
 material_override = SubResource("StandardMaterial3D_ckpph")
 use_collision = true
 size = Vector3(20, 20, 1)
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=2099245058]
+[node name="CSGBox3D2" type="CSGBox3D" parent="ScreenSpaceProjection/ProjectionInput" parent_id_path=PackedInt32Array(2131587968, 1493971111) index="7" unique_id=2099245058]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.5, 9.5, 0)
 material_override = SubResource("StandardMaterial3D_ckpph")
 use_collision = true
 size = Vector3(1, 20, 20)
 
-[node name="CharacterBody3D" parent="." unique_id=1514709304 instance=ExtResource("1_npl10")]
+[node name="CharacterBody3D" parent="ScreenSpaceProjection/ProjectionInput" parent_id_path=PackedInt32Array(2131587968, 1493971111) index="8" unique_id=1514709304 instance=ExtResource("1_npl10")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.8083315, 4.7953296, 2.1451912)
 
-[node name="Laika2" parent="." unique_id=876188887 instance=ExtResource("2_vpw66")]
+[node name="Laika2" parent="ScreenSpaceProjection/ProjectionInput" parent_id_path=PackedInt32Array(2131587968, 1493971111) index="9" unique_id=876188887 instance=ExtResource("2_vpw66")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.3424206, 0.50005746, 3.3011885)
+
+[node name="TV" parent="ScreenSpaceProjection/ProjectionInput" parent_id_path=PackedInt32Array(2131587968, 1493971111) index="10" unique_id=1185281424 instance=ExtResource("5_4rgiu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.62415934, 0.5200002, -5.9170384)
+
+[node name="Capsuleinterior" parent="ScreenSpaceProjection/ProjectionInput" parent_id_path=PackedInt32Array(2131587968, 1493971111) index="11" unique_id=2065906548 instance=ExtResource("6_hhupa")]
+transform = Transform3D(-0.25881904, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, -0.25881904, -5.4907103, 0.50635767, 2.1706884)
+
+[editable path="ScreenSpaceProjection"]
