@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dtq0tw3wyee66" path="res://Assets/3D/Laika.blend" id="2_vpw66"]
 [ext_resource type="PackedScene" uid="uid://b1gpipc74tvjq" path="res://Assets/3D/TV.glb" id="5_4rgiu"]
 [ext_resource type="PackedScene" uid="uid://bubn572blfd61" path="res://Assets/3D/Capsuleinterior.glb" id="6_hhupa"]
+[ext_resource type="PackedScene" uid="uid://1q60u2q0rsng" path="res://Assets/3D/Radio.glb" id="7_v12xq"]
 
 [sub_resource type="Environment" id="Environment_unb0y"]
 background_mode = 1
@@ -87,5 +88,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.62415934, 0.5200002, -5.917
 
 [node name="Capsuleinterior" parent="ScreenSpaceProjection/ProjectionInput" parent_id_path=PackedInt32Array(2131587968, 1493971111) index="11" unique_id=2065906548 instance=ExtResource("6_hhupa")]
 transform = Transform3D(-0.25881904, 0, 0.9659258, 0, 1, 0, -0.9659258, 0, -0.25881904, -5.4907103, 0.50635767, 2.1706884)
+
+[node name="Radio" parent="ScreenSpaceProjection/ProjectionInput" parent_id_path=PackedInt32Array(2131587968, 1493971111) index="12" unique_id=1803822590 instance=ExtResource("7_v12xq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.51529026, 0)
 
 [editable path="ScreenSpaceProjection"]
