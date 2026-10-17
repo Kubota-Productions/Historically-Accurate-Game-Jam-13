@@ -1,0 +1,6 @@
+[gd_resource type="ShaderMaterial" format=3]
+
+[ext_resource type="Shader" path="res://Resources/Shaders/floor_grid.gdshader" id="shader"]
+
+[resource]
+shader = ExtResource("shader")

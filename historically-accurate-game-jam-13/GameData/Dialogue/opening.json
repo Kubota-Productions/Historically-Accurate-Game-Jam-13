@@ -1,0 +1,24 @@
+{
+  "greeting": [
+    {"speaker": "SCIENTIST", "text": "Good morning, little cosmonaut. Ready for our game?", "bark": true},
+    {"speaker": "SCIENTIST", "text": "Find two batteries and bring them to the low training stand. One at a time. Follow your nose!"}
+  ],
+  "reminder": [
+    {"speaker": "SCIENTIST", "text": "Two batteries, little one. Pick one up with your teeth, then click the stand to put it in."}
+  ],
+  "scientist": [
+    {"speaker": "SCIENTIST", "text": "There you are. Best colleague I've ever had. Very few complaints.", "bark": true}
+  ],
+  "trained": [
+    {"speaker": "SCIENTIST", "text": "Perfect! All systems ready. You are a very good employee.", "bark": true},
+    {"speaker": "SCIENTIST", "text": "Now into your capsule. Get comfortable, Laika. I'll be listening."}
+  ],
+  "arrival": [
+    {"speaker": "STATION AUTOMATION", "text": "Unscheduled arrival. Please identify the responsible operator.", "bark": true},
+    {"speaker": "STATION AUTOMATION", "text": "Voice accepted. Welcome, Chief Engineer. All outstanding faults are now your responsibility."}
+  ],
+  "robot": [
+    {"speaker": "ROBOT", "text": "At last. Someone qualified. My previous supervisor never brought me anything in their mouth.", "bark": true},
+    {"speaker": "ROBOT", "text": "The transmitter needs repairs. This is where the current playground ends."}
+  ]
+}

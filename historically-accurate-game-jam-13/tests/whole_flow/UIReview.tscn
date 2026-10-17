@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://tests/whole_flow/review_capture.gd" id="1"]
+[ext_resource type="PackedScene" path="res://Scenes/Game/Game.tscn" id="2"]
+
+[node name="UIReview" type="Node"]
+script = ExtResource("1")
+
+[node name="GameShell" parent="." instance=ExtResource("2")]

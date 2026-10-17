@@ -1,0 +1,8 @@
+[gd_resource type="StandardMaterial3D" format=3]
+
+[resource]
+render_priority = 125
+no_depth_test = true
+disable_receive_shadows = true
+albedo_color = Color(0.567, 0.567, 0.567, 1)
+roughness = 1.0
