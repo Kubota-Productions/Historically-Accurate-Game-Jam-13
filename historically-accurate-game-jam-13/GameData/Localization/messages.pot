@@ -5,12 +5,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: Scenes/Levels/Scripts/Progress/training_progress.gd:53
+#: Scenes/Levels/Scripts/Progress/training_progress.gd:49
 #, c-format
 msgid "%d / %d BATTERIES"
 msgstr ""
 
-#: Scenes/Levels/Scripts/Progress/training_progress.gd:51
+#: Scenes/Levels/Scripts/Progress/training_progress.gd:47
 #, c-format
 msgid "%d / %d BATTERIES · READY"
 msgstr ""
@@ -20,7 +20,7 @@ msgstr ""
 msgid "%s  ·  pause"
 msgstr ""
 
-#: Scenes/Levels/Scripts/Progress/training_progress.gd:35
+#: Scenes/Levels/Scripts/Progress/training_progress.gd:31
 #, c-format
 msgid "0 / %d BATTERIES"
 msgstr ""
@@ -41,11 +41,11 @@ msgstr ""
 msgid "02  /  SOMEONE ATE THE INSTRUCTIONS"
 msgstr ""
 
-#: Scenes/Levels/Scripts/Progress/station_progress.gd:17
+#: Scenes/Levels/Scripts/Progress/station_progress.gd:21
 msgid "APPROACH THE ROBOT"
 msgstr ""
 
-#: Scenes/Levels/StationRoom.tscn:144
+#: Scenes/Levels/StationRoom.tscn:143
 msgid "AWAITING OPERATOR"
 msgstr ""
 
@@ -78,7 +78,7 @@ msgstr ""
 msgid "Bark"
 msgstr ""
 
-#: Scenes/GUI/Components/Scripts/dialogue_panel.gd:50
+#: Scenes/GUI/Components/Scripts/dialogue_panel.gd:45
 msgid "Bark to answer"
 msgstr ""
 
@@ -90,15 +90,15 @@ msgstr ""
 msgid "Binding updated."
 msgstr ""
 
-#: GameData/Settings/settings_catalog.gd:9
+#: GameData/Settings/settings_catalog.gd:10
 msgid "Borderless fullscreen"
 msgstr ""
 
-#: Scenes/Levels/Scripts/Progress/training_progress.gd:53
+#: Scenes/Levels/Scripts/Progress/training_progress.gd:49
 msgid "Bring the second battery to the stand"
 msgstr ""
 
-#: Scenes/Levels/Scripts/Progress/training_progress.gd:35
+#: Scenes/Levels/Scripts/Progress/training_progress.gd:31
 msgid "Bring two batteries to the training stand"
 msgstr ""
 
@@ -110,7 +110,7 @@ msgstr ""
 msgid "Choose a key other than a modifier."
 msgstr ""
 
-#: Scenes/Levels/Scripts/Progress/training_progress.gd:60
+#: Scenes/Levels/Scripts/Progress/training_progress.gd:56
 msgid "Click. Still needs two batteries."
 msgstr ""
 
@@ -118,7 +118,7 @@ msgstr ""
 msgid "Continue"
 msgstr ""
 
-#: Scenes/GUI/Components/Scripts/dialogue_panel.gd:50
+#: Scenes/GUI/Components/Scripts/dialogue_panel.gd:45
 msgid "Continue dialogue"
 msgstr ""
 
@@ -134,7 +134,7 @@ msgstr ""
 msgid "Desktop resolution"
 msgstr ""
 
-#: GameData/Settings/settings_catalog.gd:20
+#: GameData/Settings/settings_catalog.gd:23
 msgid "Dog vision"
 msgstr ""
 
@@ -142,7 +142,11 @@ msgstr ""
 msgid "Each action needs one binding. Choose a replacement."
 msgstr ""
 
-#: Scenes/Levels/TrainingRoom.tscn:191
+#: Scenes/Shared/Interactables/Exit.tscn:26
+msgid "Enter capsule"
+msgstr ""
+
+#: Scenes/Levels/TrainingRoom.tscn:164
 msgid "Enter the capsule"
 msgstr ""
 
@@ -158,11 +162,11 @@ msgstr ""
 msgid "Exit"
 msgstr ""
 
-#: Scenes/Levels/Scripts/Progress/station_progress.gd:21
+#: Scenes/Levels/Scripts/Progress/station_progress.gd:27
 msgid "Explore freely · Esc opens the menu"
 msgstr ""
 
-#: Scenes/Levels/Scripts/Progress/station_progress.gd:10
+#: Scenes/Levels/Scripts/Progress/station_progress.gd:16
 msgid "Find the source of the voice"
 msgstr ""
 
@@ -170,7 +174,7 @@ msgstr ""
 msgid "Find two batteries and bring them to the low training stand. One at a time. Follow your nose!"
 msgstr ""
 
-#: GameData/Settings/settings_catalog.gd:9
+#: GameData/Settings/settings_catalog.gd:10
 msgid "Fullscreen"
 msgstr ""
 
@@ -178,7 +182,7 @@ msgstr ""
 msgid "Fullscreen modes use the desktop resolution."
 msgstr ""
 
-#: Scenes/Levels/Scripts/Progress/training_progress.gd:42
+#: Scenes/Levels/Scripts/Progress/training_progress.gd:38
 msgid "Get comfortable in the capsule"
 msgstr ""
 
@@ -186,7 +190,7 @@ msgstr ""
 msgid "Good morning, little cosmonaut. Ready for our game?"
 msgstr ""
 
-#: Scenes/Levels/TrainingRoom.tscn:117
+#: Scenes/Levels/TrainingRoom.tscn:91
 msgid "He hasn't said it's bedtime yet."
 msgstr ""
 
@@ -195,7 +199,11 @@ msgstr ""
 msgid "In your teeth: %s"
 msgstr ""
 
-#: Scenes/Levels/TrainingRoom.tscn:280
+#: Scenes/Shared/Interactables/Socket.tscn:26
+msgid "Inspect battery slot"
+msgstr ""
+
+#: Scenes/Levels/TrainingRoom.tscn:253
 msgid "Inspect battery slots"
 msgstr ""
 
@@ -224,7 +232,7 @@ msgstr ""
 msgid "LAIKA"
 msgstr ""
 
-#: Scenes/Levels/TrainingRoom.tscn:200
+#: Scenes/Levels/TrainingRoom.tscn:173
 msgid "LAIKA / 01"
 msgstr ""
 
@@ -252,7 +260,7 @@ msgstr ""
 msgid "Mouse 5"
 msgstr ""
 
-#: GameData/Settings/settings_catalog.gd:44
+#: GameData/Settings/settings_catalog.gd:51
 msgid "Mouse sensitivity"
 msgstr ""
 
@@ -272,15 +280,15 @@ msgstr ""
 msgid "Move right"
 msgstr ""
 
-#: GameData/Settings/settings_catalog.gd:38
+#: GameData/Settings/settings_catalog.gd:44
 msgid "Music volume"
 msgstr ""
 
-#: Scenes/Levels/Scripts/Progress/training_progress.gd:43
+#: Scenes/Levels/Scripts/Progress/training_progress.gd:39
 msgid "My bed has buttons now."
 msgstr ""
 
-#: Scenes/Levels/StationRoom.tscn:121
+#: Scenes/Levels/StationRoom.tscn:120
 msgid "NO SIGNAL"
 msgstr ""
 
@@ -288,7 +296,7 @@ msgstr ""
 msgid "No more tasks here. I can explore, or leave through the menu."
 msgstr ""
 
-#: Scenes/Player/Scripts/Components/carry_controller.gd:49
+#: Scenes/Player/Scripts/Components/carry_controller.gd:43
 msgid "No room to put this down here."
 msgstr ""
 
@@ -300,7 +308,7 @@ msgstr ""
 msgid "Objective"
 msgstr ""
 
-#: GameData/Settings/settings_catalog.gd:26
+#: GameData/Settings/settings_catalog.gd:30
 msgid "Panini projection"
 msgstr ""
 
@@ -312,16 +320,16 @@ msgstr ""
 msgid "Perfect! All systems ready. You are a very good employee."
 msgstr ""
 
-#: Scenes/Levels/TrainingRoom.tscn:333 Scenes/Levels/TrainingRoom.tscn:357
+#: Scenes/Shared/Interactables/Pickup.tscn:32
 msgid "Pick up battery"
 msgstr ""
 
-#: Scenes/Shared/Scripts/Interactions/socket_action.gd:9
+#: Scenes/Shared/Scripts/Interactions/socket_action.gd:21
 #, c-format
 msgid "Place %s"
 msgstr ""
 
-#: Scenes/GUI/Components/CompletionNotice.tscn:27 Scenes/Levels/Scripts/Progress/station_progress.gd:21
+#: Scenes/GUI/Components/CompletionNotice.tscn:27 Scenes/Levels/Scripts/Progress/station_progress.gd:27
 msgid "Playground complete"
 msgstr ""
 
@@ -333,11 +341,15 @@ msgstr ""
 msgid "Press a replacement key or mouse button. Esc cancels."
 msgstr ""
 
-#: Scenes/Levels/TrainingRoom.tscn:292
+#: Scenes/Shared/Interactables/Event.tscn:26
+msgid "Press button"
+msgstr ""
+
+#: Scenes/Levels/TrainingRoom.tscn:265
 msgid "Press test button"
 msgstr ""
 
-#: Scenes/Levels/Scripts/Progress/training_progress.gd:51
+#: Scenes/Levels/Scripts/Progress/training_progress.gd:47
 msgid "Press the test button"
 msgstr ""
 
@@ -349,11 +361,11 @@ msgstr ""
 msgid "RMB"
 msgstr ""
 
-#: GameData/Dialogue/Station/02_robot.gd:5 GameData/Dialogue/Station/02_robot.gd:6 Scenes/Levels/StationRoom.tscn:82
+#: GameData/Dialogue/Station/02_robot.gd:5 GameData/Dialogue/Station/02_robot.gd:6 Scenes/Levels/StationRoom.tscn:81
 msgid "ROBOT"
 msgstr ""
 
-#: GameData/Settings/settings_catalog.gd:14
+#: GameData/Settings/settings_catalog.gd:16
 msgid "Resolution"
 msgstr ""
 
@@ -369,15 +381,15 @@ msgstr ""
 msgid "Revert"
 msgstr ""
 
-#: GameData/Dialogue/Training/01_greeting.gd:5 GameData/Dialogue/Training/01_greeting.gd:6 GameData/Dialogue/Training/02_trained.gd:5 GameData/Dialogue/Training/02_trained.gd:6 GameData/Dialogue/Training/Optional/reminder.gd:5 GameData/Dialogue/Training/Optional/scientist.gd:5 Scenes/GUI/Components/DialoguePanel.tscn:39 Scenes/Levels/TrainingRoom.tscn:160
+#: GameData/Dialogue/Training/01_greeting.gd:5 GameData/Dialogue/Training/01_greeting.gd:6 GameData/Dialogue/Training/02_trained.gd:5 GameData/Dialogue/Training/02_trained.gd:6 GameData/Dialogue/Training/Optional/reminder.gd:5 GameData/Dialogue/Training/Optional/scientist.gd:5 Scenes/GUI/Components/DialoguePanel.tscn:39 Scenes/Levels/TrainingRoom.tscn:133
 msgid "SCIENTIST"
 msgstr ""
 
-#: Scenes/Levels/StationRoom.tscn:165
+#: Scenes/Levels/StationRoom.tscn:161
 msgid "STATION"
 msgstr ""
 
-#: Scenes/Levels/Scripts/Progress/station_progress.gd:10
+#: Scenes/Levels/Scripts/Progress/station_progress.gd:16
 msgid "STATION  /  ARRIVAL"
 msgstr ""
 
@@ -385,7 +397,7 @@ msgstr ""
 msgid "STATION AUTOMATION"
 msgstr ""
 
-#: Scenes/GUI/Screens/GameHUD.tscn:86 Scenes/Levels/Scripts/Progress/training_progress.gd:18
+#: Scenes/GUI/Screens/GameHUD.tscn:86 Scenes/Levels/Scripts/Progress/training_progress.gd:20
 msgid "Say hello to the scientist"
 msgstr ""
 
@@ -409,11 +421,11 @@ msgstr ""
 msgid "Sniffing: battery scent"
 msgstr ""
 
-#: Scenes/Shared/Scripts/Interactions/socket_action.gd:4
+#: Scenes/Shared/Scripts/Interactions/socket_action.gd:9
 msgid "Something goes in here. Probably not my nose."
 msgstr ""
 
-#: GameData/Settings/settings_catalog.gd:32
+#: GameData/Settings/settings_catalog.gd:37
 msgid "Sound volume"
 msgstr ""
 
@@ -421,40 +433,48 @@ msgstr ""
 msgid "Start"
 msgstr ""
 
-#: Scenes/Levels/TrainingRoom.tscn:312
+#: Scenes/Levels/TrainingRoom.tscn:285
 msgid "TEST"
 msgstr ""
 
-#: Scenes/Levels/TrainingRoom.tscn:393
+#: Scenes/Levels/TrainingRoom.tscn:323
 msgid "TRAINING"
 msgstr ""
 
-#: Scenes/Levels/Scripts/Progress/training_progress.gd:18
+#: Scenes/Levels/Scripts/Progress/training_progress.gd:20
 msgid "TRAINING  /  01"
 msgstr ""
 
-#: Scenes/Levels/Scripts/Progress/training_progress.gd:42
+#: Scenes/Levels/Scripts/Progress/training_progress.gd:38
 msgid "TRAINING COMPLETE"
 msgstr ""
 
-#: Scenes/Levels/TrainingRoom.tscn:268
+#: Scenes/Levels/TrainingRoom.tscn:241
 msgid "TWO CELLS → TEST"
 msgstr ""
 
-#: Scenes/Levels/TrainingRoom.tscn:141
+#: Scenes/Shared/Interactables/Talk.tscn:26
+msgid "Talk"
+msgstr ""
+
+#: Scenes/Levels/TrainingRoom.tscn:114
 msgid "Talk to the scientist"
 msgstr ""
 
-#: Scenes/Levels/Scripts/Progress/station_progress.gd:17 Scenes/Levels/StationRoom.tscn:66
+#: Scenes/Levels/Scripts/Progress/station_progress.gd:21 Scenes/Levels/StationRoom.tscn:65
 msgid "Talk to the service robot"
 msgstr ""
 
-#: Scenes/Levels/TrainingRoom.tscn:106
+#: Scenes/Levels/TrainingRoom.tscn:80
 msgid "Test complete — enter the capsule"
 msgstr ""
 
-#: Scenes/Levels/Scripts/Progress/training_progress.gd:62
+#: Scenes/Levels/Scripts/Progress/training_progress.gd:58
 msgid "Test complete. Time to get into the capsule."
+msgstr ""
+
+#: Scenes/Shared/Scripts/Interactions/socket_action.gd:5
+msgid "That does not fit here."
 msgstr ""
 
 #: GameData/Dialogue/Station/02_robot.gd:6
@@ -473,7 +493,7 @@ msgstr ""
 msgid "Two batteries, little one. Pick one up with your teeth, then click the stand to put it in."
 msgstr ""
 
-#: Scenes/Levels/Scripts/Progress/training_progress.gd:36
+#: Scenes/Levels/Scripts/Progress/training_progress.gd:32
 msgid "Two things. One mouth. I can do this."
 msgstr ""
 
@@ -497,19 +517,19 @@ msgstr ""
 msgid "Voice accepted. Welcome, Chief Engineer. All outstanding faults are now your responsibility."
 msgstr ""
 
-#: GameData/Settings/settings_catalog.gd:7
+#: GameData/Settings/settings_catalog.gd:8
 msgid "Window mode"
 msgstr ""
 
-#: GameData/Settings/settings_catalog.gd:9
+#: GameData/Settings/settings_catalog.gd:10
 msgid "Windowed"
 msgstr ""
 
-#: Scenes/GUI/Screens/Scripts/game_hud.gd:71 Scenes/Game/Scripts/game_shell.gd:237 Scenes/Levels/Scripts/laika_room.gd:83
+#: Scenes/GUI/Screens/Scripts/game_hud.gd:71 Scenes/Game/Scripts/game_shell.gd:261
 msgid "Woof!"
 msgstr ""
 
-#: Scenes/GUI/Components/Scripts/dialogue_panel.gd:55
+#: Scenes/GUI/Components/Scripts/dialogue_panel.gd:50
 #, c-format
 msgid "Woof!   [%s] Continue dialogue"
 msgstr ""
@@ -523,6 +543,6 @@ msgstr ""
 msgid "[RMB]  Put down"
 msgstr ""
 
-#: Scenes/Levels/TrainingRoom.tscn:326 Scenes/Levels/TrainingRoom.tscn:350
+#: Scenes/Shared/Interactables/Pickup.tscn:35
 msgid "battery"
 msgstr ""

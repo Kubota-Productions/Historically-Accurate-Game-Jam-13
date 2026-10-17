@@ -1,7 +1,7 @@
 class_name LaikaRoom
 extends Node3D
 
-signal objective_changed(text: String, detail: String)
+signal objective_changed(text: String, detail: String, values: Array)
 signal prompt_changed(text: String, action: StringName)
 signal carrying_changed(text: String)
 signal thought_requested(text: String)
@@ -10,30 +10,28 @@ signal departure_requested(destination: StringName)
 signal sniffing_changed(active: bool)
 signal completed
 
-const Step = RoomProgress.Step
-
 @export var player: FPSPlayer
 @export var rig: FPSCamera
 @export var camera: Camera3D
 @export var carry_anchor: Marker3D
 @export var menu_camera: Camera3D
-@export var scent_markers: Node3D
 @export var progress: RoomProgress
-var interactables: Array[LaikaInteractionPoint] = []
+var _interactables: Array[LaikaInteractionPoint] = []
 
-@onready var carry: CarryController = $Systems/Carry
-@onready var interactor: PlayerInteractor = $Systems/Interactor
-@onready var scent: ScentController = $Systems/Scent
+@onready var carry := get_node_or_null("Systems/Carry") as CarryController
+@onready var interactor := get_node_or_null("Systems/Interactor") as PlayerInteractor
+@onready var scent := get_node_or_null("Systems/Scent") as ScentController
 
 var control_enabled: bool = false
-var step: RoomProgress.Step:
-	get: return progress.step
+var configured: bool = false
 
 
 func _ready() -> void:
-	for body: Node in find_children("*", "StaticBody3D", true, false):
-		if body is LaikaInteractionPoint:
-			interactables.append(body)
+	var errors := configuration_errors()
+	if not errors.is_empty():
+		push_error("%s: %s" % [get_path(), "; ".join(errors)])
+		return
+	configured = true
 	carry.room = self
 	interactor.room = self
 	scent.room = self
@@ -41,11 +39,15 @@ func _ready() -> void:
 	interactor.prompt_changed.connect(prompt_changed.emit)
 	scent.changed.connect(sniffing_changed.emit)
 	progress.setup(self)
+	for target: LaikaInteractionPoint in get_interactions():
+		target.validate_runtime()
 	set_control_enabled(false)
 	menu_camera.make_current()
 
 
 func begin() -> void:
+	if not configured:
+		return
 	camera.make_current()
 	set_control_enabled(true)
 	carrying_changed.emit("")
@@ -79,5 +81,25 @@ func drop() -> void:
 		carry.drop()
 
 
-func bark() -> void:
-	thought_requested.emit(tr("Woof!"))
+func register_interaction(point: LaikaInteractionPoint) -> void:
+	if not point in _interactables:
+		_interactables.append(point)
+
+
+func unregister_interaction(point: LaikaInteractionPoint) -> void:
+	_interactables.erase(point)
+
+
+func get_interactions() -> Array[LaikaInteractionPoint]:
+	_interactables = _interactables.filter(is_instance_valid)
+	return _interactables.duplicate()
+
+
+func configuration_errors() -> PackedStringArray:
+	var errors: PackedStringArray = []
+	for field: String in ["player", "rig", "camera", "carry_anchor", "menu_camera", "progress", "carry", "interactor", "scent"]:
+		if not is_instance_valid(get(field)):
+			errors.append(field + ": assign the required room component.")
+	if is_instance_valid(progress):
+		errors.append_array(progress.configuration_errors())
+	return errors

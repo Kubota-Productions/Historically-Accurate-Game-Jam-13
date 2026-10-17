@@ -9,13 +9,6 @@ var _entrance: Tween
 var _revision: int = 0
 var active: bool:
 	get: return session.active
-var _dialogue_id: StringName:
-	get: return session.id
-var _lines: Array:
-	get: return session.lines
-var _index: int:
-	get: return session.index
-
 @onready var speaker: Label = %Speaker
 @onready var line: Label = %Line
 @onready var response: Label = %Response
@@ -27,12 +20,14 @@ func _ready() -> void:
 	session.finished.connect(_on_finished)
 
 
-func open(dialogue_id: StringName, lines: Array) -> void:
-	close()
-	if session.open(dialogue_id, lines):
-		show()
-		modulate.a = 0.0
-		_animate_open.call_deferred(_revision)
+func open(dialogue_id: StringName, lines: Array) -> bool:
+	if not session.open(dialogue_id, lines):
+		return false
+	_reset_visuals()
+	show()
+	modulate.a = 0.0
+	_animate_open.call_deferred(_revision)
+	return true
 
 
 func advance(bark: bool) -> void:

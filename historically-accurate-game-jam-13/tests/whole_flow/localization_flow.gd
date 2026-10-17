@@ -42,8 +42,9 @@ func _run() -> void:
 	await shell.start_game()
 	_check(shell.dialogue.speaker.text == "ВЧЕНИЙ", "Dialogue speakers translate")
 	_check(shell.dialogue.line.text == "Доброго ранку. Готова до гри?", "Dialogue text translates from constant content")
-	var lines := DialogueCatalog.lines(&"greeting")
-	lines[0].text = "Changed copy"
+	var isolated := DialogueSession.new()
+	isolated.open(&"greeting", DialogueCatalog.lines(&"greeting"))
+	isolated.lines[0].text = "Changed copy"
 	_check(DialogueCatalog.lines(&"greeting")[0].text != "Changed copy", "Dialogue sessions cannot mutate catalog content")
 	shell.dialogue.advance(true)
 	shell.dialogue.advance(false)

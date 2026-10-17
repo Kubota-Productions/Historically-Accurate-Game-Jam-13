@@ -1,7 +1,11 @@
+@tool
 class_name InteractionAction
 extends Resource
 
-@export var required_flag: StringName
+@export var required_flag: StringName:
+	set(value):
+		required_flag = value
+		emit_changed()
 
 
 func is_available(room: LaikaRoom, _target: LaikaInteractionPoint) -> bool:
@@ -14,3 +18,7 @@ func prompt(_room: LaikaRoom, target: LaikaInteractionPoint) -> String:
 
 func execute(_room: LaikaRoom, _target: LaikaInteractionPoint) -> void:
 	pass
+
+
+func configuration_errors(_target: LaikaInteractionPoint, _room: LaikaRoom = null) -> PackedStringArray:
+	return []

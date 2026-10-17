@@ -34,10 +34,16 @@ func _init() -> void:
 		register(definition)
 
 
-func register(definition: SettingDefinition) -> void:
-	assert(not definitions.has(definition.id), "Duplicate setting: " + str(definition.id))
+func register(definition: SettingDefinition) -> bool:
+	var errors := definition.configuration_errors()
+	if definitions.has(definition.id):
+		errors.append("id: duplicate setting.")
+	if not errors.is_empty():
+		push_error("Setting %s: %s" % [definition.id, "; ".join(errors)])
+		return false
 	definitions[definition.id] = definition
 	_values[definition.id] = definition.default_value
+	return true
 
 
 func get_value(id: StringName) -> Variant:

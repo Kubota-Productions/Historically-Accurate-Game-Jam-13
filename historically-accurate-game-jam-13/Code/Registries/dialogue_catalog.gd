@@ -15,4 +15,12 @@ static func lines(id: StringName) -> Array:
 	if not CONVERSATIONS.has(id):
 		push_error("Unknown dialogue: " + str(id))
 		return []
-	return CONVERSATIONS[id].LINES.duplicate(true)
+	return CONVERSATIONS[id].LINES
+
+
+static func configuration_errors() -> PackedStringArray:
+	var errors: PackedStringArray = []
+	for id: StringName in CONVERSATIONS:
+		for error: String in DialogueSession.content_errors(CONVERSATIONS[id].LINES):
+			errors.append("Dialogue %s: %s" % [id, error])
+	return errors

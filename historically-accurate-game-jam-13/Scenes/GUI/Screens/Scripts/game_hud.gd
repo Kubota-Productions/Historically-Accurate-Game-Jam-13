@@ -33,9 +33,9 @@ func refresh_bindings() -> void:
 	set_prompt(_prompt_text)
 
 
-func set_objective(text: String, detail: String) -> void:
+func set_objective(text: String, detail: String, values: Array = []) -> void:
 	objective.text = tr(text)
-	progress.text = tr(detail)
+	progress.text = tr(detail) % values if not values.is_empty() else tr(detail)
 
 
 func set_chapter(text: String) -> void:
@@ -44,7 +44,7 @@ func set_chapter(text: String) -> void:
 
 func set_prompt(text: String, _action: StringName = &"interact") -> void:
 	_prompt_text = text
-	prompt.text = "[%s]  %s" % [InputHints.key(&"interact"), tr(text)] if not text.is_empty() else ""
+	prompt.text = "[%s]  %s" % [InputHints.key(&"interact"), text] if not text.is_empty() else ""
 	%Interact.set_available(not _bark_required and (_dialogue_active or not text.is_empty()))
 
 

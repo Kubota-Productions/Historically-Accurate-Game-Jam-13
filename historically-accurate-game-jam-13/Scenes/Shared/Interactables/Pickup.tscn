@@ -1,0 +1,53 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scenes/Shared/Scripts/interaction_point.gd" id="point"]
+[ext_resource type="Script" path="res://Scenes/Shared/Scripts/Interactions/pickup_action.gd" id="action"]
+
+[ext_resource type="CylinderMesh" path="res://Resources/Meshes/battery.tres" id="mesh"]
+[ext_resource type="Material" path="res://Resources/Materials/battery.tres" id="material"]
+
+[sub_resource type="BoxShape3D" id="shape"]
+resource_local_to_scene = true
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="glow"]
+albedo_color = Color(0.723, 0.723, 0.723, 1)
+emission_enabled = true
+emission = Color(0.723, 0.723, 0.723, 1)
+emission_energy_multiplier = 1.5
+roughness = 0.85
+
+[sub_resource type="SphereMesh" id="scent"]
+radius = 0.09
+height = 0.18
+
+[sub_resource type="Resource" id="behavior"]
+resource_local_to_scene = true
+script = ExtResource("action")
+
+[node name="Pickup" type="StaticBody3D" node_paths=PackedStringArray("visual_root", "item_shape", "scent_marker")]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("point")
+display_name = "Pick up battery"
+action = SubResource("behavior")
+item_id = &"battery"
+item_name = "battery"
+visual_root = NodePath("Visuals")
+item_shape = NodePath("CollisionShape3D")
+scent_marker = NodePath("Scent")
+
+[node name="Visuals" type="Node3D" parent="."]
+
+[node name="Mesh" type="MeshInstance3D" parent="Visuals"]
+mesh = ExtResource("mesh")
+material_override = ExtResource("material")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("shape")
+
+[node name="Scent" type="MeshInstance3D" parent="."]
+position = Vector3(0, 0.55, 0)
+visible = false
+mesh = SubResource("scent")
+material_override = SubResource("glow")

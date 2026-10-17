@@ -68,7 +68,7 @@ func _run() -> void:
 	shape.shape = BoxShape3D.new()
 	item.add_child(mesh)
 	item.add_child(shape)
-	item.item_mesh = mesh
+	item.visual_root = mesh
 	item.item_shape = shape
 	group.add_child(item)
 	var scale_before := item.global_basis.get_scale()
@@ -83,10 +83,10 @@ func _run() -> void:
 	_check(room.carry.store(socket) and socket.count == 1 and room.carry.item == null, "A socket accepts its configured item without room-specific code")
 	_check(socket.is_full() and not socket.accepts(item), "A full socket cannot consume another item")
 
-	var custom := SettingDefinition.new(&"invert_y", {"section": &"input", "label": "Invert mouse Y", "default": false, "effect": [&"player", &"invert_y"]})
+	var custom := SettingDefinition.new(&"invert_y", {"kind": SettingDefinition.Kind.TOGGLE, "section": &"input", "label": "Invert mouse Y", "default": false, "effect": [&"player", &"invert_y"]})
 	var preferences := GameSettings.new()
 	preferences.register(custom)
-	preferences.register(SettingDefinition.new(&"test_choice", {"section": &"input", "label": "Test choice", "default": 0, "options": ["One", "Two"]}))
+	preferences.register(SettingDefinition.new(&"test_choice", {"kind": SettingDefinition.Kind.CHOICE, "section": &"input", "label": "Test choice", "default": 0, "options": ["One", "Two"]}))
 	preferences.initialize(root)
 	var panel = load("res://Scenes/GUI/Screens/SettingsPanel.tscn").instantiate()
 	panel.visible = false

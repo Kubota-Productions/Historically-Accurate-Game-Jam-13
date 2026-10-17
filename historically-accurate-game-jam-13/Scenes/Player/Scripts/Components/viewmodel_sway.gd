@@ -10,23 +10,14 @@ extends Node
 var _rest: Transform3D
 var _previous: Quaternion
 var _offset := Vector3.ZERO
+var _appearance := ViewmodelAppearance.new()
 
 
 func _ready() -> void:
 	_rest = visual.transform
 	_previous = camera.global_basis.get_rotation_quaternion()
 	if render_as_viewmodel:
-		for mesh: MeshInstance3D in visual.find_children("*", "MeshInstance3D", true, false):
-			mesh.layers = 2
-			mesh.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
-			for surface: int in mesh.mesh.get_surface_count():
-				var source := mesh.get_active_material(surface)
-				if source is StandardMaterial3D:
-					var material := source.duplicate() as StandardMaterial3D
-					material.no_depth_test = true
-					material.render_priority = 126
-					material.disable_receive_shadows = true
-					mesh.set_surface_override_material(surface, material)
+		_appearance.apply(visual, 126)
 
 
 func _process(delta: float) -> void:

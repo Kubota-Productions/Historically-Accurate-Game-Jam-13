@@ -1,0 +1,42 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scenes/Shared/Scripts/interaction_point.gd" id="point"]
+[ext_resource type="Script" path="res://Scenes/Shared/Scripts/Interactions/socket_action.gd" id="action"]
+[ext_resource type="Script" path="res://Scenes/Shared/Scripts/item_socket.gd" id="socket"]
+
+[sub_resource type="StandardMaterial3D" id="material"]
+albedo_color = Color(0.55, 0.55, 0.55, 1)
+roughness = 0.85
+
+[sub_resource type="BoxShape3D" id="shape"]
+resource_local_to_scene = true
+size = Vector3(0.4, 0.4, 0.4)
+
+[sub_resource type="BoxMesh" id="mesh"]
+size = Vector3(0.4, 0.4, 0.4)
+
+[sub_resource type="Resource" id="behavior"]
+resource_local_to_scene = true
+script = ExtResource("action")
+
+[node name="Socket" type="StaticBody3D" node_paths=PackedStringArray("socket")]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("point")
+display_name = "Inspect battery slot"
+action = SubResource("behavior")
+socket = NodePath("Socket")
+
+[node name="Visuals" type="Node3D" parent="."]
+
+[node name="Mesh" type="MeshInstance3D" parent="Visuals"]
+mesh = SubResource("mesh")
+material_override = SubResource("material")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("shape")
+
+[node name="Socket" type="Node" parent="."]
+script = ExtResource("socket")
+accepted_item = &"battery"
+capacity = 2

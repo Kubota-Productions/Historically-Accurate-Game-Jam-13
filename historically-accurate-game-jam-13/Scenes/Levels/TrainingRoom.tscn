@@ -22,6 +22,10 @@
 
 [ext_resource type="Script" path="res://Scenes/Shared/Scripts/npc_gaze.gd" id="npc_gaze"]
 
+[ext_resource type="PackedScene" path="res://Scenes/Shared/Interactables/Pickup.tscn" id="pickup_template"]
+[ext_resource type="CylinderMesh" path="res://Resources/Meshes/battery.tres" id="battery_mesh"]
+[ext_resource type="Material" path="res://Resources/Materials/battery.tres" id="battery_material"]
+
 [sub_resource type="BoxShape3D" id="Shape_Scientist"]
 size = Vector3(0.8, 2, 0.65)
 
@@ -46,15 +50,6 @@ roughness = 0.85
 albedo_color = Color(0.1, 0.1, 0.1, 1)
 roughness = 0.85
 
-[sub_resource type="StandardMaterial3D" id="Gold"]
-albedo_color = Color(0.567, 0.567, 0.567, 1)
-roughness = 0.85
-
-[sub_resource type="CylinderMesh" id="Mesh_Battery"]
-top_radius = 0.16
-bottom_radius = 0.16
-height = 0.42
-
 [sub_resource type="BoxShape3D" id="Shape_Stand"]
 size = Vector3(1.4, 0.5, 0.18)
 
@@ -69,27 +64,6 @@ roughness = 0.85
 top_radius = 0.19
 bottom_radius = 0.19
 height = 0.12
-
-[sub_resource type="BoxShape3D" id="Shape_Battery1"]
-size = Vector3(0.5, 0.5, 0.5)
-
-[sub_resource type="BoxShape3D" id="Shape_Battery2"]
-size = Vector3(0.5, 0.5, 0.5)
-
-[sub_resource type="StandardMaterial3D" id="Glow"]
-albedo_color = Color(0.723, 0.723, 0.723, 1)
-roughness = 0.85
-emission_enabled = true
-emission = Color(0.723, 0.723, 0.723, 1)
-emission_energy_multiplier = 1.5
-
-[sub_resource type="SphereMesh" id="Mesh_Marker125"]
-radius = 0.09
-height = 0.18
-
-[sub_resource type="SphereMesh" id="Mesh_Marker229"]
-radius = 0.09
-height = 0.18
 
 [sub_resource type="Resource" id="action_pickup"]
 script = ExtResource("pickup_action")
@@ -116,14 +90,13 @@ required_flag = &"departure_ready"
 destination = &"station"
 blocked_message = "He hasn't said it's bedtime yet."
 
-[node name="TrainingRoom" type="Node3D" unique_id=1175608443 node_paths=PackedStringArray("player", "rig", "camera", "carry_anchor", "menu_camera", "scent_markers", "progress")]
+[node name="TrainingRoom" type="Node3D" unique_id=1175608443 node_paths=PackedStringArray("player", "rig", "camera", "carry_anchor", "menu_camera", "progress")]
 script = ExtResource("script")
 player = NodePath("Actors/Player")
 rig = NodePath("Actors/Player/CameraHolder")
 camera = NodePath("Actors/Player/CameraHolder/Camera3D")
 carry_anchor = NodePath("Actors/Player/CameraHolder/Camera3D/CarryAnchor")
 menu_camera = NodePath("Cameras/MenuCamera")
-scent_markers = NodePath("Hints/ScentMarkers")
 progress = NodePath("Systems/Progress")
 
 [node name="Actors" type="Node3D" parent="." unique_id=937397120]
@@ -247,8 +220,8 @@ material = SubResource("Black")
 [node name="Cell1" type="MeshInstance3D" parent="Props/TrainingStand" unique_id=1601568874]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.32, 0.4, 0.45)
 visible = false
-material_override = SubResource("Gold")
-mesh = SubResource("Mesh_Battery")
+material_override = ExtResource("battery_material")
+mesh = ExtResource("battery_mesh")
 
 [node name="Socket2" type="CSGBox3D" parent="Props/TrainingStand" unique_id=1047024528]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.32, 0.4, 0.415)
@@ -258,8 +231,8 @@ material = SubResource("Black")
 [node name="Cell2" type="MeshInstance3D" parent="Props/TrainingStand" unique_id=244582401]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.32, 0.4, 0.45)
 visible = false
-material_override = SubResource("Gold")
-mesh = SubResource("Mesh_Battery")
+material_override = ExtResource("battery_material")
+mesh = ExtResource("battery_mesh")
 
 [node name="StandLabel" type="Label3D" parent="Props/TrainingStand" unique_id=874317523]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98, 0)
@@ -319,49 +292,17 @@ outline_size = 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8, 0.25, 1.1)
 script = ExtResource("asset_group")
 
-[node name="Item" type="StaticBody3D" parent="Pickups/Battery1" unique_id=1366582934 node_paths=PackedStringArray("item_mesh", "item_shape", "scent_marker")]
-script = ExtResource("interaction")
+[node name="Item" parent="Pickups/Battery1" instance=ExtResource("pickup_template")]
 action = SubResource("action_pickup")
-item_id = &"battery"
-item_name = "battery"
-item_mesh = NodePath("Cell")
-item_shape = NodePath("CollisionShape3D")
-scent_marker = NodePath("../../../Hints/ScentMarkers/Marker1")
-collision_layer = 2
-collision_mask = 0
 interaction_id = &"battery1"
-display_name = "Pick up battery"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Pickups/Battery1/Item" unique_id=1823473971]
-shape = SubResource("Shape_Battery1")
-
-[node name="Cell" type="MeshInstance3D" parent="Pickups/Battery1/Item" unique_id=1244231127]
-material_override = SubResource("Gold")
-mesh = SubResource("Mesh_Battery")
 
 [node name="Battery2" type="Node3D" parent="Pickups" unique_id=37616360]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.65, 0.25, 0.4)
 script = ExtResource("asset_group")
 
-[node name="Item" type="StaticBody3D" parent="Pickups/Battery2" unique_id=942187138 node_paths=PackedStringArray("item_mesh", "item_shape", "scent_marker")]
-script = ExtResource("interaction")
+[node name="Item" parent="Pickups/Battery2" instance=ExtResource("pickup_template")]
 action = SubResource("action_pickup")
-item_id = &"battery"
-item_name = "battery"
-item_mesh = NodePath("Cell")
-item_shape = NodePath("CollisionShape3D")
-scent_marker = NodePath("../../../Hints/ScentMarkers/Marker2")
-collision_layer = 2
-collision_mask = 0
 interaction_id = &"battery2"
-display_name = "Pick up battery"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Pickups/Battery2/Item" unique_id=792455005]
-shape = SubResource("Shape_Battery2")
-
-[node name="Cell" type="MeshInstance3D" parent="Pickups/Battery2/Item" unique_id=1651866944]
-material_override = SubResource("Gold")
-mesh = SubResource("Mesh_Battery")
 
 [node name="Cameras" type="Node3D" parent="." unique_id=1579730806]
 
@@ -373,18 +314,7 @@ fov = 65.0
 
 [node name="Hints" type="Node3D" parent="." unique_id=1626669768]
 
-[node name="ScentMarkers" type="Node3D" parent="Hints" unique_id=1442324691]
-visible = false
 
-[node name="Marker1" type="MeshInstance3D" parent="Hints/ScentMarkers" unique_id=1047475135]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8, 0.8, 1.1)
-material_override = SubResource("Glow")
-mesh = SubResource("Mesh_Marker125")
-
-[node name="Marker2" type="MeshInstance3D" parent="Hints/ScentMarkers" unique_id=1538470897]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.65, 0.8, 0.4)
-material_override = SubResource("Glow")
-mesh = SubResource("Mesh_Marker229")
 
 [node name="WallTitle" type="Label3D" parent="Hints" unique_id=1636357241]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.65, -4.7)

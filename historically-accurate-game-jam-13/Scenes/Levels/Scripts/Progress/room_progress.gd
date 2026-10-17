@@ -1,15 +1,22 @@
 class_name RoomProgress
 extends Node
 
-enum Step { GREETING, FETCH, POWER, CAPSULE, ARRIVAL, COMPLETE }
-
 var room: LaikaRoom
-var step: Step = Step.GREETING
 var _flags: Dictionary[StringName, bool] = {}
+var _dialogues: Dictionary[StringName, Callable] = {}
+var _events: Dictionary[StringName, Callable] = {}
 
 
 func setup(owner_room: LaikaRoom) -> void:
 	room = owner_room
+
+
+func begin() -> void:
+	pass
+
+
+func knows_flag(flag: StringName) -> bool:
+	return _flags.has(flag)
 
 
 func has_flag(flag: StringName) -> bool:
@@ -20,17 +27,21 @@ func set_flag(flag: StringName, value: bool) -> void:
 	_flags[flag] = value
 
 
-func begin() -> void:
-	pass
+func complete_dialogue(id: StringName) -> void:
+	if _dialogues.has(id):
+		_dialogues[id].call()
 
 
-func complete_dialogue(_id: StringName) -> void:
-	pass
+func supports_event(id: StringName) -> bool:
+	return _events.has(id)
 
 
-func handle_event(_event: StringName, _source: LaikaInteractionPoint) -> void:
-	pass
+func handle_event(id: StringName, source: LaikaInteractionPoint) -> void:
+	if supports_event(id):
+		_events[id].call(source)
+	else:
+		push_error("%s: unknown event '%s'." % [get_path(), id])
 
 
-func get_item_count() -> int:
-	return 0
+func configuration_errors() -> PackedStringArray:
+	return []

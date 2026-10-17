@@ -41,14 +41,13 @@ dialogue_id = &"robot"
 completed_flag = &"complete"
 completed_message = "No more tasks here. I can explore, or leave through the menu."
 
-[node name="StationRoom" type="Node3D" unique_id=720021548 node_paths=PackedStringArray("player", "rig", "camera", "carry_anchor", "menu_camera", "scent_markers", "progress")]
+[node name="StationRoom" type="Node3D" unique_id=720021548 node_paths=PackedStringArray("player", "rig", "camera", "carry_anchor", "menu_camera", "progress")]
 script = ExtResource("script")
 player = NodePath("Actors/Player")
 rig = NodePath("Actors/Player/CameraHolder")
 camera = NodePath("Actors/Player/CameraHolder/Camera3D")
 carry_anchor = NodePath("Actors/Player/CameraHolder/Camera3D/CarryAnchor")
 menu_camera = NodePath("Cameras/MenuCamera")
-scent_markers = NodePath("Hints/ScentMarkers")
 progress = NodePath("Systems/Progress")
 
 [node name="Actors" type="Node3D" parent="." unique_id=1205687545]
@@ -154,9 +153,6 @@ current = true
 fov = 65.0
 
 [node name="Hints" type="Node3D" parent="." unique_id=1068461281]
-
-[node name="ScentMarkers" type="Node3D" parent="Hints" unique_id=1893966666]
-visible = false
 
 [node name="WallTitle" type="Label3D" parent="Hints" unique_id=273316234]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.65, -4.7)

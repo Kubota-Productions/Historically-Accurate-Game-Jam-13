@@ -1,3 +1,4 @@
+@tool
 class_name ItemSocket
 extends Node
 
@@ -13,8 +14,11 @@ var count: int:
 
 
 func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
 	for indicator: Node3D in indicators:
-		indicator.hide()
+		if is_instance_valid(indicator):
+			indicator.hide()
 
 
 func is_full() -> bool:
@@ -28,8 +32,26 @@ func accepts(item: LaikaInteractionPoint) -> bool:
 func install(item_id: StringName) -> bool:
 	if is_full() or item_id != accepted_item:
 		return false
-	if count < indicators.size():
+	if count < indicators.size() and is_instance_valid(indicators[count]):
 		indicators[count].show()
 	_count += 1
 	installed.emit(item_id, count)
 	return true
+
+
+func configuration_errors() -> PackedStringArray:
+	var errors: PackedStringArray = []
+	if accepted_item.is_empty():
+		errors.append("accepted_item: enter the accepted item ID.")
+	if capacity < 1:
+		errors.append("capacity: must be at least one.")
+	if indicators.size() > capacity:
+		errors.append("indicators: cannot exceed the socket capacity.")
+	for indicator: Node3D in indicators:
+		if not is_instance_valid(indicator):
+			errors.append("indicators: remove empty references.")
+	return errors
+
+
+func _get_configuration_warnings() -> PackedStringArray:
+	return configuration_errors()
