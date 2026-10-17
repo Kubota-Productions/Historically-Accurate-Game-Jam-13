@@ -1,0 +1,432 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scenes/Shared/Scripts/asset_group.gd" id="asset_group"]
+
+[ext_resource type="Script" path="res://Scenes/Levels/Scripts/laika_room.gd" id="script"]
+[ext_resource type="PackedScene" path="res://Scenes/Shared/RoomGeometry.tscn" id="geo"]
+[ext_resource type="PackedScene" path="res://Scenes/Player/FPSPlayer.tscn" id="player"]
+[ext_resource type="Script" path="res://Scenes/Shared/Scripts/interaction_point.gd" id="interaction"]
+
+[sub_resource type="StandardMaterial3D" id="Cream"]
+albedo_color = Color(0.81, 0.81, 0.81, 1.0)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Green"]
+albedo_color = Color(0.217, 0.217, 0.217, 1.0)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Red"]
+albedo_color = Color(0.337, 0.337, 0.337, 1.0)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Gold"]
+albedo_color = Color(0.567, 0.567, 0.567, 1.0)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Black"]
+albedo_color = Color(0.1, 0.1, 0.1, 1.0)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Glow"]
+albedo_color = Color(0.723, 0.723, 0.723, 1.0)
+roughness = 0.85
+emission_enabled = true
+emission = Color(0.723, 0.723, 0.723, 1.0)
+emission_energy_multiplier = 1.5
+
+[sub_resource type="BoxShape3D" id="Shape_Scientist"]
+size = Vector3(0.8, 2, 0.65)
+
+[sub_resource type="BoxMesh" id="ScientistBlock"]
+size = Vector3(0.8, 2, 0.65)
+
+[sub_resource type="CylinderMesh" id="Mesh_Cell116"]
+top_radius = 0.14
+bottom_radius = 0.14
+height = 0.32
+
+[sub_resource type="CylinderMesh" id="Mesh_Cell217"]
+top_radius = 0.14
+bottom_radius = 0.14
+height = 0.32
+
+[sub_resource type="BoxShape3D" id="Shape_Stand"]
+size = Vector3(1.4, 0.5, 0.18)
+
+[sub_resource type="BoxShape3D" id="Shape_TestButton"]
+size = Vector3(0.48, 0.5, 0.48)
+
+[sub_resource type="CylinderMesh" id="Mesh_Button21"]
+top_radius = 0.19
+bottom_radius = 0.19
+height = 0.12
+
+[sub_resource type="BoxShape3D" id="Shape_Battery1"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="CylinderMesh" id="Mesh_Cell23"]
+top_radius = 0.16
+bottom_radius = 0.16
+height = 0.42
+
+[sub_resource type="SphereMesh" id="Mesh_Marker125"]
+radius = 0.09
+height = 0.18
+
+[sub_resource type="BoxShape3D" id="Shape_Battery2"]
+size = Vector3(0.5, 0.5, 0.5)
+
+[sub_resource type="CylinderMesh" id="Mesh_Cell27"]
+top_radius = 0.16
+bottom_radius = 0.16
+height = 0.42
+
+[sub_resource type="SphereMesh" id="Mesh_Marker229"]
+radius = 0.09
+height = 0.18
+
+[sub_resource type="BoxShape3D" id="Shape_Capsule"]
+size = Vector3(1.8, 1.4, 1.8)
+
+[sub_resource type="CylinderMesh" id="Mesh_Hull31"]
+top_radius = 0.85
+bottom_radius = 1.0
+height = 1.6
+
+[sub_resource type="CylinderMesh" id="Mesh_Bed32"]
+top_radius = 0.65
+bottom_radius = 0.65
+height = 0.12
+
+
+[node name="TrainingRoom" type="Node3D"]
+script = ExtResource("script")
+station = false
+
+
+[node name="Actors" type="Node3D" parent="."]
+
+[node name="Scientist" type="Node3D" parent="Actors"]
+position = Vector3(-2.2, 1, -1.7)
+script = ExtResource("asset_group")
+
+[node name="Props" type="Node3D" parent="."]
+
+[node name="Capsule" type="Node3D" parent="Props"]
+position = Vector3(3.6, 0.7, -3.2)
+script = ExtResource("asset_group")
+
+[node name="Bench" type="Node3D" parent="Props"]
+position = Vector3(-3.8, 0, 0.8)
+script = ExtResource("asset_group")
+
+[node name="Pickups" type="Node3D" parent="."]
+
+[node name="Battery1" type="Node3D" parent="Pickups"]
+position = Vector3(-2.8, 0.25, 1.1)
+script = ExtResource("asset_group")
+
+[node name="Battery2" type="Node3D" parent="Pickups"]
+position = Vector3(2.65, 0.25, 0.4)
+script = ExtResource("asset_group")
+
+[node name="Cameras" type="Node3D" parent="."]
+
+[node name="Hints" type="Node3D" parent="."]
+
+[node name="Geometry" parent="." instance=ExtResource("geo")]
+
+
+
+[node name="Player" parent="Actors" instance=ExtResource("player")]
+position = Vector3(0, 0.05, 3.6)
+walk_speed = 3.0
+run_speed = 4.5
+jump_height = 0.7
+auto_bhop = false
+body_radius = 0.22
+stand_height = 0.8
+crouch_height = 0.5
+max_step_height = 0.18
+max_drop_height = 0.25
+min_tread_depth = 0.2
+auto_crouch = false
+
+
+[node name="CameraHolder" parent="Actors/Player" index="1"]
+stand_eye_height = 0.68
+crouch_eye_height = 0.4
+capture_mouse = false
+fov = 78.0
+strafe_roll_deg = 0.7
+
+
+[node name="Camera3D" parent="Actors/Player/CameraHolder" index="0"]
+position = Vector3(0, 0, 0)
+
+
+
+
+[node name="MenuCamera" type="Camera3D" parent="Cameras"]
+position = Vector3(6, 3.1, 5.8)
+rotation_degrees = Vector3(-15, 35, 0)
+cull_mask = 1048573
+fov = 65.0
+current = true
+
+
+[node name="ScentMarkers" type="Node3D" parent="Hints"]
+visible = false
+
+
+[node name="WallTitle" type="Label3D" parent="Hints"]
+position = Vector3(0, 3.65, -4.7)
+text = "TRAINING"
+font_size = 48
+pixel_size = 0.003
+modulate = Color(0.897, 0.897, 0.897, 1.0)
+outline_size = 0
+
+
+[node name="Interaction" type="StaticBody3D" parent="Actors/Scientist"]
+position = Vector3(0, 0, 0)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("interaction")
+interaction_id = &"scientist"
+display_name = "Talk to the scientist"
+
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Actors/Scientist/Interaction"]
+shape = SubResource("Shape_Scientist")
+
+
+[node name="Visuals" type="Node3D" parent="Actors/Scientist"]
+
+[node name="Body" type="MeshInstance3D" parent="Actors/Scientist/Visuals"]
+mesh = SubResource("ScientistBlock")
+material_override = SubResource("Cream")
+
+[node name="Name" type="Label3D" parent="Actors/Scientist"]
+position = Vector3(0, 1.2, 0)
+text = "SCIENTIST"
+font_size = 24
+pixel_size = 0.003
+modulate = Color(0.897, 0.897, 0.897, 1.0)
+outline_size = 0
+billboard = 1
+
+[node name="TrainingStand" type="Node3D" parent="Props"]
+position = Vector3(0, 0, -1.6)
+
+script = ExtResource("asset_group")
+
+[node name="Base" type="CSGBox3D" parent="Props/TrainingStand"]
+position = Vector3(0, 0.3, 0)
+size = Vector3(1.6, 0.6, 0.8)
+material = SubResource("Green")
+use_collision = true
+
+
+[node name="Top" type="CSGBox3D" parent="Props/TrainingStand"]
+position = Vector3(0, 0.62, 0)
+size = Vector3(1.8, 0.08, 1.0)
+material = SubResource("Cream")
+use_collision = true
+
+
+[node name="Socket1" type="CSGBox3D" parent="Props/TrainingStand"]
+position = Vector3(-0.32, 0.4, 0.415)
+size = Vector3(0.4, 0.32, 0.04)
+material = SubResource("Black")
+use_collision = false
+
+
+[node name="Cell1" type="MeshInstance3D" parent="Props/TrainingStand"]
+position = Vector3(-0.32, 0.4, 0.45)
+mesh = SubResource("Mesh_Cell116")
+material_override = SubResource("Gold")
+visible = false
+
+
+[node name="Socket2" type="CSGBox3D" parent="Props/TrainingStand"]
+position = Vector3(0.32, 0.4, 0.415)
+size = Vector3(0.4, 0.32, 0.04)
+material = SubResource("Black")
+use_collision = false
+
+
+[node name="Cell2" type="MeshInstance3D" parent="Props/TrainingStand"]
+position = Vector3(0.32, 0.4, 0.45)
+mesh = SubResource("Mesh_Cell217")
+material_override = SubResource("Gold")
+visible = false
+
+
+[node name="StandLabel" type="Label3D" parent="Props/TrainingStand"]
+position = Vector3(0, 0.98, 0)
+text = "TWO CELLS → TEST"
+font_size = 25
+pixel_size = 0.003
+modulate = Color(0.897, 0.897, 0.897, 1.0)
+outline_size = 0
+
+
+[node name="Slots" type="StaticBody3D" parent="Props/TrainingStand"]
+position = Vector3(0, 0.35, 0.5)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("interaction")
+interaction_id = &"stand"
+display_name = "Inspect battery slots"
+
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/TrainingStand/Slots"]
+shape = SubResource("Shape_Stand")
+
+
+[node name="TestButton" type="StaticBody3D" parent="Props/TrainingStand"]
+position = Vector3(1.5, 0.34, 0.4)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("interaction")
+interaction_id = &"button"
+display_name = "Press test button"
+
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/TrainingStand/TestButton"]
+shape = SubResource("Shape_TestButton")
+
+
+[node name="Pedestal" type="CSGBox3D" parent="Props/TrainingStand/TestButton"]
+position = Vector3(0, -0.05, 0)
+size = Vector3(0.45, 0.6, 0.45)
+material = SubResource("Green")
+use_collision = true
+
+
+[node name="Button" type="MeshInstance3D" parent="Props/TrainingStand/TestButton"]
+position = Vector3(0, 0.29, 0)
+mesh = SubResource("Mesh_Button21")
+material_override = SubResource("Red")
+
+
+[node name="ButtonLabel" type="Label3D" parent="Props/TrainingStand/TestButton"]
+position = Vector3(0, 0.75, 0)
+text = "TEST"
+font_size = 25
+pixel_size = 0.003
+modulate = Color(0.897, 0.897, 0.897, 1.0)
+outline_size = 0
+
+
+[node name="Item" type="StaticBody3D" parent="Pickups/Battery1"]
+position = Vector3(0, 0, 0)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("interaction")
+interaction_id = &"battery1"
+display_name = "Pick up battery"
+
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pickups/Battery1/Item"]
+shape = SubResource("Shape_Battery1")
+
+
+[node name="Cell" type="MeshInstance3D" parent="Pickups/Battery1/Item"]
+position = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_Cell23")
+material_override = SubResource("Gold")
+
+
+[node name="Marker1" type="MeshInstance3D" parent="Hints/ScentMarkers"]
+position = Vector3(-2.8, 0.8, 1.1)
+mesh = SubResource("Mesh_Marker125")
+material_override = SubResource("Glow")
+
+
+[node name="Item" type="StaticBody3D" parent="Pickups/Battery2"]
+position = Vector3(0, 0, 0)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("interaction")
+interaction_id = &"battery2"
+display_name = "Pick up battery"
+
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pickups/Battery2/Item"]
+shape = SubResource("Shape_Battery2")
+
+
+[node name="Cell" type="MeshInstance3D" parent="Pickups/Battery2/Item"]
+position = Vector3(0, 0, 0)
+mesh = SubResource("Mesh_Cell27")
+material_override = SubResource("Gold")
+
+
+[node name="Marker2" type="MeshInstance3D" parent="Hints/ScentMarkers"]
+position = Vector3(2.65, 0.8, 0.4)
+mesh = SubResource("Mesh_Marker229")
+material_override = SubResource("Glow")
+
+
+[node name="Entry" type="StaticBody3D" parent="Props/Capsule"]
+position = Vector3(0, 0, 0)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("interaction")
+interaction_id = &"capsule"
+display_name = "Enter the capsule"
+
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Capsule/Entry"]
+shape = SubResource("Shape_Capsule")
+
+
+[node name="Hull" type="MeshInstance3D" parent="Props/Capsule/Entry"]
+position = Vector3(0, 0.25, -0.3)
+mesh = SubResource("Mesh_Hull31")
+material_override = SubResource("Cream")
+
+
+[node name="Hatch" type="CSGBox3D" parent="Props/Capsule/Entry"]
+position = Vector3(0, 0.1, 0.63)
+size = Vector3(1.0, 1.25, 0.12)
+material = SubResource("Green")
+use_collision = false
+
+
+[node name="Bed" type="MeshInstance3D" parent="Props/Capsule/Entry"]
+position = Vector3(0, -0.48, 0.75)
+mesh = SubResource("Mesh_Bed32")
+material_override = SubResource("Red")
+
+
+[node name="CapsuleName" type="Label3D" parent="Props/Capsule/Entry"]
+position = Vector3(0, 1.6, 0)
+text = "LAIKA / 01"
+font_size = 34
+pixel_size = 0.003
+modulate = Color(0.897, 0.897, 0.897, 1.0)
+outline_size = 0
+
+
+[node name="Seat" type="CSGBox3D" parent="Props/Bench"]
+position = Vector3(0, 0.45, 0)
+size = Vector3(1.7, 0.25, 1.1)
+material = SubResource("Cream")
+use_collision = true
+
+
+[node name="LeftLeg" type="CSGBox3D" parent="Props/Bench"]
+position = Vector3(-0.6, 0.2, 0)
+size = Vector3(0.12, 0.4, 0.9)
+material = SubResource("Green")
+use_collision = true
+
+
+[node name="RightLeg" type="CSGBox3D" parent="Props/Bench"]
+position = Vector3(0.6, 0.2, 0)
+size = Vector3(0.12, 0.4, 0.9)
+material = SubResource("Green")
+use_collision = true

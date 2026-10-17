@@ -1,0 +1,78 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scenes/GUI/Screens/Scripts/pause_menu.gd" id="script"]
+
+
+
+[node name="PauseMenu" type="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+script = ExtResource("script")
+
+[node name="Shade" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08, 0.08, 0.08, 0.85)
+mouse_filter = 2
+
+[node name="Center" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Panel" type="PanelContainer" parent="Center"]
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"PaperPanel"
+custom_minimum_size = Vector2(680, 0)
+
+[node name="Column" type="VBoxContainer" parent="Center/Panel"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 18
+
+[node name="Title" type="Label" parent="Center/Panel/Column"]
+layout_mode = 2
+text = "Paused"
+mouse_filter = 2
+theme_type_variation = &"Heading"
+
+[node name="Resume" type="Button" parent="Center/Panel/Column"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 76)
+text = "Resume"
+theme_type_variation = &"NavigationButton"
+mouse_default_cursor_shape = 2
+alignment = 0
+
+[node name="Settings" type="Button" parent="Center/Panel/Column"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 76)
+text = "Settings"
+theme_type_variation = &"NavigationButton"
+mouse_default_cursor_shape = 2
+alignment = 0
+
+[node name="MainMenu" type="Button" parent="Center/Panel/Column"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 76)
+text = "Main menu"
+theme_type_variation = &"NavigationButton"
+mouse_default_cursor_shape = 2
+alignment = 0

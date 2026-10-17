@@ -1,0 +1,218 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scenes/GUI/Screens/Scripts/game_hud.gd" id="script"]
+[ext_resource type="PackedScene" path="res://Scenes/GUI/Components/ActionHint.tscn" id="card"]
+
+
+
+[node name="HUD" type="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("script")
+
+[node name="SafeArea" type="MarginContainer" parent="."]
+layout_mode = 1
+mouse_filter = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Layout" type="VBoxContainer" parent="SafeArea"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 16
+
+[node name="Header" type="HBoxContainer" parent="SafeArea/Layout"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 20
+
+[node name="Chapter" type="Label" parent="SafeArea/Layout/Header"]
+layout_mode = 2
+text = "Training room"
+mouse_filter = 2
+theme_type_variation = &"Small"
+unique_name_in_owner = true
+size_flags_horizontal = 3
+
+[node name="PauseHint" type="Label" parent="SafeArea/Layout/Header"]
+layout_mode = 2
+text = "Esc · pause"
+mouse_filter = 2
+theme_type_variation = &"Small"
+unique_name_in_owner = true
+
+[node name="Space" type="Control" parent="SafeArea/Layout"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="Footer" type="HBoxContainer" parent="SafeArea/Layout"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 24
+
+[node name="ObjectivePanel" type="PanelContainer" parent="SafeArea/Layout/Footer"]
+layout_mode = 2
+mouse_filter = 2
+theme_type_variation = &"PaperPanel"
+custom_minimum_size = Vector2(520, 0)
+size_flags_vertical = 8
+
+[node name="Info" type="VBoxContainer" parent="SafeArea/Layout/Footer/ObjectivePanel"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 6
+
+[node name="Label" type="Label" parent="SafeArea/Layout/Footer/ObjectivePanel/Info"]
+layout_mode = 2
+text = "Objective"
+mouse_filter = 2
+theme_type_variation = &"Small"
+
+[node name="Objective" type="Label" parent="SafeArea/Layout/Footer/ObjectivePanel/Info"]
+layout_mode = 2
+text = "Say hello to the scientist"
+mouse_filter = 2
+theme_type_variation = &"Body"
+unique_name_in_owner = true
+autowrap_mode = 2
+
+[node name="Progress" type="Label" parent="SafeArea/Layout/Footer/ObjectivePanel/Info"]
+layout_mode = 2
+text = ""
+mouse_filter = 2
+theme_type_variation = &"Small"
+unique_name_in_owner = true
+
+[node name="Spacer" type="Control" parent="SafeArea/Layout/Footer"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="Actions" type="VBoxContainer" parent="SafeArea/Layout/Footer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+size_flags_vertical = 8
+
+[node name="Carrying" type="Label" parent="SafeArea/Layout/Footer/Actions"]
+layout_mode = 2
+text = ""
+mouse_filter = 2
+theme_type_variation = &"Small"
+unique_name_in_owner = true
+horizontal_alignment = 2
+
+[node name="DropHint" type="Label" parent="SafeArea/Layout/Footer/Actions"]
+layout_mode = 2
+text = "[RMB]  Put down"
+mouse_filter = 2
+theme_type_variation = &"Small"
+unique_name_in_owner = true
+visible = false
+horizontal_alignment = 2
+
+[node name="Cards" type="HBoxContainer" parent="SafeArea/Layout/Footer/Actions"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 8
+
+[node name="Interact" parent="SafeArea/Layout/Footer/Actions/Cards" instance=ExtResource("card")]
+unique_name_in_owner = true
+layout_mode = 2
+action = &"interact"
+caption = "Interact"
+
+[node name="Jump" parent="SafeArea/Layout/Footer/Actions/Cards" instance=ExtResource("card")]
+unique_name_in_owner = true
+layout_mode = 2
+action = &"Jump"
+caption = "Jump"
+
+[node name="Bark" parent="SafeArea/Layout/Footer/Actions/Cards" instance=ExtResource("card")]
+unique_name_in_owner = true
+layout_mode = 2
+action = &"bark"
+caption = "Bark"
+
+[node name="Sniff" parent="SafeArea/Layout/Footer/Actions/Cards" instance=ExtResource("card")]
+unique_name_in_owner = true
+layout_mode = 2
+action = &"sniff"
+caption = "Sniff"
+
+[node name="Reticle" type="Label" parent="."]
+layout_mode = 1
+text = "+"
+mouse_filter = 2
+theme_type_variation = &"Small"
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = -16.0
+offset_right = 12.0
+offset_bottom = 16.0
+horizontal_alignment = 1
+
+[node name="Prompt" type="Label" parent="."]
+layout_mode = 1
+text = ""
+mouse_filter = 2
+theme_type_variation = &"Body"
+unique_name_in_owner = true
+anchor_left = 0.2
+anchor_right = 0.8
+anchor_top = 0.56
+anchor_bottom = 0.56
+horizontal_alignment = 1
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/shadow_offset_x = 2
+
+[node name="ThoughtPanel" type="PanelContainer" parent="."]
+layout_mode = 1
+mouse_filter = 2
+theme_type_variation = &"PaperPanel"
+unique_name_in_owner = true
+visible = false
+anchor_left = 0.31
+anchor_right = 0.69
+offset_top = 160.0
+offset_bottom = 260.0
+
+[node name="Thought" type="Label" parent="ThoughtPanel"]
+layout_mode = 2
+text = ""
+mouse_filter = 2
+theme_type_variation = &"Body"
+unique_name_in_owner = true
+autowrap_mode = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Scent" type="Label" parent="."]
+layout_mode = 1
+text = "Sniffing: battery scent"
+mouse_filter = 2
+theme_type_variation = &"Small"
+unique_name_in_owner = true
+visible = false
+anchor_left = 0.25
+anchor_right = 0.75
+anchor_top = 0.69
+anchor_bottom = 0.69
+horizontal_alignment = 1

@@ -1,0 +1,200 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scenes/Shared/Scripts/asset_group.gd" id="asset_group"]
+[ext_resource type="Material" path="res://Resources/Materials/floor_grid.tres" id="floor_grid"]
+
+
+
+[sub_resource type="StandardMaterial3D" id="Wall"]
+albedo_color = Color(0.683, 0.683, 0.683, 1.0)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Dark"]
+albedo_color = Color(0.18, 0.18, 0.18, 1.0)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Trim"]
+albedo_color = Color(0.4, 0.4, 0.4, 1.0)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Light"]
+albedo_color = Color(0.827, 0.827, 0.827, 1.0)
+roughness = 0.85
+emission_enabled = true
+emission = Color(0.827, 0.827, 0.827, 1.0)
+emission_energy_multiplier = 1.5
+
+[sub_resource type="Environment" id="Environment"]
+background_mode = 1
+background_color = Color(0.12, 0.12, 0.12, 1.0)
+ambient_light_source = 3
+ambient_light_color = Color(0.853, 0.853, 0.853, 1.0)
+ambient_light_energy = 0.55
+tonemap_mode = 2
+
+
+[node name="RoomGeometry" type="Node3D"]
+
+
+
+[node name="Architecture" type="Node3D" parent="."]
+
+[node name="Floor" type="Node3D" parent="Architecture"]
+script = ExtResource("asset_group")
+
+[node name="Walls" type="Node3D" parent="Architecture"]
+script = ExtResource("asset_group")
+
+[node name="Back" type="Node3D" parent="Architecture/Walls"]
+
+[node name="Left" type="Node3D" parent="Architecture/Walls"]
+
+[node name="Right" type="Node3D" parent="Architecture/Walls"]
+
+[node name="Front" type="Node3D" parent="Architecture/Walls"]
+
+[node name="Ceiling" type="Node3D" parent="Architecture"]
+script = ExtResource("asset_group")
+
+[node name="Windows" type="Node3D" parent="Architecture"]
+script = ExtResource("asset_group")
+
+[node name="Left" type="Node3D" parent="Architecture/Windows"]
+
+[node name="Center" type="Node3D" parent="Architecture/Windows"]
+
+[node name="Right" type="Node3D" parent="Architecture/Windows"]
+
+[node name="Lighting" type="Node3D" parent="."]
+script = ExtResource("asset_group")
+
+[node name="Fixtures" type="Node3D" parent="Lighting"]
+
+[node name="Left" type="Node3D" parent="Lighting/Fixtures"]
+
+[node name="Right" type="Node3D" parent="Lighting/Fixtures"]
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment")
+
+
+[node name="Sun" type="DirectionalLight3D" parent="Lighting"]
+rotation_degrees = Vector3(-55, -25, 0)
+light_color = Color(0.857, 0.857, 0.857, 1.0)
+light_energy = 1.5
+shadow_enabled = true
+
+
+[node name="Fill" type="OmniLight3D" parent="Lighting"]
+position = Vector3(0, 3.5, 1)
+light_color = Color(0.87, 0.87, 0.87, 1.0)
+light_energy = 3.0
+omni_range = 10.0
+shadow_enabled = true
+
+
+[node name="Surface" type="CSGBox3D" parent="Architecture/Floor"]
+position = Vector3(0, -0.15, 0)
+size = Vector3(12, 0.3, 10)
+material = ExtResource("floor_grid")
+use_collision = true
+
+
+[node name="Surface" type="CSGBox3D" parent="Architecture/Walls/Back"]
+position = Vector3(0, 2.1, -5)
+size = Vector3(12, 4.2, 0.25)
+material = SubResource("Wall")
+use_collision = true
+
+
+[node name="Surface" type="CSGBox3D" parent="Architecture/Walls/Left"]
+position = Vector3(-6, 2.1, 0)
+size = Vector3(0.25, 4.2, 10)
+material = SubResource("Wall")
+use_collision = true
+
+
+[node name="Surface" type="CSGBox3D" parent="Architecture/Walls/Right"]
+position = Vector3(6, 2.1, 0)
+size = Vector3(0.25, 4.2, 10)
+material = SubResource("Wall")
+use_collision = true
+
+
+[node name="Surface" type="CSGBox3D" parent="Architecture/Walls/Front"]
+position = Vector3(0, 2.1, 5)
+size = Vector3(12, 4.2, 0.25)
+material = SubResource("Wall")
+use_collision = true
+
+
+[node name="Pane" type="CSGBox3D" parent="Architecture/Windows/Left"]
+position = Vector3(-4, 2.5, -4.84)
+size = Vector3(2.4, 1.3, 0.1)
+material = SubResource("Dark")
+use_collision = false
+
+
+[node name="Divider" type="CSGBox3D" parent="Architecture/Windows/Left"]
+position = Vector3(-4, 2.5, -4.76)
+size = Vector3(0.06, 1.3, 0.04)
+material = SubResource("Trim")
+use_collision = false
+
+
+[node name="Pane" type="CSGBox3D" parent="Architecture/Windows/Center"]
+position = Vector3(0, 2.5, -4.84)
+size = Vector3(2.4, 1.3, 0.1)
+material = SubResource("Dark")
+use_collision = false
+
+
+[node name="Divider" type="CSGBox3D" parent="Architecture/Windows/Center"]
+position = Vector3(0, 2.5, -4.76)
+size = Vector3(0.06, 1.3, 0.04)
+material = SubResource("Trim")
+use_collision = false
+
+
+[node name="Pane" type="CSGBox3D" parent="Architecture/Windows/Right"]
+position = Vector3(4, 2.5, -4.84)
+size = Vector3(2.4, 1.3, 0.1)
+material = SubResource("Dark")
+use_collision = false
+
+
+[node name="Divider" type="CSGBox3D" parent="Architecture/Windows/Right"]
+position = Vector3(4, 2.5, -4.76)
+size = Vector3(0.06, 1.3, 0.04)
+material = SubResource("Trim")
+use_collision = false
+
+
+[node name="LowerBand" type="CSGBox3D" parent="Architecture/Walls/Back"]
+position = Vector3(0, 0.65, -4.82)
+size = Vector3(12, 0.85, 0.15)
+material = SubResource("Dark")
+use_collision = false
+
+
+[node name="Surface" type="CSGBox3D" parent="Architecture/Ceiling"]
+position = Vector3(0, 4.3, 0)
+size = Vector3(12, 0.2, 10)
+material = SubResource("Wall")
+use_collision = true
+
+
+[node name="Surface" type="CSGBox3D" parent="Lighting/Fixtures/Left"]
+position = Vector3(-3, 4.12, -0.5)
+size = Vector3(0.4, 0.08, 3)
+material = SubResource("Light")
+use_collision = false
+
+
+[node name="Surface" type="CSGBox3D" parent="Lighting/Fixtures/Right"]
+position = Vector3(3, 4.12, -0.5)
+size = Vector3(0.4, 0.08, 3)
+material = SubResource("Light")
+use_collision = false

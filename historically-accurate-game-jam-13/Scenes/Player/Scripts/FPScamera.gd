@@ -113,7 +113,8 @@ func _process(delta: float) -> void:
 	var eye_target := crouch_eye_height if player.is_crouching else stand_eye_height
 	_eye = lerpf(_eye, eye_target, 1.0 - exp(-delta / maxf(crouch_glide_time, 0.001)))
 
-	_dip_velocity += (-dip_stiffness * _dip - dip_damping * _dip_velocity) * delta
+	var spring_denominator := 1.0 + dip_damping * delta + dip_stiffness * delta * delta
+	_dip_velocity = (_dip_velocity - dip_stiffness * _dip * delta) / spring_denominator
 	_dip += _dip_velocity * delta
 
 	var yaw_basis := Basis(Vector3.UP, _yaw)

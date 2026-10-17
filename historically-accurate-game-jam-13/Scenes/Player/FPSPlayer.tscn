@@ -1,10 +1,16 @@
 [gd_scene format=3 uid="uid://c5xf5awwvo5et"]
 
-[ext_resource type="Script" uid="uid://ds25qo7ubp17a" path="res://Scenes/Player/FPScamera.gd" id="2_22kdy"]
-[ext_resource type="Script" uid="uid://und72swrc33q" path="res://Scenes/Player/FPSplayer.gd" id="2_ryt0y"]
+[ext_resource type="Script" uid="uid://ds25qo7ubp17a" path="res://Scenes/Player/Scripts/FPScamera.gd" id="2_22kdy"]
+[ext_resource type="Script" uid="uid://und72swrc33q" path="res://Scenes/Player/Scripts/FPSplayer.gd" id="2_ryt0y"]
 [ext_resource type="PackedScene" uid="uid://tqwgyxaviwsr" path="res://Assets/3D/Snout.glb" id="3_xrtr1"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jbdec"]
+
+[sub_resource type="StandardMaterial3D" id="ViewModelMaterial"]
+render_priority = 126
+no_depth_test = true
+disable_receive_shadows = true
+roughness = 1.0
 
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=1514709304 node_paths=PackedStringArray("collision_shape")]
 script = ExtResource("2_ryt0y")
@@ -24,5 +30,17 @@ camera = NodePath("Camera3D")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.90741765, 0)
 fov = 90.0
 
-[node name="Snout" parent="CameraHolder" unique_id=1966567727 instance=ExtResource("3_xrtr1")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, -0.907, 0.7218584)
+[node name="CarryAnchor" type="Marker3D" parent="CameraHolder/Camera3D"]
+position = Vector3(0, -0.3, -0.8)
+rotation_degrees = Vector3(0, 0, 90)
+scale = Vector3(0.4, 0.4, 0.4)
+
+[node name="Snout" parent="CameraHolder/Camera3D" unique_id=1966567727 instance=ExtResource("3_xrtr1")]
+position = Vector3(0, -0.14, -0.15)
+rotation_degrees = Vector3(0, 90, 0)
+scale = Vector3(0.32, 0.32, 0.32)
+
+[node name="Laika_001" parent="CameraHolder/Camera3D/Snout" index="0"]
+layers = 2
+material_override = SubResource("ViewModelMaterial")
+cast_shadow = 0

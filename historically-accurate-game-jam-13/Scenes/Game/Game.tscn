@@ -1,0 +1,88 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scenes/Game/Scripts/game_shell.gd" id="script"]
+[ext_resource type="Theme" path="res://Resources/Themes/laika_theme.tres" id="theme"]
+[ext_resource type="PackedScene" path="res://Scenes/GUI/Screens/MainMenu.tscn" id="MainMenu"]
+[ext_resource type="PackedScene" path="res://Scenes/GUI/Screens/GameHUD.tscn" id="HUD"]
+[ext_resource type="PackedScene" path="res://Scenes/GUI/Components/DialoguePanel.tscn" id="Dialogue"]
+[ext_resource type="PackedScene" path="res://Scenes/GUI/Screens/PauseMenu.tscn" id="PauseMenu"]
+[ext_resource type="PackedScene" path="res://Scenes/GUI/Screens/SettingsPanel.tscn" id="SettingsPanel"]
+[ext_resource type="PackedScene" path="res://Scenes/GUI/Components/DogVisionFilter.tscn" id="DogVisionFilter"]
+[ext_resource type="PackedScene" path="res://Scenes/GUI/Components/CompletionNotice.tscn" id="CompletionNotice"]
+
+
+
+[node name="GameShell" type="Node"]
+process_mode = 3
+script = ExtResource("script")
+
+[node name="WorldHost" type="Node3D" parent="."]
+process_mode = 1
+
+[node name="DogVisionFilter" parent="." instance=ExtResource("DogVisionFilter")]
+
+[node name="Interface" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="ScreenHost" type="Control" parent="Interface"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("theme")
+
+[node name="MainMenu" parent="Interface/ScreenHost" instance=ExtResource("MainMenu")]
+unique_name_in_owner = true
+visible = true
+
+[node name="HUD" parent="Interface/ScreenHost" instance=ExtResource("HUD")]
+unique_name_in_owner = true
+visible = false
+
+[node name="Dialogue" parent="Interface/ScreenHost" instance=ExtResource("Dialogue")]
+unique_name_in_owner = true
+visible = false
+
+[node name="PauseMenu" parent="Interface/ScreenHost" instance=ExtResource("PauseMenu")]
+unique_name_in_owner = true
+visible = false
+
+[node name="SettingsPanel" parent="Interface/ScreenHost" instance=ExtResource("SettingsPanel")]
+unique_name_in_owner = true
+visible = false
+
+[node name="CompletionNotice" parent="Interface/ScreenHost" instance=ExtResource("CompletionNotice")]
+unique_name_in_owner = true
+visible = false
+
+[node name="Transition" type="CanvasLayer" parent="."]
+layer = 20
+
+[node name="Fade" type="ColorRect" parent="Transition"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+unique_name_in_owner = true
+color = Color(0.08, 0.08, 0.08, 1)
+mouse_filter = 0
+
+[node name="TransitionTitle" type="Label" parent="Transition/Fade"]
+layout_mode = 1
+text = ""
+mouse_filter = 2
+theme_type_variation = &"Subheading"
+unique_name_in_owner = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+horizontal_alignment = 1
+vertical_alignment = 1
+theme = ExtResource("theme")

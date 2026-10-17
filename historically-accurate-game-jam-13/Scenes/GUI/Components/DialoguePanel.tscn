@@ -1,0 +1,58 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scenes/GUI/Components/Scripts/dialogue_panel.gd" id="script"]
+
+
+
+[sub_resource type="StyleBoxFlat" id="panel"]
+content_margin_left = 28.0
+content_margin_top = 24.0
+content_margin_right = 28.0
+content_margin_bottom = 24.0
+bg_color = Color(0.22, 0.22, 0.22, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.45, 0.45, 0.45, 1)
+
+[node name="Dialogue" type="PanelContainer"]
+layout_mode = 1
+anchor_left = 0.25
+anchor_right = 0.75
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -460.0
+offset_bottom = -250.0
+mouse_filter = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("panel")
+script = ExtResource("script")
+
+[node name="Column" type="VBoxContainer" parent="."]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 10
+
+[node name="Speaker" type="Label" parent="Column"]
+layout_mode = 2
+text = "SCIENTIST"
+mouse_filter = 2
+theme_type_variation = &"Small"
+unique_name_in_owner = true
+
+[node name="Line" type="Label" parent="Column"]
+layout_mode = 2
+text = ""
+mouse_filter = 2
+theme_type_variation = &"Body"
+unique_name_in_owner = true
+autowrap_mode = 2
+
+[node name="Response" type="Label" parent="Column"]
+layout_mode = 2
+text = ""
+mouse_filter = 2
+theme_type_variation = &"Small"
+unique_name_in_owner = true
+horizontal_alignment = 2
