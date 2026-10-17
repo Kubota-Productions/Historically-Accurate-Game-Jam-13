@@ -16,10 +16,15 @@ class MessageExtractionTests(unittest.TestCase):
         source = 'tr(\n    ("Keep settings?")\n)\ntr(\'Продовжити\')\n'
         self.assertEqual(self.messages(source), {"Keep settings?", "Продовжити"})
 
-    def test_multiline_data_and_choices(self):
-        source = "const LINES = [{'text': (\"\"\"First\nSecond\"\"\"), 'speaker': 'Robot'}]\n"
-        source += "const OPTIONS = {'options': ['Windowed', 'Fullscreen']}"
-        self.assertEqual(self.messages(source), {"First\nSecond", "Robot", "Windowed", "Fullscreen"})
+    def test_resource_data_and_choices(self):
+        source = 'speaker = "Robot"\ntext = "First\\nSecond"\nlabel = "Quality"\n'
+        source += 'options = PackedStringArray("Low", "High")\nid = &"quality"'
+        self.assertEqual(self.messages(source, ".tres"), {"Robot", "First\nSecond", "Quality", "Low", "High"})
+
+    def test_label_tables_and_captions(self):
+        source = 'const MODE_LABELS: Dictionary = {\n\tMODE: "Windowed",\n}\n'
+        source += 'hint.caption = "Continue" if active else "Interact"\n'
+        self.assertEqual(self.messages(source), {"Windowed", "Continue", "Interact"})
 
     def test_templates_are_extracted_before_interpolation(self):
         source = 'room.objective_changed.emit("Bring a cell", "%d / %d CELLS", [count, limit])\n'

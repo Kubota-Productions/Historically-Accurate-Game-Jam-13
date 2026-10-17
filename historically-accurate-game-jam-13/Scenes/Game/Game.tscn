@@ -15,12 +15,15 @@
 [ext_resource type="PackedScene" path="res://Scenes/GUI/Components/screenspace_projection/screenspace_projection.tscn" id="projection"]
 
 [ext_resource type="Script" path="res://Scenes/Game/Scripts/screen_transition.gd" id="transition_script"]
+[ext_resource type="Resource" path="res://GameData/Rooms/training.tres" id="first_room"]
 
 [node name="GameShell" type="Node"]
 process_mode = 3
 script = ExtResource("script")
+first_room = ExtResource("first_room")
 
 [node name="WorldPresentation" parent="." instance=ExtResource("projection")]
+unique_name_in_owner = true
 enabled = false
 
 [node name="WorldHost" type="Node3D" parent="WorldPresentation/ProjectionInput"]
@@ -28,6 +31,7 @@ unique_name_in_owner = true
 process_mode = 1
 
 [node name="DogVisionFilter" parent="." instance=ExtResource("DogVisionFilter")]
+unique_name_in_owner = true
 
 [node name="Interface" type="CanvasLayer" parent="."]
 layer = 10
@@ -96,6 +100,7 @@ vertical_alignment = 1
 theme = ExtResource("theme")
 
 [node name="ScreenTransition" type="Node" parent="." node_paths=PackedStringArray("fade", "title")]
+unique_name_in_owner = true
 script = ExtResource("transition_script")
 fade = NodePath("../Transition/Fade")
 title = NodePath("../Transition/Fade/TransitionTitle")

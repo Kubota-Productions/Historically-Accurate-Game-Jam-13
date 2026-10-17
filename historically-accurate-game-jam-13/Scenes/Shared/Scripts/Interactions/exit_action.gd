@@ -2,26 +2,23 @@
 class_name ExitAction
 extends InteractionAction
 
-@export var destination: StringName:
-	set(value):
-		destination = value
-		emit_changed()
-@export var blocked_message: String:
-	set(value):
-		blocked_message = value
-		emit_changed()
+@export var destination: RoomDefinition
+@export var blocked_message: String
 
 
-func is_available(_room: LaikaRoom, _target: LaikaInteractionPoint) -> bool:
+func is_available(_room: LaikaRoom, _target: Interactable) -> bool:
 	return true
 
 
-func execute(room: LaikaRoom, _target: LaikaInteractionPoint) -> void:
-	if required_flag.is_empty() or room.progress.has_flag(required_flag):
+func execute(room: LaikaRoom, target: Interactable) -> void:
+	if super.is_available(room, target):
 		room.departure_requested.emit(destination)
 	else:
 		room.thought_requested.emit(blocked_message)
 
 
-func configuration_errors(_target: LaikaInteractionPoint, _room: LaikaRoom = null) -> PackedStringArray:
-	return [] if SceneCatalog.ROOMS.has(destination) else ["destination: unknown room '%s'." % destination]
+func configuration_errors(room: LaikaRoom, target: Interactable) -> PackedStringArray:
+	var errors := super(room, target)
+	if destination == null:
+		errors.append("destination: choose a room.")
+	return errors

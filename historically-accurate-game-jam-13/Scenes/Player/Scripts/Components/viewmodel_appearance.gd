@@ -1,7 +1,14 @@
 class_name ViewmodelAppearance
 extends RefCounted
 
-var _meshes: Array[Dictionary] = []
+class SavedMesh:
+	var mesh: MeshInstance3D
+	var override: Material
+	var surfaces: Array[Material] = []
+	var layers: int
+	var shadow: GeometryInstance3D.ShadowCastingSetting
+
+var _saved: Array[SavedMesh] = []
 
 
 func apply(root: Node3D, priority: int) -> void:
@@ -11,34 +18,36 @@ func apply(root: Node3D, priority: int) -> void:
 	for mesh: MeshInstance3D in meshes:
 		if mesh.mesh == null:
 			continue
-		var surfaces: Array[Material] = []
+		var saved := SavedMesh.new()
+		saved.mesh = mesh
+		saved.override = mesh.material_override
+		saved.layers = mesh.layers
+		saved.shadow = mesh.cast_shadow
 		for surface: int in mesh.mesh.get_surface_count():
-			surfaces.append(mesh.get_surface_override_material(surface))
-		_meshes.append({"mesh": mesh, "override": mesh.material_override,
-			"surfaces": surfaces, "layers": mesh.layers, "shadow": mesh.cast_shadow})
-		mesh.layers = 2
+			saved.surfaces.append(mesh.get_surface_override_material(surface))
+		_saved.append(saved)
+		mesh.layers = Layers.VIEWMODEL
 		mesh.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		if mesh.material_override:
-			mesh.material_override = _material(mesh.material_override, priority)
+			mesh.material_override = _on_top(mesh.material_override, priority)
 		else:
 			for surface: int in mesh.mesh.get_surface_count():
-				mesh.set_surface_override_material(surface, _material(mesh.get_active_material(surface), priority))
+				mesh.set_surface_override_material(surface, _on_top(mesh.get_active_material(surface), priority))
 
 
 func restore() -> void:
-	for state: Dictionary in _meshes:
-		var mesh: MeshInstance3D = state.mesh
-		if not is_instance_valid(mesh):
+	for saved: SavedMesh in _saved:
+		if not is_instance_valid(saved.mesh):
 			continue
-		mesh.material_override = state.override
-		mesh.layers = state.layers
-		mesh.cast_shadow = state.shadow
-		for surface: int in state.surfaces.size():
-			mesh.set_surface_override_material(surface, state.surfaces[surface])
-	_meshes.clear()
+		saved.mesh.material_override = saved.override
+		saved.mesh.layers = saved.layers
+		saved.mesh.cast_shadow = saved.shadow
+		for surface: int in saved.surfaces.size():
+			saved.mesh.set_surface_override_material(surface, saved.surfaces[surface])
+	_saved.clear()
 
 
-func _material(source: Material, priority: int) -> Material:
+func _on_top(source: Material, priority: int) -> Material:
 	if source != null and not source is BaseMaterial3D:
 		return source
 	var material := source.duplicate() as BaseMaterial3D if source else StandardMaterial3D.new()

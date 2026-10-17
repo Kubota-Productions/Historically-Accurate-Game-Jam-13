@@ -1,26 +1,21 @@
+class_name CompletionNotice
 extends PanelContainer
 
 signal menu_requested
-signal expired
 
-const DISPLAY_SECONDS: float = 5.0
+@onready var lifetime: Timer = %Lifetime
 
 
 func _ready() -> void:
-	%MainMenu.pressed.connect(func() -> void: menu_requested.emit())
-	%Lifetime.timeout.connect(_on_timeout)
+	%MainMenu.pressed.connect(menu_requested.emit)
+	lifetime.timeout.connect(close)
 
 
 func open() -> void:
 	show()
-	%Lifetime.start(DISPLAY_SECONDS)
+	lifetime.start()
 
 
 func close() -> void:
-	%Lifetime.stop()
+	lifetime.stop()
 	hide()
-
-
-func _on_timeout() -> void:
-	close()
-	expired.emit()

@@ -1,28 +1,20 @@
 class_name StationProgress
 extends RoomProgress
 
-enum Step { ARRIVAL, COMPLETE }
-
-var step: Step = Step.ARRIVAL
-
-
-func setup(owner_room: LaikaRoom) -> void:
-	super.setup(owner_room)
-	_flags = {&"complete": false}
-	_dialogues = {&"arrival": _arrived, &"robot": _complete}
+const FLAGS: Array[StringName] = [&"complete"]
+const ARRIVAL: Dialogue = preload("res://GameData/Dialogue/Station/arrival.tres")
+const ROBOT: Dialogue = preload("res://GameData/Dialogue/Station/robot.tres")
 
 
 func begin() -> void:
 	room.objective_changed.emit("Find the source of the voice", "STATION  /  ARRIVAL", [])
-	room.dialogue_requested.emit(&"arrival")
+	room.dialogue_requested.emit(ARRIVAL)
 
 
-func _arrived() -> void:
-	room.objective_changed.emit("Talk to the service robot", "APPROACH THE ROBOT", [])
-
-
-func _complete() -> void:
-	step = Step.COMPLETE
-	set_flag(&"complete", true)
-	room.objective_changed.emit("Playground complete", "Explore freely · Esc opens the menu", [])
-	room.completed.emit()
+func dialogue_finished(dialogue: Dialogue) -> void:
+	if dialogue == ARRIVAL:
+		room.objective_changed.emit("Talk to the service robot", "APPROACH THE ROBOT", [])
+	elif dialogue == ROBOT:
+		set_flag(&"complete")
+		room.objective_changed.emit("Playground complete", "Explore freely · Esc opens the menu", [])
+		room.completed.emit()

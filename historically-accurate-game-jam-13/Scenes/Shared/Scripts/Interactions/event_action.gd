@@ -2,33 +2,29 @@
 class_name EventAction
 extends InteractionAction
 
-@export var event_id: StringName:
-	set(value):
-		event_id = value
-		emit_changed()
-@export var completed_flag: StringName:
-	set(value):
-		completed_flag = value
-		emit_changed()
-@export var completed_prompt: String:
-	set(value):
-		completed_prompt = value
-		emit_changed()
+@export var event: StringName
+@export var completed_flag: StringName
+@export var completed_prompt: String
 
 
-func prompt(room: LaikaRoom, target: LaikaInteractionPoint) -> String:
-	if not completed_flag.is_empty() and room.progress.has_flag(completed_flag):
-		return tr(completed_prompt)
-	return tr(target.display_name)
+func prompt(room: LaikaRoom, target: Interactable) -> String:
+	return tr(completed_prompt) if room.progress.has_flag(completed_flag) else super(room, target)
 
 
-func execute(room: LaikaRoom, target: LaikaInteractionPoint) -> void:
-	room.progress.handle_event(event_id, target)
+func execute(room: LaikaRoom, _target: Interactable) -> void:
+	room.progress.handle_event(event)
 
 
-func configuration_errors(_target: LaikaInteractionPoint, room: LaikaRoom = null) -> PackedStringArray:
-	if event_id.is_empty():
-		return ["event_id: choose an event handled by the room's Progress."]
-	if room and not room.progress.supports_event(event_id):
-		return ["event_id: unknown event '%s' in this room's Progress." % event_id]
-	return []
+func configuration_errors(room: LaikaRoom, target: Interactable) -> PackedStringArray:
+	var errors := super(room, target)
+	errors.append_array(unknown_flags(room, [completed_flag]))
+	if event.is_empty() or (room and not room.progress.knows_event(event)):
+		errors.append("event: choose an event from %s's progress." % (room.name if room else "the room"))
+	return errors
+
+
+func _validate_property(property: Dictionary) -> void:
+	super(property)
+	if property.name == "event":
+		property.hint = PROPERTY_HINT_ENUM_SUGGESTION
+		property.hint_string = ",".join(RoomProgress.declared(&"EVENTS"))

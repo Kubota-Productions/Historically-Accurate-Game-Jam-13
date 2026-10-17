@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Dialogue" format=3]
+
+[ext_resource type="Script" path="res://Code/Definitions/dialogue_line.gd" id="1_6jp1x"]
+[ext_resource type="Script" path="res://Code/Definitions/dialogue.gd" id="2_mey71"]
+
+[sub_resource type="Resource" id="Resource_try5r"]
+script = ExtResource("1_6jp1x")
+speaker = "STATION AUTOMATION"
+text = "Unscheduled arrival. Please identify the responsible operator."
+bark = true
+
+[sub_resource type="Resource" id="Resource_lt3yu"]
+script = ExtResource("1_6jp1x")
+speaker = "STATION AUTOMATION"
+text = "Voice accepted. Welcome, Chief Engineer. All outstanding faults are now your responsibility."
+
+[resource]
+script = ExtResource("2_mey71")
+lines = Array[ExtResource("1_6jp1x")]([SubResource("Resource_try5r"), SubResource("Resource_lt3yu")])

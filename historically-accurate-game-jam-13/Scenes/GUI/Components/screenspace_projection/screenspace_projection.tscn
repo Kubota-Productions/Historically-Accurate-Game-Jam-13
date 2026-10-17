@@ -34,7 +34,7 @@ near = 0.5
 far = 2.0
 script = ExtResource("1_qki4j")
 
-[node name="_ProjectionOutput" type="MeshInstance3D" parent="." unique_id=387850907]
+[node name="ProjectionOutput" type="MeshInstance3D" parent="." unique_id=387850907]
 physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 visible = false

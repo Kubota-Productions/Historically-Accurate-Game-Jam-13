@@ -1,6 +1,6 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://Scenes/Shared/Scripts/interaction_point.gd" id="point"]
+[ext_resource type="Script" path="res://Scenes/Shared/Scripts/pickup_item.gd" id="point"]
 [ext_resource type="Script" path="res://Scenes/Shared/Scripts/Interactions/pickup_action.gd" id="action"]
 
 [ext_resource type="CylinderMesh" path="res://Resources/Meshes/battery.tres" id="mesh"]
@@ -25,7 +25,7 @@ height = 0.18
 resource_local_to_scene = true
 script = ExtResource("action")
 
-[node name="Pickup" type="StaticBody3D" node_paths=PackedStringArray("visual_root", "item_shape", "scent_marker")]
+[node name="Pickup" type="StaticBody3D" node_paths=PackedStringArray("visual_root", "shape", "scent_marker")]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("point")
@@ -34,7 +34,7 @@ action = SubResource("behavior")
 item_id = &"battery"
 item_name = "battery"
 visual_root = NodePath("Visuals")
-item_shape = NodePath("CollisionShape3D")
+shape = NodePath("CollisionShape3D")
 scent_marker = NodePath("Scent")
 
 [node name="Visuals" type="Node3D" parent="."]

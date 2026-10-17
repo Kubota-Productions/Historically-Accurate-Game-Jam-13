@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Dialogue" format=3]
+
+[ext_resource type="Script" path="res://Code/Definitions/dialogue_line.gd" id="1_c4t86"]
+[ext_resource type="Script" path="res://Code/Definitions/dialogue.gd" id="2_0r58e"]
+
+[sub_resource type="Resource" id="Resource_amgbe"]
+script = ExtResource("1_c4t86")
+speaker = "SCIENTIST"
+text = "Perfect! All systems ready. You are a very good employee."
+bark = true
+
+[sub_resource type="Resource" id="Resource_ys6sl"]
+script = ExtResource("1_c4t86")
+speaker = "SCIENTIST"
+text = "Now into your capsule. Get comfortable, Laika. I'll be listening."
+
+[resource]
+script = ExtResource("2_0r58e")
+lines = Array[ExtResource("1_c4t86")]([SubResource("Resource_amgbe"), SubResource("Resource_ys6sl")])

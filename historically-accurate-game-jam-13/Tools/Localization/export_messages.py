@@ -21,31 +21,27 @@ def extract(path):
     source = path.read_text(encoding="utf-8")
     if path.suffix == ".gd":
         source = re.sub(STRING + r"|\#[^\n]*", lambda match: " " * len(match[0]) if match[0].startswith("#") else match[0], source)
-    if path.suffix == ".tscn":
-        patterns = [rf"(?m)^(?:{SCENE_FIELDS})\s*=\s*({STRING})"]
+    if path.suffix in (".tscn", ".tres"):
+        patterns = [rf"(?m)^(?:{SCENE_FIELDS}|{DATA_FIELDS})\s*=\s*({STRING})"]
+        for match in re.finditer(r"(?m)^options\s*=\s*PackedStringArray\(([^)]*)\)", source):
+            for text in re.finditer(STRING, match[1]):
+                yield match.start(1) + text.start(), _string(text[0])
     else:
         patterns = [
             rf"\b(?:tr|translate)\(\s*(?:\(\s*)?&?({STRING})",
             rf"(?:thought_requested\.emit|show_thought|objective_changed\.emit)\(\s*(?:\(\s*)?({STRING})",
             rf"objective_changed\.emit\(\s*{STRING}\s*,\s*({STRING})",
-            rf'["\'](?:{DATA_FIELDS})["\']\s*:\s*(?:\(\s*)?({STRING})',
             rf"(?m)^@export[^\n]*\b(?:{SCENE_FIELDS})[^=\n]*=\s*(?:\(\s*)?({STRING})",
         ]
-        for match in re.finditer(r'''["']options["']\s*:\s*\[([^\]]*)\]''', source):
-            for text in re.finditer(STRING, match[1]):
-                yield match.start(1) + text.start(), _string(text[0])
-        if path.name == "player_bindings.gd":
-            actions = re.search(r"const ACTIONS[^=]*=\s*\{([^}]+)\}", source)
-            for text in re.finditer(rf":\s*({STRING})", actions[1] if actions else ""):
-                yield actions.start(1) + text.start(1), _string(text[1])
-        if path.name == "input_hints.gd":
-            for text in re.finditer(rf":\s*({STRING})|\.get\(event.button_index,\s*({STRING})", source):
-                token = text[1] or text[2]
-                yield text.start(), _string(token)
+        for line in re.finditer(r"(?m)^\s*[\w.]*\bcaption\s*=(.*)$", source):
+            for text in re.finditer(STRING, line[1]):
+                yield line.start(1) + text.start(), _string(text[0])
+        for table in re.finditer(r"const (?:ACTIONS|\w+_(?:LABELS|NAMES))\b[^=]*=\s*\{([^}]+)\}", source):
+            for text in re.finditer(rf":\s*({STRING})", table[1]):
+                yield table.start(1) + text.start(1), _string(text[1])
     for pattern in patterns:
         for match in re.finditer(pattern, source):
             yield match.start(1), _string(match[1])
-
 
 
 def _string(token):
@@ -59,7 +55,7 @@ def render():
     messages = defaultdict(set)
     for folder in ("Code", "GameData", "Scenes"):
         for path in sorted((PROJECT / folder).rglob("*")):
-            if path.suffix not in (".gd", ".tscn"):
+            if path.suffix not in (".gd", ".tscn", ".tres"):
                 continue
             source = path.read_text(encoding="utf-8")
             for offset, message in extract(path):

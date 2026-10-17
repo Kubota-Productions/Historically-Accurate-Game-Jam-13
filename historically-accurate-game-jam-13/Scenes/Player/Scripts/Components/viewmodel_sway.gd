@@ -1,4 +1,9 @@
+class_name ViewmodelSway
 extends Node
+
+const RENDER_PRIORITY := 126
+const CUT_ANGLE := 0.7
+const CUT_DELTA := 0.25
 
 @export var visual: Node3D
 @export var camera: Camera3D
@@ -9,7 +14,7 @@ extends Node
 
 var _rest: Transform3D
 var _previous: Quaternion
-var _offset := Vector3.ZERO
+var offset := Vector3.ZERO
 var _appearance := ViewmodelAppearance.new()
 
 
@@ -17,7 +22,7 @@ func _ready() -> void:
 	_rest = visual.transform
 	_previous = camera.global_basis.get_rotation_quaternion()
 	if render_as_viewmodel:
-		_appearance.apply(visual, 126)
+		_appearance.apply(visual, RENDER_PRIORITY)
 
 
 func _process(delta: float) -> void:
@@ -26,8 +31,8 @@ func _process(delta: float) -> void:
 	if difference.w < 0.0:
 		difference = -difference
 	_previous = current
-	if difference.get_angle() > 0.7 or delta > 0.25:
-		_offset = Vector3.ZERO
+	if difference.get_angle() > CUT_ANGLE or delta > CUT_DELTA:
+		offset = Vector3.ZERO
 	else:
 		var angles := difference.get_euler()
 		var limit := deg_to_rad(max_angle)
@@ -38,5 +43,5 @@ func _process(delta: float) -> void:
 			clampf(-angles.y * lag, -limit, limit),
 			0.0
 		)
-		_offset = _offset.lerp(goal, 1.0 - exp(-rate * delta))
-	visual.transform = Transform3D(_rest.basis * Basis.from_euler(_offset), _rest.origin)
+		offset = offset.lerp(goal, 1.0 - exp(-rate * delta))
+	visual.transform = Transform3D(_rest.basis * Basis.from_euler(offset), _rest.origin)

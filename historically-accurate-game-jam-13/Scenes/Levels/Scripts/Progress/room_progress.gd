@@ -3,44 +3,49 @@ extends Node
 
 var room: LaikaRoom
 var _flags: Dictionary[StringName, bool] = {}
-var _dialogues: Dictionary[StringName, Callable] = {}
-var _events: Dictionary[StringName, Callable] = {}
 
 
-func setup(owner_room: LaikaRoom) -> void:
-	room = owner_room
+func _ready() -> void:
+	room = owner as LaikaRoom
+
+
+static func declared(constant: StringName) -> PackedStringArray:
+	var names: PackedStringArray = []
+	for info: Dictionary in ProjectSettings.get_global_class_list():
+		if info.base == &"RoomProgress":
+			for name: StringName in load(info.path).get_script_constant_map().get(constant, []):
+				if not name in names:
+					names.append(name)
+	return names
 
 
 func begin() -> void:
 	pass
 
 
-func knows_flag(flag: StringName) -> bool:
-	return _flags.has(flag)
+func dialogue_finished(_dialogue: Dialogue) -> void:
+	pass
+
+
+func handle_event(_event: StringName) -> void:
+	pass
 
 
 func has_flag(flag: StringName) -> bool:
 	return _flags.get(flag, false)
 
 
-func set_flag(flag: StringName, value: bool) -> void:
+func set_flag(flag: StringName, value: bool = true) -> void:
+	assert(knows_flag(flag), "Declare %s in FLAGS." % flag)
 	_flags[flag] = value
 
 
-func complete_dialogue(id: StringName) -> void:
-	if _dialogues.has(id):
-		_dialogues[id].call()
+func knows_flag(flag: StringName) -> bool:
+	return flag in get_script().get_script_constant_map().get(&"FLAGS", [])
 
 
-func supports_event(id: StringName) -> bool:
-	return _events.has(id)
-
-
-func handle_event(id: StringName, source: LaikaInteractionPoint) -> void:
-	if supports_event(id):
-		_events[id].call(source)
-	else:
-		push_error("%s: unknown event '%s'." % [get_path(), id])
+func knows_event(event: StringName) -> bool:
+	return event in get_script().get_script_constant_map().get(&"EVENTS", [])
 
 
 func configuration_errors() -> PackedStringArray:

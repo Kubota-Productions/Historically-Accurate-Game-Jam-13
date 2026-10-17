@@ -6,15 +6,11 @@
 
 [ext_resource type="Script" path="res://Scenes/Player/Scripts/Components/viewmodel_sway.gd" id="sway"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jbdec"]
-
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=1514709304 node_paths=PackedStringArray("collision_shape")]
 script = ExtResource("2_ryt0y")
 collision_shape = NodePath("CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=201103082]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_jbdec")
 
 [node name="CameraHolder" type="Node3D" parent="." unique_id=73516174 node_paths=PackedStringArray("player", "camera")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6, 0)
@@ -24,7 +20,8 @@ camera = NodePath("Camera3D")
 stand_eye_height = 0.5
 
 [node name="Camera3D" type="Camera3D" parent="CameraHolder" unique_id=359298848]
-fov = 120.0
+keep_aspect = 0
+fov = 100.0
 
 [node name="CarryAnchor" type="Marker3D" parent="CameraHolder/Camera3D" unique_id=600336193]
 

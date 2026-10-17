@@ -3,23 +3,31 @@ extends Node
 
 signal changed(active: bool)
 
-var room: LaikaRoom
+var active: bool = false
 var enabled: bool = false:
 	set(value):
 		enabled = value
-		if not enabled and room:
-			_update(false)
-var active: bool = false
+		_set_active(active and enabled)
+
+@onready var room: LaikaRoom = owner
+
+
+func _ready() -> void:
+	room.carry.changed.connect(func(_item_name: String) -> void: refresh())
 
 
 func _process(_delta: float) -> void:
-	_update(enabled and Input.is_action_pressed(&"sniff"))
+	_set_active(enabled and Input.is_action_pressed(&"sniff"))
 
 
-func _update(value: bool) -> void:
-	for target: LaikaInteractionPoint in room.get_interactions():
-		if is_instance_valid(target.scent_marker):
-			target.scent_marker.visible = value and target != room.carry.item and target.is_visible_in_tree()
-	if active != value:
-		active = value
-		changed.emit(active)
+func refresh() -> void:
+	for item: PickupItem in get_tree().get_nodes_in_group(&"pickups"):
+		item.show_scent(active and item != room.carry.item and room.is_ancestor_of(item))
+
+
+func _set_active(value: bool) -> void:
+	if value == active:
+		return
+	active = value
+	refresh()
+	changed.emit(active)

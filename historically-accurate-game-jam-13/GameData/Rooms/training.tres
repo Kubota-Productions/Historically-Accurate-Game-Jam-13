@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="RoomDefinition" format=3]
+
+[ext_resource type="Script" path="res://Code/Definitions/room_definition.gd" id="room"]
+
+[resource]
+script = ExtResource("room")
+scene_path = "res://Scenes/Levels/TrainingRoom.tscn"
+title = "01  /  A VERY GOOD EMPLOYEE"
+heading = "01  /  EARTH · TRAINING ROOM"

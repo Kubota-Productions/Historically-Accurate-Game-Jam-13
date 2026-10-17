@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="Dialogue" format=3]
+
+[ext_resource type="Script" path="res://Code/Definitions/dialogue_line.gd" id="1_bfbay"]
+[ext_resource type="Script" path="res://Code/Definitions/dialogue.gd" id="2_kq1u2"]
+
+[sub_resource type="Resource" id="Resource_jv252"]
+script = ExtResource("1_bfbay")
+speaker = "SCIENTIST"
+text = "There you are. Best colleague I've ever had. Very few complaints."
+bark = true
+
+[resource]
+script = ExtResource("2_kq1u2")
+lines = Array[ExtResource("1_bfbay")]([SubResource("Resource_jv252")])

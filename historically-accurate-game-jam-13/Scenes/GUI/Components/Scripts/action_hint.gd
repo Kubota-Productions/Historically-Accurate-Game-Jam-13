@@ -1,25 +1,25 @@
+@tool
+class_name ActionHint
 extends PanelContainer
 
-@export var action: StringName = &"interact"
-@export var caption: String = "Interact"
+const UNAVAILABLE_ALPHA := 0.48
 
-@onready var key_label: Label = %Key
-@onready var caption_label: Label = %Caption
+@export var action: StringName = &"interact"
+@export var caption: String = "Interact":
+	set(value):
+		caption = value
+		if is_node_ready():
+			refresh()
+@export var available: bool = true:
+	set(value):
+		available = value
+		modulate.a = 1.0 if available else UNAVAILABLE_ALPHA
 
 
 func _ready() -> void:
-	refresh_bindings()
+	refresh()
 
 
-func refresh_bindings() -> void:
-	key_label.text = InputHints.key(action)
-	caption_label.text = tr(caption)
-
-
-func set_caption(text: String) -> void:
-	caption = text
-	caption_label.text = tr(text)
-
-
-func set_available(available: bool) -> void:
-	modulate.a = 1.0 if available else 0.48
+func refresh() -> void:
+	%Key.text = InputHints.key(action)
+	%Caption.text = tr(caption)

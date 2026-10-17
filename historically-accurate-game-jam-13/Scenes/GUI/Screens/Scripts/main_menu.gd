@@ -1,3 +1,4 @@
+class_name MainMenu
 extends Control
 
 signal start_requested
@@ -6,9 +7,9 @@ signal quit_requested
 
 
 func _ready() -> void:
-	%Start.pressed.connect(func() -> void: start_requested.emit())
-	%Settings.pressed.connect(func() -> void: settings_requested.emit())
-	%Quit.pressed.connect(func() -> void: quit_requested.emit())
+	%Start.pressed.connect(start_requested.emit)
+	%Settings.pressed.connect(settings_requested.emit)
+	%Quit.pressed.connect(quit_requested.emit)
 
 
 func open() -> void:

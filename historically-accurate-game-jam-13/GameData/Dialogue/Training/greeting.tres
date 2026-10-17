@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="Dialogue" format=3]
+
+[ext_resource type="Script" path="res://Code/Definitions/dialogue_line.gd" id="1_h23gy"]
+[ext_resource type="Script" path="res://Code/Definitions/dialogue.gd" id="2_8j8cw"]
+
+[sub_resource type="Resource" id="Resource_x5hm8"]
+script = ExtResource("1_h23gy")
+speaker = "SCIENTIST"
+text = "Good morning, little cosmonaut. Ready for our game?"
+bark = true
+
+[sub_resource type="Resource" id="Resource_a64hl"]
+script = ExtResource("1_h23gy")
+speaker = "SCIENTIST"
+text = "Find two batteries and bring them to the low training stand. One at a time. Follow your nose!"
+
+[resource]
+script = ExtResource("2_8j8cw")
+lines = Array[ExtResource("1_h23gy")]([SubResource("Resource_x5hm8"), SubResource("Resource_a64hl")])

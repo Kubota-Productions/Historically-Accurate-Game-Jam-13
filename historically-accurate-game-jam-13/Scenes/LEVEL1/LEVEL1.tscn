@@ -20,7 +20,6 @@ albedo_texture = ExtResource("1_sqsj1")
 [node name="Level1" type="Node3D" unique_id=1206311036]
 
 [node name="ScreenSpaceProjection" parent="." unique_id=2131587968 instance=ExtResource("1_ckpph")]
-strength = 1.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="ScreenSpaceProjection/ProjectionInput" parent_id_path=PackedInt32Array(2131587968, 1493971111) index="0" unique_id=596383291]
 environment = SubResource("Environment_unb0y")

@@ -19,10 +19,17 @@ def main():
         environment = os.environ.copy()
         for key, directory in [("XDG_CONFIG_HOME", "config"), ("XDG_DATA_HOME", "data"), ("XDG_CACHE_HOME", "cache")]:
             environment[key] = str(Path(profile) / directory)
-        for script in ["res://Tools/validate_project.gd", "res://tests/whole_flow/authoring_flow.gd"]:
-            result = subprocess.run([arguments.godot, "--headless", "--path", str(PROJECT), "--script", script], env=environment, timeout=90)
-            if result.returncode:
-                return result.returncode
+        godot = [arguments.godot, "--headless", "--path", str(PROJECT)]
+        subprocess.run(godot + ["--import"], env=environment, timeout=300, capture_output=True)
+        tests = sorted(PROJECT.glob("tests/unit/*_test.gd")) + sorted(PROJECT.glob("tests/whole_flow/*_flow.gd"))
+        failed = []
+        for script in tests:
+            path = "res://" + script.relative_to(PROJECT).as_posix()
+            if subprocess.run(godot + ["--script", path], env=environment, timeout=180).returncode:
+                failed.append(path)
+        if failed:
+            print("Failed: " + ", ".join(failed))
+            return 1
     unit_tests = subprocess.call([sys.executable, "-m", "unittest", "discover", "-s", str(PROJECT / "Tools/Localization"), "-p", "test_*.py"])
     if unit_tests:
         return unit_tests

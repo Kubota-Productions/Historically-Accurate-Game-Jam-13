@@ -1,36 +1,31 @@
 class_name DialogueSession
 extends RefCounted
 
-signal line_changed(bark_required: bool)
-signal finished(id: StringName)
+signal line_changed
+signal finished(dialogue: Dialogue)
 signal bark_requested
 
-var id: StringName
-var lines: Array = []
+var dialogue: Dialogue
 var index: int = 0
-var active: bool = false
+var active: bool:
+	get: return dialogue != null
 
 
-func open(dialogue_id: StringName, content: Array) -> bool:
-	var errors := content_errors(content)
-	if not errors.is_empty():
-		push_warning("Dialogue %s: %s" % [dialogue_id, "; ".join(errors)])
+func open(next: Dialogue) -> bool:
+	if active or next == null or next.lines.is_empty():
 		return false
-	close()
-	id = dialogue_id
-	lines = content.duplicate(true)
-	active = not lines.is_empty()
-	if active:
-		line_changed.emit(requires_bark())
-	return active
+	dialogue = next
+	index = 0
+	line_changed.emit()
+	return true
 
 
-func current() -> Dictionary:
-	return lines[index] if active else {}
+func current() -> DialogueLine:
+	return dialogue.lines[index]
 
 
 func requires_bark() -> bool:
-	return active and bool(current().get("bark", false))
+	return active and current().bark
 
 
 func advance(bark: bool) -> void:
@@ -39,27 +34,14 @@ func advance(bark: bool) -> void:
 	if bark:
 		bark_requested.emit()
 	index += 1
-	if index == lines.size():
-		close()
-		finished.emit(id)
-	else:
-		line_changed.emit(requires_bark())
+	if index < dialogue.lines.size():
+		line_changed.emit()
+		return
+	var done := dialogue
+	close()
+	finished.emit(done)
 
 
 func close() -> void:
-	active = false
+	dialogue = null
 	index = 0
-	lines = []
-
-
-static func content_errors(content: Array) -> PackedStringArray:
-	var errors: PackedStringArray = []
-	if content.is_empty():
-		errors.append("lines: add at least one line.")
-	for line: int in content.size():
-		var entry: Variant = content[line]
-		if not entry is Dictionary or not entry.get("text") is String or entry.get("text", "").is_empty():
-			errors.append("line %d: text must be a nonempty string." % (line + 1))
-		elif not entry.get("speaker", "") is String or not entry.get("bark", false) is bool:
-			errors.append("line %d: speaker must be text and bark must be boolean." % (line + 1))
-	return errors

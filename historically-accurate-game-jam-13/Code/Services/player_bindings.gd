@@ -8,108 +8,103 @@ const ACTIONS: Dictionary[StringName, String] = {
 	&"backwards": "Move backward",
 	&"left": "Move left",
 	&"right": "Move right",
-	&"Jump": "Jump",
+	&"jump": "Jump",
 	&"interact": "Interact",
 	&"drop": "Put down item",
 	&"bark": "Bark",
 	&"sniff": "Sniff (hold)",
 }
+const MOUSE_BUTTONS: Array[MouseButton] = [MOUSE_BUTTON_LEFT, MOUSE_BUTTON_RIGHT, MOUSE_BUTTON_MIDDLE, MOUSE_BUTTON_XBUTTON1, MOUSE_BUTTON_XBUTTON2]
+const MODIFIERS: Array[Key] = [KEY_SHIFT, KEY_CTRL, KEY_ALT, KEY_META]
 
-var _defaults: Dictionary = {}
+var _defaults: Dictionary[StringName, InputEvent] = {}
 
 
 func _init() -> void:
 	for action: StringName in ACTIONS:
-		var definition: Dictionary = ProjectSettings.get_setting("input/" + str(action), {})
-		_defaults[action] = definition.get("events", []).slice(0, 1).duplicate(true)
+		_defaults[action] = ProjectSettings.get_setting("input/" + action).events[0]
 
 
-func assign(action: StringName, event: InputEvent) -> String:
-	if not ACTIONS.has(action):
-		return tr("Unknown control.")
-	if event == null:
-		return tr("Each action needs one binding. Choose a replacement.")
-	if not event is InputEventKey and not event is InputEventMouseButton:
-		return tr("Use a keyboard key or a mouse button.")
+static func normalized(event: InputEvent) -> InputEvent:
 	if event is InputEventKey:
-		if event.physical_keycode == KEY_ESCAPE:
-			return tr("Escape is reserved for going back. Choose another key.")
-		if event.physical_keycode in [KEY_SHIFT, KEY_CTRL, KEY_ALT, KEY_META]:
-			return tr("Choose a key other than a modifier.")
+		var key := InputEventKey.new()
+		key.physical_keycode = event.physical_keycode if event.physical_keycode else event.keycode
+		return key
+	if event is InputEventMouseButton:
+		var mouse := InputEventMouseButton.new()
+		mouse.button_index = event.button_index
+		return mouse
+	return null
+
+
+func problem(action: StringName, event: InputEvent) -> String:
+	var unusable := _unusable(event)
+	if not unusable.is_empty():
+		return unusable
 	for other: StringName in ACTIONS:
-		if other == action:
-			continue
-		for binding: InputEvent in InputMap.action_get_events(other):
-			if binding.is_match(event):
-				return tr("Already assigned to %s.") % tr(ACTIONS[other])
-	InputMap.action_erase_events(action)
-	InputMap.action_add_event(action, event.duplicate())
-	changed.emit()
+		if other != action and event_for(other).is_match(event):
+			return tr("Already assigned to %s.") % tr(ACTIONS[other])
 	return ""
+
+
+func assign(action: StringName, event: InputEvent) -> void:
+	InputMap.action_erase_events(action)
+	InputMap.action_add_event(action, event)
+	changed.emit()
+
+
+func event_for(action: StringName) -> InputEvent:
+	return InputMap.action_get_events(action)[0]
 
 
 func reset() -> void:
 	for action: StringName in ACTIONS:
 		InputMap.action_erase_events(action)
-		for event: InputEvent in _defaults[action]:
-			InputMap.action_add_event(action, event.duplicate())
+		InputMap.action_add_event(action, _defaults[action])
 	changed.emit()
 
 
 func save(config: ConfigFile) -> void:
 	for action: StringName in ACTIONS:
-		var event: InputEvent = InputMap.action_get_events(action)[0]
-		var value: Dictionary = {}
+		var event := event_for(action)
 		if event is InputEventKey:
-			value = {"key": event.physical_keycode}
-		elif event is InputEventMouseButton:
-			value = {"mouse": event.button_index}
-		config.set_value("bindings", action, value)
+			config.set_value("bindings", action, {"key": event.physical_keycode})
+		else:
+			config.set_value("bindings", action, {"mouse": event.button_index})
 
 
-func load_saved(config: ConfigFile) -> void:
-	var used: Array[InputEvent] = []
-	var resolved: Dictionary = {}
+func restore(config: ConfigFile) -> void:
+	var loaded: Dictionary[StringName, InputEvent] = {}
 	for action: StringName in ACTIONS:
-		var saved: Variant = config.get_value("bindings", action, [])
-		var values: Variant = [saved] if saved is Dictionary else saved
-		var events: Array[InputEvent] = []
-		if values is Array:
-			for value: Variant in values:
-				if events.size() == 1:
-					break
-				if not value is Dictionary:
-					continue
-				var event: InputEvent
-				if value.has("key") and int(value.key) > 0 and int(value.key) != KEY_ESCAPE:
-					event = InputEventKey.new()
-					event.physical_keycode = int(value.key)
-				elif value.has("mouse") and int(value.mouse) in [MOUSE_BUTTON_LEFT, MOUSE_BUTTON_RIGHT, MOUSE_BUTTON_MIDDLE, MOUSE_BUTTON_XBUTTON1, MOUSE_BUTTON_XBUTTON2]:
-					event = InputEventMouseButton.new()
-					event.button_index = int(value.mouse)
-				if event != null and not _contains(used, event):
-					events.append(event)
-					used.append(event)
-		resolved[action] = events
+		var event := _decode(config.get_value("bindings", action, {}))
+		loaded[action] = event if event and _unusable(event).is_empty() else _defaults[action]
 	for action: StringName in ACTIONS:
-		if resolved[action].is_empty():
-			for event: InputEvent in _defaults[action]:
-				if not _contains(used, event):
-					resolved[action].append(event)
-					used.append(event)
-					break
-		if resolved[action].is_empty():
+		if loaded.values().filter(loaded[action].is_match).size() > 1:
 			reset()
 			return
-	for action: StringName in ACTIONS:
+	for action: StringName in loaded:
 		InputMap.action_erase_events(action)
-		for event: InputEvent in resolved[action]:
-			InputMap.action_add_event(action, event)
+		InputMap.action_add_event(action, loaded[action])
 	changed.emit()
 
 
-func _contains(events: Array[InputEvent], candidate: InputEvent) -> bool:
-	for event: InputEvent in events:
-		if event.is_match(candidate):
-			return true
-	return false
+func _unusable(event: InputEvent) -> String:
+	if event is InputEventKey and event.physical_keycode == KEY_ESCAPE:
+		return tr("Escape is reserved for going back. Choose another key.")
+	if event is InputEventKey and event.physical_keycode in MODIFIERS:
+		return tr("Choose a key other than a modifier.")
+	if not event is InputEventKey and not (event is InputEventMouseButton and event.button_index in MOUSE_BUTTONS):
+		return tr("Use a keyboard key or a mouse button.")
+	return ""
+
+
+func _decode(value: Variant) -> InputEvent:
+	if value is Dictionary and value.get("key") is int:
+		var key := InputEventKey.new()
+		key.physical_keycode = value.key
+		return key
+	if value is Dictionary and value.get("mouse") is int:
+		var mouse := InputEventMouseButton.new()
+		mouse.button_index = value.mouse
+		return mouse
+	return null
