@@ -27,3 +27,14 @@ transform = Transform3D(-0.9475268, 0.29244632, 0.12910491, -0.20046951, -0.2289
 
 [node name="Laika2" parent="." unique_id=28737398 instance=ExtResource("1_pojo2")]
 transform = Transform3D(0.9055687, 0, 0.42419925, 0, 1, 0, -0.42419925, 0, 0.9055687, -0.305623, -0.467, 13.0274)
+
+[node name="LookAtModifier3D" type="LookAtModifier3D" parent="Laika2/metarig/Skeleton3D" parent_id_path=PackedInt32Array(28737398, 509672667) index="2" unique_id=1237842664]
+transform = Transform3D(-0.9950095, 0, -2.1241183, 0, 2.3456178, 0, 2.1241183, 0, -0.9950095, 27.367641, 1.0954036, 13.611566)
+target_node = NodePath("../../../../LookAtTarget")
+bone_name = "spine.011"
+bone = 25
+
+[node name="LookAtTarget" type="Marker3D" parent="." unique_id=1491252049]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.030343354, -0.4068977, 12.8753605)
+
+[editable path="Laika2"]
