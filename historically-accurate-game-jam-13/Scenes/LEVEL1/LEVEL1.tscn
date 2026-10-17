@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dey2ol06a0irs"]
 
-[ext_resource type="PackedScene" uid="uid://7l5j66jr6abv" path="res://addons/screenspace_projection/screenspace_projection.tscn" id="1_ckpph"]
+[ext_resource type="PackedScene" uid="uid://7l5j66jr6abv" path="res://Scenes/GUI/Components/screenspace_projection/screenspace_projection.tscn" id="1_ckpph"]
 [ext_resource type="PackedScene" uid="uid://c5xf5awwvo5et" path="res://Scenes/Player/FPSPlayer.tscn" id="1_npl10"]
 [ext_resource type="Texture2D" uid="uid://bfid7u0y7y80p" path="res://Assets/Textures/checkermat.png" id="1_sqsj1"]
 [ext_resource type="PackedScene" uid="uid://dtq0tw3wyee66" path="res://Assets/3D/Laika.blend" id="2_vpw66"]

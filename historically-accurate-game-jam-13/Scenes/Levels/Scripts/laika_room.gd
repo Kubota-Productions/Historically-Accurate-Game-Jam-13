@@ -39,7 +39,7 @@ var _last_prompt: String = ""
 
 
 func _ready() -> void:
-	set_control_enabled(false)
+	#set_control_enabled(false)
 	menu_camera.make_current()
 	if station:
 		step = Step.ARRIVAL
@@ -66,7 +66,7 @@ func _process(_delta: float) -> void:
 
 func begin() -> void:
 	camera.make_current()
-	set_control_enabled(true)
+	#set_control_enabled(true)
 	carrying_changed.emit("")
 	if station:
 		objective_changed.emit("Find the source of the voice", "STATION  /  ARRIVAL")
@@ -136,7 +136,7 @@ func interact() -> void:
 			thought_requested.emit("Test complete. Time to get into the capsule.")
 	elif id == &"capsule":
 		if step == Step.CAPSULE:
-			set_control_enabled(false)
+			#set_control_enabled(false)
 			departure_requested.emit()
 		else:
 			thought_requested.emit("He hasn't said it's bedtime yet.")

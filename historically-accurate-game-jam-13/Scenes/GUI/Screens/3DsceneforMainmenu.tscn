@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://bk05boen1qcte"]
+
+[ext_resource type="PackedScene" uid="uid://dtq0tw3wyee66" path="res://Assets/3D/Laika.blend" id="1_pojo2"]
+
+[node name="3DsceneforMainmenu" type="Node3D" unique_id=298057427]
+
+[node name="SubViewport" type="SubViewport" parent="." unique_id=1592210427]
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1920, 1080)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport" unique_id=47120132]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="AreaLight3D" type="AreaLight3D" parent="." unique_id=1079209597]
+transform = Transform3D(-0.8597861, 0.07350958, -0.5053357, -0.26322976, 0.78418016, 0.5619354, 0.43758187, 0.61616373, -0.6548774, -0.471, 0.403, 0.419)
+light_color = Color(0.5068133, 0.3554104, 9.62615e-08, 1)
+light_energy = 9.49
+
+[node name="AreaLight3D2" type="AreaLight3D" parent="." unique_id=1828294889]
+transform = Transform3D(0.9475268, -0.2924462, -0.12910496, -0.20046954, -0.22899938, -0.95256037, 0.24900767, 0.9284581, -0.2756096, 0.43322083, -0.467, 0.689)
+light_color = Color(0, 0.39396086, 0.6879056, 1)
+light_energy = 9.49
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=814140790]
+transform = Transform3D(0.9475268, -0.2924462, -0.12910496, -0.20046954, -0.22899938, -0.95256037, 0.24900767, 0.9284581, -0.2756096, -0.424, -0.467, 1.494)
+
+[node name="Laika2" parent="." unique_id=28737398 instance=ExtResource("1_pojo2")]
+transform = Transform3D(-0.9055687, 0, -0.4241993, 0, 1, 0, 0.4241993, 0, -0.9055687, 0.2015189, -0.467, 0.689)

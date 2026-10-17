@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://7l5j66jr6abv"]
 
-[ext_resource type="Script" uid="uid://d06w6qvkqm62r" path="res://addons/screenspace_projection/screenspace_projection.gd" id="1_qki4j"]
-[ext_resource type="Shader" uid="uid://d3q7ed1bj00d4" path="res://addons/screenspace_projection/screenspace_projection.gdshader" id="2_7752h"]
+[ext_resource type="Script" uid="uid://d06w6qvkqm62r" path="res://Scenes/GUI/Components/screenspace_projection/screenspace_projection.gd" id="1_qki4j"]
+[ext_resource type="Shader" uid="uid://d3q7ed1bj00d4" path="res://Scenes/GUI/Components/screenspace_projection/screenspace_projection.gdshader" id="2_7752h"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_noarx"]
 render_priority = 0

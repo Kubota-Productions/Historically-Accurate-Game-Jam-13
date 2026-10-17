@@ -1,66 +1,68 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dsb614rtuh4w4"]
 
-[ext_resource type="Script" path="res://Scenes/Shared/Scripts/asset_group.gd" id="asset_group"]
-
-[ext_resource type="Script" path="res://Scenes/Levels/Scripts/laika_room.gd" id="script"]
+[ext_resource type="Script" uid="uid://jivklbtxb5ki" path="res://Scenes/Shared/Scripts/asset_group.gd" id="asset_group"]
 [ext_resource type="PackedScene" path="res://Scenes/Shared/RoomGeometry.tscn" id="geo"]
-[ext_resource type="PackedScene" path="res://Scenes/Player/FPSPlayer.tscn" id="player"]
-[ext_resource type="Script" path="res://Scenes/Shared/Scripts/interaction_point.gd" id="interaction"]
-
-[sub_resource type="StandardMaterial3D" id="Cream"]
-albedo_color = Color(0.81, 0.81, 0.81, 1.0)
-roughness = 0.85
-
-[sub_resource type="StandardMaterial3D" id="Green"]
-albedo_color = Color(0.217, 0.217, 0.217, 1.0)
-roughness = 0.85
-
-[sub_resource type="StandardMaterial3D" id="Black"]
-albedo_color = Color(0.1, 0.1, 0.1, 1.0)
-roughness = 0.85
+[ext_resource type="Script" uid="uid://dtn5af0ay3lfq" path="res://Scenes/Shared/Scripts/interaction_point.gd" id="interaction"]
+[ext_resource type="PackedScene" uid="uid://c5xf5awwvo5et" path="res://Scenes/Player/FPSPlayer.tscn" id="player"]
+[ext_resource type="Script" uid="uid://djghgf8bfy3dg" path="res://Scenes/Levels/Scripts/laika_room.gd" id="script"]
 
 [sub_resource type="BoxShape3D" id="Shape_Robot"]
 size = Vector3(1.1, 1.3, 0.9)
 
+[sub_resource type="StandardMaterial3D" id="Cream"]
+albedo_color = Color(0.81, 0.81, 0.81, 1)
+roughness = 0.85
+
 [sub_resource type="BoxMesh" id="RobotBlock"]
 size = Vector3(1.1, 1.3, 0.9)
 
-[node name="StationRoom" type="Node3D"]
+[sub_resource type="StandardMaterial3D" id="Green"]
+albedo_color = Color(0.217, 0.217, 0.217, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Black"]
+albedo_color = Color(0.1, 0.1, 0.1, 1)
+roughness = 0.85
+
+[node name="StationRoom" type="Node3D" unique_id=720021548]
 script = ExtResource("script")
 station = true
 
+[node name="Actors" type="Node3D" parent="." unique_id=1205687545]
 
-[node name="Actors" type="Node3D" parent="."]
-
-[node name="Robot" type="Node3D" parent="Actors"]
-position = Vector3(0, 0.65, -0.6)
+[node name="Robot" type="Node3D" parent="Actors" unique_id=1521346724]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, -0.6)
 script = ExtResource("asset_group")
 
-[node name="Props" type="Node3D" parent="."]
+[node name="Interaction" type="StaticBody3D" parent="Actors/Robot" unique_id=1454112376]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("interaction")
+interaction_id = &"robot"
+display_name = "Talk to the service robot"
 
-[node name="LeftConsole" type="Node3D" parent="Props"]
-position = Vector3(-3.5, 0, -2)
-script = ExtResource("asset_group")
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Actors/Robot/Interaction" unique_id=1303950124]
+shape = SubResource("Shape_Robot")
 
-[node name="RightConsole" type="Node3D" parent="Props"]
-position = Vector3(3.5, 0, -2)
-script = ExtResource("asset_group")
+[node name="Visuals" type="Node3D" parent="Actors/Robot" unique_id=1422779190]
 
-[node name="Cameras" type="Node3D" parent="."]
+[node name="Body" type="MeshInstance3D" parent="Actors/Robot/Visuals" unique_id=616360876]
+material_override = SubResource("Cream")
+mesh = SubResource("RobotBlock")
 
-[node name="Hints" type="Node3D" parent="."]
+[node name="Name" type="Label3D" parent="Actors/Robot" unique_id=584570248]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95, 0)
+pixel_size = 0.003
+billboard = 1
+modulate = Color(0.897, 0.897, 0.897, 1)
+text = "ROBOT"
+font_size = 28
+outline_size = 0
 
-[node name="Geometry" parent="." instance=ExtResource("geo")]
-
-[node name="Windows" parent="Geometry/Architecture" index="3"]
-enabled = false
-
-
-
-[node name="Player" parent="Actors" instance=ExtResource("player")]
-position = Vector3(0, 0.05, 3.6)
-walk_speed = 3.0
+[node name="Player" parent="Actors" unique_id=290791286 instance=ExtResource("player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 3.6)
 run_speed = 4.5
+walk_speed = 3.0
 jump_height = 0.7
 auto_bhop = false
 body_radius = 0.22
@@ -71,111 +73,75 @@ max_drop_height = 0.25
 min_tread_depth = 0.2
 auto_crouch = false
 
+[node name="Props" type="Node3D" parent="." unique_id=1767283693]
 
-[node name="CameraHolder" parent="Actors/Player" index="1"]
-stand_eye_height = 0.68
-crouch_eye_height = 0.4
-capture_mouse = false
-fov = 78.0
-strafe_roll_deg = 0.7
+[node name="LeftConsole" type="Node3D" parent="Props" unique_id=1886352046]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0, -2)
+script = ExtResource("asset_group")
 
-
-[node name="Camera3D" parent="Actors/Player/CameraHolder" index="0"]
-position = Vector3(0, 0, 0)
-
-
-
-
-[node name="MenuCamera" type="Camera3D" parent="Cameras"]
-position = Vector3(6, 3.1, 5.8)
-rotation_degrees = Vector3(-15, 35, 0)
-cull_mask = 1048573
-fov = 65.0
-current = true
-
-
-[node name="ScentMarkers" type="Node3D" parent="Hints"]
-visible = false
-
-
-[node name="WallTitle" type="Label3D" parent="Hints"]
-position = Vector3(0, 3.65, -4.7)
-text = "STATION"
-font_size = 48
-pixel_size = 0.003
-modulate = Color(0.897, 0.897, 0.897, 1.0)
-outline_size = 0
-
-
-[node name="Interaction" type="StaticBody3D" parent="Actors/Robot"]
-position = Vector3(0, 0, 0)
-collision_layer = 2
-collision_mask = 0
-script = ExtResource("interaction")
-interaction_id = &"robot"
-display_name = "Talk to the service robot"
-
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Actors/Robot/Interaction"]
-shape = SubResource("Shape_Robot")
-
-
-[node name="Visuals" type="Node3D" parent="Actors/Robot"]
-
-[node name="Body" type="MeshInstance3D" parent="Actors/Robot/Visuals"]
-mesh = SubResource("RobotBlock")
-material_override = SubResource("Cream")
-
-[node name="Name" type="Label3D" parent="Actors/Robot"]
-position = Vector3(0, 0.95, 0)
-text = "ROBOT"
-font_size = 28
-pixel_size = 0.003
-modulate = Color(0.897, 0.897, 0.897, 1.0)
-outline_size = 0
-billboard = 1
-
-[node name="Body" type="CSGBox3D" parent="Props/LeftConsole"]
-position = Vector3(0, 0.7, 0)
+[node name="Body" type="CSGBox3D" parent="Props/LeftConsole" unique_id=567709482]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+use_collision = true
 size = Vector3(1.5, 1.4, 0.8)
 material = SubResource("Green")
-use_collision = true
 
-
-[node name="Screen" type="CSGBox3D" parent="Props/LeftConsole"]
-position = Vector3(0, 1, 0.45)
+[node name="Screen" type="CSGBox3D" parent="Props/LeftConsole" unique_id=517478733]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.45)
 size = Vector3(1.1, 0.55, 0.04)
 material = SubResource("Black")
-use_collision = false
 
-
-[node name="Readout" type="Label3D" parent="Props/LeftConsole"]
-position = Vector3(0, 1, 0.5)
+[node name="Readout" type="Label3D" parent="Props/LeftConsole" unique_id=2117546737]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.5)
+pixel_size = 0.003
+modulate = Color(0.897, 0.897, 0.897, 1)
 text = "NO SIGNAL"
 font_size = 19
-pixel_size = 0.003
-modulate = Color(0.897, 0.897, 0.897, 1.0)
 outline_size = 0
 
+[node name="RightConsole" type="Node3D" parent="Props" unique_id=1638511498]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, -2)
+script = ExtResource("asset_group")
 
-[node name="Body" type="CSGBox3D" parent="Props/RightConsole"]
-position = Vector3(0, 0.7, 0)
+[node name="Body" type="CSGBox3D" parent="Props/RightConsole" unique_id=1250875108]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
+use_collision = true
 size = Vector3(1.5, 1.4, 0.8)
 material = SubResource("Green")
-use_collision = true
 
-
-[node name="Screen" type="CSGBox3D" parent="Props/RightConsole"]
-position = Vector3(0, 1, 0.45)
+[node name="Screen" type="CSGBox3D" parent="Props/RightConsole" unique_id=478896776]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.45)
 size = Vector3(1.1, 0.55, 0.04)
 material = SubResource("Black")
-use_collision = false
 
-
-[node name="Readout" type="Label3D" parent="Props/RightConsole"]
-position = Vector3(0, 1, 0.5)
+[node name="Readout" type="Label3D" parent="Props/RightConsole" unique_id=1794927906]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.5)
+pixel_size = 0.003
+modulate = Color(0.897, 0.897, 0.897, 1)
 text = "AWAITING OPERATOR"
 font_size = 19
-pixel_size = 0.003
-modulate = Color(0.897, 0.897, 0.897, 1.0)
 outline_size = 0
+
+[node name="Cameras" type="Node3D" parent="." unique_id=1768350952]
+
+[node name="MenuCamera" type="Camera3D" parent="Cameras" unique_id=222757839]
+transform = Transform3D(0.81915206, -0.1484525, 0.5540323, 0, 0.9659258, 0.25881904, -0.57357645, -0.21201216, 0.7912401, 6, 3.1, 5.8)
+cull_mask = 1048573
+current = true
+fov = 65.0
+
+[node name="Hints" type="Node3D" parent="." unique_id=1068461281]
+
+[node name="ScentMarkers" type="Node3D" parent="Hints" unique_id=1893966666]
+visible = false
+
+[node name="WallTitle" type="Label3D" parent="Hints" unique_id=273316234]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.65, -4.7)
+pixel_size = 0.003
+modulate = Color(0.897, 0.897, 0.897, 1)
+text = "STATION"
+font_size = 48
+outline_size = 0
+
+[node name="Geometry" parent="." unique_id=1261622784 instance=ExtResource("geo")]
+
+[editable path="Actors/Player"]

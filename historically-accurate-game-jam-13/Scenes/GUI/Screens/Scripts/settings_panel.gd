@@ -14,6 +14,7 @@ var _sizes: Array[Vector2i] = []
 @onready var window_mode: OptionButton = %WindowMode
 @onready var resolution: OptionButton = %Resolution
 @onready var dog_vision: CheckButton = %DogVision
+@onready var panini_projection: CheckButton =%PaniniProjection
 @onready var binding_rows: VBoxContainer = %Bindings
 
 
@@ -25,6 +26,7 @@ func _ready() -> void:
 	window_mode.item_selected.connect(func(_index: int) -> void: _populate_resolutions())
 	resolution.item_selected.connect(_resolution_selected)
 	dog_vision.toggled.connect(func(enabled: bool) -> void: preferences.set_dog_vision(enabled))
+	panini_projection.toggled.connect(func(enabled: bool) -> void: preferences.set_panini_projection(enabled))
 	%ApplyDisplay.pressed.connect(func() -> void: preferences.preview_display(window_mode.selected, _draft_resolution))
 	%KeepDisplay.pressed.connect(func() -> void: preferences.confirm_display())
 	%RevertDisplay.pressed.connect(func() -> void: preferences.revert_display())
@@ -65,7 +67,6 @@ func close() -> void:
 	preferences.save()
 	hide()
 
-
 func consume_input(event: InputEvent) -> bool:
 	if _capture_action.is_empty():
 		return false
@@ -87,7 +88,6 @@ func consume_input(event: InputEvent) -> bool:
 			_apply_binding(mouse)
 	return true
 
-
 func begin_capture(action: StringName) -> void:
 	cancel_capture()
 	_capture_action = action
@@ -96,12 +96,10 @@ func begin_capture(action: StringName) -> void:
 			row.show_capture()
 	%BindingStatus.text = "Press a replacement key or mouse button. Esc cancels."
 
-
 func cancel_capture() -> void:
 	_capture_action = &""
 	_refresh_bindings()
 	%BindingStatus.text = "Select a binding, then press a key or mouse button. Esc cancels."
-
 
 func _apply_binding(event: InputEvent) -> void:
 	var result := preferences.bindings.assign(_capture_action, event)
@@ -116,11 +114,9 @@ func _apply_binding(event: InputEvent) -> void:
 			row.focus_binding()
 	%BindingStatus.text = "Binding updated."
 
-
 func _refresh_bindings() -> void:
 	for row: Node in binding_rows.get_children():
 		row.refresh()
-
 
 func _reset_bindings() -> void:
 	cancel_capture()
@@ -147,6 +143,7 @@ func _update_values() -> void:
 
 func _populate_video() -> void:
 	dog_vision.set_pressed_no_signal(preferences.dog_vision)
+	panini_projection.set_pressed_no_signal(preferences.panini_projection)
 	window_mode.select(preferences.window_mode)
 	_draft_resolution = preferences.resolution
 	_populate_resolutions()
@@ -174,11 +171,9 @@ func _populate_resolutions() -> void:
 	resolution.disabled = window_mode.selected != GameSettings.WindowMode.WINDOWED or preferences.display_pending
 	_update_display_apply()
 
-
 func _resolution_selected(index: int) -> void:
 	_draft_resolution = _sizes[index]
 	_update_display_apply()
-
 
 func _update_display_apply() -> void:
 	var same_size := _draft_resolution == preferences.resolution or window_mode.selected != GameSettings.WindowMode.WINDOWED

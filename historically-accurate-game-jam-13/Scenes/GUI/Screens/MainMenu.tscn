@@ -1,73 +1,87 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://ddsb6j1yih3tp"]
 
-[ext_resource type="Script" path="res://Scenes/GUI/Screens/Scripts/main_menu.gd" id="script"]
+[ext_resource type="PackedScene" uid="uid://bk05boen1qcte" path="res://Scenes/GUI/Screens/3DsceneforMainmenu.tscn" id="2_umqoa"]
+[ext_resource type="Script" uid="uid://dwixigtwg37r1" path="res://Scenes/GUI/Screens/Scripts/main_menu.gd" id="script"]
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_ah1bl"]
+viewport_path = NodePath("3DsceneforMainmenu/SubViewport")
 
-
-[node name="MainMenu" type="Control"]
-layout_mode = 1
+[node name="MainMenu" type="Control" unique_id=931033881]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-mouse_filter = 0
 script = ExtResource("script")
 
-[node name="Background" type="ColorRect" parent="."]
+[node name="Background" type="ColorRect" parent="." unique_id=1291210671]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 color = Color(0.17, 0.17, 0.17, 1)
-mouse_filter = 2
 
-[node name="Title" type="Label" parent="."]
+[node name="TextureRect" type="TextureRect" parent="." unique_id=2080926606]
 layout_mode = 1
-text = "LAIKA"
-mouse_filter = 2
-theme_type_variation = &"Display"
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_ah1bl")
+stretch_mode = 2
+
+[node name="Title" type="Label" parent="." unique_id=1974482244]
+layout_mode = 1
+anchors_preset = -1
 anchor_left = 0.07
-anchor_right = 0.38
 anchor_top = 0.08
+anchor_right = 0.38
 anchor_bottom = 0.08
+theme_type_variation = &"Display"
 theme_override_font_sizes/font_size = 88
+text = "LAIKA"
 
-[node name="Buttons" type="VBoxContainer" parent="."]
+[node name="Buttons" type="VBoxContainer" parent="." unique_id=1601803437]
 layout_mode = 1
+anchors_preset = -1
 anchor_left = 0.07
-anchor_right = 0.34
 anchor_top = 0.52
+anchor_right = 0.34
 anchor_bottom = 0.52
 grow_vertical = 2
 mouse_filter = 2
 theme_override_constants/separation = 26
 
-[node name="Start" type="Button" parent="Buttons"]
+[node name="Start" type="Button" parent="Buttons" unique_id=1853046747]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"NavigationButton"
 text = "Start"
-theme_type_variation = &"NavigationButton"
-mouse_default_cursor_shape = 2
 alignment = 0
 
-[node name="Settings" type="Button" parent="Buttons"]
+[node name="Settings" type="Button" parent="Buttons" unique_id=648577923]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(0, 76)
+layout_mode = 2
+mouse_default_cursor_shape = 2
+theme_type_variation = &"NavigationButton"
 text = "Settings"
-theme_type_variation = &"NavigationButton"
-mouse_default_cursor_shape = 2
 alignment = 0
 
-[node name="Quit" type="Button" parent="Buttons"]
+[node name="Quit" type="Button" parent="Buttons" unique_id=399327425]
 unique_name_in_owner = true
-layout_mode = 2
 custom_minimum_size = Vector2(0, 76)
-text = "Exit"
-theme_type_variation = &"NavigationButton"
+layout_mode = 2
 mouse_default_cursor_shape = 2
+theme_type_variation = &"NavigationButton"
+text = "Exit"
 alignment = 0
+
+[node name="3DsceneforMainmenu" parent="." unique_id=298057427 instance=ExtResource("2_umqoa")]

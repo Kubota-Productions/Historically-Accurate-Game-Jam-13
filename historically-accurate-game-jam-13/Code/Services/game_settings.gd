@@ -13,6 +13,7 @@ var sound_volume: float = 0.7
 var music_volume: float = 0.7
 var sensitivity: float = 0.1
 var dog_vision: bool = false
+var panini_projection: bool = false
 var window_mode: WindowMode = WindowMode.WINDOWED
 var resolution := Vector2i(1280, 720)
 var bindings := PlayerBindings.new()
@@ -54,6 +55,10 @@ func set_sensitivity(value: float) -> void:
 
 func set_dog_vision(enabled: bool) -> void:
 	dog_vision = enabled
+	changed.emit()
+	
+func set_panini_projeciton(enabled: bool) -> void:
+	panini_projection = enabled
 	changed.emit()
 
 

@@ -235,7 +235,7 @@ func _replace_room(id: StringName) -> void:
 func _open_dialogue(id: StringName) -> void:
 	if dialogue.active:
 		return
-	room.set_control_enabled(false)
+	#room.set_control_enabled(false)
 	hud.set_dialogue_active(true)
 	dialogue.open(id, _dialogues[str(id)].duplicate(true))
 
