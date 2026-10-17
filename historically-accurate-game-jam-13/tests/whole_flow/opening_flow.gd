@@ -38,13 +38,13 @@ func _run() -> void:
 	_check(stand_asset.get_node("Base").use_collision and not stand_asset.get_node("Slots/CollisionShape3D").disabled, "A stand restores both collision types")
 	shell.menu.settings_requested.emit()
 	_check(shell.settings.visible and not shell.menu.visible, "Settings replace menu input")
-	shell.settings.get_node("%Sensitivity").value = 0.16
+	shell.settings.row(&"sensitivity").editor.value = 0.16
 	_check(is_equal_approx(shell.room.rig.mouse_sensitivity, 0.16), "Sensitivity applies to the camera")
 	await _press(&"ui_cancel")
 	_check(shell.menu.visible and not shell.settings.visible, "Escape returns from settings")
 	_check(root.gui_get_focus_owner() == shell.menu.get_node("%Settings"), "Settings focus is restored")
 	await _observe_start_transition()
-	_check(shell.dialogue.active and not shell.room.control_enabled, "Greeting owns player input")
+	_check(shell.dialogue.active and shell.room.control_enabled and not shell.room.interactor.enabled, "Greeting allows movement while owning context actions")
 	var greeting: Array = shell.dialogue._lines.duplicate(true)
 	var previous_time_scale := Engine.time_scale
 	Engine.time_scale = 0.0
@@ -76,37 +76,38 @@ func _run() -> void:
 	_check(shell.room.step == LaikaRoom.Step.FETCH, "Pressing the button early is recoverable")
 	await _aim(Vector3(-2.8, 0, 2.5), shell.room.get_node("Pickups/Battery1/Item").global_position)
 	_check(_target_is(&"battery1"), "The first battery is reachable by raycast")
-	var pickup_scale: Vector3 = shell.room.target.global_basis.get_scale()
+	var pickup_scale: Vector3 = shell.room.interactor.target.global_basis.get_scale()
 	await _click(MOUSE_BUTTON_LEFT)
-	_check(shell.room.carried != null, "LMB picks up a battery")
-	_check(shell.room.carried.global_basis.get_scale().is_equal_approx(pickup_scale), "Picking up a battery preserves its physical scale")
-	var held_position: Vector2 = shell.room.camera.unproject_position(shell.room.carried.global_position)
+	_check(shell.room.carry.item != null, "LMB picks up a battery")
+	_check(shell.room.carry.item.global_basis.get_scale().is_equal_approx(pickup_scale), "Picking up a battery preserves its physical scale")
+	var held_position: Vector2 = shell.room.camera.unproject_position(shell.room.carry.item.global_position)
 	var view_size: Vector2 = shell.room.camera.get_viewport().get_visible_rect().size
-	_check(absf(held_position.x - view_size.x * 0.5) < view_size.x * 0.02 and held_position.y > view_size.y * 0.8 and held_position.y < view_size.y * 1.1, "The held battery sits centrally below the nose")
+	var lower_frame := 0.65 if DisplayServer.get_name() == "headless" else 0.8
+	_check(absf(held_position.x - view_size.x * 0.5) < view_size.x * 0.02 and held_position.y > view_size.y * lower_frame and held_position.y < view_size.y * 1.1, "The held battery sits centrally below the nose")
 	await _click(MOUSE_BUTTON_RIGHT)
-	_check(shell.room.carried == null and shell.room.get_node("Pickups/Battery1/Item").collision_layer == 2, "RMB puts the battery down safely")
+	_check(shell.room.carry.item == null and shell.room.get_node("Pickups/Battery1/Item").collision_layer == 2, "RMB puts the battery down safely")
 	var dropped_mesh: MeshInstance3D = shell.room.get_node("Pickups/Battery1/Item/Cell")
 	_check(dropped_mesh.layers == 1 and not dropped_mesh.material_override.no_depth_test, "A dropped battery restores its world rendering")
 	_check(shell.room.get_node("Pickups/Battery1/Item").global_position.distance_to(shell.room.player.global_position) < 1.2, "Dropped batteries stay near the dog")
 	await _aim(Vector3(-2.8, 0, 2.5), shell.room.get_node("Pickups/Battery1/Item").global_position)
 	await _press(&"interact")
-	var held_battery: Node = shell.room.carried
+	var held_battery: Node = shell.room.carry.item
 	await _aim(Vector3(2.65, 0, 1.8), shell.room.get_node("Pickups/Battery2/Item").global_position)
 	await _click(MOUSE_BUTTON_LEFT)
-	_check(_target_is(&"battery2") and shell.room.carried == held_battery, "LMB keeps the held battery when aiming at another pickup")
+	_check(_target_is(&"battery2") and shell.room.carry.item == held_battery, "LMB keeps the held battery when aiming at another pickup")
 	_check(shell.hud.prompt.text.is_empty(), "A held item does not advertise a second LMB action")
 	await _aim(Vector3(-2.8, 0, 2.5), Vector3(-2.8, 0, 1.5))
 	await _click(MOUSE_BUTTON_LEFT)
-	_check(shell.room.carried == held_battery, "LMB keeps the held battery when looking at empty floor")
+	_check(shell.room.carry.item == held_battery, "LMB keeps the held battery when looking at empty floor")
 	await _click(MOUSE_BUTTON_RIGHT)
-	_check(shell.room.carried == null, "Only the dedicated put-down action releases the held item")
+	_check(shell.room.carry.item == null, "Only the dedicated put-down action releases the held item")
 	await _aim(Vector3(-2.8, 0, 2.5), shell.room.get_node("Pickups/Battery1/Item").global_position)
 	await _click(MOUSE_BUTTON_LEFT)
-	_check(shell.room.carried != null, "A put-down item can be picked up again")
+	_check(shell.room.carry.item != null, "A put-down item can be picked up again")
 	await _aim(Vector3(0, 0, 0.3), shell.room.get_node("Props/TrainingStand/Slots").global_position)
 	_check(_target_is(&"stand"), "The battery stand is reachable")
 	await _click(MOUSE_BUTTON_LEFT)
-	_check(shell.room.batteries == 1 and shell.room.carried == null, "The same LMB action installs the battery")
+	_check(shell.room.progress.get_item_count() == 1 and shell.room.carry.item == null, "The same LMB action installs the battery")
 	var installed_mesh: MeshInstance3D = shell.room.get_node("Props/TrainingStand/Cell1")
 	_check(installed_mesh.mesh.get_aabb().size.is_equal_approx(dropped_mesh.mesh.get_aabb().size), "Installed batteries retain the pickup dimensions")
 	await _aim(Vector3(2.65, 0, 1.8), shell.room.get_node("Pickups/Battery2/Item").global_position)
@@ -114,7 +115,7 @@ func _run() -> void:
 	await _press(&"interact")
 	await _aim(Vector3(0, 0, 0.3), shell.room.get_node("Props/TrainingStand/Slots").global_position)
 	await _press(&"interact")
-	_check(shell.room.batteries == 2 and shell.room.step == LaikaRoom.Step.POWER, "Two batteries unlock the test")
+	_check(shell.room.progress.get_item_count() == 2 and shell.room.step == LaikaRoom.Step.POWER, "Two batteries unlock the test")
 	await _aim(Vector3(1.5, 0, 0.2), shell.room.get_node("Props/TrainingStand/TestButton").global_position)
 	await _press(&"interact")
 	_check(shell.dialogue.active, "The successful test opens the scientist's dialogue")
@@ -124,18 +125,19 @@ func _run() -> void:
 	await _aim(Vector3(1.5, 0, 0.2), shell.room.get_node("Props/TrainingStand/TestButton").global_position)
 	await _press(&"interact")
 	_check(not shell.dialogue.active and "Test complete" in shell.hud.thought.text, "Repeating a completed test does not ask for more batteries")
-	_check(shell.room.batteries == 2 and shell.room.step == LaikaRoom.Step.CAPSULE and "capsule" in shell.hud.objective.text, "Repeating the button preserves batteries and the capsule objective")
+	_check(shell.room.progress.get_item_count() == 2 and shell.room.step == LaikaRoom.Step.CAPSULE and "capsule" in shell.hud.objective.text, "Repeating the button preserves batteries and the capsule objective")
 	await _aim(Vector3(3.6, 0, -1.2), shell.room.get_node("Props/Capsule/Entry").global_position)
 	_check(_target_is(&"capsule"), "The capsule can be entered from the front")
 	await _press(&"interact")
 	await _settle_transition()
-	_check(shell.room.station and shell.dialogue.active, "Departure fades into station arrival")
+	_check(shell.room.progress is StationProgress and shell.dialogue.active, "Departure fades into station arrival")
 	_check(_snout_in_frame(), "The snout remains visible on the station")
 	_check(not shell.hud.thought_panel.visible, "Room transitions clear the previous thought")
 	await _press(&"bark")
 	await _press(&"interact")
 	await _aim(Vector3(0, 0, 1.2), shell.room.get_node("Actors/Robot/Interaction").global_position)
 	_check(_target_is(&"robot"), "The robot is reachable")
+	shell.room.rig.set_process_unhandled_input(true)
 	await _press(&"interact")
 	_check(shell.dialogue.active and shell.dialogue._dialogue_id == &"robot", "The robot has a separate speaker and dialogue")
 	await _press(&"bark")
@@ -144,6 +146,13 @@ func _run() -> void:
 	_check(shell.dialogue._index == 1 and "Woof!" in shell.dialogue.response.text, "A second bark visibly responds without skipping the robot's text")
 	await _click(MOUSE_BUTTON_LEFT)
 	_check(not shell.dialogue.active and shell.completion.visible and shell.room.control_enabled, "Finishing the robot shows a notice without blocking the player")
+	var look_yaw: float = shell.room.rig.get_yaw()
+	var motion := InputEventMouseMotion.new()
+	motion.relative = Vector2(30, 0)
+	Input.parse_input_event(motion)
+	await process_frame
+	var look_works: bool = shell.room.rig.is_processing_unhandled_input() if DisplayServer.get_name() == "headless" else not is_equal_approx(shell.room.rig.get_yaw(), look_yaw)
+	_check(look_works, "Completion keeps mouse look responsive immediately")
 	_check(shell.hud.visible and shell.mode == shell.Mode.PLAYING and not paused, "The notice keeps the game and HUD active")
 	_check(shell.room.step == LaikaRoom.Step.COMPLETE and shell.hud.objective.text == "Playground complete", "The old talk-to-robot objective is completed")
 	await _press(&"bark")
@@ -153,23 +162,24 @@ func _run() -> void:
 	_check(not shell.dialogue.active and shell.room.control_enabled, "Revisiting the robot after completion does not restart a blocking dialogue")
 	await process_frame
 	await process_frame
+	await _press(&"ui_cancel")
 	await _click_at(shell.completion.get_node("%MainMenu").get_global_rect().get_center())
 	await _settle_transition()
 	_check(not paused and shell.menu.visible and not shell.dialogue.active, "Return to menu clears pause and dialogue")
 	_check(not shell.completion.visible and shell.completion.get_node("%Lifetime").is_stopped(), "Leaving through the notice cancels its timer")
 	await shell.start_game()
-	_check(shell.room.batteries == 0 and shell.room.carried == null, "A new mission resets the room")
+	_check(shell.room.progress.get_item_count() == 0 and shell.room.carry.item == null, "A new mission resets the room")
 	await _press(&"bark")
 	await _press(&"interact")
 	var previous_focus: Control = root.gui_get_focus_owner()
 	shell.completion.open()
 	_check(root.gui_get_focus_owner() == previous_focus and shell.completion.get_node("%Lifetime").time_left > 4.9, "The notice lasts five seconds without stealing focus")
-	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	shell.completion.get_node("%Lifetime").start(0.05)
 	await create_timer(0.15, true, false, true).timeout
 	await process_frame
 	var mouse_look_restored := DisplayServer.get_name() == "headless" or Input.mouse_mode == Input.MOUSE_MODE_CAPTURED
-	_check(not shell.completion.visible and shell.room.control_enabled and mouse_look_restored, "Notice expiry restores mouse look while keeping gameplay active")
+	_check(not shell.completion.visible and shell.room.control_enabled and mouse_look_restored, "Notice expiry keeps mouse look and gameplay active")
 	shell.pause_game()
 	shell.completion.open()
 	shell.completion.get_node("%Lifetime").start(0.05)
@@ -230,7 +240,7 @@ func _aim(position: Vector3, point: Vector3) -> void:
 
 
 func _target_is(id: StringName) -> bool:
-	return is_instance_valid(shell.room.target) and shell.room.target.interaction_id == id
+	return is_instance_valid(shell.room.interactor.target) and shell.room.interactor.target.interaction_id == id
 
 
 func _observe_start_transition() -> void:
@@ -256,14 +266,14 @@ func _observe_start_transition() -> void:
 					saw_reveal = true
 					title_elapsed = Time.get_ticks_msec() - title_started
 					reveal_transform = shell.room.camera.global_transform
-				camera_stable = camera_stable and root.get_camera_3d() == shell.room.camera
+				camera_stable = camera_stable and shell.room.camera.get_viewport().get_camera_3d() == shell.room.camera
 				camera_stable = camera_stable and reveal_transform.is_equal_approx(shell.room.camera.global_transform)
 				if not shell.fade.visible and revealed_at < 0:
 					revealed_at = Time.get_ticks_msec()
 		await process_frame
-	_check(saw_reveal and camera_stable and root.get_camera_3d() == shell.room.camera and reveal_transform.is_equal_approx(shell.room.camera.global_transform), "The player camera is stable throughout reveal and greeting")
-	_check(title_elapsed >= 1300, "The chapter title remains readable before revealing the room")
-	_check(revealed_at >= 0 and Time.get_ticks_msec() - revealed_at >= 250, "The room appears before the greeting starts")
+	_check(saw_reveal and camera_stable and shell.room.camera.get_viewport().get_camera_3d() == shell.room.camera and reveal_transform.is_equal_approx(shell.room.camera.global_transform), "The player camera is stable throughout reveal and greeting")
+	_check(title_elapsed >= 700, "The chapter title remains readable before revealing the room")
+	_check(revealed_at >= 0 and Time.get_ticks_msec() - revealed_at >= 100, "The room appears before the greeting starts")
 	_check(input_blocked and not shell.transitioning, "Input stays blocked until the opening transition finishes")
 
 

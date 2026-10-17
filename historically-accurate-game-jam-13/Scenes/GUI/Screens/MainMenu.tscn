@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bk05boen1qcte" path="res://Scenes/GUI/Screens/3DsceneforMainmenu.tscn" id="2_umqoa"]
 [ext_resource type="Script" uid="uid://dwixigtwg37r1" path="res://Scenes/GUI/Screens/Scripts/main_menu.gd" id="script"]
+[ext_resource type="Script" path="res://Scenes/GUI/Screens/Scripts/menu_gaze.gd" id="gaze"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ah1bl"]
 viewport_path = NodePath("3DsceneforMainmenu/SubViewport")
@@ -32,6 +33,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 texture = SubResource("ViewportTexture_ah1bl")
 stretch_mode = 2
 
@@ -85,3 +87,10 @@ text = "Exit"
 alignment = 0
 
 [node name="3DsceneforMainmenu" parent="." unique_id=298057427 instance=ExtResource("2_umqoa")]
+
+[node name="MenuGaze" type="Node" parent="." node_paths=PackedStringArray("button_container", "preview", "preview_camera", "look_target")]
+script = ExtResource("gaze")
+button_container = NodePath("../Buttons")
+preview = NodePath("../TextureRect")
+preview_camera = NodePath("../3DsceneforMainmenu/SubViewport/Camera3D")
+look_target = NodePath("../3DsceneforMainmenu/LookAtTarget")

@@ -20,35 +20,36 @@ func _run() -> void:
 	root.add_child(shell)
 	await process_frame
 	var preferences: GameSettings = shell.preferences
-	_check(is_equal_approx(preferences.sound_volume, 0.4), "Legacy sound volume migrates")
-	_check(is_equal_approx(preferences.music_volume, 0.7), "Music has an independent default")
-	_check(not preferences.dog_vision and not shell.dog_vision.visible, "Dog vision defaults off for old settings")
+	_check(is_equal_approx(preferences.get_value(&"sound_volume"), 0.4), "Legacy sound volume migrates")
+	_check(is_equal_approx(preferences.get_value(&"music_volume"), 0.7), "Music has an independent default")
+	_check(preferences.get_value(&"dog_vision") and shell.dog_vision.visible, "Dog vision defaults on when no preference is saved")
+	_check(preferences.get_value(&"panini_projection") and shell.projection.enabled, "Panini defaults on when no preference is saved")
 	_check(_single_bindings(), "Legacy bindings migrate to exactly one input per action")
 	_check(InputHints.key(&"interact") == "LMB" and InputHints.key(&"drop") == "RMB", "Legacy default alternatives are removed")
 	shell.open_settings()
 	var panel: Control = shell.settings
 	panel.tabs.current_tab = 0
-	panel.dog_vision.button_pressed = true
-	_check(preferences.dog_vision and shell.dog_vision.visible, "Dog vision toggle enables the filter immediately")
-	panel.dog_vision.button_pressed = false
-	_check(not preferences.dog_vision and not shell.dog_vision.visible, "Dog vision toggle disables the filter immediately")
-	panel.dog_vision.button_pressed = true
+	panel.row(&"dog_vision").editor.button_pressed = true
+	_check(preferences.get_value(&"dog_vision") and shell.dog_vision.visible, "Dog vision toggle enables the filter immediately")
+	panel.row(&"dog_vision").editor.button_pressed = false
+	_check(not preferences.get_value(&"dog_vision") and not shell.dog_vision.visible, "Dog vision toggle disables the filter immediately")
+	panel.row(&"dog_vision").editor.button_pressed = true
 	var sound_bus := AudioServer.get_bus_index("Sound")
 	panel.tabs.current_tab = 1
 	var music_bus := AudioServer.get_bus_index("Music")
 	_check(sound_bus > 0 and music_bus > 0 and sound_bus != music_bus, "Sound and Music have separate audio buses")
-	panel.sound.value = 0.25
+	panel.row(&"sound_volume").editor.value = 0.25
 	_check(is_equal_approx(AudioServer.get_bus_volume_linear(sound_bus), 0.25), "Sound slider changes Sound bus")
 	_check(is_equal_approx(AudioServer.get_bus_volume_linear(music_bus), 0.7), "Sound slider leaves music alone")
-	panel.music.value = 0.85
+	panel.row(&"music_volume").editor.value = 0.85
 	_check(is_equal_approx(AudioServer.get_bus_volume_linear(music_bus), 0.85), "Music slider changes Music bus")
 	_check(is_equal_approx(AudioServer.get_bus_volume_linear(sound_bus), 0.25), "Music slider leaves sound alone")
-	panel.sound.value = 0.0
+	panel.row(&"sound_volume").editor.value = 0.0
 	_check(AudioServer.is_bus_mute(sound_bus) and not AudioServer.is_bus_mute(music_bus), "Zero sound volume only mutes Sound")
-	panel.sound.value = 0.25
+	panel.row(&"sound_volume").editor.value = 0.25
 	_check(not AudioServer.is_bus_mute(sound_bus), "Raising Sound volume unmutes it")
 	panel.tabs.current_tab = 2
-	panel.sensitivity.value = 0.19
+	panel.row(&"sensitivity").editor.value = 0.19
 	_check(is_equal_approx(shell.room.rig.mouse_sensitivity, 0.19), "Sensitivity applies immediately")
 	panel.begin_capture(&"interact")
 	await _key(KEY_K)
@@ -76,7 +77,7 @@ func _run() -> void:
 	_check(saved.get_value("display", "dog_vision", false), "Dog vision preference is saved")
 	var reload := GameSettings.new()
 	reload.initialize(root)
-	_check(reload.dog_vision, "Dog vision preference survives loading")
+	_check(reload.get_value(&"dog_vision"), "Dog vision preference survives loading")
 	_check(InputHints.key(&"interact") == "MMB" and _single_bindings(), "Single bindings survive loading")
 	await shell.start_game()
 	_check(shell.dog_vision.visible, "Dog vision remains enabled after entering training")
@@ -100,7 +101,7 @@ func _run() -> void:
 	_check(InputHints.key(&"interact") == "LMB" and InputHints.key(&"drop") == "RMB" and _single_bindings(), "Reset restores one authored binding per action")
 	shell.open_settings()
 	panel.tabs.current_tab = 0
-	_check(panel.dog_vision.button_pressed, "The toggle reflects the stored preference when reopened")
+	_check(panel.row(&"dog_vision").editor.button_pressed, "The toggle reflects the stored preference when reopened")
 	var original_mode := preferences.window_mode
 	var original_size := preferences.resolution
 	preferences.preview_display(GameSettings.WindowMode.WINDOWED, Vector2i(960, 540))
@@ -116,7 +117,7 @@ func _run() -> void:
 	await _settle()
 	_check(not preferences.display_pending and preferences.resolution == original_size, "Expired display previews restore the previous resolution")
 	_check(preferences.window_mode == original_mode, "Expired display previews restore the previous mode")
-	_check(preferences.dog_vision and shell.dog_vision.visible and panel.dog_vision.button_pressed, "Display rollback preserves the independent dog vision preference")
+	_check(preferences.get_value(&"dog_vision") and shell.dog_vision.visible and panel.row(&"dog_vision").editor.button_pressed, "Display rollback preserves the independent dog vision preference")
 	preferences.preview_display(GameSettings.WindowMode.WINDOWED, Vector2i(960, 540))
 	preferences.confirm_display()
 	saved.load(GameSettings.PATH)
@@ -139,7 +140,7 @@ func _run() -> void:
 	var restarted: Node = load("res://Scenes/Game/Game.tscn").instantiate()
 	root.add_child(restarted)
 	await process_frame
-	_check(restarted.preferences.dog_vision and restarted.dog_vision.visible, "A fresh game shell applies saved dog vision at startup")
+	_check(restarted.preferences.get_value(&"dog_vision") and restarted.dog_vision.visible, "A fresh game shell applies saved dog vision at startup")
 	restarted.queue_free()
 	await process_frame
 	print("SETTINGS_FLOW: %d checks, %d failures (%s)" % [checks, failures, DisplayServer.get_name()])

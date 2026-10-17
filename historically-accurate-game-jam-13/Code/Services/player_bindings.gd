@@ -26,22 +26,22 @@ func _init() -> void:
 
 func assign(action: StringName, event: InputEvent) -> String:
 	if not ACTIONS.has(action):
-		return "Unknown control."
+		return tr("Unknown control.")
 	if event == null:
-		return "Each action needs one binding. Choose a replacement."
+		return tr("Each action needs one binding. Choose a replacement.")
 	if not event is InputEventKey and not event is InputEventMouseButton:
-		return "Use a keyboard key or a mouse button."
+		return tr("Use a keyboard key or a mouse button.")
 	if event is InputEventKey:
 		if event.physical_keycode == KEY_ESCAPE:
-			return "Escape is reserved for going back. Choose another key."
+			return tr("Escape is reserved for going back. Choose another key.")
 		if event.physical_keycode in [KEY_SHIFT, KEY_CTRL, KEY_ALT, KEY_META]:
-			return "Choose a key other than a modifier."
+			return tr("Choose a key other than a modifier.")
 	for other: StringName in ACTIONS:
 		if other == action:
 			continue
 		for binding: InputEvent in InputMap.action_get_events(other):
 			if binding.is_match(event):
-				return "Already assigned to %s." % ACTIONS[other]
+				return tr("Already assigned to %s.") % tr(ACTIONS[other])
 	InputMap.action_erase_events(action)
 	InputMap.action_add_event(action, event.duplicate())
 	changed.emit()

@@ -9,13 +9,19 @@ enum WindowMode { WINDOWED, BORDERLESS, FULLSCREEN }
 const PATH := "user://settings.cfg"
 const DISPLAY_CONFIRM_SECONDS := 15
 
-var sound_volume: float = 0.7
-var music_volume: float = 0.7
-var sensitivity: float = 0.1
-var dog_vision: bool = false
-var panini_projection: bool = false
-var window_mode: WindowMode = WindowMode.WINDOWED
-var resolution := Vector2i(1280, 720)
+signal value_changed(id: StringName, value: Variant)
+
+var definitions: Dictionary[StringName, SettingDefinition] = {}
+var _values: Dictionary[StringName, Variant] = {}
+
+var window_mode: WindowMode:
+	get: return get_value(&"window_mode")
+	set(value): _values[&"window_mode"] = value
+
+var resolution: Vector2i:
+	get: return get_value(&"resolution")
+	set(value): _values[&"resolution"] = value
+
 var bindings := PlayerBindings.new()
 var display_pending: bool = false
 var display_deadline: int = 0
@@ -23,43 +29,46 @@ var _previous_display: Dictionary = {}
 var _window: Window
 
 
+func _init() -> void:
+	for definition: SettingDefinition in SettingsCatalog.definitions():
+		register(definition)
+
+
+func register(definition: SettingDefinition) -> void:
+	assert(not definitions.has(definition.id), "Duplicate setting: " + str(definition.id))
+	definitions[definition.id] = definition
+	_values[definition.id] = definition.default_value
+
+
+func get_value(id: StringName) -> Variant:
+	return _values[id]
+
+
+func set_value(id: StringName, value: Variant) -> void:
+	if not definitions.has(id) or definitions[id].confirmation:
+		return
+	var clean: Variant = definitions[id].sanitize(value)
+	if _values[id] == clean:
+		return
+	_values[id] = clean
+	_apply_audio()
+	value_changed.emit(id, clean)
+	changed.emit()
+
+
 func initialize(window: Window) -> void:
 	_window = window
 	resolution = _window.size
 	var config := ConfigFile.new()
 	if config.load(PATH) == OK:
-		sound_volume = clampf(float(config.get_value("audio", "sound_volume", config.get_value("audio", "volume", 0.7))), 0.0, 1.0)
-		music_volume = clampf(float(config.get_value("audio", "music_volume", 0.7)), 0.0, 1.0)
-		sensitivity = clampf(float(config.get_value("input", "sensitivity", 0.1)), 0.03, 0.3)
-		dog_vision = bool(config.get_value("display", "dog_vision", false))
-		window_mode = clampi(int(config.get_value("display", "window_mode", 0)), 0, 2) as WindowMode
-		var saved_size: Variant = config.get_value("display", "resolution", resolution)
-		if saved_size is Vector2i and saved_size.x >= 960 and saved_size.y >= 540:
-			resolution = saved_size
+		for definition: SettingDefinition in definitions.values():
+			var fallback: Variant = resolution if definition.id == &"resolution" else definition.default_value
+			if definition.id == &"sound_volume":
+				fallback = config.get_value("audio", "volume", fallback)
+			_values[definition.id] = definition.sanitize(config.get_value(definition.section, definition.id, fallback))
 		bindings.load_saved(config)
 		_apply_display()
 	_apply_audio()
-
-
-func set_audio(sound: float, music: float) -> void:
-	sound_volume = clampf(sound, 0.0, 1.0)
-	music_volume = clampf(music, 0.0, 1.0)
-	_apply_audio()
-	changed.emit()
-
-
-func set_sensitivity(value: float) -> void:
-	sensitivity = clampf(value, 0.03, 0.3)
-	changed.emit()
-
-
-func set_dog_vision(enabled: bool) -> void:
-	dog_vision = enabled
-	changed.emit()
-	
-func set_panini_projeciton(enabled: bool) -> void:
-	panini_projection = enabled
-	changed.emit()
 
 
 func resolutions() -> Array[Vector2i]:
@@ -119,13 +128,11 @@ func tick_display() -> void:
 
 func save() -> Error:
 	var config := ConfigFile.new()
-	config.set_value("audio", "sound_volume", sound_volume)
-	config.set_value("audio", "music_volume", music_volume)
-	config.set_value("input", "sensitivity", sensitivity)
-	config.set_value("display", "dog_vision", dog_vision)
-	var display: Dictionary = _previous_display if display_pending else {"mode": window_mode, "resolution": resolution}
-	config.set_value("display", "window_mode", display.mode)
-	config.set_value("display", "resolution", display.resolution)
+	for definition: SettingDefinition in definitions.values():
+		var value: Variant = _values[definition.id]
+		if display_pending and definition.confirmation:
+			value = _previous_display["mode" if definition.id == &"window_mode" else "resolution"]
+		config.set_value(definition.section, definition.id, value)
 	bindings.save(config)
 	var result := config.save(PATH)
 	if result != OK:
@@ -134,9 +141,13 @@ func save() -> Error:
 
 
 func _apply_audio() -> void:
-	for bus: String in ["Sound", "Music"]:
-		var index := AudioServer.get_bus_index(bus)
-		var volume := sound_volume if bus == "Sound" else music_volume
+	for definition: SettingDefinition in definitions.values():
+		if definition.audio_bus.is_empty():
+			continue
+		var index := AudioServer.get_bus_index(definition.audio_bus)
+		if index < 0:
+			continue
+		var volume: float = get_value(definition.id)
 		AudioServer.set_bus_volume_linear(index, volume)
 		AudioServer.set_bus_mute(index, is_zero_approx(volume))
 

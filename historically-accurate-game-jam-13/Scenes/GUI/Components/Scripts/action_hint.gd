@@ -13,12 +13,12 @@ func _ready() -> void:
 
 func refresh_bindings() -> void:
 	key_label.text = InputHints.key(action)
-	caption_label.text = caption
+	caption_label.text = tr(caption)
 
 
 func set_caption(text: String) -> void:
 	caption = text
-	caption_label.text = text
+	caption_label.text = tr(text)
 
 
 func set_available(available: bool) -> void:

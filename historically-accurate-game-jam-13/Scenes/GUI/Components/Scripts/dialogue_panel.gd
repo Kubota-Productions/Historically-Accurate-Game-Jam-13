@@ -4,77 +4,82 @@ signal finished(dialogue_id: StringName)
 signal bark_requested
 signal line_changed(bark_required: bool)
 
-var active: bool = false
-var _dialogue_id: StringName
-var _lines: Array = []
-var _index: int = 0
+var session := DialogueSession.new()
 var _entrance: Tween
 var _revision: int = 0
+var active: bool:
+	get: return session.active
+var _dialogue_id: StringName:
+	get: return session.id
+var _lines: Array:
+	get: return session.lines
+var _index: int:
+	get: return session.index
 
 @onready var speaker: Label = %Speaker
 @onready var line: Label = %Line
 @onready var response: Label = %Response
 
 
+func _ready() -> void:
+	session.line_changed.connect(_show_line)
+	session.bark_requested.connect(bark_requested.emit)
+	session.finished.connect(_on_finished)
+
+
 func open(dialogue_id: StringName, lines: Array) -> void:
 	close()
-	_dialogue_id = dialogue_id
-	_lines = lines
-	_index = 0
-	active = not _lines.is_empty()
-	visible = active
-	if active:
-		_show_line()
+	if session.open(dialogue_id, lines):
+		show()
 		modulate.a = 0.0
 		_animate_open.call_deferred(_revision)
 
 
 func advance(bark: bool) -> void:
-	if not active or bark != requires_bark():
-		return
-	if bark:
-		bark_requested.emit()
-	_index += 1
-	if _index >= _lines.size():
-		close()
-		finished.emit(_dialogue_id)
-	else:
-		_show_line()
+	session.advance(bark)
 
 
 func requires_bark() -> bool:
-	return active and bool(_lines[_index].get("bark", false))
+	return session.requires_bark()
 
 
 func refresh_bindings() -> void:
 	if not active:
 		return
 	var action: StringName = &"bark" if requires_bark() else &"interact"
-	response.text = "[%s]  %s" % [InputHints.key(action), "Bark to answer" if requires_bark() else "Continue dialogue"]
+	response.text = "[%s]  %s" % [InputHints.key(action), tr("Bark to answer") if requires_bark() else tr("Continue dialogue")]
 
 
 func show_bark_feedback() -> void:
 	if active and not requires_bark():
-		response.text = "Woof!   [%s] Continue dialogue" % InputHints.key(&"interact")
+		response.text = tr("Woof!   [%s] Continue dialogue") % InputHints.key(&"interact")
 
 
 func close() -> void:
+	session.close()
+	_reset_visuals()
+
+
+func _reset_visuals() -> void:
 	_revision += 1
 	if _entrance:
 		_entrance.kill()
-	active = false
-	_lines.clear()
 	modulate.a = 1.0
 	scale = Vector2.ONE
 	hide()
 
 
-func _show_line() -> void:
-	var entry: Dictionary = _lines[_index]
-	speaker.text = str(entry.get("speaker", "SCIENTIST"))
-	line.text = str(entry.text)
+func _on_finished(id: StringName) -> void:
+	_reset_visuals()
+	finished.emit(id)
+
+
+func _show_line(bark_required: bool) -> void:
+	var entry := session.current()
+	speaker.text = tr(str(entry.get("speaker", "SCIENTIST")))
+	line.text = tr(entry.text)
 	refresh_bindings()
-	line_changed.emit(requires_bark())
+	line_changed.emit(bark_required)
 
 
 func _animate_open(revision: int) -> void:

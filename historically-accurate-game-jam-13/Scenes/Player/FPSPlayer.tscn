@@ -4,6 +4,8 @@
 [ext_resource type="Script" uid="uid://und72swrc33q" path="res://Scenes/Player/Scripts/FPSplayer.gd" id="2_ryt0y"]
 [ext_resource type="PackedScene" uid="uid://bi1mvehj2r4uu" path="res://Assets/3D/Snoutsquished.glb" id="3_xrtr1"]
 
+[ext_resource type="Script" path="res://Scenes/Player/Scripts/Components/viewmodel_sway.gd" id="sway"]
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_jbdec"]
 
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=1514709304 node_paths=PackedStringArray("collision_shape")]
@@ -28,3 +30,8 @@ fov = 120.0
 
 [node name="Snout" parent="CameraHolder/Camera3D" unique_id=1966567727 instance=ExtResource("3_xrtr1")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0.02, 0.84)
+
+[node name="ViewModelMotion" type="Node" parent="CameraHolder/Camera3D" node_paths=PackedStringArray("visual", "camera")]
+script = ExtResource("sway")
+visual = NodePath("../Snout")
+camera = NodePath("..")

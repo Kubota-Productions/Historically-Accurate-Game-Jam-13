@@ -11,12 +11,12 @@ func _ready() -> void:
 
 
 func refresh() -> void:
-	%ActionName.text = PlayerBindings.ACTIONS[action]
+	%ActionName.text = tr(PlayerBindings.ACTIONS[action])
 	%Binding.text = InputHints.key(action)
 
 
 func show_capture() -> void:
-	%Binding.text = "Press a key…"
+	%Binding.text = tr("Press a key…")
 
 
 func focus_binding() -> void:

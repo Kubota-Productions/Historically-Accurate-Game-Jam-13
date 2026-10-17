@@ -26,35 +26,35 @@ func _process(delta: float) -> void:
 
 
 func refresh_bindings() -> void:
-	%DropHint.text = "[%s]  Put down" % InputHints.key(&"drop")
-	%PauseHint.text = "%s  ·  pause" % InputHints.key(&"ui_cancel")
+	%DropHint.text = tr("[%s]  Put down") % InputHints.key(&"drop")
+	%PauseHint.text = tr("%s  ·  pause") % InputHints.key(&"ui_cancel")
 	for card: Node in [%Interact, %Jump, %Bark, %Sniff]:
 		card.refresh_bindings()
 	set_prompt(_prompt_text)
 
 
 func set_objective(text: String, detail: String) -> void:
-	objective.text = text
-	progress.text = detail
+	objective.text = tr(text)
+	progress.text = tr(detail)
 
 
 func set_chapter(text: String) -> void:
-	chapter.text = text
+	chapter.text = tr(text)
 
 
 func set_prompt(text: String, _action: StringName = &"interact") -> void:
 	_prompt_text = text
-	prompt.text = "[%s]  %s" % [InputHints.key(&"interact"), text] if not text.is_empty() else ""
+	prompt.text = "[%s]  %s" % [InputHints.key(&"interact"), tr(text)] if not text.is_empty() else ""
 	%Interact.set_available(not _bark_required and (_dialogue_active or not text.is_empty()))
 
 
 func set_carrying(text: String) -> void:
-	carrying.text = "In your teeth: " + text if not text.is_empty() else ""
+	carrying.text = tr("In your teeth: %s") % tr(text) if not text.is_empty() else ""
 	%DropHint.visible = not text.is_empty()
 
 
 func show_thought(text: String, duration: float = 4.0) -> void:
-	thought.text = text
+	thought.text = tr(text)
 	_thought_time = duration
 	thought_panel.show()
 
@@ -66,11 +66,11 @@ func set_sniffing(active: bool) -> void:
 func set_dialogue_active(active: bool, bark_required: bool = false) -> void:
 	_dialogue_active = active
 	_bark_required = active and bark_required
-	%Interact.set_caption("Continue" if active else "Interact")
+	%Interact.set_caption(tr("Continue") if active else tr("Interact"))
 	%Interact.set_available(not _bark_required and (active or not _prompt_text.is_empty()))
-	%Bark.set_caption("Woof!" if _bark_required else "Bark")
+	%Bark.set_caption(tr("Woof!") if _bark_required else tr("Bark"))
 	%Sniff.set_available(not active)
-	%Jump.set_available(not active)
+	%Jump.set_available(true)
 
 
 func reset() -> void:

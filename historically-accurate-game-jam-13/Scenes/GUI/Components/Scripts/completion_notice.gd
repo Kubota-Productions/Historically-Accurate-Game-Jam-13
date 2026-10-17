@@ -21,10 +21,6 @@ func close() -> void:
 	hide()
 
 
-func is_menu_hit(position: Vector2) -> bool:
-	return %MainMenu.get_global_rect().has_point(position)
-
-
 func _on_timeout() -> void:
 	close()
 	expired.emit()
