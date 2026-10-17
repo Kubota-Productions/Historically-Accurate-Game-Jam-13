@@ -40,15 +40,10 @@ size = Vector3(0.8, 2, 0.65)
 [sub_resource type="BoxMesh" id="ScientistBlock"]
 size = Vector3(0.8, 2, 0.65)
 
-[sub_resource type="CylinderMesh" id="Mesh_Cell116"]
-top_radius = 0.14
-bottom_radius = 0.14
-height = 0.32
-
-[sub_resource type="CylinderMesh" id="Mesh_Cell217"]
-top_radius = 0.14
-bottom_radius = 0.14
-height = 0.32
+[sub_resource type="CylinderMesh" id="Mesh_Battery"]
+top_radius = 0.16
+bottom_radius = 0.16
+height = 0.42
 
 [sub_resource type="BoxShape3D" id="Shape_Stand"]
 size = Vector3(1.4, 0.5, 0.18)
@@ -64,22 +59,12 @@ height = 0.12
 [sub_resource type="BoxShape3D" id="Shape_Battery1"]
 size = Vector3(0.5, 0.5, 0.5)
 
-[sub_resource type="CylinderMesh" id="Mesh_Cell23"]
-top_radius = 0.16
-bottom_radius = 0.16
-height = 0.42
-
 [sub_resource type="SphereMesh" id="Mesh_Marker125"]
 radius = 0.09
 height = 0.18
 
 [sub_resource type="BoxShape3D" id="Shape_Battery2"]
 size = Vector3(0.5, 0.5, 0.5)
-
-[sub_resource type="CylinderMesh" id="Mesh_Cell27"]
-top_radius = 0.16
-bottom_radius = 0.16
-height = 0.42
 
 [sub_resource type="SphereMesh" id="Mesh_Marker229"]
 radius = 0.09
@@ -244,7 +229,7 @@ use_collision = false
 
 [node name="Cell1" type="MeshInstance3D" parent="Props/TrainingStand"]
 position = Vector3(-0.32, 0.4, 0.45)
-mesh = SubResource("Mesh_Cell116")
+mesh = SubResource("Mesh_Battery")
 material_override = SubResource("Gold")
 visible = false
 
@@ -258,7 +243,7 @@ use_collision = false
 
 [node name="Cell2" type="MeshInstance3D" parent="Props/TrainingStand"]
 position = Vector3(0.32, 0.4, 0.45)
-mesh = SubResource("Mesh_Cell217")
+mesh = SubResource("Mesh_Battery")
 material_override = SubResource("Gold")
 visible = false
 
@@ -335,7 +320,7 @@ shape = SubResource("Shape_Battery1")
 
 [node name="Cell" type="MeshInstance3D" parent="Pickups/Battery1/Item"]
 position = Vector3(0, 0, 0)
-mesh = SubResource("Mesh_Cell23")
+mesh = SubResource("Mesh_Battery")
 material_override = SubResource("Gold")
 
 
@@ -360,7 +345,7 @@ shape = SubResource("Shape_Battery2")
 
 [node name="Cell" type="MeshInstance3D" parent="Pickups/Battery2/Item"]
 position = Vector3(0, 0, 0)
-mesh = SubResource("Mesh_Cell27")
+mesh = SubResource("Mesh_Battery")
 material_override = SubResource("Gold")
 
 

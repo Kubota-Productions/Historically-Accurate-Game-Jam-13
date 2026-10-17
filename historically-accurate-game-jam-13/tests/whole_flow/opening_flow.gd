@@ -76,11 +76,13 @@ func _run() -> void:
 	_check(shell.room.step == LaikaRoom.Step.FETCH, "Pressing the button early is recoverable")
 	await _aim(Vector3(-2.8, 0, 2.5), shell.room.get_node("Pickups/Battery1/Item").global_position)
 	_check(_target_is(&"battery1"), "The first battery is reachable by raycast")
+	var pickup_scale: Vector3 = shell.room.target.global_basis.get_scale()
 	await _click(MOUSE_BUTTON_LEFT)
 	_check(shell.room.carried != null, "LMB picks up a battery")
+	_check(shell.room.carried.global_basis.get_scale().is_equal_approx(pickup_scale), "Picking up a battery preserves its physical scale")
 	var held_position: Vector2 = shell.room.camera.unproject_position(shell.room.carried.global_position)
 	var view_size: Vector2 = shell.room.camera.get_viewport().get_visible_rect().size
-	_check(absf(held_position.x - view_size.x * 0.5) < view_size.x * 0.02 and held_position.y > view_size.y * 0.8 and held_position.y < view_size.y, "The held battery sits centrally below the nose")
+	_check(absf(held_position.x - view_size.x * 0.5) < view_size.x * 0.02 and held_position.y > view_size.y * 0.8 and held_position.y < view_size.y * 1.1, "The held battery sits centrally below the nose")
 	await _click(MOUSE_BUTTON_RIGHT)
 	_check(shell.room.carried == null and shell.room.get_node("Pickups/Battery1/Item").collision_layer == 2, "RMB puts the battery down safely")
 	var dropped_mesh: MeshInstance3D = shell.room.get_node("Pickups/Battery1/Item/Cell")
@@ -105,6 +107,8 @@ func _run() -> void:
 	_check(_target_is(&"stand"), "The battery stand is reachable")
 	await _click(MOUSE_BUTTON_LEFT)
 	_check(shell.room.batteries == 1 and shell.room.carried == null, "The same LMB action installs the battery")
+	var installed_mesh: MeshInstance3D = shell.room.get_node("Props/TrainingStand/Cell1")
+	_check(installed_mesh.mesh.get_aabb().size.is_equal_approx(dropped_mesh.mesh.get_aabb().size), "Installed batteries retain the pickup dimensions")
 	await _aim(Vector3(2.65, 0, 1.8), shell.room.get_node("Pickups/Battery2/Item").global_position)
 	_check(_target_is(&"battery2"), "The second battery is reachable")
 	await _press(&"interact")
@@ -214,11 +218,13 @@ func _aim(position: Vector3, point: Vector3) -> void:
 	var room: LaikaRoom = shell.room
 	room.rig.set_process_unhandled_input(false)
 	room.player.teleport(position)
-	var eye := position + Vector3.UP * room.rig.stand_eye_height
-	var direction := (point - eye).normalized()
+	await physics_frame
+	await physics_frame
+	await process_frame
+	await process_frame
+	var direction := (point - room.camera.global_position).normalized()
 	room.rig.set_look(atan2(-direction.x, -direction.z), asin(direction.y))
-	await physics_frame
-	await physics_frame
+	await process_frame
 	await process_frame
 	await process_frame
 

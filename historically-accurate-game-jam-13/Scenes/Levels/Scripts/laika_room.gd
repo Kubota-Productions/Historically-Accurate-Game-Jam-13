@@ -202,7 +202,7 @@ func _take(item: LaikaInteractionPoint) -> void:
 	get_node("Hints/ScentMarkers/Marker" + str(item.interaction_id).trim_prefix("battery")).hide()
 	item.collision_layer = 0
 	item.reparent(carry_anchor)
-	item.transform = Transform3D.IDENTITY
+	item.transform = Transform3D(Basis.from_scale(_pickup_basis.get_scale()), Vector3.ZERO)
 	carrying_changed.emit("battery")
 
 
