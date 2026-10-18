@@ -1,0 +1,19 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scenes/GUI/Components/Scripts/choice_row.gd" id="script"]
+
+[node name="ChoiceRow" type="HBoxContainer"]
+custom_minimum_size = Vector2(0, 48)
+theme_override_constants/separation = 20
+script = ExtResource("script")
+
+[node name="Title" type="Label" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+
+[node name="Choice" type="OptionButton" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3

@@ -138,7 +138,7 @@ caption = "Interact"
 [node name="Jump" parent="SafeArea/Layout/Footer/Actions/Cards" instance=ExtResource("card")]
 unique_name_in_owner = true
 layout_mode = 2
-action = &"Jump"
+action = &"jump"
 caption = "Jump"
 
 [node name="Bark" parent="SafeArea/Layout/Footer/Actions/Cards" instance=ExtResource("card")]
@@ -216,3 +216,7 @@ anchor_right = 0.75
 anchor_top = 0.69
 anchor_bottom = 0.69
 horizontal_alignment = 1
+
+[node name="ThoughtTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true

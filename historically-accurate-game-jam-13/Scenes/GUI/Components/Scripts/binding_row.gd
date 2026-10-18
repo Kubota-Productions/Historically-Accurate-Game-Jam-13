@@ -1,23 +1,23 @@
+@tool
+class_name BindingRow
 extends HBoxContainer
 
 signal binding_requested(action: StringName)
 
 @export var action: StringName = &"interact"
 
+@onready var button: Button = %Binding
+
 
 func _ready() -> void:
-	%Binding.pressed.connect(func() -> void: binding_requested.emit(action))
+	%ActionName.text = tr(PlayerBindings.ACTIONS[action])
+	button.pressed.connect(binding_requested.emit.bind(action))
 	refresh()
 
 
 func refresh() -> void:
-	%ActionName.text = tr(PlayerBindings.ACTIONS[action])
-	%Binding.text = InputHints.key(action)
+	button.text = InputHints.key(action)
 
 
 func show_capture() -> void:
-	%Binding.text = tr("Press a key…")
-
-
-func focus_binding() -> void:
-	%Binding.grab_focus()
+	button.text = tr("Press a key…")

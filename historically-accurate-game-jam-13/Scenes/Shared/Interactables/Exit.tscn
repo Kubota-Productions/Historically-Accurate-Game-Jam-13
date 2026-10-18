@@ -1,0 +1,14 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://Scenes/Shared/Interactables/Interactable.tscn" id="base"]
+[ext_resource type="Script" path="res://Scenes/Shared/Scripts/Interactions/exit_action.gd" id="action"]
+[ext_resource type="Resource" path="res://GameData/Rooms/station.tres" id="station"]
+
+[sub_resource type="Resource" id="behavior"]
+resource_local_to_scene = true
+script = ExtResource("action")
+destination = ExtResource("station")
+
+[node name="Exit" instance=ExtResource("base")]
+display_name = "Enter capsule"
+action = SubResource("behavior")

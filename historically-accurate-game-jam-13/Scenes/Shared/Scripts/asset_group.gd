@@ -27,6 +27,8 @@ func _apply_enabled() -> void:
 		return
 	process_mode = _process_mode if enabled else Node.PROCESS_MODE_DISABLED
 	for collider: Node in _collisions:
+		if not is_instance_valid(collider) or not is_ancestor_of(collider):
+			continue
 		if collider is CollisionShape3D:
 			collider.set_deferred("disabled", _collisions[collider] if enabled else true)
 		else:

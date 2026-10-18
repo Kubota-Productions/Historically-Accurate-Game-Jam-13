@@ -1,0 +1,13 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://Scenes/Shared/Interactables/Interactable.tscn" id="base"]
+[ext_resource type="Script" path="res://Scenes/Shared/Scripts/Interactions/event_action.gd" id="action"]
+
+[sub_resource type="Resource" id="behavior"]
+resource_local_to_scene = true
+script = ExtResource("action")
+event = &"test"
+
+[node name="Event" instance=ExtResource("base")]
+display_name = "Press button"
+action = SubResource("behavior")

@@ -73,6 +73,38 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 12
 
+[node name="WindowModeRow" type="HBoxContainer" parent="Panel/Body/Tabs/Video/Scroll/Content"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="Panel/Body/Tabs/Video/Scroll/Content/WindowModeRow"]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+text = "Window mode"
+
+[node name="WindowMode" type="OptionButton" parent="Panel/Body/Tabs/Video/Scroll/Content/WindowModeRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ResolutionRow" type="HBoxContainer" parent="Panel/Body/Tabs/Video/Scroll/Content"]
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Title" type="Label" parent="Panel/Body/Tabs/Video/Scroll/Content/ResolutionRow"]
+custom_minimum_size = Vector2(260, 0)
+layout_mode = 2
+text = "Resolution"
+
+[node name="Resolution" type="OptionButton" parent="Panel/Body/Tabs/Video/Scroll/Content/ResolutionRow"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 48)
+layout_mode = 2
+size_flags_horizontal = 3
+
 [node name="VideoRows" type="VBoxContainer" parent="Panel/Body/Tabs/Video/Scroll/Content"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -215,3 +247,9 @@ custom_minimum_size = Vector2(160, 48)
 layout_mode = 2
 size_flags_horizontal = 8
 text = "Back"
+
+
+[node name="RevertTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 15.0
+one_shot = true

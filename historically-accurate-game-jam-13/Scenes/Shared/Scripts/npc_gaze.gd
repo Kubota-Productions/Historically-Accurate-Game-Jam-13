@@ -1,3 +1,4 @@
+class_name NpcGaze
 extends Node
 
 @export var head: Node3D

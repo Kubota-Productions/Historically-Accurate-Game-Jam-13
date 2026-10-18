@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Dialogue" format=3]
+
+[ext_resource type="Script" path="res://Code/Definitions/dialogue_line.gd" id="1_wxj4s"]
+[ext_resource type="Script" path="res://Code/Definitions/dialogue.gd" id="2_w3e32"]
+
+[sub_resource type="Resource" id="Resource_mlx4a"]
+script = ExtResource("1_wxj4s")
+speaker = "SCIENTIST"
+text = "Two batteries, little one. Pick one up with your teeth, then click the stand to put it in."
+
+[resource]
+script = ExtResource("2_w3e32")
+lines = Array[ExtResource("1_wxj4s")]([SubResource("Resource_mlx4a")])

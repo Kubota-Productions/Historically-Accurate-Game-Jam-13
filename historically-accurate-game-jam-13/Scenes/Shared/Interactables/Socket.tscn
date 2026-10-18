@@ -1,0 +1,16 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://Scenes/Shared/Interactables/Interactable.tscn" id="base"]
+[ext_resource type="Script" path="res://Scenes/Shared/Scripts/Interactions/socket_action.gd" id="action"]
+[ext_resource type="Script" path="res://Scenes/Shared/Scripts/item_socket.gd" id="socket"]
+
+[sub_resource type="Resource" id="behavior"]
+resource_local_to_scene = true
+script = ExtResource("action")
+
+[node name="Socket" instance=ExtResource("base")]
+script = ExtResource("socket")
+display_name = "Inspect battery slot"
+action = SubResource("behavior")
+accepted_item = &"battery"
+capacity = 2

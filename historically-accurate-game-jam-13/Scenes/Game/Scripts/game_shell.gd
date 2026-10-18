@@ -1,46 +1,45 @@
+class_name GameShell
 extends Node
 
 enum Mode { MENU, PLAYING, PAUSED }
 
-var mode: Mode = Mode.MENU
+@export var first_room: RoomDefinition
+
+var mode := Mode.MENU
 var room: LaikaRoom
 var transitioning: bool = false
 var preferences := GameSettings.new()
-var _world_actions: Dictionary[StringName, Callable] = {}
 
-@onready var transition: Node = $ScreenTransition
+@onready var transition: ScreenTransition = %ScreenTransition
 @onready var world_host: Node3D = %WorldHost
-@onready var projection: Node3D = $WorldPresentation
-@onready var dog_vision: CanvasLayer = $DogVisionFilter
-@onready var menu = %MainMenu
-@onready var hud = %HUD
-@onready var dialogue = %Dialogue
-@onready var pause = %PauseMenu
-@onready var settings = %SettingsPanel
-@onready var completion = %CompletionNotice
-@onready var fade: ColorRect = %Fade
-@onready var transition_title: Label = %TransitionTitle
+@onready var projection: ScreenspaceProjection = %WorldPresentation
+@onready var dog_vision: CanvasLayer = %DogVisionFilter
+@onready var menu: MainMenu = %MainMenu
+@onready var hud: GameHud = %HUD
+@onready var dialogue: DialoguePanel = %Dialogue
+@onready var pause: PauseMenu = %PauseMenu
+@onready var settings: SettingsPanel = %SettingsPanel
+@onready var completion: CompletionNotice = %CompletionNotice
 
 
 func _ready() -> void:
-	preferences.initialize(get_window())
+	preferences.restore(get_window())
 	settings.setup(preferences)
 	preferences.changed.connect(_apply_preferences)
 	preferences.bindings.changed.connect(_apply_preferences)
 	menu.start_requested.connect(start_game)
 	menu.settings_requested.connect(open_settings)
-	menu.quit_requested.connect(func() -> void: get_tree().quit())
+	menu.quit_requested.connect(get_tree().quit)
 	pause.resume_requested.connect(resume_game)
 	pause.settings_requested.connect(open_settings)
 	pause.menu_requested.connect(return_to_menu)
 	settings.close_requested.connect(close_settings)
 	completion.menu_requested.connect(return_to_menu)
-	dialogue.finished.connect(_on_dialogue_finished)
-	dialogue.line_changed.connect(func(waiting: bool) -> void: hud.set_dialogue_active(true, waiting))
-	dialogue.bark_requested.connect(_play_bark)
-	_replace_room(&"training")
+	dialogue.session.finished.connect(_on_dialogue_finished)
+	dialogue.session.line_changed.connect(_sync_context)
+	dialogue.session.bark_requested.connect(hud.show_bark)
+	_replace_room(first_room)
 	_apply_preferences()
-	fade.hide()
 	menu.open()
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
@@ -50,69 +49,23 @@ func _input(event: InputEvent) -> void:
 		return
 	if settings.visible and settings.consume_input(event):
 		get_viewport().set_input_as_handled()
-		return
-	if transitioning:
+	elif transitioning:
 		if event.is_pressed():
 			get_viewport().set_input_as_handled()
-		return
-	if event.is_action_pressed(&"ui_cancel"):
-		if settings.visible:
-			if preferences.display_pending:
-				preferences.revert_display()
-			else:
-				close_settings()
-		elif mode == Mode.PLAYING:
-			pause_game()
-		elif mode == Mode.PAUSED:
-			resume_game()
+	elif event.is_action_pressed(&"ui_cancel"):
+		_cancel()
 		get_viewport().set_input_as_handled()
-		return
-	if mode != Mode.PLAYING or settings.visible:
-		return
-	if dialogue.active:
-		if event.is_action_pressed(&"bark"):
-			if dialogue.requires_bark():
-				dialogue.advance(true)
-			else:
-				_play_bark()
-				dialogue.show_bark_feedback()
-			get_viewport().set_input_as_handled()
-		elif event.is_action_pressed(&"interact"):
-			dialogue.advance(false)
-			get_viewport().set_input_as_handled()
-		return
-	for action: StringName in _world_actions:
-		if event.is_action_pressed(action):
-			_world_actions[action].call()
-			get_viewport().set_input_as_handled()
-			return
+	elif mode == Mode.PLAYING and not settings.visible and _play(event):
+		get_viewport().set_input_as_handled()
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_IN and mode == Mode.PLAYING and not transitioning:
+		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
 func start_game() -> void:
-	if transitioning:
-		return
-	transitioning = true
-	await _cover(SceneCatalog.ROOMS[&"training"].title)
-	if not is_inside_tree():
-		return
-	menu.hide()
-	hud.hide()
-	pause.hide()
-	completion.close()
-	settings.hide()
-	dialogue.close()
-	_replace_room(&"training")
-	mode = Mode.PLAYING
-	hud.set_chapter(SceneCatalog.ROOMS[&"training"].heading)
-	room.camera.make_current()
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
-	await _uncover()
-	await get_tree().create_timer(transition.intro_pause_seconds).timeout
-	if not is_inside_tree():
-		return
-	hud.show()
-	transitioning = false
-	room.begin()
+	await enter_room(first_room)
 
 
 func pause_game() -> void:
@@ -122,6 +75,7 @@ func pause_game() -> void:
 	dialogue.hide()
 	pause.open()
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	_sync_context()
 
 
 func resume_game() -> void:
@@ -129,14 +83,16 @@ func resume_game() -> void:
 	mode = Mode.PLAYING
 	pause.hide()
 	hud.show()
-	dialogue.visible = dialogue.active
+	dialogue.visible = dialogue.session.active
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	_sync_context()
 
 
 func open_settings() -> void:
 	menu.hide()
 	pause.hide()
 	settings.open()
+	_sync_context()
 
 
 func close_settings() -> void:
@@ -147,105 +103,148 @@ func close_settings() -> void:
 	else:
 		pause.open()
 		pause.focus_settings()
+	_sync_context()
 
 
 func return_to_menu() -> void:
 	if transitioning:
 		return
 	transitioning = true
-	await _cover("")
+	await transition.cover("")
 	if not is_inside_tree():
 		return
 	get_tree().paused = false
 	mode = Mode.MENU
-	pause.hide()
-	completion.close()
-	settings.hide()
-	hud.hide()
-	dialogue.close()
-	_replace_room(&"training")
+	_hide_screens()
+	_replace_room(first_room)
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	menu.open()
-	await _uncover()
-	if is_inside_tree():
-		transitioning = false
+	await transition.reveal()
+	if not is_inside_tree():
+		return
+	transitioning = false
 
 
-func _depart(destination: StringName = &"station") -> void:
-	if transitioning or not SceneCatalog.ROOMS.has(destination):
+func enter_room(definition: RoomDefinition) -> void:
+	if transitioning:
 		return
 	transitioning = true
 	room.set_control_enabled(false)
-	await _cover(SceneCatalog.ROOMS[destination].title)
+	await transition.cover(definition.title)
 	if not is_inside_tree():
 		return
-	dialogue.close()
-	hud.hide()
-	_replace_room(destination)
-	hud.set_chapter(SceneCatalog.ROOMS[destination].heading)
+	_hide_screens()
+	if not _replace_room(definition):
+		_cancel_transition()
+		return
+	mode = Mode.PLAYING
+	hud.set_chapter(definition.heading)
 	room.camera.make_current()
-	await _uncover()
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	await transition.reveal()
 	await get_tree().create_timer(transition.intro_pause_seconds).timeout
 	if not is_inside_tree():
 		return
 	hud.show()
 	transitioning = false
 	room.begin()
+	_sync_context()
 
 
-func _replace_room(id: StringName) -> void:
+func _replace_room(definition: RoomDefinition) -> bool:
+	var candidate := definition.instantiate()
+	world_host.add_child(candidate)
+	if not candidate.configured:
+		world_host.remove_child(candidate)
+		candidate.queue_free()
+		return false
 	if is_instance_valid(room):
 		world_host.remove_child(room)
 		room.queue_free()
-	room = SceneCatalog.create_room(id)
-	world_host.add_child(room)
+	room = candidate
 	room.objective_changed.connect(hud.set_objective)
 	room.prompt_changed.connect(hud.set_prompt)
 	room.carrying_changed.connect(hud.set_carrying)
 	room.thought_requested.connect(hud.show_thought)
 	room.sniffing_changed.connect(hud.set_sniffing)
 	room.dialogue_requested.connect(_open_dialogue)
-	room.departure_requested.connect(_depart)
-	room.completed.connect(_on_room_completed)
-	_world_actions = {&"bark": _play_bark, &"drop": room.drop, &"interact": room.interact}
+	room.departure_requested.connect(enter_room)
+	room.completed.connect(completion.open)
 	_apply_preferences()
 	hud.reset()
+	return true
 
 
-func _open_dialogue(id: StringName) -> void:
-	if dialogue.active:
-		return
-	var lines := DialogueCatalog.lines(id)
-	if lines.is_empty():
-		return
-	room.set_interactions_enabled(false)
-	hud.set_dialogue_active(true)
-	dialogue.open(id, lines)
+func _cancel_transition() -> void:
+	transitioning = false
+	mode = Mode.MENU
+	get_tree().paused = false
+	transition.clear()
+	_hide_screens()
+	menu.open()
+	room.set_control_enabled(false)
+	room.menu_camera.make_current()
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 
-func _on_dialogue_finished(id: StringName) -> void:
-	room.complete_dialogue(id)
-	hud.set_dialogue_active(false)
-	room.set_interactions_enabled(true)
+func _hide_screens() -> void:
+	menu.hide()
+	pause.hide()
+	settings.hide()
+	hud.hide()
+	completion.close()
+	dialogue.close()
 
 
-func _on_room_completed() -> void:
-	completion.open()
+func _cancel() -> void:
+	if settings.visible:
+		settings.handle_cancel()
+	elif mode == Mode.PLAYING:
+		pause_game()
+	elif mode == Mode.PAUSED:
+		resume_game()
 
 
-func _play_bark() -> void:
-	hud.show_thought(tr("Woof!"), 1.2)
+func _play(event: InputEvent) -> bool:
+	var session := dialogue.session
+	if event.is_action_pressed(&"bark"):
+		if session.requires_bark():
+			session.advance(true)
+		else:
+			hud.show_bark()
+			if session.active:
+				dialogue.show_bark_feedback()
+	elif event.is_action_pressed(&"interact"):
+		if session.active:
+			session.advance(false)
+		else:
+			room.interact()
+	elif event.is_action_pressed(&"drop") and not session.active:
+		room.drop()
+	else:
+		return false
+	return true
 
 
-func _cover(title: String) -> void:
-	await transition.cover(title)
+func _open_dialogue(next: Dialogue) -> void:
+	dialogue.open(next)
+	_sync_context()
 
 
-func _uncover() -> void:
-	await transition.reveal()
+func _on_dialogue_finished(finished: Dialogue) -> void:
+	room.progress.dialogue_finished(finished)
+	_sync_context()
 
 
-func _apply_preferences() -> void:
-	SettingsEffects.apply(preferences, {&"dog_vision": dog_vision, &"projection": projection, &"player": room.rig if is_instance_valid(room) else null})
+func _sync_context() -> void:
+	var playing := mode == Mode.PLAYING and not transitioning and not settings.visible
+	room.set_interactions_enabled(playing and not dialogue.session.active)
+	hud.set_dialogue_active(dialogue.session.active, dialogue.session.requires_bark())
+
+
+func _apply_preferences(_id: StringName = &"") -> void:
+	dog_vision.visible = preferences.get_value(&"dog_vision")
+	projection.enabled = preferences.get_value(&"panini_projection")
+	room.rig.mouse_sensitivity = preferences.get_value(&"sensitivity")
 	hud.refresh_bindings()
 	dialogue.refresh_bindings()

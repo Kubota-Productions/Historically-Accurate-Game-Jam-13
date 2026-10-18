@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://jivklbtxb5ki" path="res://Scenes/Shared/Scripts/asset_group.gd" id="asset_group"]
 [ext_resource type="PackedScene" path="res://Scenes/Shared/RoomGeometry.tscn" id="geo"]
-[ext_resource type="Script" uid="uid://dtn5af0ay3lfq" path="res://Scenes/Shared/Scripts/interaction_point.gd" id="interaction"]
+[ext_resource type="Script" uid="uid://dtn5af0ay3lfq" path="res://Scenes/Shared/Scripts/interactable.gd" id="interaction"]
 [ext_resource type="PackedScene" uid="uid://c5xf5awwvo5et" path="res://Scenes/Player/FPSPlayer.tscn" id="player"]
 [ext_resource type="Script" uid="uid://djghgf8bfy3dg" path="res://Scenes/Levels/Scripts/laika_room.gd" id="script"]
 
@@ -16,6 +16,7 @@
 [ext_resource type="Script" path="res://Scenes/Shared/Scripts/Interactions/talk_action.gd" id="talk_action"]
 [ext_resource type="Script" path="res://Scenes/Shared/Scripts/Interactions/exit_action.gd" id="exit_action"]
 [ext_resource type="Script" path="res://Scenes/Levels/Scripts/Progress/station_progress.gd" id="progress"]
+[ext_resource type="Resource" path="res://GameData/Dialogue/Station/robot.tres" id="robot"]
 
 [sub_resource type="BoxShape3D" id="Shape_Robot"]
 size = Vector3(1.1, 1.3, 0.9)
@@ -37,19 +38,18 @@ roughness = 0.85
 
 [sub_resource type="Resource" id="action_talk"]
 script = ExtResource("talk_action")
-dialogue_id = &"robot"
+dialogue = ExtResource("robot")
 completed_flag = &"complete"
 completed_message = "No more tasks here. I can explore, or leave through the menu."
 
-[node name="StationRoom" type="Node3D" unique_id=720021548 node_paths=PackedStringArray("player", "rig", "camera", "carry_anchor", "menu_camera", "scent_markers", "progress")]
+[node name="StationRoom" type="Node3D" unique_id=720021548 node_paths=PackedStringArray("rig", "menu_camera", "progress", "carry", "interactor", "scent")]
 script = ExtResource("script")
-player = NodePath("Actors/Player")
 rig = NodePath("Actors/Player/CameraHolder")
-camera = NodePath("Actors/Player/CameraHolder/Camera3D")
-carry_anchor = NodePath("Actors/Player/CameraHolder/Camera3D/CarryAnchor")
 menu_camera = NodePath("Cameras/MenuCamera")
-scent_markers = NodePath("Hints/ScentMarkers")
 progress = NodePath("Systems/Progress")
+carry = NodePath("Systems/Carry")
+interactor = NodePath("Systems/Interactor")
+scent = NodePath("Systems/Scent")
 
 [node name="Actors" type="Node3D" parent="." unique_id=1205687545]
 
@@ -62,7 +62,6 @@ script = ExtResource("interaction")
 action = SubResource("action_talk")
 collision_layer = 2
 collision_mask = 0
-interaction_id = &"robot"
 display_name = "Talk to the service robot"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Actors/Robot/Interaction" unique_id=1303950124]
@@ -85,7 +84,6 @@ outline_size = 0
 
 [node name="Player" parent="Actors" unique_id=290791286 instance=ExtResource("player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 3.6)
-run_speed = 4.5
 walk_speed = 3.0
 jump_height = 0.7
 auto_bhop = false
@@ -148,15 +146,12 @@ outline_size = 0
 [node name="Cameras" type="Node3D" parent="." unique_id=1768350952]
 
 [node name="MenuCamera" type="Camera3D" parent="Cameras" unique_id=222757839]
-transform = Transform3D(0.81915206, -0.1484525, 0.5540323, 0, 0.9659258, 0.25881904, -0.57357645, -0.21201216, 0.7912401, 6, 3.1, 5.8)
+transform = Transform3D(0.755689, -0.159977, 0.635091, 0, 0.969708, 0.244266, -0.65493, -0.184589, 0.732798, 4.2, 2.8, 4.5)
 cull_mask = 1048573
 current = true
 fov = 65.0
 
 [node name="Hints" type="Node3D" parent="." unique_id=1068461281]
-
-[node name="ScentMarkers" type="Node3D" parent="Hints" unique_id=1893966666]
-visible = false
 
 [node name="WallTitle" type="Label3D" parent="Hints" unique_id=273316234]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.65, -4.7)
@@ -172,8 +167,9 @@ outline_size = 0
 
 [node name="Systems" type="Node" parent="."]
 
-[node name="Carry" type="Node" parent="Systems"]
+[node name="Carry" type="Node" parent="Systems" node_paths=PackedStringArray("anchor")]
 script = ExtResource("carry")
+anchor = NodePath("../../Actors/Player/CameraHolder/Camera3D/Snout/MouthAnchor")
 
 [node name="Interactor" type="Node" parent="Systems"]
 script = ExtResource("interactor")

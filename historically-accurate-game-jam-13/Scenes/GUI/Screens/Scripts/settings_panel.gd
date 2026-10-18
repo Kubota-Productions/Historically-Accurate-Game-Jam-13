@@ -1,62 +1,77 @@
+@tool
+class_name SettingsPanel
 extends Control
 
 signal close_requested
 
-const ROW := preload("res://Scenes/GUI/Components/SettingRow.tscn")
+const SLIDER_ROW := preload("res://Scenes/GUI/Components/SliderRow.tscn")
+const TOGGLE_ROW := preload("res://Scenes/GUI/Components/ToggleRow.tscn")
+const CHOICE_ROW := preload("res://Scenes/GUI/Components/ChoiceRow.tscn")
 const BINDING_ROW := preload("res://Scenes/GUI/Components/BindingRow.tscn")
+const WINDOWED := DisplaySettings.WindowMode.WINDOWED
 
 var preferences: GameSettings
+var _rows: Dictionary[StringName, SettingRow] = {}
+var _binding_rows: Dictionary[StringName, BindingRow] = {}
 var _capture_action: StringName
-var _draft: Dictionary = {}
-var _rows: Dictionary[StringName, Control] = {}
+var _draft_mode := WINDOWED
+var _draft_size: Vector2i
 
 @onready var tabs: TabContainer = %Tabs
-@onready var binding_rows: VBoxContainer = %Bindings
-
-var window_mode: OptionButton:
-	get: return row(&"window_mode").editor
-var resolution: OptionButton:
-	get: return row(&"resolution").editor
+@onready var window_mode: OptionButton = %WindowMode
+@onready var resolution: OptionButton = %Resolution
+@onready var revert_timer: Timer = %RevertTimer
+@onready var binding_status: Label = %BindingStatus
+@onready var _sections: Dictionary[SettingDefinition.Section, Container] = {
+	SettingDefinition.Section.VIDEO: %VideoRows,
+	SettingDefinition.Section.AUDIO: %AudioRows,
+	SettingDefinition.Section.CONTROLS: %ControlRows,
+}
 
 
 func _ready() -> void:
 	tabs.set_tab_title(0, tr("Video"))
 	tabs.set_tab_title(1, tr("Audio"))
 	tabs.set_tab_title(2, tr("Controls"))
-	%Back.pressed.connect(func() -> void: close_requested.emit())
-	%ApplyDisplay.pressed.connect(func() -> void: preferences.preview_display(_draft.window_mode, _draft.resolution))
-	%KeepDisplay.pressed.connect(func() -> void: preferences.confirm_display())
-	%RevertDisplay.pressed.connect(func() -> void: preferences.revert_display())
-	%ResetBindings.pressed.connect(_reset_bindings)
 	for action: StringName in PlayerBindings.ACTIONS:
-		var binding: Control = BINDING_ROW.instantiate()
+		var binding: BindingRow = BINDING_ROW.instantiate()
 		binding.action = action
-		binding_rows.add_child(binding)
+		%Bindings.add_child(binding)
+		_binding_rows[action] = binding
 		binding.binding_requested.connect(begin_capture)
+	if Engine.is_editor_hint():
+		for definition: SettingDefinition in GameSettings.CATALOG.settings:
+			_add_row(definition).show_value(definition.get_default())
+		for mode: DisplaySettings.WindowMode in DisplaySettings.MODE_LABELS:
+			window_mode.add_item(tr(DisplaySettings.MODE_LABELS[mode]))
+		resolution.add_item("1280 × 720")
+		return
+	%Back.pressed.connect(close_requested.emit)
+	%ApplyDisplay.pressed.connect(func() -> void: preferences.display.preview(_draft_mode, _draft_size))
+	%KeepDisplay.pressed.connect(_keep_display)
+	%RevertDisplay.pressed.connect(func() -> void: preferences.display.revert())
+	%ResetBindings.pressed.connect(_reset_bindings)
+	window_mode.item_selected.connect(_on_window_mode_selected)
+	resolution.item_selected.connect(_on_resolution_selected)
+	revert_timer.timeout.connect(func() -> void: preferences.display.revert())
 
 
 func setup(settings: GameSettings) -> void:
 	preferences = settings
-	var groups := {&"display": %VideoRows, &"audio": %AudioRows, &"input": %ControlRows}
 	for definition: SettingDefinition in preferences.definitions.values():
-		var setting_row: Control = ROW.instantiate()
-		setting_row.definition = definition
-		groups[definition.section].add_child(setting_row)
-		_rows[definition.id] = setting_row
-		setting_row.value_changed.connect(_setting_changed)
-	preferences.display_changed.connect(_populate_video)
+		_add_row(definition).value_changed.connect(preferences.set_value)
+	preferences.display.changed.connect(_show_display)
 
 
-func row(id: StringName) -> Control:
+func row(id: StringName) -> SettingRow:
 	return _rows[id]
 
 
 func open() -> void:
-	preferences.refresh_window_size()
+	preferences.display.refresh_from_window()
 	for id: StringName in _rows:
-		if not preferences.definitions[id].confirmation:
-			_rows[id].refresh(preferences.get_value(id))
-	_populate_video()
+		_rows[id].show_value(preferences.get_value(id))
+	_show_display()
 	cancel_capture()
 	tabs.current_tab = 0
 	show()
@@ -65,110 +80,138 @@ func open() -> void:
 
 func close() -> void:
 	cancel_capture()
-	preferences.revert_display()
+	preferences.display.revert()
 	preferences.save()
 	hide()
 
 
-func _process(_delta: float) -> void:
-	if not visible or preferences == null or not preferences.display_pending:
-		return
-	preferences.tick_display()
-	%DisplayCountdown.text = tr("Keep these display settings? Reverting in %d s.") % maxi(0, ceili((preferences.display_deadline - Time.get_ticks_msec()) / 1000.0))
-
-
-func _setting_changed(id: StringName, value: Variant) -> void:
-	if preferences.definitions[id].confirmation:
-		_draft[id] = value
-		_refresh_display_rows()
+func handle_cancel() -> void:
+	if preferences.display.pending:
+		preferences.display.revert()
 	else:
-		preferences.set_value(id, value)
-
-
-func _populate_video() -> void:
-	_draft = {&"window_mode": preferences.window_mode, &"resolution": preferences.resolution}
-	_refresh_display_rows()
-	%DisplayConfirmation.visible = preferences.display_pending
-	%ApplyDisplay.visible = not preferences.display_pending
-	if visible and tabs.current_tab == 0:
-		if preferences.display_pending:
-			%KeepDisplay.grab_focus()
-		else:
-			window_mode.grab_focus()
-
-
-func _refresh_display_rows() -> void:
-	var modes: Array = []
-	for index: int in preferences.definitions[&"window_mode"].options.size():
-		modes.append([preferences.definitions[&"window_mode"].options[index], index])
-	row(&"window_mode").refresh(_draft.window_mode, modes)
-	var sizes: Array = []
-	if _draft.window_mode == GameSettings.WindowMode.WINDOWED:
-		for size: Vector2i in preferences.resolutions():
-			sizes.append(["%d × %d" % [size.x, size.y], size])
-	else:
-		sizes.append([tr("Desktop resolution"), _draft.resolution])
-	row(&"resolution").refresh(_draft.resolution, sizes)
-	window_mode.disabled = preferences.display_pending
-	resolution.disabled = _draft.window_mode != GameSettings.WindowMode.WINDOWED or preferences.display_pending
-	%DisplayHint.text = tr("Changes need confirmation within 15 seconds.") if _draft.window_mode == GameSettings.WindowMode.WINDOWED else tr("Fullscreen modes use the desktop resolution.")
-	var unchanged: bool = _draft.window_mode == preferences.window_mode and (_draft.resolution == preferences.resolution or _draft.window_mode != GameSettings.WindowMode.WINDOWED)
-	%ApplyDisplay.disabled = preferences.display_pending or unchanged
+		close_requested.emit()
 
 
 func consume_input(event: InputEvent) -> bool:
 	if _capture_action.is_empty():
 		return false
-	if not event.is_pressed():
+	if not event.is_pressed() or (event is InputEventKey and event.echo):
 		return true
-	if event is InputEventKey:
-		if event.echo:
-			return true
-		if event.keycode == KEY_ESCAPE or event.physical_keycode == KEY_ESCAPE:
-			cancel_capture()
-			return true
-		var key := InputEventKey.new()
-		key.physical_keycode = event.physical_keycode if event.physical_keycode else event.keycode
-		_apply_binding(key)
-	elif event is InputEventMouseButton:
-		if event.button_index in [MOUSE_BUTTON_LEFT, MOUSE_BUTTON_RIGHT, MOUSE_BUTTON_MIDDLE, MOUSE_BUTTON_XBUTTON1, MOUSE_BUTTON_XBUTTON2]:
-			var mouse := InputEventMouseButton.new()
-			mouse.button_index = event.button_index
-			_apply_binding(mouse)
+	if event is InputEventKey and (event.keycode == KEY_ESCAPE or event.physical_keycode == KEY_ESCAPE):
+		cancel_capture()
+	elif event is InputEventKey or event is InputEventMouseButton:
+		_apply_binding(PlayerBindings.normalized(event))
 	return true
+
 
 func begin_capture(action: StringName) -> void:
 	cancel_capture()
 	_capture_action = action
-	for row: Node in binding_rows.get_children():
-		if row.action == action:
-			row.show_capture()
-	%BindingStatus.text = tr("Press a replacement key or mouse button. Esc cancels.")
+	_binding_rows[action].show_capture()
+	binding_status.text = tr("Press a replacement key or mouse button. Esc cancels.")
+
 
 func cancel_capture() -> void:
 	_capture_action = &""
 	_refresh_bindings()
-	%BindingStatus.text = tr("Select a binding, then press a key or mouse button. Esc cancels.")
+	binding_status.text = tr("Select a binding, then press a key or mouse button. Esc cancels.")
+
+
+func is_capturing() -> bool:
+	return not _capture_action.is_empty()
+
+
+func _process(_delta: float) -> void:
+	if not revert_timer.is_stopped():
+		%DisplayCountdown.text = tr("Keep these display settings? Reverting in %d s.") % ceili(revert_timer.time_left)
+
+
+func _add_row(definition: SettingDefinition) -> SettingRow:
+	var setting_row: SettingRow = _row_scene(definition).instantiate()
+	_sections[definition.section].add_child(setting_row)
+	setting_row.setup(definition)
+	_rows[definition.id] = setting_row
+	return setting_row
+
+
+func _row_scene(definition: SettingDefinition) -> PackedScene:
+	if definition is SliderSetting:
+		return SLIDER_ROW
+	if definition is ToggleSetting:
+		return TOGGLE_ROW
+	return CHOICE_ROW
+
+
+func _show_display() -> void:
+	var display := preferences.display
+	_draft_mode = display.mode
+	_draft_size = display.size
+	_refresh_display_options()
+	%DisplayConfirmation.visible = display.pending
+	%ApplyDisplay.visible = not display.pending
+	if display.pending:
+		revert_timer.start()
+	else:
+		revert_timer.stop()
+	if visible and tabs.current_tab == 0:
+		(%KeepDisplay if display.pending else window_mode).grab_focus()
+
+
+func _refresh_display_options() -> void:
+	var display := preferences.display
+	window_mode.clear()
+	for mode: DisplaySettings.WindowMode in DisplaySettings.MODE_LABELS:
+		window_mode.add_item(tr(DisplaySettings.MODE_LABELS[mode]), mode)
+	window_mode.select(window_mode.get_item_index(_draft_mode))
+	resolution.clear()
+	if _draft_mode == WINDOWED:
+		for option: Vector2i in display.sizes():
+			resolution.add_item("%d × %d" % [option.x, option.y])
+			resolution.set_item_metadata(-1, option)
+			if option == _draft_size:
+				resolution.select(resolution.item_count - 1)
+	else:
+		resolution.add_item(tr("Desktop resolution"))
+	window_mode.disabled = display.pending
+	resolution.disabled = display.pending or _draft_mode != WINDOWED
+	%DisplayHint.text = tr("Changes need confirmation within 15 seconds.") if _draft_mode == WINDOWED else tr("Fullscreen modes use the desktop resolution.")
+	var unchanged := _draft_mode == display.mode and (_draft_size == display.size or _draft_mode != WINDOWED)
+	%ApplyDisplay.disabled = display.pending or unchanged
+
+
+func _on_window_mode_selected(index: int) -> void:
+	_draft_mode = window_mode.get_item_id(index) as DisplaySettings.WindowMode
+	_refresh_display_options()
+
+
+func _on_resolution_selected(index: int) -> void:
+	_draft_size = resolution.get_item_metadata(index)
+	_refresh_display_options()
+
+
+func _keep_display() -> void:
+	preferences.display.confirm()
+	preferences.save()
+
 
 func _apply_binding(event: InputEvent) -> void:
-	var result := preferences.bindings.assign(_capture_action, event)
-	if not result.is_empty():
-		%BindingStatus.text = result
+	var problem := preferences.bindings.problem(_capture_action, event)
+	if not problem.is_empty():
+		binding_status.text = problem
 		return
 	var action := _capture_action
-	_capture_action = &""
-	_refresh_bindings()
-	for row: Node in binding_rows.get_children():
-		if row.action == action:
-			row.focus_binding()
-	%BindingStatus.text = tr("Binding updated.")
+	preferences.bindings.assign(action, event)
+	cancel_capture()
+	_binding_rows[action].button.grab_focus()
+	binding_status.text = tr("Binding updated.")
+
 
 func _refresh_bindings() -> void:
-	for row: Node in binding_rows.get_children():
-		row.refresh()
+	for binding: BindingRow in _binding_rows.values():
+		binding.refresh()
+
 
 func _reset_bindings() -> void:
-	cancel_capture()
 	preferences.bindings.reset()
-	_refresh_bindings()
-	%BindingStatus.text = tr("Default controls restored.")
+	cancel_capture()
+	binding_status.text = tr("Default controls restored.")
