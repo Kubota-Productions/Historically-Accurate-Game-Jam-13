@@ -36,10 +36,10 @@ far = 2.0
 script = ExtResource("1_qki4j")
 
 [node name="ProjectionOutput" type="MeshInstance3D" parent="." unique_id=387850907]
-layers = 524288
 physics_interpolation_mode = 2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 visible = false
+layers = 524288
 material_override = SubResource("ShaderMaterial_noarx")
 cast_shadow = 0
 gi_mode = 0

@@ -3,8 +3,7 @@
 [ext_resource type="Script" uid="uid://ds25qo7ubp17a" path="res://Scenes/Player/Scripts/FPScamera.gd" id="2_22kdy"]
 [ext_resource type="Script" uid="uid://und72swrc33q" path="res://Scenes/Player/Scripts/FPSplayer.gd" id="2_ryt0y"]
 [ext_resource type="PackedScene" uid="uid://bi1mvehj2r4uu" path="res://Assets/3D/Snoutsquished.glb" id="3_xrtr1"]
-
-[ext_resource type="Script" path="res://Scenes/Player/Scripts/Components/viewmodel_sway.gd" id="sway"]
+[ext_resource type="Script" uid="uid://btsuug28e6qs0" path="res://Scenes/Player/Scripts/Components/viewmodel_sway.gd" id="sway"]
 
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=1514709304 node_paths=PackedStringArray("collision_shape")]
 script = ExtResource("2_ryt0y")
@@ -26,10 +25,10 @@ fov = 100.0
 [node name="Snout" parent="CameraHolder/Camera3D" unique_id=1966567727 instance=ExtResource("3_xrtr1")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0.02, 0.84)
 
-[node name="ViewModelMotion" type="Node" parent="CameraHolder/Camera3D" node_paths=PackedStringArray("visual", "camera")]
+[node name="MouthAnchor" type="Marker3D" parent="CameraHolder/Camera3D/Snout" unique_id=905437004]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 1.39, -0.4, 0)
+
+[node name="ViewModelMotion" type="Node" parent="CameraHolder/Camera3D" unique_id=1832605158 node_paths=PackedStringArray("visual", "camera")]
 script = ExtResource("sway")
 visual = NodePath("../Snout")
 camera = NodePath("..")
-
-[node name="MouthAnchor" type="Marker3D" parent="CameraHolder/Camera3D/Snout"]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 1.39, -0.4, 0)

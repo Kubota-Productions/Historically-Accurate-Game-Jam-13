@@ -1,6 +1,12 @@
-[gd_resource type="ShaderMaterial" format=3]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dp270hufiqulu"]
 
-[ext_resource type="Shader" path="res://Resources/Shaders/floor_grid.gdshader" id="shader"]
+[ext_resource type="Shader" uid="uid://cxmp8s11mqvnh" path="res://Resources/Shaders/floor_grid.gdshader" id="shader"]
 
 [resource]
+render_priority = 0
 shader = ExtResource("shader")
+shader_parameter/floor_color = Color(0.307, 0.307, 0.307, 1)
+shader_parameter/line_color = Color(0.4, 0.4, 0.4, 1)
+shader_parameter/show_grid = true
+shader_parameter/cell_size = 1.0
+shader_parameter/line_width = 0.016

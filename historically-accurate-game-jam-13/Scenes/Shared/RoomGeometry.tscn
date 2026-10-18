@@ -1,200 +1,182 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dh6skid14q762"]
 
-[ext_resource type="Script" path="res://Scenes/Shared/Scripts/asset_group.gd" id="asset_group"]
-[ext_resource type="Material" path="res://Resources/Materials/floor_grid.tres" id="floor_grid"]
+[ext_resource type="Texture2D" uid="uid://cs425oaxhri11" path="res://Assets/Textures/floor.png" id="2_dhkg6"]
+[ext_resource type="Script" uid="uid://jivklbtxb5ki" path="res://Scenes/Shared/Scripts/asset_group.gd" id="asset_group"]
+[ext_resource type="Material" uid="uid://dp270hufiqulu" path="res://Resources/Materials/floor_grid.tres" id="floor_grid"]
 
-
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q7t3c"]
+albedo_texture = ExtResource("2_dhkg6")
+uv1_scale = Vector3(-0.165, -0.165, -0.165)
+uv1_triplanar = true
 
 [sub_resource type="StandardMaterial3D" id="Wall"]
-albedo_color = Color(0.683, 0.683, 0.683, 1.0)
+albedo_color = Color(0.683, 0.683, 0.683, 1)
 roughness = 0.85
 
 [sub_resource type="StandardMaterial3D" id="Dark"]
-albedo_color = Color(0.18, 0.18, 0.18, 1.0)
+albedo_color = Color(0.18, 0.18, 0.18, 1)
 roughness = 0.85
 
 [sub_resource type="StandardMaterial3D" id="Trim"]
-albedo_color = Color(0.4, 0.4, 0.4, 1.0)
+albedo_color = Color(0.4, 0.4, 0.4, 1)
 roughness = 0.85
 
 [sub_resource type="StandardMaterial3D" id="Light"]
-albedo_color = Color(0.827, 0.827, 0.827, 1.0)
+albedo_color = Color(0.95008487, 0.8276277, 7.70092e-07, 1)
 roughness = 0.85
 emission_enabled = true
-emission = Color(0.827, 0.827, 0.827, 1.0)
+emission = Color(0.8961671, 0.8512247, 3.85046e-07, 1)
 emission_energy_multiplier = 1.5
 
-[sub_resource type="Environment" id="Environment"]
-background_mode = 1
-background_color = Color(0.12, 0.12, 0.12, 1.0)
-ambient_light_source = 3
-ambient_light_color = Color(0.853, 0.853, 0.853, 1.0)
-ambient_light_energy = 0.55
-tonemap_mode = 2
+[node name="RoomGeometry" type="Node3D" unique_id=64567375]
 
+[node name="Architecture" type="Node3D" parent="." unique_id=231884637]
 
-[node name="RoomGeometry" type="Node3D"]
-
-
-
-[node name="Architecture" type="Node3D" parent="."]
-
-[node name="Floor" type="Node3D" parent="Architecture"]
+[node name="Floor" type="Node3D" parent="Architecture" unique_id=1019325760]
 script = ExtResource("asset_group")
 
-[node name="Walls" type="Node3D" parent="Architecture"]
+[node name="Surface" type="CSGBox3D" parent="Architecture/Floor" unique_id=1999216364]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.15, 0)
+material_override = SubResource("StandardMaterial3D_q7t3c")
+use_collision = true
+size = Vector3(12, 0.3, 10)
+material = ExtResource("floor_grid")
+
+[node name="Walls" type="Node3D" parent="Architecture" unique_id=1108581634]
 script = ExtResource("asset_group")
 
-[node name="Back" type="Node3D" parent="Architecture/Walls"]
+[node name="Back" type="Node3D" parent="Architecture/Walls" unique_id=1694944793]
 
-[node name="Left" type="Node3D" parent="Architecture/Walls"]
+[node name="Surface" type="CSGBox3D" parent="Architecture/Walls/Back" unique_id=1454795201]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1, -5)
+use_collision = true
+size = Vector3(12, 4.2, 0.25)
+material = SubResource("Wall")
 
-[node name="Right" type="Node3D" parent="Architecture/Walls"]
+[node name="LowerBand" type="CSGBox3D" parent="Architecture/Walls/Back" unique_id=1772379671]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65, -4.82)
+size = Vector3(12, 0.85, 0.15)
+material = SubResource("Dark")
 
-[node name="Front" type="Node3D" parent="Architecture/Walls"]
+[node name="Left" type="Node3D" parent="Architecture/Walls" unique_id=1552694047]
 
-[node name="Ceiling" type="Node3D" parent="Architecture"]
+[node name="Surface" type="CSGBox3D" parent="Architecture/Walls/Left" unique_id=2074344932]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2.1, 0)
+use_collision = true
+size = Vector3(0.25, 4.2, 10)
+material = SubResource("Wall")
+
+[node name="Right" type="Node3D" parent="Architecture/Walls" unique_id=57741196]
+
+[node name="Surface" type="CSGBox3D" parent="Architecture/Walls/Right" unique_id=1263787058]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2.1, 0)
+use_collision = true
+size = Vector3(0.25, 4.2, 10)
+material = SubResource("Wall")
+
+[node name="Front" type="Node3D" parent="Architecture/Walls" unique_id=1828915775]
+
+[node name="Surface" type="CSGBox3D" parent="Architecture/Walls/Front" unique_id=1542008964]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1, 5)
+use_collision = true
+size = Vector3(12, 4.2, 0.25)
+material = SubResource("Wall")
+
+[node name="Ceiling" type="Node3D" parent="Architecture" unique_id=1354295936]
 script = ExtResource("asset_group")
 
-[node name="Windows" type="Node3D" parent="Architecture"]
+[node name="Surface" type="CSGBox3D" parent="Architecture/Ceiling" unique_id=398649593]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.3, 0)
+use_collision = true
+size = Vector3(12, 0.2, 10)
+material = SubResource("Wall")
+
+[node name="Windows" type="Node3D" parent="Architecture" unique_id=157532298]
 script = ExtResource("asset_group")
 
-[node name="Left" type="Node3D" parent="Architecture/Windows"]
+[node name="Left" type="Node3D" parent="Architecture/Windows" unique_id=825006343]
 
-[node name="Center" type="Node3D" parent="Architecture/Windows"]
+[node name="Pane" type="CSGBox3D" parent="Architecture/Windows/Left" unique_id=1181944813]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.5, -4.84)
+size = Vector3(2.4, 1.3, 0.1)
+material = SubResource("Dark")
 
-[node name="Right" type="Node3D" parent="Architecture/Windows"]
+[node name="Divider" type="CSGBox3D" parent="Architecture/Windows/Left" unique_id=1088129585]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.5, -4.76)
+size = Vector3(0.06, 1.3, 0.04)
+material = SubResource("Trim")
 
-[node name="Lighting" type="Node3D" parent="."]
+[node name="Center" type="Node3D" parent="Architecture/Windows" unique_id=1800178971]
+
+[node name="Pane" type="CSGBox3D" parent="Architecture/Windows/Center" unique_id=676417300]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -4.84)
+size = Vector3(2.4, 1.3, 0.1)
+material = SubResource("Dark")
+
+[node name="Divider" type="CSGBox3D" parent="Architecture/Windows/Center" unique_id=1268717552]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -4.76)
+size = Vector3(0.06, 1.3, 0.04)
+material = SubResource("Trim")
+
+[node name="Right" type="Node3D" parent="Architecture/Windows" unique_id=1765077911]
+
+[node name="Pane" type="CSGBox3D" parent="Architecture/Windows/Right" unique_id=1398732664]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2.5, -4.84)
+size = Vector3(2.4, 1.3, 0.1)
+material = SubResource("Dark")
+
+[node name="Divider" type="CSGBox3D" parent="Architecture/Windows/Right" unique_id=432759594]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2.5, -4.76)
+size = Vector3(0.06, 1.3, 0.04)
+material = SubResource("Trim")
+
+[node name="Lighting" type="Node3D" parent="." unique_id=2034293636]
 script = ExtResource("asset_group")
 
-[node name="Fixtures" type="Node3D" parent="Lighting"]
+[node name="Fixtures" type="Node3D" parent="Lighting" unique_id=23814372]
 
-[node name="Left" type="Node3D" parent="Lighting/Fixtures"]
+[node name="Left" type="Node3D" parent="Lighting/Fixtures" unique_id=1017746193]
 
-[node name="Right" type="Node3D" parent="Lighting/Fixtures"]
+[node name="Surface" type="CSGBox3D" parent="Lighting/Fixtures/Left" unique_id=1941979518]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 4.12, -0.5)
+size = Vector3(0.4, 0.08, 3)
+material = SubResource("Light")
 
-[node name="Environment" type="Node3D" parent="."]
+[node name="Surface2" type="CSGBox3D" parent="Lighting/Fixtures/Left" unique_id=422914720]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.12, -0.5)
+size = Vector3(0.4, 0.08, 3)
+material = SubResource("Light")
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
-environment = SubResource("Environment")
+[node name="Right" type="Node3D" parent="Lighting/Fixtures" unique_id=836964942]
 
+[node name="Surface" type="CSGBox3D" parent="Lighting/Fixtures/Right" unique_id=1641460196]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 4.12, -0.5)
+size = Vector3(0.4, 0.08, 3)
+material = SubResource("Light")
 
-[node name="Sun" type="DirectionalLight3D" parent="Lighting"]
-rotation_degrees = Vector3(-55, -25, 0)
-light_color = Color(0.857, 0.857, 0.857, 1.0)
+[node name="Sun" type="DirectionalLight3D" parent="Lighting" unique_id=831250679]
+transform = Transform3D(0.90630776, 0.34618863, -0.24240388, 0, 0.57357645, 0.81915206, 0.42261827, -0.74240386, 0.5198368, 0, 0, 0)
+light_color = Color(0.857, 0.857, 0.857, 1)
 light_energy = 1.5
 shadow_enabled = true
 
+[node name="AreaLight3D" type="AreaLight3D" parent="." unique_id=686010686]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -2.9560432, 4.0222354, -0.5141486)
+light_color = Color(0.92933506, 0.76310205, 0, 1)
+light_energy = 20.0
+light_specular = 0.0
+area_size = Vector2(0.35493565, 2.8440542)
 
-[node name="Fill" type="OmniLight3D" parent="Lighting"]
-position = Vector3(0, 3.5, 1)
-light_color = Color(0.87, 0.87, 0.87, 1.0)
-light_energy = 3.0
-omni_range = 10.0
-shadow_enabled = true
+[node name="AreaLight3D3" type="AreaLight3D" parent="." unique_id=597760589]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0.043956757, 4.0222354, -0.5141486)
+light_color = Color(0.92933506, 0.76310205, 0, 1)
+light_energy = 20.0
+light_specular = 0.0
+area_size = Vector2(0.35493565, 2.8440542)
 
-
-[node name="Surface" type="CSGBox3D" parent="Architecture/Floor"]
-position = Vector3(0, -0.15, 0)
-size = Vector3(12, 0.3, 10)
-material = ExtResource("floor_grid")
-use_collision = true
-
-
-[node name="Surface" type="CSGBox3D" parent="Architecture/Walls/Back"]
-position = Vector3(0, 2.1, -5)
-size = Vector3(12, 4.2, 0.25)
-material = SubResource("Wall")
-use_collision = true
-
-
-[node name="Surface" type="CSGBox3D" parent="Architecture/Walls/Left"]
-position = Vector3(-6, 2.1, 0)
-size = Vector3(0.25, 4.2, 10)
-material = SubResource("Wall")
-use_collision = true
-
-
-[node name="Surface" type="CSGBox3D" parent="Architecture/Walls/Right"]
-position = Vector3(6, 2.1, 0)
-size = Vector3(0.25, 4.2, 10)
-material = SubResource("Wall")
-use_collision = true
-
-
-[node name="Surface" type="CSGBox3D" parent="Architecture/Walls/Front"]
-position = Vector3(0, 2.1, 5)
-size = Vector3(12, 4.2, 0.25)
-material = SubResource("Wall")
-use_collision = true
-
-
-[node name="Pane" type="CSGBox3D" parent="Architecture/Windows/Left"]
-position = Vector3(-4, 2.5, -4.84)
-size = Vector3(2.4, 1.3, 0.1)
-material = SubResource("Dark")
-use_collision = false
-
-
-[node name="Divider" type="CSGBox3D" parent="Architecture/Windows/Left"]
-position = Vector3(-4, 2.5, -4.76)
-size = Vector3(0.06, 1.3, 0.04)
-material = SubResource("Trim")
-use_collision = false
-
-
-[node name="Pane" type="CSGBox3D" parent="Architecture/Windows/Center"]
-position = Vector3(0, 2.5, -4.84)
-size = Vector3(2.4, 1.3, 0.1)
-material = SubResource("Dark")
-use_collision = false
-
-
-[node name="Divider" type="CSGBox3D" parent="Architecture/Windows/Center"]
-position = Vector3(0, 2.5, -4.76)
-size = Vector3(0.06, 1.3, 0.04)
-material = SubResource("Trim")
-use_collision = false
-
-
-[node name="Pane" type="CSGBox3D" parent="Architecture/Windows/Right"]
-position = Vector3(4, 2.5, -4.84)
-size = Vector3(2.4, 1.3, 0.1)
-material = SubResource("Dark")
-use_collision = false
-
-
-[node name="Divider" type="CSGBox3D" parent="Architecture/Windows/Right"]
-position = Vector3(4, 2.5, -4.76)
-size = Vector3(0.06, 1.3, 0.04)
-material = SubResource("Trim")
-use_collision = false
-
-
-[node name="LowerBand" type="CSGBox3D" parent="Architecture/Walls/Back"]
-position = Vector3(0, 0.65, -4.82)
-size = Vector3(12, 0.85, 0.15)
-material = SubResource("Dark")
-use_collision = false
-
-
-[node name="Surface" type="CSGBox3D" parent="Architecture/Ceiling"]
-position = Vector3(0, 4.3, 0)
-size = Vector3(12, 0.2, 10)
-material = SubResource("Wall")
-use_collision = true
-
-
-[node name="Surface" type="CSGBox3D" parent="Lighting/Fixtures/Left"]
-position = Vector3(-3, 4.12, -0.5)
-size = Vector3(0.4, 0.08, 3)
-material = SubResource("Light")
-use_collision = false
-
-
-[node name="Surface" type="CSGBox3D" parent="Lighting/Fixtures/Right"]
-position = Vector3(3, 4.12, -0.5)
-size = Vector3(0.4, 0.08, 3)
-material = SubResource("Light")
-use_collision = false
+[node name="AreaLight3D2" type="AreaLight3D" parent="." unique_id=458360222]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 2.979108, 4.0222354, -0.5141486)
+light_color = Color(0.92933506, 0.76310205, 0, 1)
+light_energy = 20.0
+light_specular = 0.0
+area_size = Vector2(0.35493565, 2.8440542)
