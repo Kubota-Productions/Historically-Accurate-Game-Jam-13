@@ -18,6 +18,13 @@ albedo_texture = ExtResource("4_q7t3c")
 albedo_color = Color(0.683, 0.683, 0.683, 1)
 roughness = 0.85
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fireu"]
+transparency = 1
+blend_mode = 3
+metallic_specular = 1.0
+roughness = 0.0
+refraction_enabled = true
+
 [sub_resource type="StandardMaterial3D" id="Dark"]
 albedo_color = Color(0.18, 0.18, 0.18, 1)
 roughness = 0.85
@@ -80,6 +87,24 @@ material_override = SubResource("StandardMaterial3D_hulpg")
 use_collision = true
 size = Vector3(2, 2, 0.25)
 material = SubResource("Wall")
+
+[node name="Surface11" type="CSGBox3D" parent="Architecture/Walls/Back" unique_id=1028252822]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.5, -5)
+use_collision = true
+size = Vector3(2, 1, 0.25)
+material = SubResource("StandardMaterial3D_fireu")
+
+[node name="Surface12" type="CSGBox3D" parent="Architecture/Walls/Back" unique_id=2054772335]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -5)
+use_collision = true
+size = Vector3(2, 1, 0.25)
+material = SubResource("StandardMaterial3D_fireu")
+
+[node name="Surface13" type="CSGBox3D" parent="Architecture/Walls/Back" unique_id=921090315]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2.5, -5)
+use_collision = true
+size = Vector3(2, 1, 0.25)
+material = SubResource("StandardMaterial3D_fireu")
 
 [node name="Surface6" type="CSGBox3D" parent="Architecture/Walls/Back" unique_id=1317823087]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 4, -5)
