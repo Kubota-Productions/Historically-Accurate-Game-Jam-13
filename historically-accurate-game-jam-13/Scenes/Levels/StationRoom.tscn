@@ -169,7 +169,7 @@ outline_size = 0
 
 [node name="Carry" type="Node" parent="Systems" node_paths=PackedStringArray("anchor")]
 script = ExtResource("carry")
-anchor = NodePath("../../Actors/Player/CameraHolder/Camera3D/CarryAnchor")
+anchor = NodePath("../../Actors/Player/CameraHolder/Camera3D/Snout/MouthAnchor")
 
 [node name="Interactor" type="Node" parent="Systems"]
 script = ExtResource("interactor")

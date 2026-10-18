@@ -5,7 +5,7 @@ var shell: GameShell
 
 func run() -> void:
 	shell = await boot_shell()
-	check(shell.menu.visible and not shell.hud.visible, "Boot opens only the main menu")
+	check(shell.menu.visible and not shell.hud.visible and not shell.transition.fade.visible, "Boot opens only the main menu, uncovered")
 	check(not shell.room.control_enabled, "The menu does not move the player")
 	check(root.gui_get_focus_owner() == shell.menu.get_node("%Start"), "Start has keyboard focus")
 	_check_landing_camera()

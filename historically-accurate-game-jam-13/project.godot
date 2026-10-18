@@ -73,10 +73,6 @@ drop={
 ]
 }
 
-[internationalization]
-
-locale/fallback="en"
-
 [physics]
 
 3d/physics_engine="Jolt Physics"

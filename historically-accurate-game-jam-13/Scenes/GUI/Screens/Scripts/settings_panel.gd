@@ -165,10 +165,10 @@ func _refresh_display_options() -> void:
 	window_mode.select(window_mode.get_item_index(_draft_mode))
 	resolution.clear()
 	if _draft_mode == WINDOWED:
-		for size: Vector2i in display.sizes():
-			resolution.add_item("%d × %d" % [size.x, size.y])
-			resolution.set_item_metadata(-1, size)
-			if size == _draft_size:
+		for option: Vector2i in display.sizes():
+			resolution.add_item("%d × %d" % [option.x, option.y])
+			resolution.set_item_metadata(-1, option)
+			if option == _draft_size:
 				resolution.select(resolution.item_count - 1)
 	else:
 		resolution.add_item(tr("Desktop resolution"))

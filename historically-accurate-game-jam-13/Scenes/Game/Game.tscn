@@ -81,6 +81,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 unique_name_in_owner = true
+visible = false
 color = Color(0.08, 0.08, 0.08, 1)
 mouse_filter = 0
 

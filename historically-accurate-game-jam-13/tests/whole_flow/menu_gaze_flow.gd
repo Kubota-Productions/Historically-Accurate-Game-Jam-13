@@ -88,7 +88,7 @@ func run() -> void:
 	menu.get_node("%Quit").grab_focus()
 	for fps: int in [30, 60, 144]:
 		marker.position = neutral
-		for frame: int in fps / 2:
+		for frame: int in fps >> 1:
 			gaze._process(1.0 / fps)
 		positions.append(marker.position)
 	check(positions[0].distance_to(positions[1]) < 0.0001 and positions[0].distance_to(positions[2]) < 0.0001, "Smoothing has the same response at 30, 60 and 144 FPS")

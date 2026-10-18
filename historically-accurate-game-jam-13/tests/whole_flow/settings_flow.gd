@@ -26,7 +26,7 @@ func run() -> void:
 	panel.row(&"sensitivity").editor.value = 0.19
 	check(is_equal_approx(shell.room.rig.mouse_sensitivity, 0.19), "Sensitivity applies to the camera")
 	await _rebinding()
-	await _display_confirmation()
+	_display_confirmation()
 	await press(&"ui_cancel")
 	check(shell.menu.visible and not panel.visible, "Escape returns from settings")
 	check(root.gui_get_focus_owner() == shell.menu.get_node("%Settings"), "Settings focus is restored")

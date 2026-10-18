@@ -19,7 +19,7 @@ func _start() -> void:
 
 
 func run() -> void:
-	pass
+	await process_frame
 
 
 func check(condition: bool, message: String) -> void:

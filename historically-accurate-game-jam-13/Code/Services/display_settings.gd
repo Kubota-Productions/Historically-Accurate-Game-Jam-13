@@ -90,7 +90,7 @@ func _apply() -> void:
 	match mode:
 		WindowMode.WINDOWED:
 			_window.size = size
-			_window.position = screen.position + (screen.size - size) / 2
+			_window.position = screen.position + Vector2i(Vector2(screen.size - size) / 2.0)
 		WindowMode.BORDERLESS:
 			_window.borderless = true
 			_window.size = DisplayServer.screen_get_size(_window.current_screen)

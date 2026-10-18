@@ -35,14 +35,14 @@ func _process(_delta: float) -> void:
 
 
 func _resize() -> void:
-	var scale := upscale if enabled else 1.0
-	var size := Vector2(get_window().size) * scale
-	if minf(size.x, size.y) < MIN_VIEWPORT_SIZE:
-		size = Vector2.ONE * MIN_VIEWPORT_SIZE
-		scale = 1.0
-	viewport.size = Vector2i(size)
+	var factor := upscale if enabled else 1.0
+	var target := Vector2(get_window().size) * factor
+	if minf(target.x, target.y) < MIN_VIEWPORT_SIZE:
+		target = Vector2.ONE * MIN_VIEWPORT_SIZE
+		factor = 1.0
+	viewport.size = Vector2i(target)
 	if viewport.scaling_3d_mode == Viewport.SCALING_3D_MODE_BILINEAR:
 		viewport.scaling_3d_scale = 1.0
 	else:
-		viewport.scaling_3d_scale = minf(1.0 / lerpf(scale, 1.0, sqrt(supersample_upscale_amount)), 1.0)
+		viewport.scaling_3d_scale = minf(1.0 / lerpf(factor, 1.0, sqrt(supersample_upscale_amount)), 1.0)
 	material.set_shader_parameter(&"enabled", enabled)

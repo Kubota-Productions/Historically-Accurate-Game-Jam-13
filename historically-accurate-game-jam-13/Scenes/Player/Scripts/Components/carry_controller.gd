@@ -11,7 +11,7 @@ const FLOOR_MIN_NORMAL_Y := 0.7
 const DROP_CLEARANCE := 0.03
 
 @export var anchor: Marker3D
-@export var hold_offset := Vector3(0, -0.5, -1)
+@export var hold_offset := Vector3.ZERO
 @export var hold_rotation_degrees := Vector3(0, 0, 90)
 
 var item: PickupItem

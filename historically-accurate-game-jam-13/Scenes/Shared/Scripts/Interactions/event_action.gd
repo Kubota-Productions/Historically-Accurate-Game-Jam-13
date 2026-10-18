@@ -8,7 +8,9 @@ extends InteractionAction
 
 
 func prompt(room: LaikaRoom, target: Interactable) -> String:
-	return tr(completed_prompt) if room.progress.has_flag(completed_flag) else super(room, target)
+	if room.progress.has_flag(completed_flag):
+		return tr(completed_prompt)
+	return super(room, target)
 
 
 func execute(room: LaikaRoom, _target: Interactable) -> void:
@@ -19,7 +21,7 @@ func configuration_errors(room: LaikaRoom, target: Interactable) -> PackedString
 	var errors := super(room, target)
 	errors.append_array(unknown_flags(room, [completed_flag]))
 	if event.is_empty() or (room and not room.progress.knows_event(event)):
-		errors.append("event: choose an event from %s's progress." % (room.name if room else "the room"))
+		errors.append("event: choose an event from %s's progress." % (str(room.name) if room else "the room"))
 	return errors
 
 

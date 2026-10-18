@@ -196,11 +196,11 @@ func _riser_is_vertical(start: Transform3D, dir: Vector3, contact_distance: floa
 	return test_move(raised, dir * (contact_distance + RISER_LEAN_TOLERANCE))
 
 
-func _tread_holds(landed: Vector3, tread: Vector3, dir: Vector3) -> bool:
-	var edge_gap := maxf((tread - landed).dot(dir), 0.0)
+func _tread_holds(landing_point: Vector3, tread: Vector3, dir: Vector3) -> bool:
+	var edge_gap := maxf((tread - landing_point).dot(dir), 0.0)
 	var run := dir * (edge_gap + min_tread_depth)
-	var hover_height := maxf(landed.y, tread.y) + TREAD_PROBE_LIFT
-	var hover := Transform3D(global_transform.basis, Vector3(landed.x, hover_height, landed.z))
+	var hover_height := maxf(landing_point.y, tread.y) + TREAD_PROBE_LIFT
+	var hover := Transform3D(global_transform.basis, Vector3(landing_point.x, hover_height, landing_point.z))
 
 	var travel := run
 	var walled := false

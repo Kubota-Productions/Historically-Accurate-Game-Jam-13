@@ -94,7 +94,7 @@ func _sway_trace(fps: int) -> Vector2:
 		var angle: float = motion.offset.y
 		largest_step = maxf(largest_step, absf(angle - previous))
 		previous = angle
-		if frame + 1 == fps / 2:
+		if frame + 1 == fps >> 1:
 			at_reverse = angle
 	check(largest_step <= deg_to_rad(0.8) * (1.0 - exp(-12.0 / fps)) * 2.01, "Direction changes remain smooth at %d FPS" % fps)
 	check(absf(previous) < deg_to_rad(0.01), "Snout settles after stopping at %d FPS" % fps)

@@ -4,6 +4,7 @@ const PICKUP := preload("res://Scenes/Shared/Interactables/Pickup.tscn")
 const SCIENTIST: Dialogue = preload("res://GameData/Dialogue/Training/scientist.tres")
 const REMINDER: Dialogue = preload("res://GameData/Dialogue/Training/reminder.tres")
 
+@warning_ignore("missing_tool")
 class CounterAction extends InteractionAction:
 	var count: int = 0
 
@@ -14,6 +15,7 @@ class ChainProgress extends RoomProgress:
 	func dialogue_finished(_dialogue: Dialogue) -> void:
 		room.dialogue_requested.emit(REMINDER)
 
+@warning_ignore("missing_tool")
 class RejectSocket extends ItemSocket:
 	func install(_item: PickupItem) -> bool:
 		return false
@@ -132,6 +134,7 @@ func _carrying_preserves_the_asset() -> void:
 	var world_scale := item.global_basis.get_scale()
 	room.carry.take(item)
 	check(item.global_basis.get_scale().is_equal_approx(world_scale), "Carrying keeps the world scale")
+	check(room.camera.get_node("Snout").is_ancestor_of(item), "A held item follows the snout sway")
 	check(first.layers == Layers.VIEWMODEL and second.layers == Layers.VIEWMODEL, "Every mesh renders on the viewmodel layer")
 	var held := first.material_override as StandardMaterial3D
 	check(held != material and held.albedo_texture == material.albedo_texture, "Held materials keep textures without changing the asset")

@@ -1,6 +1,7 @@
 class_name LaikaRoom
 extends Node3D
 
+@warning_ignore_start("unused_signal")
 signal objective_changed(text: String, detail: String, values: Array)
 signal prompt_changed(text: String)
 signal carrying_changed(item_name: String)
@@ -9,6 +10,7 @@ signal dialogue_requested(dialogue: Dialogue)
 signal departure_requested(destination: RoomDefinition)
 signal sniffing_changed(active: bool)
 signal completed
+@warning_ignore_restore("unused_signal")
 
 @export var rig: FPSCamera
 @export var menu_camera: Camera3D

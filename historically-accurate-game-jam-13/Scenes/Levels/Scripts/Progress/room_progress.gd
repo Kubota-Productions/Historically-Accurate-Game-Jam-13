@@ -13,9 +13,9 @@ static func declared(constant: StringName) -> PackedStringArray:
 	var names: PackedStringArray = []
 	for info: Dictionary in ProjectSettings.get_global_class_list():
 		if info.base == &"RoomProgress":
-			for name: StringName in load(info.path).get_script_constant_map().get(constant, []):
-				if not name in names:
-					names.append(name)
+			for entry: StringName in load(info.path).get_script_constant_map().get(constant, []):
+				if not entry in names:
+					names.append(entry)
 	return names
 
 

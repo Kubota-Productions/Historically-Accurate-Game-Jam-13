@@ -25,8 +25,8 @@ func run() -> void:
 	check(shell.settings.window_mode.get_item_text(0) == "У вікні", "Display choices translate")
 	var binding: Control = shell.settings.get_node("%Bindings").get_child(0)
 	check(binding.get_node("%ActionName").text == "Рух уперед", "Binding labels translate")
-	var key: InputEvent = InputMap.action_get_events(&"forward")[0]
-	check(shell.preferences.bindings.problem(&"interact", key) == "Уже призначено: Рух уперед.", "Binding errors translate the template and inserted action")
+	var forward_key: InputEvent = InputMap.action_get_events(&"forward")[0]
+	check(shell.preferences.bindings.problem(&"interact", forward_key) == "Уже призначено: Рух уперед.", "Binding errors translate the template and inserted action")
 	shell.close_settings()
 	await shell.start_game()
 	check(shell.dialogue.speaker.text == "ВЧЕНИЙ", "Dialogue speakers translate")
