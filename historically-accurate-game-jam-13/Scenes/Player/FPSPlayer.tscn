@@ -32,3 +32,4 @@ transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 1.39, -0.4, 0)
 script = ExtResource("sway")
 visual = NodePath("../Snout")
 camera = NodePath("..")
+render_as_viewmodel = false
