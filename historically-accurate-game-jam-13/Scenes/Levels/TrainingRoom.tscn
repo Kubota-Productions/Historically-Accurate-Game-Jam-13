@@ -1,34 +1,39 @@
 [gd_scene format=3 uid="uid://dr85yvfobvshq"]
 
 [ext_resource type="PackedScene" uid="uid://bubn572blfd61" path="res://Assets/3D/Capsuleinterior.glb" id="6_fewc6"]
-[ext_resource type="PackedScene" uid="uid://b1gpipc74tvjq" path="res://Assets/3D/TV.glb" id="7_fewc6"]
 [ext_resource type="PackedScene" uid="uid://1q60u2q0rsng" path="res://Assets/3D/Radio.glb" id="8_e0vr6"]
+[ext_resource type="PackedScene" uid="uid://dtddpu68vu75b" path="res://Assets/3D/prefabs/tv.tscn" id="20_hsumw"]
+[ext_resource type="VideoStream" uid="uid://dws72uqti6s0n" path="res://Assets/video/shot_1576.ogv" id="21_hsumw"]
 [ext_resource type="Script" uid="uid://jivklbtxb5ki" path="res://Scenes/Shared/Scripts/asset_group.gd" id="asset_group"]
+[ext_resource type="Material" path="res://Resources/Materials/battery.tres" id="battery_material"]
+[ext_resource type="CylinderMesh" path="res://Resources/Meshes/battery.tres" id="battery_mesh"]
+[ext_resource type="Script" uid="uid://cf1trihm73fa8" path="res://Scenes/Player/Scripts/Components/carry_controller.gd" id="carry"]
+[ext_resource type="Script" uid="uid://b3m65drdibrfq" path="res://Code/Definitions/dialogue.gd" id="dialogue"]
+[ext_resource type="Script" uid="uid://ch5r6ochxlswn" path="res://Scenes/Shared/Scripts/Interactions/event_action.gd" id="event_action"]
+[ext_resource type="Script" uid="uid://cdj317frexgrl" path="res://Scenes/Shared/Scripts/Interactions/exit_action.gd" id="exit_action"]
 [ext_resource type="PackedScene" path="res://Scenes/Shared/RoomGeometry.tscn" id="geo"]
 [ext_resource type="Script" uid="uid://dtn5af0ay3lfq" path="res://Scenes/Shared/Scripts/interactable.gd" id="interaction"]
-[ext_resource type="PackedScene" uid="uid://c5xf5awwvo5et" path="res://Scenes/Player/FPSPlayer.tscn" id="player"]
-[ext_resource type="Script" uid="uid://djghgf8bfy3dg" path="res://Scenes/Levels/Scripts/laika_room.gd" id="script"]
-
-[ext_resource type="Script" path="res://Scenes/Player/Scripts/Components/carry_controller.gd" id="carry"]
-[ext_resource type="Script" path="res://Scenes/Player/Scripts/Components/player_interactor.gd" id="interactor"]
-[ext_resource type="Script" path="res://Scenes/Player/Scripts/Components/scent_controller.gd" id="scent"]
-[ext_resource type="Script" path="res://Scenes/Shared/Scripts/item_socket.gd" id="socket"]
-[ext_resource type="Script" path="res://Scenes/Shared/Scripts/Interactions/pickup_action.gd" id="pickup_action"]
-[ext_resource type="Script" path="res://Scenes/Shared/Scripts/Interactions/socket_action.gd" id="socket_action"]
-[ext_resource type="Script" path="res://Scenes/Shared/Scripts/Interactions/event_action.gd" id="event_action"]
-[ext_resource type="Script" path="res://Scenes/Shared/Scripts/Interactions/talk_action.gd" id="talk_action"]
-[ext_resource type="Script" path="res://Scenes/Shared/Scripts/Interactions/exit_action.gd" id="exit_action"]
-[ext_resource type="Script" path="res://Scenes/Levels/Scripts/Progress/training_progress.gd" id="progress"]
-[ext_resource type="Script" path="res://Code/Definitions/dialogue.gd" id="dialogue"]
-[ext_resource type="Resource" path="res://GameData/Dialogue/Training/scientist.tres" id="scientist"]
-[ext_resource type="Resource" path="res://GameData/Dialogue/Training/reminder.tres" id="reminder"]
-[ext_resource type="Resource" path="res://GameData/Rooms/station.tres" id="station"]
-
-[ext_resource type="Script" path="res://Scenes/Shared/Scripts/npc_gaze.gd" id="npc_gaze"]
-
+[ext_resource type="Script" uid="uid://dldd0m0xs50kq" path="res://Scenes/Player/Scripts/Components/player_interactor.gd" id="interactor"]
+[ext_resource type="Script" uid="uid://bjtks4i46texe" path="res://Scenes/Shared/Scripts/npc_gaze.gd" id="npc_gaze"]
+[ext_resource type="Script" uid="uid://cg8r4er8dq3cp" path="res://Scenes/Shared/Scripts/Interactions/pickup_action.gd" id="pickup_action"]
 [ext_resource type="PackedScene" path="res://Scenes/Shared/Interactables/Pickup.tscn" id="pickup_template"]
-[ext_resource type="CylinderMesh" path="res://Resources/Meshes/battery.tres" id="battery_mesh"]
-[ext_resource type="Material" path="res://Resources/Materials/battery.tres" id="battery_material"]
+[ext_resource type="PackedScene" uid="uid://c5xf5awwvo5et" path="res://Scenes/Player/FPSPlayer.tscn" id="player"]
+[ext_resource type="Script" uid="uid://cutknp5p5ykev" path="res://Scenes/Levels/Scripts/Progress/training_progress.gd" id="progress"]
+[ext_resource type="Resource" uid="uid://ded8y6qu7jwt" path="res://GameData/Dialogue/Training/reminder.tres" id="reminder"]
+[ext_resource type="Script" uid="uid://dhaw8y5svbuly" path="res://Scenes/Player/Scripts/Components/scent_controller.gd" id="scent"]
+[ext_resource type="Resource" uid="uid://c3eiee452temp" path="res://GameData/Dialogue/Training/scientist.tres" id="scientist"]
+[ext_resource type="Script" uid="uid://djghgf8bfy3dg" path="res://Scenes/Levels/Scripts/laika_room.gd" id="script"]
+[ext_resource type="Script" uid="uid://dt5pi0esgumvk" path="res://Scenes/Shared/Scripts/item_socket.gd" id="socket"]
+[ext_resource type="Script" uid="uid://dn21y4d7doo81" path="res://Scenes/Shared/Scripts/Interactions/socket_action.gd" id="socket_action"]
+[ext_resource type="Resource" path="res://GameData/Rooms/station.tres" id="station"]
+[ext_resource type="Script" uid="uid://w836qyrvck2g" path="res://Scenes/Shared/Scripts/Interactions/talk_action.gd" id="talk_action"]
+
+[sub_resource type="Resource" id="action_talk"]
+script = ExtResource("talk_action")
+dialogue = ExtResource("scientist")
+dialogue_when_flag = Dictionary[StringName, ExtResource("dialogue")]({
+&"fetch": ExtResource("reminder")
+})
 
 [sub_resource type="BoxShape3D" id="Shape_Scientist"]
 size = Vector3(0.8, 2, 0.65)
@@ -43,6 +48,12 @@ size = Vector3(0.8, 1.5, 0.65)
 [sub_resource type="BoxMesh" id="ScientistHead"]
 size = Vector3(0.5, 0.5, 0.5)
 
+[sub_resource type="Resource" id="action_exit"]
+script = ExtResource("exit_action")
+destination = ExtResource("station")
+blocked_message = "He hasn't said it's bedtime yet."
+required_flag = &"departure_ready"
+
 [sub_resource type="BoxShape3D" id="Shape_Capsule"]
 size = Vector3(1.8, 1.4, 1.8)
 
@@ -54,8 +65,17 @@ roughness = 0.85
 albedo_color = Color(0.1, 0.1, 0.1, 1)
 roughness = 0.85
 
+[sub_resource type="Resource" id="action_socket"]
+script = ExtResource("socket_action")
+
 [sub_resource type="BoxShape3D" id="Shape_Stand"]
 size = Vector3(1.4, 0.5, 0.18)
+
+[sub_resource type="Resource" id="action_event"]
+script = ExtResource("event_action")
+event = &"test"
+completed_flag = &"departure_ready"
+completed_prompt = "Test complete — enter the capsule"
 
 [sub_resource type="BoxShape3D" id="Shape_TestButton"]
 size = Vector3(0.48, 0.5, 0.48)
@@ -73,28 +93,12 @@ height = 0.12
 script = ExtResource("pickup_action")
 required_flag = &"fetch"
 
-[sub_resource type="Resource" id="action_socket"]
-script = ExtResource("socket_action")
+[sub_resource type="ViewportTexture" id="ViewportTexture_5ne02"]
+viewport_path = NodePath("SubViewport")
 
-
-[sub_resource type="Resource" id="action_event"]
-script = ExtResource("event_action")
-event = &"test"
-completed_flag = &"departure_ready"
-completed_prompt = "Test complete — enter the capsule"
-
-[sub_resource type="Resource" id="action_talk"]
-script = ExtResource("talk_action")
-dialogue = ExtResource("scientist")
-dialogue_when_flag = Dictionary[StringName, ExtResource("dialogue")]({
-&"fetch": ExtResource("reminder")
-})
-
-[sub_resource type="Resource" id="action_exit"]
-script = ExtResource("exit_action")
-required_flag = &"departure_ready"
-destination = ExtResource("station")
-blocked_message = "He hasn't said it's bedtime yet."
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cry65"]
+resource_local_to_scene = true
+albedo_texture = SubResource("ViewportTexture_5ne02")
 
 [node name="TrainingRoom" type="Node3D" unique_id=1175608443 node_paths=PackedStringArray("rig", "menu_camera", "progress", "carry", "interactor", "scent")]
 script = ExtResource("script")
@@ -112,23 +116,31 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 1, -1.7)
 script = ExtResource("asset_group")
 
 [node name="Interaction" type="StaticBody3D" parent="Actors/Scientist" unique_id=622722933]
-script = ExtResource("interaction")
-action = SubResource("action_talk")
 collision_layer = 2
 collision_mask = 0
+script = ExtResource("interaction")
 display_name = "Talk to the scientist"
+action = SubResource("action_talk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Actors/Scientist/Interaction" unique_id=1179296707]
 shape = SubResource("Shape_Scientist")
 
 [node name="Visuals" type="Node3D" parent="Actors/Scientist" unique_id=1192772824]
 
-[node name="Torso" type="Node3D" parent="Actors/Scientist/Visuals"]
-position = Vector3(0, -0.25, 0)
+[node name="Torso" type="Node3D" parent="Actors/Scientist/Visuals" unique_id=1321451674]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
 
 [node name="Body" type="MeshInstance3D" parent="Actors/Scientist/Visuals/Torso" unique_id=1433848314]
 material_override = SubResource("Cream")
 mesh = SubResource("ScientistBlock")
+
+[node name="Head" type="Node3D" parent="Actors/Scientist/Visuals" unique_id=1108864]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="Block" type="MeshInstance3D" parent="Actors/Scientist/Visuals/Head" unique_id=1767048379]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+material_override = SubResource("Cream")
+mesh = SubResource("ScientistHead")
 
 [node name="Name" type="Label3D" parent="Actors/Scientist" unique_id=1619590490]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
@@ -138,6 +150,12 @@ modulate = Color(0.897, 0.897, 0.897, 1)
 text = "SCIENTIST"
 font_size = 24
 outline_size = 0
+
+[node name="Gaze" type="Node" parent="Actors/Scientist" unique_id=1408834466 node_paths=PackedStringArray("head", "torso", "target")]
+script = ExtResource("npc_gaze")
+head = NodePath("../Visuals/Head")
+torso = NodePath("../Visuals/Torso")
+target = NodePath("../../Player/CameraHolder/Camera3D")
 
 [node name="Player" parent="Actors" unique_id=1572373258 instance=ExtResource("player")]
 unique_name_in_owner = true
@@ -160,11 +178,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.6, 0.7, -3.2)
 script = ExtResource("asset_group")
 
 [node name="Entry" type="StaticBody3D" parent="Props/Capsule" unique_id=1936290419]
-script = ExtResource("interaction")
-action = SubResource("action_exit")
 collision_layer = 2
 collision_mask = 0
+script = ExtResource("interaction")
 display_name = "Enter the capsule"
+action = SubResource("action_exit")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Capsule/Entry" unique_id=1114403120]
 shape = SubResource("Shape_Capsule")
@@ -246,24 +264,24 @@ font_size = 25
 outline_size = 0
 
 [node name="Slots" type="StaticBody3D" parent="Props/TrainingStand" unique_id=586983255 node_paths=PackedStringArray("indicators")]
-script = ExtResource("socket")
-action = SubResource("action_socket")
-indicators = Array[NodePath]([NodePath("../Cell1"), NodePath("../Cell2")])
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0.5)
 collision_layer = 2
 collision_mask = 0
+script = ExtResource("socket")
+indicators = [NodePath("../Cell1"), NodePath("../Cell2")]
 display_name = "Inspect battery slots"
+action = SubResource("action_socket")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Props/TrainingStand/Slots" unique_id=1808859119]
 shape = SubResource("Shape_Stand")
 
 [node name="TestButton" type="StaticBody3D" parent="Props/TrainingStand" unique_id=1161809611]
-script = ExtResource("interaction")
-action = SubResource("action_event")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.34, 0.4)
 collision_layer = 2
 collision_mask = 0
+script = ExtResource("interaction")
 display_name = "Press test button"
+action = SubResource("action_event")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Props/TrainingStand/TestButton" unique_id=1897242775]
 shape = SubResource("Shape_TestButton")
@@ -293,14 +311,14 @@ outline_size = 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8, 0.25, 1.1)
 script = ExtResource("asset_group")
 
-[node name="Item" parent="Pickups/Battery1" instance=ExtResource("pickup_template")]
+[node name="Item" parent="Pickups/Battery1" unique_id=1944776722 instance=ExtResource("pickup_template")]
 action = SubResource("action_pickup")
 
 [node name="Battery2" type="Node3D" parent="Pickups" unique_id=37616360]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.65, 0.25, 0.4)
 script = ExtResource("asset_group")
 
-[node name="Item" parent="Pickups/Battery2" instance=ExtResource("pickup_template")]
+[node name="Item" parent="Pickups/Battery2" unique_id=347655913 instance=ExtResource("pickup_template")]
 action = SubResource("action_pickup")
 
 [node name="Cameras" type="Node3D" parent="." unique_id=1579730806]
@@ -313,8 +331,6 @@ fov = 65.0
 
 [node name="Hints" type="Node3D" parent="." unique_id=1626669768]
 
-
-
 [node name="WallTitle" type="Label3D" parent="Hints" unique_id=1636357241]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.65, -4.7)
 pixel_size = 0.003
@@ -325,8 +341,25 @@ outline_size = 0
 
 [node name="Geometry" parent="." unique_id=248054898 instance=ExtResource("geo")]
 
-[node name="TV" parent="." unique_id=301104405 instance=ExtResource("7_fewc6")]
+[node name="TV" parent="." unique_id=1033570426 instance=ExtResource("20_hsumw")]
 transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, -4.434679, 0.0060003595, 3.9355295)
+
+[node name="Cube_002" parent="TV" index="3" unique_id=161229353]
+surface_material_override/0 = SubResource("StandardMaterial3D_cry65")
+
+[node name="SubViewport" type="SubViewport" parent="TV" unique_id=1439343753]
+size = Vector2i(1017, 720)
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="TV/SubViewport" unique_id=1301914827]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("21_hsumw")
+volume_db = -80.0
+autoplay = true
+loop = true
 
 [node name="Radio" parent="." unique_id=126451125 instance=ExtResource("8_e0vr6")]
 transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -3.1078744, 0.5759787, 1.1595787)
@@ -334,32 +367,20 @@ transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70
 [node name="Capsuleinterior" parent="." unique_id=1887169797 instance=ExtResource("6_fewc6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.528959, 0.00079101324, -3.1965103)
 
-[node name="Systems" type="Node" parent="."]
+[node name="Systems" type="Node" parent="." unique_id=1374609055]
 
-[node name="Carry" type="Node" parent="Systems" node_paths=PackedStringArray("anchor")]
+[node name="Carry" type="Node" parent="Systems" unique_id=191858046 node_paths=PackedStringArray("anchor")]
 script = ExtResource("carry")
 anchor = NodePath("../../Actors/Player/CameraHolder/Camera3D/Snout/MouthAnchor")
 
-[node name="Interactor" type="Node" parent="Systems"]
+[node name="Interactor" type="Node" parent="Systems" unique_id=276215291]
 script = ExtResource("interactor")
 
-[node name="Scent" type="Node" parent="Systems"]
+[node name="Scent" type="Node" parent="Systems" unique_id=180158891]
 script = ExtResource("scent")
 
-[node name="Progress" type="Node" parent="Systems" node_paths=PackedStringArray("socket")]
+[node name="Progress" type="Node" parent="Systems" unique_id=1053304331 node_paths=PackedStringArray("socket")]
 script = ExtResource("progress")
 socket = NodePath("../../Props/TrainingStand/Slots")
 
-[node name="Head" type="Node3D" parent="Actors/Scientist/Visuals"]
-position = Vector3(0, 0.5, 0)
-
-[node name="Block" type="MeshInstance3D" parent="Actors/Scientist/Visuals/Head"]
-position = Vector3(0, 0.25, 0)
-mesh = SubResource("ScientistHead")
-material_override = SubResource("Cream")
-
-[node name="Gaze" type="Node" parent="Actors/Scientist" node_paths=PackedStringArray("head", "torso", "target")]
-script = ExtResource("npc_gaze")
-head = NodePath("../Visuals/Head")
-torso = NodePath("../Visuals/Torso")
-target = NodePath("../../Player/CameraHolder/Camera3D")
+[editable path="TV"]
