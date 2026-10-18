@@ -62,9 +62,27 @@ required_flag = &"departure_ready"
 [sub_resource type="BoxShape3D" id="Shape_Capsule"]
 size = Vector3(1.8, 1.4, 1.8)
 
+[sub_resource type="Resource" id="action_event"]
+script = ExtResource("event_action")
+event = &"test"
+completed_flag = &"departure_ready"
+completed_prompt = "Test complete — enter the capsule"
+
+[sub_resource type="BoxShape3D" id="Shape_TestButton"]
+size = Vector3(0.48, 0.5, 0.48)
+
 [sub_resource type="StandardMaterial3D" id="Green"]
 albedo_color = Color(0.217, 0.217, 0.217, 1)
 roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Red"]
+albedo_color = Color(0.337, 0.337, 0.337, 1)
+roughness = 0.85
+
+[sub_resource type="CylinderMesh" id="Mesh_Button21"]
+top_radius = 0.19
+bottom_radius = 0.19
+height = 0.12
 
 [sub_resource type="StandardMaterial3D" id="Cream"]
 albedo_color = Color(0.81, 0.81, 0.81, 1)
@@ -78,25 +96,7 @@ roughness = 0.85
 script = ExtResource("socket_action")
 
 [sub_resource type="BoxShape3D" id="Shape_Stand"]
-size = Vector3(1.4, 0.5, 0.18)
-
-[sub_resource type="Resource" id="action_event"]
-script = ExtResource("event_action")
-event = &"test"
-completed_flag = &"departure_ready"
-completed_prompt = "Test complete — enter the capsule"
-
-[sub_resource type="BoxShape3D" id="Shape_TestButton"]
-size = Vector3(0.48, 0.5, 0.48)
-
-[sub_resource type="StandardMaterial3D" id="Red"]
-albedo_color = Color(0.337, 0.337, 0.337, 1)
-roughness = 0.85
-
-[sub_resource type="CylinderMesh" id="Mesh_Button21"]
-top_radius = 0.19
-bottom_radius = 0.19
-height = 0.12
+size = Vector3(0.7419922, 0.5, 0.18)
 
 [sub_resource type="Resource" id="action_pickup"]
 script = ExtResource("pickup_action")
@@ -128,14 +128,34 @@ display_name = "Talk to the scientist"
 action = SubResource("action_talk")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Actors/Scientist/Interaction" unique_id=1179296707]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.9194152)
 shape = SubResource("Shape_Scientist")
 
 [node name="Visuals" type="Node3D" parent="Actors/Scientist" unique_id=1192772824]
 
 [node name="Scientist" parent="Actors/Scientist/Visuals" unique_id=1906525048 instance=ExtResource("8_cry65")]
-transform = Transform3D(0.9923575, 0, 0.123396724, 0, 1, 0, -0.123396724, 0, 0.9923575, -0.013805628, -0.99666804, -0.07221794)
+transform = Transform3D(-0.99048114, 0, 0.13764901, 0, 1, 0, -0.13764901, 0, -0.99048114, -0.013805628, -0.9722022, 4.577817)
 
-[node name="LookAtModifier3D" type="LookAtModifier3D" parent="Actors/Scientist/Visuals/Scientist/metarig/Skeleton3D" parent_id_path=PackedInt32Array(1906525048, 581784944) index="1" unique_id=2027085055]
+[node name="Skeleton3D" parent="Actors/Scientist/Visuals/Scientist/metarig" parent_id_path=PackedInt32Array(1906525048, 1122362047) index="0" unique_id=818054644]
+bones/0/position = Vector3(0, 0.55922335, -0.055200007)
+bones/3/rotation = Quaternion(0.06632985, 5.4106256e-18, 2.8473122e-17, 0.9977978)
+bones/4/rotation = Quaternion(0.14149326, -0.032950487, -0.09400088, 0.98491514)
+bones/9/rotation = Quaternion(-0.06692074, 0.36409274, -0.8041146, 0.4651429)
+bones/10/rotation = Quaternion(0.48793158, 0.23885933, 0.17235747, 0.8216824)
+bones/11/rotation = Quaternion(-0.09884396, 0.31997353, -0.2801518, 0.8996454)
+bones/13/rotation = Quaternion(0.1209282, 0.43743446, -0.79055333, -0.4111606)
+bones/14/rotation = Quaternion(0.51188064, -0.33831307, -0.20683432, 0.7620644)
+bones/15/rotation = Quaternion(-0.026779134, -0.2776493, 0.33263367, 0.9008599)
+bones/16/rotation = Quaternion(0.19971696, 0.08504905, 0.10197939, 0.97081417)
+bones/19/rotation = Quaternion(0.62569255, 0.103364065, -0.13701594, 0.7609542)
+bones/20/rotation = Quaternion(0.58889097, 0.0070769517, 0.05675034, 0.8061867)
+bones/23/rotation = Quaternion(-0.053000342, 0.95701766, -0.28491554, -0.01145815)
+bones/24/rotation = Quaternion(0.63402736, -0.032338284, 0.03970333, 0.77161336)
+bones/25/rotation = Quaternion(0.72953415, -0.039803777, -0.03646148, 0.681811)
+bones/27/rotation = Quaternion(-0.6682312, 0.7069439, -0.15820988, -0.16931339)
+bones/28/rotation = Quaternion(0.00091256184, 0.9936986, -0.11071997, -0.017416384)
+
+[node name="LookAtModifier3D" type="LookAtModifier3D" parent="Actors/Scientist/Visuals/Scientist/metarig/Skeleton3D" index="1" unique_id=2027085055]
 target_node = NodePath("../../../../../../Player")
 bone_name = "spine.006"
 bone = 18
@@ -155,7 +175,7 @@ target = NodePath("../../Player/CameraHolder/Camera3D")
 
 [node name="Player" parent="Actors" unique_id=1572373258 instance=ExtResource("player")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 2.6)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -3, 0.05, -0.4000001)
 walk_speed = 3.0
 jump_height = 0.7
 auto_bhop = false
@@ -190,35 +210,57 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07104087, -0.699209, 0.003
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8, 0, 0.8)
 script = ExtResource("asset_group")
 
+[node name="TestButton" type="StaticBody3D" parent="Props" unique_id=1161809611]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.07204, 0.34, 2.2232976)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("interaction")
+display_name = "Press test button"
+action = SubResource("action_event")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/TestButton" unique_id=1897242775]
+shape = SubResource("Shape_TestButton")
+
+[node name="Pedestal" type="CSGBox3D" parent="Props/TestButton" unique_id=1236769687]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+use_collision = true
+size = Vector3(0.45, 0.6, 0.45)
+material = SubResource("Green")
+
+[node name="Button" type="MeshInstance3D" parent="Props/TestButton" unique_id=1004380512]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29, 0)
+material_override = SubResource("Red")
+mesh = SubResource("Mesh_Button21")
+
 [node name="TrainingStand" type="Node3D" parent="Props" unique_id=947639964]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.6)
+transform = Transform3D(-0.99874634, 0, 0.050059393, 0, 1, 0, -0.050059393, 0, -0.99874634, -4.465189, -1.1920929e-07, 3.2418947)
 script = ExtResource("asset_group")
 
 [node name="Base" type="CSGBox3D" parent="Props/TrainingStand" unique_id=1992540166]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.37739205, 0.3, 1.9073486e-06)
 use_collision = true
-size = Vector3(1.6, 0.6, 0.8)
+size = Vector3(0.84521484, 0.6, 0.8)
 material = SubResource("Green")
 
 [node name="Top" type="CSGBox3D" parent="Props/TrainingStand" unique_id=1301335081]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.62, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.33383703, 0.62, 0)
 use_collision = true
-size = Vector3(1.8, 0.08, 1)
+size = Vector3(0.8676758, 0.08, 1)
 material = SubResource("Cream")
 
 [node name="Socket1" type="CSGBox3D" parent="Props/TrainingStand" unique_id=404444054]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.32, 0.4, 0.415)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.53105164, 0.4, 0.40221643)
 size = Vector3(0.4, 0.32, 0.04)
 material = SubResource("Black")
 
 [node name="Cell1" type="MeshInstance3D" parent="Props/TrainingStand" unique_id=1601568874]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.32, 0.4, 0.45)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.505249, 0.39999998, 0.42875195)
 material_override = ExtResource("battery_material")
 mesh = ExtResource("battery_mesh")
 
 [node name="Socket2" type="CSGBox3D" parent="Props/TrainingStand" unique_id=1047024528]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.32, 0.4, 0.415)
-size = Vector3(0.4, 0.32, 0.04)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13263273, 0.40000013, 0.4049921)
+size = Vector3(0.28935546, 0.32, 0.04)
 material = SubResource("Black")
 
 [node name="Cell2" type="MeshInstance3D" parent="Props/TrainingStand" unique_id=244582401]
@@ -237,29 +279,8 @@ display_name = "Inspect battery slots"
 action = SubResource("action_socket")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Props/TrainingStand/Slots" unique_id=1808859119]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.32900333, 0, -4.7683716e-07)
 shape = SubResource("Shape_Stand")
-
-[node name="TestButton" type="StaticBody3D" parent="Props/TrainingStand" unique_id=1161809611]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.34, 0.4)
-collision_layer = 2
-collision_mask = 0
-script = ExtResource("interaction")
-display_name = "Press test button"
-action = SubResource("action_event")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/TrainingStand/TestButton" unique_id=1897242775]
-shape = SubResource("Shape_TestButton")
-
-[node name="Pedestal" type="CSGBox3D" parent="Props/TrainingStand/TestButton" unique_id=1236769687]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
-use_collision = true
-size = Vector3(0.45, 0.6, 0.45)
-material = SubResource("Green")
-
-[node name="Button" type="MeshInstance3D" parent="Props/TrainingStand/TestButton" unique_id=1004380512]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29, 0)
-material_override = SubResource("Red")
-mesh = SubResource("Mesh_Button21")
 
 [node name="Pickups" type="Node3D" parent="." unique_id=1362550289]
 
@@ -271,7 +292,7 @@ script = ExtResource("asset_group")
 action = SubResource("action_pickup")
 
 [node name="Battery2" type="Node3D" parent="Pickups" unique_id=37616360]
-transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 4.65, 0.061664738, 2.4)
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 3.791601, 0.061664738, -3.9400933)
 script = ExtResource("asset_group")
 
 [node name="Item" parent="Pickups/Battery2" unique_id=347655913 instance=ExtResource("pickup_template")]

@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://f3iw75tdp2jk"]
+
+[ext_resource type="PackedScene" uid="uid://cqevbn685f0hl" path="res://Assets/3D/Scientist.blend" id="1_6xb28"]
+
+[node name="Scientist" unique_id=665968796 instance=ExtResource("1_6xb28")]
+
+[node name="Skeleton3D" parent="metarig" parent_id_path=PackedInt32Array(476934361) index="0" unique_id=1871972038]
+bones/0/position = Vector3(0, 0.55922335, -0.055200007)
+bones/3/rotation = Quaternion(0.06632985, 5.4106256e-18, 2.8473122e-17, 0.9977978)
+bones/4/rotation = Quaternion(0.14149326, -0.032950487, -0.09400088, 0.98491514)
+bones/9/rotation = Quaternion(-0.06692074, 0.36409274, -0.8041146, 0.4651429)
+bones/10/rotation = Quaternion(0.48793158, 0.23885933, 0.17235747, 0.8216824)
+bones/11/rotation = Quaternion(-0.09884396, 0.31997353, -0.2801518, 0.8996454)
+bones/13/rotation = Quaternion(0.1209282, 0.43743446, -0.79055333, -0.4111606)
+bones/14/rotation = Quaternion(0.51188064, -0.33831307, -0.20683432, 0.7620644)
+bones/15/rotation = Quaternion(-0.026779134, -0.2776493, 0.33263367, 0.9008599)
+bones/19/rotation = Quaternion(0.62569255, 0.103364065, -0.13701594, 0.7609542)
+bones/20/rotation = Quaternion(0.58889097, 0.0070769517, 0.05675034, 0.8061867)
+bones/23/rotation = Quaternion(-0.053000342, 0.95701766, -0.28491554, -0.01145815)
+bones/24/rotation = Quaternion(0.63402736, -0.032338284, 0.03970333, 0.77161336)
+bones/25/rotation = Quaternion(0.72953415, -0.039803777, -0.03646148, 0.681811)
+bones/27/rotation = Quaternion(-0.6682312, 0.7069439, -0.15820988, -0.16931339)
+bones/28/rotation = Quaternion(0.00091256184, 0.9936986, -0.11071997, -0.017416384)
+
+[node name="AnimationPlayer" parent="." index="1" unique_id=1787519816]
+autoplay = &"metarigAction"
