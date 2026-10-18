@@ -146,7 +146,7 @@ outline_size = 0
 [node name="Cameras" type="Node3D" parent="." unique_id=1768350952]
 
 [node name="MenuCamera" type="Camera3D" parent="Cameras" unique_id=222757839]
-transform = Transform3D(0.81915206, -0.1484525, 0.5540323, 0, 0.9659258, 0.25881904, -0.57357645, -0.21201216, 0.7912401, 6, 3.1, 5.8)
+transform = Transform3D(0.755689, -0.159977, 0.635091, 0, 0.969708, 0.244266, -0.65493, -0.184589, 0.732798, 4.2, 2.8, 4.5)
 cull_mask = 1048573
 current = true
 fov = 65.0

@@ -10,6 +10,7 @@ handle_input_locally = false
 size = Vector2i(1920, 1080)
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport" unique_id=47120132]
+cull_mask = 524287
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -0.10410409, 0, 12.7164)
 
 [node name="AreaLight3D" type="AreaLight3D" parent="." unique_id=1079209597]

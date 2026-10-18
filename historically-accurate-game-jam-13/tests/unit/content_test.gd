@@ -27,6 +27,9 @@ func _room_is_valid(definition: RoomDefinition) -> void:
 	root.add_child(room)
 	await process_frame
 	check(room.configured, "%s is configured: %s" % [room.name, room.configuration_errors()])
+	var eye := room.menu_camera.global_transform
+	var view := room.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(eye.origin, eye.origin - eye.basis.z * 15.0))
+	check(not view.is_empty(), "%s menu camera looks at the room" % room.name)
 	for target: Interactable in room.interactables():
 		var errors := target.configuration_errors(room)
 		check(errors.is_empty(), "%s/%s is valid: %s" % [room.name, room.get_path_to(target), errors])

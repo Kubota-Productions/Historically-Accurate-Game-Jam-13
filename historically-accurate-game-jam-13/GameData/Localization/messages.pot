@@ -154,7 +154,7 @@ msgstr ""
 msgid "Escape is reserved for going back. Choose another key."
 msgstr ""
 
-#: Scenes/GUI/Screens/MainMenu.tscn:86
+#: Scenes/GUI/Screens/MainMenu.tscn:76
 msgid "Exit"
 msgstr ""
 
@@ -224,7 +224,7 @@ msgstr ""
 msgid "Keep these display settings? Reverting in %d s."
 msgstr ""
 
-#: Scenes/GUI/Screens/MainMenu.tscn:49
+#: Scenes/GUI/Screens/MainMenu.tscn:39
 msgid "LAIKA"
 msgstr ""
 
@@ -397,7 +397,7 @@ msgstr ""
 msgid "Select a binding, then press a key or mouse button. Esc cancels."
 msgstr ""
 
-#: Scenes/GUI/Screens/MainMenu.tscn:77 Scenes/GUI/Screens/PauseMenu.tscn:66 Scenes/GUI/Screens/SettingsPanel.tscn:48
+#: Scenes/GUI/Screens/MainMenu.tscn:67 Scenes/GUI/Screens/PauseMenu.tscn:66 Scenes/GUI/Screens/SettingsPanel.tscn:48
 msgid "Settings"
 msgstr ""
 
@@ -421,7 +421,7 @@ msgstr ""
 msgid "Sound volume"
 msgstr ""
 
-#: Scenes/GUI/Screens/MainMenu.tscn:68
+#: Scenes/GUI/Screens/MainMenu.tscn:58
 msgid "Start"
 msgstr ""
 

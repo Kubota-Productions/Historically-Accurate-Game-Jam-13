@@ -306,7 +306,7 @@ action = SubResource("action_pickup")
 [node name="Cameras" type="Node3D" parent="." unique_id=1579730806]
 
 [node name="MenuCamera" type="Camera3D" parent="Cameras" unique_id=1135131660]
-transform = Transform3D(-0.9396927, 0.08852129, -0.33036602, 8.546955e-09, 0.9659258, 0.25881904, 0.34202012, 0.24321032, -0.9076734, 6, 3.1, 5.8)
+transform = Transform3D(0.755689, -0.159977, 0.635091, 0, 0.969708, 0.244266, -0.65493, -0.184589, 0.732798, 4.2, 2.8, 4.5)
 cull_mask = 1048573
 current = true
 fov = 65.0
