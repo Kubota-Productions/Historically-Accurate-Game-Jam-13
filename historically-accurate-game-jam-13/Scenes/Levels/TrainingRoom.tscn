@@ -350,13 +350,16 @@ script = ExtResource("progress")
 socket = NodePath("../../Props/TrainingStand/Slots")
 
 [node name="Door" parent="." unique_id=1165815242 instance=ExtResource("29_jsx07")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 3.0164618, 0.24357176, 4.8544955)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 3.3207855, 0.24357176, 9.866312)
 
 [node name="ceilingfan" parent="." unique_id=1528835813 instance=ExtResource("30_i6ppp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.39029, 4.0805545, -0.21440172)
 
 [node name="table" parent="." unique_id=798573397 instance=ExtResource("31_p7fdx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.752408, 2.3841858e-07, 0.8123938)
+
+[node name="table2" parent="." unique_id=155279887 instance=ExtResource("31_p7fdx")]
+transform = Transform3D(0.93370396, 0, -0.35804597, 0, 1, 0, 0.35804597, 0, 0.93370396, -3.9953074, 2.3841858e-07, -0.68931425)
 
 [editable path="Actors/Scientist/Visuals/Scientist"]
 [editable path="TV"]
