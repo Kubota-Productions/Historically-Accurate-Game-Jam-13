@@ -7,6 +7,7 @@
 [ext_resource type="VideoStream" uid="uid://dws72uqti6s0n" path="res://Assets/video/shot_1576.ogv" id="21_hsumw"]
 [ext_resource type="PackedScene" uid="uid://0cdku2pwv2hv" path="res://Assets/3D/Door.glb" id="29_jsx07"]
 [ext_resource type="PackedScene" uid="uid://caooclm8b0a8p" path="res://Assets/3D/prefabs/ceilingfan.tscn" id="30_i6ppp"]
+[ext_resource type="PackedScene" uid="uid://buq6p7vvdxlp4" path="res://Assets/3D/table.glb" id="31_p7fdx"]
 [ext_resource type="Script" uid="uid://jivklbtxb5ki" path="res://Scenes/Shared/Scripts/asset_group.gd" id="asset_group"]
 [ext_resource type="Material" path="res://Resources/Materials/battery.tres" id="battery_material"]
 [ext_resource type="CylinderMesh" path="res://Resources/Meshes/battery.tres" id="battery_mesh"]
@@ -66,12 +67,12 @@ required_flag = &"departure_ready"
 [sub_resource type="BoxShape3D" id="Shape_Capsule"]
 size = Vector3(1.8, 1.4, 1.8)
 
-[sub_resource type="StandardMaterial3D" id="Cream"]
-albedo_color = Color(0.81, 0.81, 0.81, 1)
-roughness = 0.85
-
 [sub_resource type="StandardMaterial3D" id="Green"]
 albedo_color = Color(0.217, 0.217, 0.217, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="Cream"]
+albedo_color = Color(0.81, 0.81, 0.81, 1)
 roughness = 0.85
 
 [sub_resource type="StandardMaterial3D" id="Black"]
@@ -106,17 +107,17 @@ height = 0.12
 script = ExtResource("pickup_action")
 required_flag = &"fetch"
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_p7fdx"]
-viewport_path = NodePath("SubViewport")
-
 [sub_resource type="ViewportTexture" id="ViewportTexture_v6mut"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u62ix"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_u62ix"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s1qhx"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_p7fdx")
+albedo_texture = SubResource("ViewportTexture_v6mut")
 emission_enabled = true
-emission_texture = SubResource("ViewportTexture_v6mut")
+emission_texture = SubResource("ViewportTexture_u62ix")
 
 [node name="TrainingRoom" type="Node3D" unique_id=1175608443 node_paths=PackedStringArray("rig", "menu_camera", "progress", "carry", "interactor", "scent")]
 script = ExtResource("script")
@@ -220,24 +221,6 @@ outline_size = 0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8, 0, 0.8)
 script = ExtResource("asset_group")
 
-[node name="Seat" type="CSGBox3D" parent="Props/Bench" unique_id=1352056690]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
-use_collision = true
-size = Vector3(1.7, 0.25, 1.1)
-material = SubResource("Cream")
-
-[node name="LeftLeg" type="CSGBox3D" parent="Props/Bench" unique_id=1077436803]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.6, 0.2, 0)
-use_collision = true
-size = Vector3(0.12, 0.4, 0.9)
-material = SubResource("Green")
-
-[node name="RightLeg" type="CSGBox3D" parent="Props/Bench" unique_id=1110184813]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.6, 0.2, 0)
-use_collision = true
-size = Vector3(0.12, 0.4, 0.9)
-material = SubResource("Green")
-
 [node name="TrainingStand" type="Node3D" parent="Props" unique_id=947639964]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.6)
 script = ExtResource("asset_group")
@@ -328,7 +311,7 @@ outline_size = 0
 [node name="Pickups" type="Node3D" parent="." unique_id=1362550289]
 
 [node name="Battery1" type="Node3D" parent="Pickups" unique_id=485123626]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -2.8, 0.03646353, 1.1)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -5.5336685, 0.03646353, 1.1)
 script = ExtResource("asset_group")
 
 [node name="Item" parent="Pickups/Battery1" unique_id=1944776722 instance=ExtResource("pickup_template")]
@@ -365,7 +348,7 @@ outline_size = 0
 transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, -4.434679, 0.0060003595, 3.9355295)
 
 [node name="Cube_002" parent="TV" index="3" unique_id=161229353]
-surface_material_override/0 = SubResource("StandardMaterial3D_u62ix")
+surface_material_override/0 = SubResource("StandardMaterial3D_s1qhx")
 
 [node name="SubViewport" type="SubViewport" parent="TV" unique_id=1439343753]
 size = Vector2i(1017, 720)
@@ -386,7 +369,7 @@ transform = Transform3D(-0.9999986, 0, 0.0016744137, 0, 1, 0, -0.0016744137, 0, 
 light_energy = 3.612
 
 [node name="Radio" parent="." unique_id=126451125 instance=ExtResource("8_e0vr6")]
-transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -3.1078744, 0.5759787, 1.1595787)
+transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -3.7993708, 0.8948834, 1.0073051)
 
 [node name="Capsuleinterior" parent="." unique_id=1887169797 instance=ExtResource("6_fewc6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.528959, 0.00079101324, -3.1965103)
@@ -412,6 +395,9 @@ transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 3.01
 
 [node name="ceilingfan" parent="." unique_id=1528835813 instance=ExtResource("30_i6ppp")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.39029, 4.0805545, -0.21440172)
+
+[node name="table" parent="." unique_id=798573397 instance=ExtResource("31_p7fdx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.752408, 2.3841858e-07, 0.8123938)
 
 [editable path="Actors/Scientist/Visuals/Scientist"]
 [editable path="TV"]
