@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://ddsb6j1yih3tp"]
 
 [ext_resource type="PackedScene" uid="uid://bk05boen1qcte" path="res://Scenes/GUI/Screens/3DsceneforMainmenu.tscn" id="2_umqoa"]
+[ext_resource type="Script" uid="uid://bt47yuh6gbqge" path="res://Scenes/GUI/Screens/Scripts/menu_gaze.gd" id="gaze"]
 [ext_resource type="Script" uid="uid://dwixigtwg37r1" path="res://Scenes/GUI/Screens/Scripts/main_menu.gd" id="script"]
-[ext_resource type="Script" path="res://Scenes/GUI/Screens/Scripts/menu_gaze.gd" id="gaze"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ah1bl"]
 viewport_path = NodePath("3DsceneforMainmenu/SubViewport")
@@ -44,10 +44,13 @@ anchors_preset = -1
 anchor_left = 0.07
 anchor_top = 0.52
 anchor_right = 0.34
-anchor_bottom = 0.52
+anchor_bottom = 0.821
+offset_top = -140.0
+offset_right = 6.1035156e-05
+offset_bottom = -185.08002
 grow_vertical = 2
 mouse_filter = 2
-theme_override_constants/separation = 26
+theme_override_constants/separation = 175
 
 [node name="Start" type="Button" parent="Buttons" unique_id=1853046747]
 unique_name_in_owner = true
@@ -78,9 +81,11 @@ alignment = 0
 
 [node name="3DsceneforMainmenu" parent="." unique_id=298057427 instance=ExtResource("2_umqoa")]
 
-[node name="MenuGaze" type="Node" parent="." node_paths=PackedStringArray("button_container", "preview", "preview_camera", "look_target")]
+[node name="MenuGaze" type="Node" parent="." unique_id=1608613626 node_paths=PackedStringArray("button_container", "preview", "preview_camera", "look_target")]
 script = ExtResource("gaze")
 button_container = NodePath("../Buttons")
 preview = NodePath("../TextureRect")
 preview_camera = NodePath("../3DsceneforMainmenu/SubViewport/Camera3D")
 look_target = NodePath("../3DsceneforMainmenu/LookAtTarget")
+response_speed = 5.0
+gaze_strength = 5.0

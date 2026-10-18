@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="SettingsCatalog" format=3]
+[gd_resource type="Resource" script_class="SettingsCatalog" format=3 uid="uid://b3opda5dnvy88"]
 
-[ext_resource type="Script" path="res://Code/Definitions/settings_catalog.gd" id="catalog"]
-[ext_resource type="Script" path="res://Code/Definitions/setting_definition.gd" id="setting"]
-[ext_resource type="Script" path="res://Code/Definitions/toggle_setting.gd" id="toggle"]
-[ext_resource type="Script" path="res://Code/Definitions/slider_setting.gd" id="slider"]
+[ext_resource type="Script" uid="uid://c0nnyigbxu4e0" path="res://Code/Definitions/settings_catalog.gd" id="catalog"]
+[ext_resource type="Script" uid="uid://b27e47qijwxfi" path="res://Code/Definitions/setting_definition.gd" id="setting"]
+[ext_resource type="Script" uid="uid://b8pmu6awjombt" path="res://Code/Definitions/slider_setting.gd" id="slider"]
+[ext_resource type="Script" uid="uid://dt420745n8pj0" path="res://Code/Definitions/toggle_setting.gd" id="toggle"]
 
 [sub_resource type="Resource" id="dog_vision"]
 resource_name = "Dog vision"
