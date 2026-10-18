@@ -1,10 +1,12 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://c5nfmsbhocirn"]
 
-[ext_resource type="Script" path="res://Scenes/Shared/Scripts/pickup_item.gd" id="point"]
-[ext_resource type="Script" path="res://Scenes/Shared/Scripts/Interactions/pickup_action.gd" id="action"]
+[ext_resource type="PackedScene" uid="uid://d1rcfok6o7hbp" path="res://Assets/3D/battery.glb" id="3_63erd"]
+[ext_resource type="Script" uid="uid://cg8r4er8dq3cp" path="res://Scenes/Shared/Scripts/Interactions/pickup_action.gd" id="action"]
+[ext_resource type="Script" uid="uid://cyu067tak04pd" path="res://Scenes/Shared/Scripts/pickup_item.gd" id="point"]
 
-[ext_resource type="CylinderMesh" path="res://Resources/Meshes/battery.tres" id="mesh"]
-[ext_resource type="Material" path="res://Resources/Materials/battery.tres" id="material"]
+[sub_resource type="Resource" id="behavior"]
+resource_local_to_scene = true
+script = ExtResource("action")
 
 [sub_resource type="BoxShape3D" id="shape"]
 resource_local_to_scene = true
@@ -12,42 +14,37 @@ size = Vector3(0.5, 0.5, 0.5)
 
 [sub_resource type="StandardMaterial3D" id="glow"]
 albedo_color = Color(0.723, 0.723, 0.723, 1)
+roughness = 0.85
 emission_enabled = true
 emission = Color(0.723, 0.723, 0.723, 1)
 emission_energy_multiplier = 1.5
-roughness = 0.85
 
 [sub_resource type="SphereMesh" id="scent"]
 radius = 0.09
 height = 0.18
 
-[sub_resource type="Resource" id="behavior"]
-resource_local_to_scene = true
-script = ExtResource("action")
-
-[node name="Pickup" type="StaticBody3D" node_paths=PackedStringArray("visual_root", "shape", "scent_marker")]
+[node name="Pickup" type="StaticBody3D" unique_id=721392183 node_paths=PackedStringArray("visual_root", "shape", "scent_marker")]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("point")
-display_name = "Pick up battery"
-action = SubResource("behavior")
 item_id = &"battery"
 item_name = "battery"
 visual_root = NodePath("Visuals")
 shape = NodePath("CollisionShape3D")
 scent_marker = NodePath("Scent")
+display_name = "Pick up battery"
+action = SubResource("behavior")
 
-[node name="Visuals" type="Node3D" parent="."]
+[node name="Visuals" type="Node3D" parent="." unique_id=1229614671]
 
-[node name="Mesh" type="MeshInstance3D" parent="Visuals"]
-mesh = ExtResource("mesh")
-material_override = ExtResource("material")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1434094126]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.10280308, 0)
 shape = SubResource("shape")
 
-[node name="Scent" type="MeshInstance3D" parent="."]
-position = Vector3(0, 0.55, 0)
+[node name="Scent" type="MeshInstance3D" parent="." unique_id=1514696962]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3532474, 0)
 visible = false
-mesh = SubResource("scent")
 material_override = SubResource("glow")
+mesh = SubResource("scent")
+
+[node name="battery" parent="." unique_id=337002322 instance=ExtResource("3_63erd")]

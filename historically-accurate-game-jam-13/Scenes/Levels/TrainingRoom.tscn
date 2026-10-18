@@ -17,7 +17,7 @@
 [ext_resource type="Script" uid="uid://dldd0m0xs50kq" path="res://Scenes/Player/Scripts/Components/player_interactor.gd" id="interactor"]
 [ext_resource type="Script" uid="uid://bjtks4i46texe" path="res://Scenes/Shared/Scripts/npc_gaze.gd" id="npc_gaze"]
 [ext_resource type="Script" uid="uid://cg8r4er8dq3cp" path="res://Scenes/Shared/Scripts/Interactions/pickup_action.gd" id="pickup_action"]
-[ext_resource type="PackedScene" path="res://Scenes/Shared/Interactables/Pickup.tscn" id="pickup_template"]
+[ext_resource type="PackedScene" uid="uid://c5nfmsbhocirn" path="res://Scenes/Shared/Interactables/Pickup.tscn" id="pickup_template"]
 [ext_resource type="PackedScene" uid="uid://c5xf5awwvo5et" path="res://Scenes/Player/FPSPlayer.tscn" id="player"]
 [ext_resource type="Script" uid="uid://cutknp5p5ykev" path="res://Scenes/Levels/Scripts/Progress/training_progress.gd" id="progress"]
 [ext_resource type="Resource" uid="uid://ded8y6qu7jwt" path="res://GameData/Dialogue/Training/reminder.tres" id="reminder"]
@@ -107,14 +107,14 @@ required_flag = &"fetch"
 [sub_resource type="ViewportTexture" id="ViewportTexture_cry65"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_i6ppp"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_jsx07"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jsx07"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i6ppp"]
 resource_local_to_scene = true
 albedo_texture = SubResource("ViewportTexture_cry65")
 emission_enabled = true
-emission_texture = SubResource("ViewportTexture_i6ppp")
+emission_texture = SubResource("ViewportTexture_jsx07")
 
 [node name="TrainingRoom" type="Node3D" unique_id=1175608443 node_paths=PackedStringArray("rig", "menu_camera", "progress", "carry", "interactor", "scent")]
 script = ExtResource("script")
@@ -259,7 +259,6 @@ material = SubResource("Black")
 
 [node name="Cell1" type="MeshInstance3D" parent="Props/TrainingStand" unique_id=1601568874]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.32, 0.4, 0.45)
-visible = false
 material_override = ExtResource("battery_material")
 mesh = ExtResource("battery_mesh")
 
@@ -327,14 +326,14 @@ outline_size = 0
 [node name="Pickups" type="Node3D" parent="." unique_id=1362550289]
 
 [node name="Battery1" type="Node3D" parent="Pickups" unique_id=485123626]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8, 0.25, 1.1)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -2.8, 0.03646353, 1.1)
 script = ExtResource("asset_group")
 
 [node name="Item" parent="Pickups/Battery1" unique_id=1944776722 instance=ExtResource("pickup_template")]
 action = SubResource("action_pickup")
 
 [node name="Battery2" type="Node3D" parent="Pickups" unique_id=37616360]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.65, 0.25, 0.4)
+transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 4.65, 0.061664738, 2.4)
 script = ExtResource("asset_group")
 
 [node name="Item" parent="Pickups/Battery2" unique_id=347655913 instance=ExtResource("pickup_template")]
@@ -364,7 +363,7 @@ outline_size = 0
 transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, -4.434679, 0.0060003595, 3.9355295)
 
 [node name="Cube_002" parent="TV" index="3" unique_id=161229353]
-surface_material_override/0 = SubResource("StandardMaterial3D_jsx07")
+surface_material_override/0 = SubResource("StandardMaterial3D_i6ppp")
 
 [node name="SubViewport" type="SubViewport" parent="TV" unique_id=1439343753]
 size = Vector2i(1017, 720)

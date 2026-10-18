@@ -29,7 +29,7 @@ fov = 100.0
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 0, 0.02, 0.84)
 
 [node name="MouthAnchor" type="Marker3D" parent="CameraHolder/Camera3D/Snout" unique_id=905437004]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 1.39, -0.4, 0)
+transform = Transform3D(-2.6460397e-08, -0.9188286, -0.39465672, 4.0163275e-08, 0.39465672, -0.9188286, 1, -4.0163275e-08, 2.6460395e-08, 1.285, -0.177, 0.086)
 
 [node name="ViewModelMotion" type="Node" parent="CameraHolder/Camera3D" unique_id=1832605158 node_paths=PackedStringArray("visual", "camera")]
 script = ExtResource("sway")
