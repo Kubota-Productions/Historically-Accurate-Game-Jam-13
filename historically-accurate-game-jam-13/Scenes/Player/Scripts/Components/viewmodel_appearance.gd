@@ -51,7 +51,7 @@ func _on_top(source: Material, priority: int) -> Material:
 	if source != null and not source is BaseMaterial3D:
 		return source
 	var material := source.duplicate() as BaseMaterial3D if source else StandardMaterial3D.new()
-	material.no_depth_test = true
+	#material.no_depth_test = true
 	material.disable_receive_shadows = true
 	material.render_priority = priority
 	return material
