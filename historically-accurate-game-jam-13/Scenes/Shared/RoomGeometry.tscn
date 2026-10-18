@@ -1,6 +1,8 @@
 [gd_scene format=3 uid="uid://dh6skid14q762"]
 
 [ext_resource type="Texture2D" uid="uid://cs425oaxhri11" path="res://Assets/Textures/floor.png" id="2_dhkg6"]
+[ext_resource type="Texture2D" uid="uid://wq41vqan22l6" path="res://Assets/Textures/wall.png" id="4_q7t3c"]
+[ext_resource type="PackedScene" uid="uid://boh86cef1nvda" path="res://Assets/3D/outside.glb" id="5_hulpg"]
 [ext_resource type="Script" uid="uid://jivklbtxb5ki" path="res://Scenes/Shared/Scripts/asset_group.gd" id="asset_group"]
 [ext_resource type="Material" uid="uid://dp270hufiqulu" path="res://Resources/Materials/floor_grid.tres" id="floor_grid"]
 
@@ -8,6 +10,9 @@
 albedo_texture = ExtResource("2_dhkg6")
 uv1_scale = Vector3(-0.165, -0.165, -0.165)
 uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hulpg"]
+albedo_texture = ExtResource("4_q7t3c")
 
 [sub_resource type="StandardMaterial3D" id="Wall"]
 albedo_color = Color(0.683, 0.683, 0.683, 1)
@@ -17,9 +22,17 @@ roughness = 0.85
 albedo_color = Color(0.18, 0.18, 0.18, 1)
 roughness = 0.85
 
-[sub_resource type="StandardMaterial3D" id="Trim"]
-albedo_color = Color(0.4, 0.4, 0.4, 1)
-roughness = 0.85
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0heqq"]
+albedo_texture = ExtResource("4_q7t3c")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8x8w1"]
+albedo_texture = ExtResource("4_q7t3c")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0fo0j"]
+albedo_texture = ExtResource("4_q7t3c")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_68lgm"]
+albedo_texture = ExtResource("4_q7t3c")
 
 [sub_resource type="StandardMaterial3D" id="Light"]
 albedo_color = Color(0.95008487, 0.8276277, 7.70092e-07, 1)
@@ -48,9 +61,73 @@ script = ExtResource("asset_group")
 [node name="Back" type="Node3D" parent="Architecture/Walls" unique_id=1694944793]
 
 [node name="Surface" type="CSGBox3D" parent="Architecture/Walls/Back" unique_id=1454795201]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1, -5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 2.1, -5)
+material_override = SubResource("StandardMaterial3D_hulpg")
 use_collision = true
-size = Vector3(12, 4.2, 0.25)
+size = Vector3(1, 4.2, 0.25)
+material = SubResource("Wall")
+
+[node name="Surface2" type="CSGBox3D" parent="Architecture/Walls/Back" unique_id=2110691354]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 2.1, -5)
+material_override = SubResource("StandardMaterial3D_hulpg")
+use_collision = true
+size = Vector3(2, 4.2, 0.25)
+material = SubResource("Wall")
+
+[node name="Surface5" type="CSGBox3D" parent="Architecture/Walls/Back" unique_id=20880516]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 1, -5)
+material_override = SubResource("StandardMaterial3D_hulpg")
+use_collision = true
+size = Vector3(2, 2, 0.25)
+material = SubResource("Wall")
+
+[node name="Surface6" type="CSGBox3D" parent="Architecture/Walls/Back" unique_id=1317823087]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 4, -5)
+material_override = SubResource("StandardMaterial3D_hulpg")
+use_collision = true
+size = Vector3(2, 2, 0.25)
+material = SubResource("Wall")
+
+[node name="Surface7" type="CSGBox3D" parent="Architecture/Walls/Back" unique_id=1985237085]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, -5)
+material_override = SubResource("StandardMaterial3D_hulpg")
+use_collision = true
+size = Vector3(2, 2, 0.25)
+material = SubResource("Wall")
+
+[node name="Surface8" type="CSGBox3D" parent="Architecture/Walls/Back" unique_id=509753054]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -5)
+material_override = SubResource("StandardMaterial3D_hulpg")
+use_collision = true
+size = Vector3(2, 2, 0.25)
+material = SubResource("Wall")
+
+[node name="Surface9" type="CSGBox3D" parent="Architecture/Walls/Back" unique_id=1713767433]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 1, -5)
+material_override = SubResource("StandardMaterial3D_hulpg")
+use_collision = true
+size = Vector3(2, 2, 0.25)
+material = SubResource("Wall")
+
+[node name="Surface10" type="CSGBox3D" parent="Architecture/Walls/Back" unique_id=888069607]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, -5)
+material_override = SubResource("StandardMaterial3D_hulpg")
+use_collision = true
+size = Vector3(2, 2, 0.25)
+material = SubResource("Wall")
+
+[node name="Surface3" type="CSGBox3D" parent="Architecture/Walls/Back" unique_id=1215342567]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 2.1, -5)
+material_override = SubResource("StandardMaterial3D_hulpg")
+use_collision = true
+size = Vector3(2, 4.2, 0.25)
+material = SubResource("Wall")
+
+[node name="Surface4" type="CSGBox3D" parent="Architecture/Walls/Back" unique_id=1030040515]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, 2.1, -5)
+material_override = SubResource("StandardMaterial3D_hulpg")
+use_collision = true
+size = Vector3(1, 4.2, 0.25)
 material = SubResource("Wall")
 
 [node name="LowerBand" type="CSGBox3D" parent="Architecture/Walls/Back" unique_id=1772379671]
@@ -62,6 +139,7 @@ material = SubResource("Dark")
 
 [node name="Surface" type="CSGBox3D" parent="Architecture/Walls/Left" unique_id=2074344932]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2.1, 0)
+material_override = SubResource("StandardMaterial3D_0heqq")
 use_collision = true
 size = Vector3(0.25, 4.2, 10)
 material = SubResource("Wall")
@@ -70,6 +148,7 @@ material = SubResource("Wall")
 
 [node name="Surface" type="CSGBox3D" parent="Architecture/Walls/Right" unique_id=1263787058]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 2.1, 0)
+material_override = SubResource("StandardMaterial3D_8x8w1")
 use_collision = true
 size = Vector3(0.25, 4.2, 10)
 material = SubResource("Wall")
@@ -78,6 +157,7 @@ material = SubResource("Wall")
 
 [node name="Surface" type="CSGBox3D" parent="Architecture/Walls/Front" unique_id=1542008964]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.1, 5)
+material_override = SubResource("StandardMaterial3D_0fo0j")
 use_collision = true
 size = Vector3(12, 4.2, 0.25)
 material = SubResource("Wall")
@@ -87,6 +167,7 @@ script = ExtResource("asset_group")
 
 [node name="Surface" type="CSGBox3D" parent="Architecture/Ceiling" unique_id=398649593]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.3, 0)
+material_override = SubResource("StandardMaterial3D_68lgm")
 use_collision = true
 size = Vector3(12, 0.2, 10)
 material = SubResource("Wall")
@@ -96,39 +177,9 @@ script = ExtResource("asset_group")
 
 [node name="Left" type="Node3D" parent="Architecture/Windows" unique_id=825006343]
 
-[node name="Pane" type="CSGBox3D" parent="Architecture/Windows/Left" unique_id=1181944813]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.5, -4.84)
-size = Vector3(2.4, 1.3, 0.1)
-material = SubResource("Dark")
-
-[node name="Divider" type="CSGBox3D" parent="Architecture/Windows/Left" unique_id=1088129585]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4, 2.5, -4.76)
-size = Vector3(0.06, 1.3, 0.04)
-material = SubResource("Trim")
-
 [node name="Center" type="Node3D" parent="Architecture/Windows" unique_id=1800178971]
 
-[node name="Pane" type="CSGBox3D" parent="Architecture/Windows/Center" unique_id=676417300]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -4.84)
-size = Vector3(2.4, 1.3, 0.1)
-material = SubResource("Dark")
-
-[node name="Divider" type="CSGBox3D" parent="Architecture/Windows/Center" unique_id=1268717552]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -4.76)
-size = Vector3(0.06, 1.3, 0.04)
-material = SubResource("Trim")
-
 [node name="Right" type="Node3D" parent="Architecture/Windows" unique_id=1765077911]
-
-[node name="Pane" type="CSGBox3D" parent="Architecture/Windows/Right" unique_id=1398732664]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2.5, -4.84)
-size = Vector3(2.4, 1.3, 0.1)
-material = SubResource("Dark")
-
-[node name="Divider" type="CSGBox3D" parent="Architecture/Windows/Right" unique_id=432759594]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 2.5, -4.76)
-size = Vector3(0.06, 1.3, 0.04)
-material = SubResource("Trim")
 
 [node name="Lighting" type="Node3D" parent="." unique_id=2034293636]
 script = ExtResource("asset_group")
@@ -180,3 +231,6 @@ light_color = Color(0.92933506, 0.76310205, 0, 1)
 light_energy = 20.0
 light_specular = 0.0
 area_size = Vector2(0.35493565, 2.8440542)
+
+[node name="outside" parent="." unique_id=1571147453 instance=ExtResource("5_hulpg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2185638, 4.7683716e-07, -5.0542893)

@@ -5,6 +5,8 @@
 [ext_resource type="PackedScene" uid="uid://1q60u2q0rsng" path="res://Assets/3D/Radio.glb" id="8_e0vr6"]
 [ext_resource type="PackedScene" uid="uid://dtddpu68vu75b" path="res://Assets/3D/prefabs/tv.tscn" id="20_hsumw"]
 [ext_resource type="VideoStream" uid="uid://dws72uqti6s0n" path="res://Assets/video/shot_1576.ogv" id="21_hsumw"]
+[ext_resource type="PackedScene" uid="uid://0cdku2pwv2hv" path="res://Assets/3D/Door.glb" id="29_jsx07"]
+[ext_resource type="PackedScene" uid="uid://caooclm8b0a8p" path="res://Assets/3D/prefabs/ceilingfan.tscn" id="30_i6ppp"]
 [ext_resource type="Script" uid="uid://jivklbtxb5ki" path="res://Scenes/Shared/Scripts/asset_group.gd" id="asset_group"]
 [ext_resource type="Material" path="res://Resources/Materials/battery.tres" id="battery_material"]
 [ext_resource type="CylinderMesh" path="res://Resources/Meshes/battery.tres" id="battery_mesh"]
@@ -104,17 +106,17 @@ height = 0.12
 script = ExtResource("pickup_action")
 required_flag = &"fetch"
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_cry65"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_p7fdx"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_jsx07"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_v6mut"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i6ppp"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_u62ix"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_cry65")
+albedo_texture = SubResource("ViewportTexture_p7fdx")
 emission_enabled = true
-emission_texture = SubResource("ViewportTexture_jsx07")
+emission_texture = SubResource("ViewportTexture_v6mut")
 
 [node name="TrainingRoom" type="Node3D" unique_id=1175608443 node_paths=PackedStringArray("rig", "menu_camera", "progress", "carry", "interactor", "scent")]
 script = ExtResource("script")
@@ -363,7 +365,7 @@ outline_size = 0
 transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, -4.434679, 0.0060003595, 3.9355295)
 
 [node name="Cube_002" parent="TV" index="3" unique_id=161229353]
-surface_material_override/0 = SubResource("StandardMaterial3D_i6ppp")
+surface_material_override/0 = SubResource("StandardMaterial3D_u62ix")
 
 [node name="SubViewport" type="SubViewport" parent="TV" unique_id=1439343753]
 size = Vector2i(1017, 720)
@@ -404,6 +406,12 @@ script = ExtResource("scent")
 [node name="Progress" type="Node" parent="Systems" unique_id=1053304331 node_paths=PackedStringArray("socket")]
 script = ExtResource("progress")
 socket = NodePath("../../Props/TrainingStand/Slots")
+
+[node name="Door" parent="." unique_id=1165815242 instance=ExtResource("29_jsx07")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 3.0164618, 0.24357176, 4.8544955)
+
+[node name="ceilingfan" parent="." unique_id=1528835813 instance=ExtResource("30_i6ppp")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.39029, 4.0805545, -0.21440172)
 
 [editable path="Actors/Scientist/Visuals/Scientist"]
 [editable path="TV"]
