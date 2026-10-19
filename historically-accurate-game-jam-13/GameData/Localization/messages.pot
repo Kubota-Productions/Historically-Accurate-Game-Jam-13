@@ -142,7 +142,7 @@ msgstr ""
 msgid "Enter capsule"
 msgstr ""
 
-#: Scenes/Levels/TrainingRoom.tscn:167
+#: Scenes/Levels/TrainingRoom.tscn:200
 msgid "Enter the capsule"
 msgstr ""
 
@@ -154,7 +154,7 @@ msgstr ""
 msgid "Escape is reserved for going back. Choose another key."
 msgstr ""
 
-#: Scenes/GUI/Screens/MainMenu.tscn:76
+#: Scenes/GUI/Screens/MainMenu.tscn:79
 msgid "Exit"
 msgstr ""
 
@@ -186,7 +186,7 @@ msgstr ""
 msgid "Good morning, little cosmonaut. Ready for our game?"
 msgstr ""
 
-#: Scenes/Levels/TrainingRoom.tscn:97
+#: Scenes/Levels/TrainingRoom.tscn:59
 msgid "He hasn't said it's bedtime yet."
 msgstr ""
 
@@ -199,7 +199,7 @@ msgstr ""
 msgid "Inspect battery slot"
 msgstr ""
 
-#: Scenes/Levels/TrainingRoom.tscn:255
+#: Scenes/Levels/TrainingRoom.tscn:278
 msgid "Inspect battery slots"
 msgstr ""
 
@@ -226,10 +226,6 @@ msgstr ""
 
 #: Scenes/GUI/Screens/MainMenu.tscn:39
 msgid "LAIKA"
-msgstr ""
-
-#: Scenes/Levels/TrainingRoom.tscn:176
-msgid "LAIKA / 01"
 msgstr ""
 
 #: Code/Utils/input_hints.gd:6 Scenes/GUI/Components/ActionHint.tscn:27 Scenes/GUI/Components/BindingRow.tscn:23
@@ -288,7 +284,7 @@ msgstr ""
 msgid "No more tasks here. I can explore, or leave through the menu."
 msgstr ""
 
-#: Scenes/Player/Scripts/Components/carry_controller.gd:47
+#: Scenes/Player/Scripts/Components/carry_controller.gd:53
 msgid "No room to put this down here."
 msgstr ""
 
@@ -312,7 +308,7 @@ msgstr ""
 msgid "Perfect! All systems ready. You are a very good employee."
 msgstr ""
 
-#: Scenes/Shared/Interactables/Pickup.tscn:32
+#: Scenes/Shared/Interactables/Pickup.tscn:35
 msgid "Pick up battery"
 msgstr ""
 
@@ -337,7 +333,7 @@ msgstr ""
 msgid "Press button"
 msgstr ""
 
-#: Scenes/Levels/TrainingRoom.tscn:266
+#: Scenes/Levels/TrainingRoom.tscn:218
 msgid "Press test button"
 msgstr ""
 
@@ -373,7 +369,7 @@ msgstr ""
 msgid "Revert"
 msgstr ""
 
-#: GameData/Dialogue/Training/greeting.tres:14 GameData/Dialogue/Training/greeting.tres:8 GameData/Dialogue/Training/reminder.tres:8 GameData/Dialogue/Training/scientist.tres:8 GameData/Dialogue/Training/trained.tres:14 GameData/Dialogue/Training/trained.tres:8 Scenes/GUI/Components/DialoguePanel.tscn:39 Scenes/Levels/TrainingRoom.tscn:138
+#: GameData/Dialogue/Training/greeting.tres:14 GameData/Dialogue/Training/greeting.tres:8 GameData/Dialogue/Training/reminder.tres:8 GameData/Dialogue/Training/scientist.tres:8 GameData/Dialogue/Training/trained.tres:14 GameData/Dialogue/Training/trained.tres:8 Scenes/GUI/Components/DialoguePanel.tscn:39
 msgid "SCIENTIST"
 msgstr ""
 
@@ -397,7 +393,7 @@ msgstr ""
 msgid "Select a binding, then press a key or mouse button. Esc cancels."
 msgstr ""
 
-#: Scenes/GUI/Screens/MainMenu.tscn:67 Scenes/GUI/Screens/PauseMenu.tscn:66 Scenes/GUI/Screens/SettingsPanel.tscn:48
+#: Scenes/GUI/Screens/MainMenu.tscn:70 Scenes/GUI/Screens/PauseMenu.tscn:66 Scenes/GUI/Screens/SettingsPanel.tscn:48
 msgid "Settings"
 msgstr ""
 
@@ -421,16 +417,8 @@ msgstr ""
 msgid "Sound volume"
 msgstr ""
 
-#: Scenes/GUI/Screens/MainMenu.tscn:58
+#: Scenes/GUI/Screens/MainMenu.tscn:61
 msgid "Start"
-msgstr ""
-
-#: Scenes/Levels/TrainingRoom.tscn:286
-msgid "TEST"
-msgstr ""
-
-#: Scenes/Levels/TrainingRoom.tscn:322
-msgid "TRAINING"
 msgstr ""
 
 #: Scenes/Levels/Scripts/Progress/training_progress.gd:19
@@ -441,15 +429,11 @@ msgstr ""
 msgid "TRAINING COMPLETE"
 msgstr ""
 
-#: Scenes/Levels/TrainingRoom.tscn:244
-msgid "TWO CELLS → TEST"
-msgstr ""
-
 #: Scenes/Shared/Interactables/Talk.tscn:13
 msgid "Talk"
 msgstr ""
 
-#: Scenes/Levels/TrainingRoom.tscn:119
+#: Scenes/Levels/TrainingRoom.tscn:127
 msgid "Talk to the scientist"
 msgstr ""
 
@@ -457,7 +441,7 @@ msgstr ""
 msgid "Talk to the service robot"
 msgstr ""
 
-#: Scenes/Levels/TrainingRoom.tscn:84
+#: Scenes/Levels/TrainingRoom.tscn:69
 msgid "Test complete — enter the capsule"
 msgstr ""
 
@@ -531,6 +515,6 @@ msgstr ""
 msgid "[RMB]  Put down"
 msgstr ""
 
-#: Scenes/Shared/Interactables/Pickup.tscn:35
+#: Scenes/Shared/Interactables/Pickup.tscn:31
 msgid "battery"
 msgstr ""
