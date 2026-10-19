@@ -4,11 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://c0youm843eunr"
-valid=false
+path="res://.godot/imported/Radio.blend-d70098d4bbbb936017b3498565b75384.scn"
 
 [deps]
 
 source_file="res://Assets/3D/Radio.blend"
+dest_files=["res://.godot/imported/Radio.blend-d70098d4bbbb936017b3498565b75384.scn"]
 
 [params]
 

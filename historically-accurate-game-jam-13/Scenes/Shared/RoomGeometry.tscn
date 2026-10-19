@@ -59,17 +59,17 @@ albedo_texture = ExtResource("4_q7t3c")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_68lgm"]
 albedo_texture = ExtResource("4_q7t3c")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_e7yxf"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_i6h3c"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_8u4yh"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_suh8w"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i6h3c"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2glmy"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_e7yxf")
+albedo_texture = SubResource("ViewportTexture_i6h3c")
 emission_enabled = true
-emission_texture = SubResource("ViewportTexture_8u4yh")
+emission_texture = SubResource("ViewportTexture_suh8w")
 
 [node name="RoomGeometry" type="Node3D" unique_id=64567375]
 
@@ -406,7 +406,7 @@ transform = Transform3D(-0.25881904, 0, -0.9659258, 0, 1, 0, 0.9659258, 0, -0.25
 transform = Transform3D(0.98900276, 0, 0.14789787, 0, 1, 0, -0.14789787, 0, 0.98900276, -5.0854235, 0.50217426, 1.7052827)
 
 [node name="chair" parent="." unique_id=1643014150 instance=ExtResource("11_nlns7")]
-transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -4.223286, 0.00063071266, -0.86056024)
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -4.223286, 0.00063071266, -0.7899468)
 
 [node name="chair6" parent="." unique_id=1892983457 instance=ExtResource("11_nlns7")]
 transform = Transform3D(-1, 0, 5.9604645e-08, 0, 1, 0, -5.9604645e-08, 0, -1, 3.584961, 0.00063071266, 0.15905803)
@@ -451,7 +451,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5597956, 3.0735383, 6.48904
 transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, -5.0594587, 0.0060003595, 3.1642828)
 
 [node name="Cube_002" parent="TV" index="3" unique_id=161229353]
-surface_material_override/0 = SubResource("StandardMaterial3D_i6h3c")
+surface_material_override/0 = SubResource("StandardMaterial3D_2glmy")
 
 [node name="SubViewport" type="SubViewport" parent="TV" unique_id=47504815]
 size = Vector2i(1017, 720)

@@ -4,11 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://cqevbn685f0hl"
-valid=false
+path="res://.godot/imported/Scientist.blend-61b246002a0d03e10306e65f30d03760.scn"
 
 [deps]
 
 source_file="res://Assets/3D/Scientist.blend"
+dest_files=["res://.godot/imported/Scientist.blend-61b246002a0d03e10306e65f30d03760.scn"]
 
 [params]
 

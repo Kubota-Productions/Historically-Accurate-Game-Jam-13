@@ -4,11 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dngfu3l0dltrl"
-valid=false
+path="res://.godot/imported/furniture.blend-a6e83d0305f6dc3d0a52af5e39b98ba4.scn"
 
 [deps]
 
 source_file="res://Assets/3D/furniture.blend"
+dest_files=["res://.godot/imported/furniture.blend-a6e83d0305f6dc3d0a52af5e39b98ba4.scn"]
 
 [params]
 
