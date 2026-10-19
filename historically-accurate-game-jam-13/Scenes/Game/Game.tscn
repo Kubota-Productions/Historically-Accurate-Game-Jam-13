@@ -34,10 +34,16 @@ enabled = false
 unique_name_in_owner = true
 process_mode = 1
 
-[node name="Audio" type="Node" parent="." node_paths=PackedStringArray("ui_root")]
+[node name="Audio" type="Node" parent="." node_paths=PackedStringArray("ui_root", "menu_music")]
 script = ExtResource("audio_script")
 profile = ExtResource("audio_profile")
 ui_root = NodePath("../Interface/ScreenHost")
+menu_music = NodePath("MenuMusic")
+
+[node name="MenuMusic" type="FmodEventEmitter2D" parent="Audio"]
+event_name = "event:/Music/soundtrack_main_menu"
+attached = false
+allow_fadeout = true
 
 [node name="DogVisionFilter" parent="." instance=ExtResource("DogVisionFilter")]
 unique_name_in_owner = true
