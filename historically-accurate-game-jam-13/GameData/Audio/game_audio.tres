@@ -1,0 +1,35 @@
+[gd_resource type="Resource" script_class="GameAudioProfile" format=3]
+
+[ext_resource type="Script" path="res://Code/Definitions/game_audio_profile.gd" id="profile"]
+[ext_resource type="Script" path="res://Code/Definitions/audio_cue.gd" id="cue"]
+
+[sub_resource type="Resource" id="human_confirm"]
+resource_name = "UI confirmation"
+script = ExtResource("cue")
+event_name = "event:/UI/ui_confirm"
+parameters = Dictionary[StringName, Variant]({&"character": "human"})
+
+[sub_resource type="Resource" id="pickup"]
+resource_name = "Pickup confirmation"
+script = ExtResource("cue")
+event_name = "event:/UI/ui_confirm"
+parameters = Dictionary[StringName, Variant]({&"character": "dog"})
+
+[sub_resource type="Resource" id="drop"]
+resource_name = "Drop confirmation"
+script = ExtResource("cue")
+event_name = "event:/UI/ui_confirm"
+parameters = Dictionary[StringName, Variant]({&"character": "dog"})
+
+[sub_resource type="Resource" id="install"]
+resource_name = "Install confirmation"
+script = ExtResource("cue")
+event_name = "event:/UI/ui_confirm"
+parameters = Dictionary[StringName, Variant]({&"character": "dog"})
+
+[resource]
+script = ExtResource("profile")
+ui_confirm = SubResource("human_confirm")
+pickup = SubResource("pickup")
+drop = SubResource("drop")
+install = SubResource("install")

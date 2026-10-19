@@ -20,8 +20,8 @@ config/features=PackedStringArray("4.7", "Forward Plus")
 
 [autoload]
 
-FmodManager="*uid://cds10pm7hwn3p"
-FmodBankLoaderGlobal="*uid://b5otsgr2cjw4d"
+FmodManager="*res://addons/fmod/FmodManager.gd"
+FmodBankLoaderGlobal="*res://Autoload/FmodBankLoader.tscn"
 
 [display]
 

@@ -30,25 +30,12 @@ transform = Transform3D(-0.9475268, 0.29244632, 0.12910491, -0.20046951, -0.2289
 transform = Transform3D(0.85896003, 0, 0.51204294, 0, 1, 0, -0.51204294, 0, 0.85896003, -0.364, -0.482, 13.017)
 
 [node name="Skeleton3D" parent="Laika2/metarig" parent_id_path=PackedInt32Array(28737398, 1525879223) index="0" unique_id=1979672956]
-bones/1/rotation = Quaternion(-0.83525145, 0.098946296, 0.1426963, 0.5217303)
-bones/2/rotation = Quaternion(0.46449324, -0.20509978, 0.02727472, 0.861067)
-bones/3/rotation = Quaternion(0.3785566, -0.09459783, 0.17172873, 0.90457475)
-bones/4/rotation = Quaternion(0.29480696, -0.12968192, 0.09654329, 0.94178075)
-bones/6/rotation = Quaternion(0.42700055, 0.6942685, -0.45928127, -0.3531607)
-bones/10/rotation = Quaternion(-0.14734371, -0.0057152975, 0.017767198, 0.98890924)
-bones/17/rotation = Quaternion(-0.015002567, 0.83845013, -0.5447375, -0.0061099804)
-bones/23/rotation = Quaternion(-0.44399664, -0.023809021, -0.031236976, 0.89516723)
-bones/24/rotation = Quaternion(0.10762619, -0.0076891263, -0.024969535, 0.99384815)
-bones/26/rotation = Quaternion(0.6886092, 0.032688536, -0.050315674, 0.72264606)
-bones/27/rotation = Quaternion(0.29825887, 0.024326837, 0.06954693, 0.951637)
-bones/28/rotation = Quaternion(-0.34254447, 0.0045706923, -0.01684657, 0.93933946)
-bones/33/rotation = Quaternion(-0.11018412, 0.8036905, -0.57899666, -0.08187747)
 
 [node name="LookAtModifier3D" type="LookAtModifier3D" parent="Laika2/metarig/Skeleton3D" index="2" unique_id=1237842664]
 transform = Transform3D(-0.9950095, 0, -2.1241183, 0, 2.3456178, 0, 2.1241183, 0, -0.9950095, 27.367641, 1.0954036, 13.611566)
 target_node = NodePath("../../../../LookAtTarget")
 bone_name = "spine.011"
-bone = 25
+bone = 11
 forward_axis = 2
 primary_rotation_axis = 0
 duration = 1.0

@@ -1,4 +1,4 @@
 [gd_scene format=3 uid="uid://b5otsgr2cjw4d"]
 
 [node name="FmodBankLoader" type="FmodBankLoader" unique_id=488373571]
-bank_paths = ["res://Assets/Audio/fmod/Ambience.bank", "res://Assets/Audio/fmod/Master.strings.bank", "res://Assets/Audio/fmod/Master.bank", "res://Assets/Audio/fmod/SFX.bank", "res://Assets/Audio/fmod/Music.bank", "res://Assets/Audio/fmod/UI.bank"]
+bank_paths = ["res://Assets/Audio/fmod/Master.strings.bank", "res://Assets/Audio/fmod/Master.bank", "res://Assets/Audio/fmod/Ambience.bank", "res://Assets/Audio/fmod/SFX.bank", "res://Assets/Audio/fmod/Music.bank", "res://Assets/Audio/fmod/UI.bank"]

@@ -2,6 +2,9 @@ class_name CarryController
 extends Node
 
 signal changed(item_name: String)
+signal picked_up(item: PickupItem)
+signal dropped(item: PickupItem)
+signal stored(item: PickupItem)
 
 const HOLD_PRIORITY := 125
 const DROP_OFFSETS: Array[Vector2] = [Vector2(0.85, 0.0), Vector2(0.55, 0.0), Vector2(0.3, 0.65), Vector2(0.3, -0.65)]
@@ -35,6 +38,7 @@ func take(target: PickupItem) -> void:
 	var held := Basis.from_euler(hold_rotation_degrees * PI / 180.0).scaled_local(_basis.get_scale())
 	item.global_transform = Transform3D(anchor.global_basis.orthonormalized() * held, anchor.to_global(hold_offset))
 	changed.emit(item.item_name)
+	picked_up.emit(item)
 
 
 func drop() -> void:
@@ -42,7 +46,9 @@ func drop() -> void:
 		return
 	var point := _drop_point()
 	if point.is_finite():
+		var dropped_item := item
 		_release(Transform3D(_basis, point))
+		dropped.emit(dropped_item)
 	else:
 		room.thought_requested.emit("No room to put this down here.")
 
@@ -50,10 +56,11 @@ func drop() -> void:
 func store(socket: ItemSocket) -> bool:
 	if item == null or not socket.install(item):
 		return false
-	var stored := item
-	_release(stored.global_transform)
-	stored.collision_layer = 0
-	stored.hide()
+	var stored_item := item
+	_release(stored_item.global_transform)
+	stored_item.collision_layer = 0
+	stored_item.hide()
+	stored.emit(stored_item)
 	return true
 
 

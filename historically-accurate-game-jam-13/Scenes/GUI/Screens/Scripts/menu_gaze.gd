@@ -28,7 +28,7 @@ func _process(delta: float) -> void:
 	if preview.texture != null and preview.size.x > 0.0 and preview.size.y > 0.0:
 		var texture_size := preview.texture.get_size()
 		if texture_size.x > 0.0 and texture_size.y > 0.0:
-			var mouse_position := preview.get_global_transform_with_canvas().affine_inverse() * preview.get_global_transform_with_canvas().affine_inverse().affine_inverse() * get_viewport().get_mouse_position()
+			var mouse_position := preview.get_global_transform_with_canvas().affine_inverse() * get_viewport().get_mouse_position()
 			var depth := (goal - preview_camera.global_position).dot(-preview_camera.global_basis.z)
 			if depth > preview_camera.near:
 				var point := preview_camera.project_position(_preview_point(mouse_position, texture_size), depth)

@@ -17,6 +17,10 @@
 [ext_resource type="Script" path="res://Scenes/Game/Scripts/screen_transition.gd" id="transition_script"]
 [ext_resource type="Resource" path="res://GameData/Rooms/training.tres" id="first_room"]
 
+[ext_resource type="Script" path="res://Scenes/Game/Scripts/game_audio.gd" id="audio_script"]
+
+[ext_resource type="Resource" path="res://GameData/Audio/game_audio.tres" id="audio_profile"]
+
 [node name="GameShell" type="Node"]
 process_mode = 3
 script = ExtResource("script")
@@ -29,6 +33,11 @@ enabled = false
 [node name="WorldHost" type="Node3D" parent="WorldPresentation/ProjectionInput"]
 unique_name_in_owner = true
 process_mode = 1
+
+[node name="Audio" type="Node" parent="." node_paths=PackedStringArray("ui_root")]
+script = ExtResource("audio_script")
+profile = ExtResource("audio_profile")
+ui_root = NodePath("../Interface/ScreenHost")
 
 [node name="DogVisionFilter" parent="." instance=ExtResource("DogVisionFilter")]
 unique_name_in_owner = true
