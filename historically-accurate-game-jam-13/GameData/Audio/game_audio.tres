@@ -1,31 +1,54 @@
-[gd_resource type="Resource" script_class="GameAudioProfile" format=3]
+[gd_resource type="Resource" script_class="GameAudioProfile" format=3 uid="uid://b0tva2fb3211b"]
 
-[ext_resource type="Script" path="res://Code/Definitions/game_audio_profile.gd" id="profile"]
-[ext_resource type="Script" path="res://Code/Definitions/audio_cue.gd" id="cue"]
+[ext_resource type="Script" uid="uid://ci5clk13um3mp" path="res://Code/Definitions/audio_cue.gd" id="cue"]
+[ext_resource type="Script" uid="uid://dwr08risl15g4" path="res://Code/Definitions/game_audio_profile.gd" id="profile"]
 
-[sub_resource type="Resource" id="human_confirm"]
-resource_name = "UI confirmation"
+[sub_resource type="Resource" id="Resource_lk10b"]
+resource_name = "Bark"
 script = ExtResource("cue")
-event_name = "event:/UI/ui_confirm"
-parameters = Dictionary[StringName, Variant]({&"character": "human"})
-
-[sub_resource type="Resource" id="pickup"]
-resource_name = "Pickup confirmation"
-script = ExtResource("cue")
-event_name = "event:/UI/ui_confirm"
-parameters = Dictionary[StringName, Variant]({&"character": "dog"})
+event_name = "event:/SFX/bark"
+metadata/_custom_type_script = "uid://ci5clk13um3mp"
 
 [sub_resource type="Resource" id="drop"]
 resource_name = "Drop confirmation"
 script = ExtResource("cue")
 event_name = "event:/UI/ui_confirm"
-parameters = Dictionary[StringName, Variant]({&"character": "dog"})
+parameters = Dictionary[StringName, Variant]({
+&"character": "dog"
+})
+
+[sub_resource type="Resource" id="Resource_0r58e"]
+resource_name = "Footstep"
+script = ExtResource("cue")
+event_name = "event:/SFX/footstep"
+parameters = Dictionary[StringName, Variant]({
+&"character": "human"
+})
+metadata/_custom_type_script = "uid://ci5clk13um3mp"
 
 [sub_resource type="Resource" id="install"]
 resource_name = "Install confirmation"
 script = ExtResource("cue")
 event_name = "event:/UI/ui_confirm"
-parameters = Dictionary[StringName, Variant]({&"character": "dog"})
+parameters = Dictionary[StringName, Variant]({
+&"character": "dog"
+})
+
+[sub_resource type="Resource" id="pickup"]
+resource_name = "Pickup confirmation"
+script = ExtResource("cue")
+event_name = "event:/UI/ui_confirm"
+parameters = Dictionary[StringName, Variant]({
+&"character": "dog"
+})
+
+[sub_resource type="Resource" id="human_confirm"]
+resource_name = "UI confirmation"
+script = ExtResource("cue")
+event_name = "event:/UI/ui_confirm"
+parameters = Dictionary[StringName, Variant]({
+&"character": "human"
+})
 
 [resource]
 script = ExtResource("profile")
@@ -33,3 +56,5 @@ ui_confirm = SubResource("human_confirm")
 pickup = SubResource("pickup")
 drop = SubResource("drop")
 install = SubResource("install")
+bark = SubResource("Resource_lk10b")
+footstep = SubResource("Resource_0r58e")

@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://d2d5nrrt64y0g"
-path="res://.godot/imported/CapsuleInterior.blend-67391bc66dc75d19e3998ad4ea34b70d.scn"
+valid=false
 
 [deps]
 
 source_file="res://Assets/3D/CapsuleInterior.blend"
-dest_files=["res://.godot/imported/CapsuleInterior.blend-67391bc66dc75d19e3998ad4ea34b70d.scn"]
 
 [params]
 

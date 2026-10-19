@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://t0cfvx2bmyeg"
-path="res://.godot/imported/TV.blend-ee8d1f725c7198cd17d4c516eeb27f95.scn"
+valid=false
 
 [deps]
 
 source_file="res://Assets/3D/TV.blend"
-dest_files=["res://.godot/imported/TV.blend-ee8d1f725c7198cd17d4c516eeb27f95.scn"]
 
 [params]
 

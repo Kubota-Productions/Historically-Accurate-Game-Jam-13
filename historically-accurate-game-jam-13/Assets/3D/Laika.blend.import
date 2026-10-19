@@ -4,12 +4,11 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dtq0tw3wyee66"
-path="res://.godot/imported/Laika.blend-fc088f1babbb71fb50b8ed1e549c515b.scn"
+valid=false
 
 [deps]
 
 source_file="res://Assets/3D/Laika.blend"
-dest_files=["res://.godot/imported/Laika.blend-fc088f1babbb71fb50b8ed1e549c515b.scn"]
 
 [params]
 

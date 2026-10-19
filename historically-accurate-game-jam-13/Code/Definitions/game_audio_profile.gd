@@ -10,6 +10,7 @@ extends Resource
 @export var install: AudioCue
 @export_group("Player")
 @export var bark: AudioCue
+@export var footstep: AudioCue
 @export_group("Mix")
 @export var sound_vca_path: String = "vca:/SFX & UI"
 @export var music_vca_path: String = "vca:/Music & Ambience"
