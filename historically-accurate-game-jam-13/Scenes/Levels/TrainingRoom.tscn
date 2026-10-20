@@ -136,7 +136,7 @@ shape = SubResource("Shape_Scientist")
 [node name="Scientist" parent="Actors/Scientist/Visuals" unique_id=1906525048 instance=ExtResource("8_cry65")]
 transform = Transform3D(-0.99048114, 0, 0.13764901, 0, 1, 0, -0.13764901, 0, -0.99048114, -0.013805628, -0.9722022, 4.577817)
 
-[node name="Skeleton3D" parent="Actors/Scientist/Visuals/Scientist/metarig" parent_id_path=PackedInt32Array(1906525048, 942062138) index="0" unique_id=121794414]
+[node name="Skeleton3D" parent="Actors/Scientist/Visuals/Scientist/metarig" parent_id_path=PackedInt32Array(1906525048, 1122362047) index="0" unique_id=818054644]
 bones/0/position = Vector3(0, 0.55922335, -0.055200007)
 bones/3/rotation = Quaternion(0.06632985, 5.4106256e-18, 2.8473122e-17, 0.9977978)
 bones/4/rotation = Quaternion(0.14149326, -0.032950487, -0.09400088, 0.98491514)
@@ -290,8 +290,6 @@ script = ExtResource("asset_group")
 
 [node name="Item" parent="Pickups/Battery1" unique_id=1944776722 instance=ExtResource("pickup_template")]
 action = SubResource("action_pickup")
-
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="Pickups/Battery1/Item" unique_id=1873276023]
 
 [node name="Battery2" type="Node3D" parent="Pickups" unique_id=37616360]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 3.791601, 0.061664738, -3.9400933)
