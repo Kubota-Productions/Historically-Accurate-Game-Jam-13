@@ -85,7 +85,9 @@ func _drop_point() -> Vector3:
 		var hit := space.intersect_ray(PhysicsRayQueryParameters3D.create(from, from + Vector3.DOWN * DROP_RAY_LENGTH, Layers.WORLD, excluded))
 		if hit.is_empty() or hit.normal.y < FLOOR_MIN_NORMAL_Y:
 			continue
-		var point: Vector3 = hit.position + Vector3.UP * (DROP_CLEARANCE - bounds.position.y)
+		var normal: Vector3 = hit.normal
+		var support := Vector3(bounds.position.x if normal.x >= 0.0 else bounds.end.x, bounds.position.y, bounds.position.z if normal.z >= 0.0 else bounds.end.z)
+		var point: Vector3 = hit.position + Vector3.UP * ((DROP_CLEARANCE - normal.dot(support)) / normal.y)
 		var query := PhysicsShapeQueryParameters3D.new()
 		query.shape = item.shape.shape
 		query.transform = Transform3D(_basis, point) * shape_offset

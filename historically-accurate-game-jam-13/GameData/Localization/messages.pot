@@ -34,19 +34,23 @@ msgid "01  /  EARTH · TRAINING ROOM"
 msgstr ""
 
 #: GameData/Rooms/station.tres:9
-msgid "02  /  ORBIT · STATION"
+msgid "02  /  EARTH · PREPARATION"
 msgstr ""
 
 #: GameData/Rooms/station.tres:8
-msgid "02  /  SOMEONE ATE THE INSTRUCTIONS"
+msgid "02  /  ONE LAST EXERCISE"
 msgstr ""
 
-#: Scenes/Levels/Scripts/Progress/station_progress.gd:16
-msgid "APPROACH THE ROBOT"
+#: GameData/Rooms/rocket.tres:8
+msgid "03  /  LAIKA"
 msgstr ""
 
-#: Scenes/Levels/StationRoom.tscn:142
-msgid "AWAITING OPERATOR"
+#: GameData/Rooms/rocket.tres:9
+msgid "03  /  ORBIT"
+msgstr ""
+
+#: Scenes/GUI/Screens/Credits.tscn:58 Scenes/GUI/Screens/Scripts/credits.gd:62
+msgid "A very good dog."
 msgstr ""
 
 #: Scenes/GUI/Screens/SettingsPanel.tscn:212
@@ -90,6 +94,10 @@ msgstr ""
 msgid "Binding updated."
 msgstr ""
 
+#: Scenes/Levels/StationRoom.tscn:304
+msgid "Board the capsule"
+msgstr ""
+
 #: Code/Services/display_settings.gd:11
 msgid "Borderless fullscreen"
 msgstr ""
@@ -100,6 +108,10 @@ msgstr ""
 
 #: Scenes/Levels/Scripts/Progress/training_progress.gd:26
 msgid "Bring two batteries to the training stand"
+msgstr ""
+
+#: Scenes/Levels/StationRoom.tscn:312
+msgid "CAPSULE"
 msgstr ""
 
 #: Scenes/GUI/Screens/Scripts/settings_panel.gd:177
@@ -122,6 +134,14 @@ msgstr ""
 msgid "Continue dialogue"
 msgstr ""
 
+#: Scenes/Levels/TrainingRoom.tscn:151
+msgid "Continue to preparation"
+msgstr ""
+
+#: Scenes/Levels/Scripts/Progress/opening_progress.gd:16
+msgid "Continue to the preparation room"
+msgstr ""
+
 #: Scenes/GUI/Screens/Scripts/settings_panel.gd:35
 msgid "Controls"
 msgstr ""
@@ -138,12 +158,12 @@ msgstr ""
 msgid "Dog vision"
 msgstr ""
 
-#: Scenes/Shared/Interactables/Exit.tscn:13
-msgid "Enter capsule"
+#: Scenes/Levels/Scripts/Progress/opening_progress.gd:9
+msgid "EARTH / INTRODUCTION"
 msgstr ""
 
-#: Scenes/Levels/TrainingRoom.tscn:200
-msgid "Enter the capsule"
+#: Scenes/Shared/Interactables/Exit.tscn:13
+msgid "Enter capsule"
 msgstr ""
 
 #: Scenes/GUI/Screens/GameHUD.tscn:51
@@ -158,16 +178,16 @@ msgstr ""
 msgid "Exit"
 msgstr ""
 
-#: Scenes/Levels/Scripts/Progress/station_progress.gd:19
-msgid "Explore freely · Esc opens the menu"
-msgstr ""
-
-#: Scenes/Levels/Scripts/Progress/station_progress.gd:10
-msgid "Find the source of the voice"
-msgstr ""
-
 #: GameData/Dialogue/Training/greeting.tres:15
 msgid "Find two batteries and bring them to the low training stand. One at a time. Follow your nose!"
+msgstr ""
+
+#: Scenes/Levels/StationRoom.tscn:106
+msgid "Finish the battery test before boarding."
+msgstr ""
+
+#: Scenes/GUI/Screens/Credits.tscn:49 Scenes/GUI/Screens/Scripts/credits.gd:61
+msgid "For Laika"
 msgstr ""
 
 #: Code/Services/display_settings.gd:12
@@ -182,11 +202,11 @@ msgstr ""
 msgid "Get comfortable in the capsule"
 msgstr ""
 
-#: GameData/Dialogue/Training/greeting.tres:9
+#: GameData/Dialogue/Opening/greeting.tres:9 GameData/Dialogue/Training/greeting.tres:9
 msgid "Good morning, little cosmonaut. Ready for our game?"
 msgstr ""
 
-#: Scenes/Levels/TrainingRoom.tscn:59
+#: Scenes/Levels/TrainingRoom.tscn:47
 msgid "He hasn't said it's bedtime yet."
 msgstr ""
 
@@ -199,7 +219,7 @@ msgstr ""
 msgid "Inspect battery slot"
 msgstr ""
 
-#: Scenes/Levels/TrainingRoom.tscn:278
+#: Scenes/Levels/StationRoom.tscn:274
 msgid "Inspect battery slots"
 msgstr ""
 
@@ -224,7 +244,7 @@ msgstr ""
 msgid "Keep these display settings? Reverting in %d s."
 msgstr ""
 
-#: Scenes/GUI/Screens/MainMenu.tscn:39
+#: Scenes/GUI/Screens/MainMenu.tscn:39 Scenes/Levels/Scripts/Progress/rocket_progress.gd:16
 msgid "LAIKA"
 msgstr ""
 
@@ -232,8 +252,24 @@ msgstr ""
 msgid "LMB"
 msgstr ""
 
+#: Scenes/Levels/Scripts/Progress/opening_progress.gd:9
+msgid "Listen to the scientist"
+msgstr ""
+
+#: Scenes/Levels/Scripts/Progress/training_progress.gd:19
+msgid "Listen to the scientist over the radio"
+msgstr ""
+
+#: Scenes/Levels/Scripts/Progress/rocket_progress.gd:16
+msgid "Look out into space"
+msgstr ""
+
 #: Code/Utils/input_hints.gd:8
 msgid "MMB"
+msgstr ""
+
+#: Scenes/GUI/Screens/Scripts/credits.gd:64
+msgid "Made by"
 msgstr ""
 
 #: Scenes/GUI/Components/CompletionNotice.tscn:34 Scenes/GUI/Screens/PauseMenu.tscn:75
@@ -276,14 +312,6 @@ msgstr ""
 msgid "My bed has buttons now."
 msgstr ""
 
-#: Scenes/Levels/StationRoom.tscn:119
-msgid "NO SIGNAL"
-msgstr ""
-
-#: Scenes/Levels/StationRoom.tscn:43
-msgid "No more tasks here. I can explore, or leave through the menu."
-msgstr ""
-
 #: Scenes/Player/Scripts/Components/carry_controller.gd:53
 msgid "No room to put this down here."
 msgstr ""
@@ -294,6 +322,14 @@ msgstr ""
 
 #: Scenes/GUI/Screens/GameHUD.tscn:80
 msgid "Objective"
+msgstr ""
+
+#: Scenes/Levels/StationRoom.tscn:184
+msgid "PREPARATION"
+msgstr ""
+
+#: Scenes/Levels/Scripts/Progress/training_progress.gd:19
+msgid "PREPARATION  /  02"
 msgstr ""
 
 #: GameData/Settings/settings.tres:20
@@ -317,7 +353,7 @@ msgstr ""
 msgid "Place %s"
 msgstr ""
 
-#: Scenes/GUI/Components/CompletionNotice.tscn:27 Scenes/Levels/Scripts/Progress/station_progress.gd:19
+#: Scenes/GUI/Components/CompletionNotice.tscn:27
 msgid "Playground complete"
 msgstr ""
 
@@ -333,7 +369,7 @@ msgstr ""
 msgid "Press button"
 msgstr ""
 
-#: Scenes/Levels/TrainingRoom.tscn:218
+#: Scenes/Levels/StationRoom.tscn:214
 msgid "Press test button"
 msgstr ""
 
@@ -345,11 +381,15 @@ msgstr ""
 msgid "Put down item"
 msgstr ""
 
+#: Scenes/Levels/Scripts/Progress/opening_progress.gd:16
+msgid "READY FOR TRAINING"
+msgstr ""
+
 #: Code/Utils/input_hints.gd:7
 msgid "RMB"
 msgstr ""
 
-#: GameData/Dialogue/Station/robot.tres:14 GameData/Dialogue/Station/robot.tres:8 Scenes/Levels/StationRoom.tscn:81
+#: GameData/Dialogue/Station/robot.tres:14 GameData/Dialogue/Station/robot.tres:8
 msgid "ROBOT"
 msgstr ""
 
@@ -365,27 +405,27 @@ msgstr ""
 msgid "Resume"
 msgstr ""
 
+#: Scenes/GUI/Screens/Credits.tscn:70
+msgid "Return to menu"
+msgstr ""
+
+#: Scenes/GUI/Screens/Scripts/credits.gd:68
+msgid "Returning to the main menu…"
+msgstr ""
+
 #: Scenes/GUI/Screens/SettingsPanel.tscn:157
 msgid "Revert"
 msgstr ""
 
-#: GameData/Dialogue/Training/greeting.tres:14 GameData/Dialogue/Training/greeting.tres:8 GameData/Dialogue/Training/reminder.tres:8 GameData/Dialogue/Training/scientist.tres:8 GameData/Dialogue/Training/trained.tres:14 GameData/Dialogue/Training/trained.tres:8 Scenes/GUI/Components/DialoguePanel.tscn:39
+#: GameData/Dialogue/Opening/greeting.tres:14 GameData/Dialogue/Opening/greeting.tres:8 GameData/Dialogue/Training/greeting.tres:14 GameData/Dialogue/Training/greeting.tres:8 GameData/Dialogue/Training/reminder.tres:8 GameData/Dialogue/Training/scientist.tres:8 GameData/Dialogue/Training/trained.tres:14 GameData/Dialogue/Training/trained.tres:8 Scenes/GUI/Components/DialoguePanel.tscn:39
 msgid "SCIENTIST"
-msgstr ""
-
-#: Scenes/Levels/StationRoom.tscn:160
-msgid "STATION"
-msgstr ""
-
-#: Scenes/Levels/Scripts/Progress/station_progress.gd:10
-msgid "STATION  /  ARRIVAL"
 msgstr ""
 
 #: GameData/Dialogue/Station/arrival.tres:14 GameData/Dialogue/Station/arrival.tres:8
 msgid "STATION AUTOMATION"
 msgstr ""
 
-#: Scenes/GUI/Screens/GameHUD.tscn:86 Scenes/Levels/Scripts/Progress/training_progress.gd:19
+#: Scenes/GUI/Screens/GameHUD.tscn:86
 msgid "Say hello to the scientist"
 msgstr ""
 
@@ -421,10 +461,6 @@ msgstr ""
 msgid "Start"
 msgstr ""
 
-#: Scenes/Levels/Scripts/Progress/training_progress.gd:19
-msgid "TRAINING  /  01"
-msgstr ""
-
 #: Scenes/Levels/Scripts/Progress/training_progress.gd:30
 msgid "TRAINING COMPLETE"
 msgstr ""
@@ -433,20 +469,20 @@ msgstr ""
 msgid "Talk"
 msgstr ""
 
-#: Scenes/Levels/TrainingRoom.tscn:127
+#: Scenes/Levels/TrainingRoom.tscn:75
 msgid "Talk to the scientist"
 msgstr ""
 
-#: Scenes/Levels/Scripts/Progress/station_progress.gd:16 Scenes/Levels/StationRoom.tscn:65
-msgid "Talk to the service robot"
-msgstr ""
-
-#: Scenes/Levels/TrainingRoom.tscn:69
+#: Scenes/Levels/StationRoom.tscn:66
 msgid "Test complete — enter the capsule"
 msgstr ""
 
 #: Scenes/Levels/Scripts/Progress/training_progress.gd:38
 msgid "Test complete. Time to get into the capsule."
+msgstr ""
+
+#: Scenes/GUI/Screens/Scripts/credits.gd:67
+msgid "Thank you for playing"
 msgstr ""
 
 #: Scenes/Shared/Scripts/Interactions/socket_action.gd:5
@@ -487,6 +523,10 @@ msgstr ""
 
 #: GameData/Dialogue/Station/arrival.tres:15
 msgid "Voice accepted. Welcome, Chief Engineer. All outstanding faults are now your responsibility."
+msgstr ""
+
+#: GameData/Dialogue/Opening/greeting.tres:15
+msgid "We will practise in the next room. Come along, Laika."
 msgstr ""
 
 #: Scenes/GUI/Screens/SettingsPanel.tscn:84

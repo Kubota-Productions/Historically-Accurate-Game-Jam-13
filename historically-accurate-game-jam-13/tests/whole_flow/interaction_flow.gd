@@ -26,7 +26,7 @@ var room: LaikaRoom
 
 func run() -> void:
 	shell = await boot_shell()
-	await shell.start_game()
+	await shell.enter_room(load("res://GameData/Rooms/station.tres"))
 	room = shell.room
 	await _dialogue_keeps_movement()
 	_custom_actions_need_no_room_code()
@@ -120,7 +120,7 @@ func _carrying_preserves_the_asset() -> void:
 	shelf.add_child(item)
 	check(room.interactables().size() == count_before + 1, "Placed items register automatically")
 	check(item.configuration_errors(room).is_empty(), "The pickup template needs no extra wiring")
-	var first: MeshInstance3D = item.visual_root.get_node("Mesh")
+	var first: MeshInstance3D = item.visual_root.find_children("*", "MeshInstance3D", true, false)[0]
 	var material := StandardMaterial3D.new()
 	material.albedo_texture = ImageTexture.create_from_image(Image.create(2, 2, false, Image.FORMAT_RGBA8))
 	first.material_override = material
@@ -146,7 +146,14 @@ func _carrying_preserves_the_asset() -> void:
 	check(first.material_override == material and second.get_surface_override_material(0) == null, "Dropping restores both material kinds")
 	check(first.layers == 1 and item.collision_layer == Layers.INTERACTABLES, "Dropping restores rendering and collision")
 	var bounds: AABB = item.shape.global_transform * item.shape.shape.get_debug_mesh().get_aabb()
-	check(absf(bounds.position.y - CarryController.DROP_CLEARANCE) < 0.03, "The dropped collider rests on the floor")
+	var bottom := Vector3(bounds.get_center().x, bounds.position.y, bounds.get_center().z)
+	var floor_hit := room.get_world_3d().direct_space_state.intersect_ray(PhysicsRayQueryParameters3D.create(bottom, bottom + Vector3.DOWN * 0.2, Layers.WORLD))
+	check(not floor_hit.is_empty() and floor_hit.normal.y >= CarryController.FLOOR_MIN_NORMAL_Y, "The dropped collider rests just above walkable terrain")
+	var placement := PhysicsShapeQueryParameters3D.new()
+	placement.shape = item.shape.shape
+	placement.transform = item.shape.global_transform
+	placement.collision_mask = Layers.WORLD
+	check(room.get_world_3d().direct_space_state.intersect_shape(placement, 1).is_empty(), "The dropped collider does not penetrate the terrain")
 	room.carry.take(item)
 	var rejecting := RejectSocket.new()
 	room.add_child(rejecting)
@@ -175,7 +182,7 @@ func _scent_follows_pickups() -> void:
 	var fresh: PickupItem = PICKUP.instantiate()
 	room.add_child(fresh)
 	Input.action_press(&"sniff")
-	await process_frame
+	await frames(3)
 	check(room.scent.active and fresh.scent_marker.visible, "New pickups take part in scent")
 	room.carry.take(fresh)
 	check(not fresh.scent_marker.visible, "A carried item has no scent marker")

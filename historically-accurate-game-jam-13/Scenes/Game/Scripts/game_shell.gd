@@ -1,7 +1,7 @@
 class_name GameShell
 extends Node
 
-enum Mode { MENU, PLAYING, PAUSED }
+enum Mode { MENU, PLAYING, PAUSED, CREDITS }
 
 @export var first_room: RoomDefinition
 
@@ -20,6 +20,7 @@ var preferences := GameSettings.new()
 @onready var dialogue: DialoguePanel = %Dialogue
 @onready var pause: PauseMenu = %PauseMenu
 @onready var settings: SettingsPanel = %SettingsPanel
+@onready var credits: CreditsScreen = %Credits
 @onready var completion: CompletionNotice = %CompletionNotice
 
 
@@ -36,6 +37,7 @@ func _ready() -> void:
 	pause.menu_requested.connect(return_to_menu)
 	settings.close_requested.connect(close_settings)
 	completion.menu_requested.connect(return_to_menu)
+	credits.finished.connect(return_to_menu)
 	dialogue.session.finished.connect(_on_dialogue_finished)
 	dialogue.session.line_changed.connect(_sync_context)
 	dialogue.session.bark_requested.connect(_bark)
@@ -52,6 +54,10 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 	elif transitioning:
 		if event.is_pressed():
+			get_viewport().set_input_as_handled()
+	elif mode == Mode.CREDITS:
+		if event.is_action_pressed(&"ui_cancel"):
+			credits.finish()
 			get_viewport().set_input_as_handled()
 	elif event.is_action_pressed(&"ui_cancel"):
 		_cancel()
@@ -70,6 +76,8 @@ func start_game() -> void:
 
 
 func pause_game() -> void:
+	if mode != Mode.PLAYING or transitioning:
+		return
 	mode = Mode.PAUSED
 	get_tree().paused = true
 	hud.hide()
@@ -171,10 +179,33 @@ func _replace_room(definition: RoomDefinition) -> bool:
 	room.sniffing_changed.connect(hud.set_sniffing)
 	room.dialogue_requested.connect(_open_dialogue)
 	room.departure_requested.connect(enter_room)
-	room.completed.connect(completion.open)
+	room.completed.connect(finish_game)
 	_apply_preferences()
 	hud.reset()
+	hud.get_node("%Jump").visible = room.movement_enabled
 	return true
+
+
+func finish_game() -> void:
+	if transitioning or mode != Mode.PLAYING:
+		return
+	transitioning = true
+	room.set_control_enabled(false)
+	await transition.cover("")
+	if not is_inside_tree():
+		return
+	_hide_screens()
+	get_tree().paused = false
+	mode = Mode.CREDITS
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+	credits.open()
+	credits.set_process(false)
+	credits.menu_button.disabled = true
+	await transition.reveal()
+	if is_inside_tree():
+		transitioning = false
+		credits.set_process(true)
+		credits.menu_button.disabled = false
 
 
 func _cancel_transition() -> void:
@@ -190,6 +221,7 @@ func _cancel_transition() -> void:
 
 
 func _hide_screens() -> void:
+	credits.close()
 	menu.hide()
 	pause.hide()
 	settings.hide()
@@ -246,6 +278,7 @@ func _on_dialogue_finished(finished: Dialogue) -> void:
 
 func _sync_context() -> void:
 	var playing := mode == Mode.PLAYING and not transitioning and not settings.visible
+	room.set_control_enabled(playing)
 	room.set_interactions_enabled(playing and not dialogue.session.active)
 	hud.set_dialogue_active(dialogue.session.active, dialogue.session.requires_bark())
 

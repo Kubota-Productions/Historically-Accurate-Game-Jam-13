@@ -12,6 +12,7 @@ signal sniffing_changed(active: bool)
 signal completed
 @warning_ignore_restore("unused_signal")
 
+@export var movement_enabled: bool = true
 @export var rig: FPSCamera
 @export var menu_camera: Camera3D
 @export var progress: RoomProgress
@@ -53,7 +54,7 @@ func begin() -> void:
 
 func set_control_enabled(enabled: bool) -> void:
 	control_enabled = enabled
-	player.set_physics_process(enabled)
+	player.set_physics_process(enabled and movement_enabled)
 	rig.set_process_unhandled_input(enabled)
 	set_interactions_enabled(enabled)
 	if not enabled:

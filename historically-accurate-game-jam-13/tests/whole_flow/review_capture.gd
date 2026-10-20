@@ -38,6 +38,8 @@ func _ready() -> void:
 			shell.settings.tabs.current_tab = 1
 	elif state != "menu":
 		await shell.start_game()
+		if state.begins_with("carrying") or state in ["training_complete", "dialogue_long"]:
+			await shell.enter_room(load("res://GameData/Rooms/station.tres"))
 		if state != "dialogue":
 			shell.dialogue.session.advance(true)
 			shell.dialogue.session.advance(false)
@@ -50,7 +52,7 @@ func _ready() -> void:
 				shell.room.interactor.target = shell.room.get_node("Pickups/Battery1/Item")
 				shell.room.interact()
 			elif state == "dialogue_long":
-				shell.room.dialogue_requested.emit(StationProgress.ROBOT)
+				shell.room.dialogue_requested.emit(TrainingProgress.TRAINED)
 				shell.dialogue.session.advance(true)
 			elif state == "training_complete":
 				for index: int in [1, 2]:
@@ -58,7 +60,7 @@ func _ready() -> void:
 					shell.room.interact()
 					shell.room.interactor.target = shell.room.get_node("Props/TrainingStand/Slots")
 					shell.room.interact()
-				shell.room.interactor.target = shell.room.get_node("Props/TrainingStand/TestButton")
+				shell.room.interactor.target = shell.room.get_node("Props/TestButton")
 				shell.room.interact()
 				shell.dialogue.session.advance(true)
 				shell.dialogue.session.advance(false)
@@ -75,7 +77,7 @@ func _ready() -> void:
 					shell.room.player.teleport(Vector3(0, 0, 2.0))
 					shell.room.rig.set_look(0.0, 0.12)
 					if state in ["station_complete", "station_bark_feedback"]:
-						shell.room.dialogue_requested.emit(StationProgress.ROBOT)
+						shell.room.dialogue_requested.emit(TrainingProgress.TRAINED)
 						shell.dialogue.session.advance(true)
 						if state == "station_complete":
 							shell.dialogue.session.advance(false)

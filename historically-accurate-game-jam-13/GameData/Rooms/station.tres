@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("room")
 scene_path = "res://Scenes/Levels/StationRoom.tscn"
-title = "02  /  SOMEONE ATE THE INSTRUCTIONS"
-heading = "02  /  ORBIT · STATION"
+title = "02  /  ONE LAST EXERCISE"
+heading = "02  /  EARTH · PREPARATION"

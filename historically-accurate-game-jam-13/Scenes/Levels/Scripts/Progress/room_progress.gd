@@ -41,12 +41,21 @@ func set_flag(flag: StringName, value: bool = true) -> void:
 
 
 func knows_flag(flag: StringName) -> bool:
-	return flag in get_script().get_script_constant_map().get(&"FLAGS", [])
+	return _declares(&"FLAGS", flag)
 
 
 func knows_event(event: StringName) -> bool:
-	return event in get_script().get_script_constant_map().get(&"EVENTS", [])
+	return _declares(&"EVENTS", event)
 
 
 func configuration_errors() -> PackedStringArray:
 	return []
+
+
+func _declares(constant: StringName, value: StringName) -> bool:
+	var script: Script = get_script()
+	while script:
+		if value in script.get_script_constant_map().get(constant, []):
+			return true
+		script = script.get_base_script()
+	return false

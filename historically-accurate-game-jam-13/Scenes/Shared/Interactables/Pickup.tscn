@@ -47,4 +47,4 @@ visible = false
 material_override = SubResource("glow")
 mesh = SubResource("scent")
 
-[node name="battery" parent="." unique_id=337002322 instance=ExtResource("3_63erd")]
+[node name="battery" parent="Visuals" unique_id=337002322 instance=ExtResource("3_63erd")]

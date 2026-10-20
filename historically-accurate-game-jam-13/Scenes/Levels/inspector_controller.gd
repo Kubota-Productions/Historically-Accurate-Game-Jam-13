@@ -1,25 +1,24 @@
-extends Node3D
+extends Node
 
-var rotating = false
+@export var target: Node3D
+@export var rotate_action: StringName
+@export_range(0.001, 0.05) var sensitivity: float = 0.01
 
-var mouse_pos_prev
-var mouse_pos_next
+var rotating: bool = false
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	# First Priority: detect select part
-	if Input.is_action_just_pressed("") :
+func _unhandled_input(event: InputEvent) -> void:
+	if not is_instance_valid(target) or rotate_action.is_empty() or not InputMap.has_action(rotate_action):
+		return
+	if event.is_action_pressed(rotate_action):
 		rotating = true
-	# Second Priority: rotate 
-	if Input.is_action_just_released("") :
+	elif event.is_action_released(rotate_action):
 		rotating = false
-	
-	if rotating :
-		mouse_pos_next = get_viewport().get_mouse_position()
-		rotate_y(mouse_pos_next.x - mouse_pos_prev.x)
-		rotate_z(-(mouse_pos_next.y - mouse_pos_prev.y))
-		mouse_pos_prev = mouse_pos_next
+	elif rotating and event is InputEventMouseMotion:
+		target.rotate_y(event.relative.x * sensitivity)
+		target.rotate_x(event.relative.y * sensitivity)
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_APPLICATION_FOCUS_OUT:
+		rotating = false
