@@ -17,6 +17,8 @@
 
 [ext_resource type="PackedScene" path="res://Scenes/GUI/Screens/Credits.tscn" id="credits"]
 
+[ext_resource type="PackedScene" path="res://Scenes/GUI/Screens/ItemInspection.tscn" id="inspection"]
+
 [node name="GameShell" type="Node"]
 process_mode = 3
 script = ExtResource("script")
@@ -78,6 +80,9 @@ visible = false
 [node name="Credits" parent="Interface/ScreenHost" instance=ExtResource("credits")]
 unique_name_in_owner = true
 visible = false
+
+[node name="ItemInspection" parent="Interface/ScreenHost" instance=ExtResource("inspection")]
+unique_name_in_owner = true
 
 [node name="Transition" type="CanvasLayer" parent="."]
 layer = 20

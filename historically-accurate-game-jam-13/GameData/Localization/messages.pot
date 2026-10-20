@@ -15,7 +15,7 @@ msgstr ""
 msgid "%d / %d BATTERIES · READY"
 msgstr ""
 
-#: Scenes/GUI/Screens/Scripts/game_hud.gd:33
+#: Scenes/GUI/Screens/Scripts/game_hud.gd:34
 #, c-format
 msgid "%s  ·  pause"
 msgstr ""
@@ -57,7 +57,7 @@ msgstr ""
 msgid "Action"
 msgstr ""
 
-#: Code/Services/player_bindings.gd:46
+#: Code/Services/player_bindings.gd:47
 #, c-format
 msgid "Already assigned to %s."
 msgstr ""
@@ -78,7 +78,7 @@ msgstr ""
 msgid "Back"
 msgstr ""
 
-#: Code/Services/player_bindings.gd:14 Scenes/GUI/Screens/GameHUD.tscn:148 Scenes/GUI/Screens/Scripts/game_hud.gd:77
+#: Code/Services/player_bindings.gd:15 Scenes/GUI/Screens/GameHUD.tscn:158 Scenes/GUI/Screens/Scripts/game_hud.gd:83
 msgid "Bark"
 msgstr ""
 
@@ -118,7 +118,7 @@ msgstr ""
 msgid "Changes need confirmation within 15 seconds."
 msgstr ""
 
-#: Code/Services/player_bindings.gd:95
+#: Code/Services/player_bindings.gd:96
 msgid "Choose a key other than a modifier."
 msgstr ""
 
@@ -126,7 +126,11 @@ msgstr ""
 msgid "Click. Still needs two batteries."
 msgstr ""
 
-#: Scenes/GUI/Screens/Scripts/game_hud.gd:76
+#: Scenes/GUI/Screens/ItemInspection.tscn:60
+msgid "Close"
+msgstr ""
+
+#: Scenes/GUI/Screens/Scripts/game_hud.gd:82
 msgid "Continue"
 msgstr ""
 
@@ -158,6 +162,10 @@ msgstr ""
 msgid "Dog vision"
 msgstr ""
 
+#: Scenes/GUI/Screens/ItemInspection.tscn:121
+msgid "Drag to rotate · Scroll to zoom · Click a part · Esc to close"
+msgstr ""
+
 #: Scenes/Levels/Scripts/Progress/opening_progress.gd:9
 msgid "EARTH / INTRODUCTION"
 msgstr ""
@@ -166,11 +174,11 @@ msgstr ""
 msgid "Enter capsule"
 msgstr ""
 
-#: Scenes/GUI/Screens/GameHUD.tscn:51
+#: Scenes/GUI/Screens/GameHUD.tscn:52
 msgid "Esc · pause"
 msgstr ""
 
-#: Code/Services/player_bindings.gd:93
+#: Code/Services/player_bindings.gd:94
 msgid "Escape is reserved for going back. Choose another key."
 msgstr ""
 
@@ -210,7 +218,7 @@ msgstr ""
 msgid "He hasn't said it's bedtime yet."
 msgstr ""
 
-#: Scenes/GUI/Screens/Scripts/game_hud.gd:55
+#: Scenes/GUI/Screens/Scripts/game_hud.gd:56
 #, c-format
 msgid "In your teeth: %s"
 msgstr ""
@@ -223,11 +231,15 @@ msgstr ""
 msgid "Inspect battery slots"
 msgstr ""
 
-#: Code/Services/player_bindings.gd:12 Scenes/GUI/Components/ActionHint.tscn:19 Scenes/GUI/Components/BindingRow.tscn:13 Scenes/GUI/Components/Scripts/action_hint.gd:8 Scenes/GUI/Screens/GameHUD.tscn:136 Scenes/GUI/Screens/Scripts/game_hud.gd:76
+#: Code/Services/player_bindings.gd:13
+msgid "Inspect item"
+msgstr ""
+
+#: Code/Services/player_bindings.gd:12 Scenes/GUI/Components/ActionHint.tscn:19 Scenes/GUI/Components/BindingRow.tscn:13 Scenes/GUI/Components/Scripts/action_hint.gd:8 Scenes/GUI/Screens/GameHUD.tscn:146 Scenes/GUI/Screens/Scripts/game_hud.gd:82
 msgid "Interact"
 msgstr ""
 
-#: Code/Services/player_bindings.gd:11 Scenes/GUI/Screens/GameHUD.tscn:142
+#: Code/Services/player_bindings.gd:11 Scenes/GUI/Screens/GameHUD.tscn:152
 msgid "Jump"
 msgstr ""
 
@@ -320,8 +332,16 @@ msgstr ""
 msgid "Now into your capsule. Get comfortable, Laika. I'll be listening."
 msgstr ""
 
-#: Scenes/GUI/Screens/GameHUD.tscn:80
+#: Scenes/GUI/Screens/GameHUD.tscn:81
 msgid "Objective"
+msgstr ""
+
+#: Scenes/Shared/Scripts/inspection_part.gd:6
+msgid "Open"
+msgstr ""
+
+#: Scenes/Shared/Inspection/ExampleReceiver.tscn:66
+msgid "Open battery cover"
 msgstr ""
 
 #: Scenes/Levels/StationRoom.tscn:184
@@ -344,7 +364,7 @@ msgstr ""
 msgid "Perfect! All systems ready. You are a very good employee."
 msgstr ""
 
-#: Scenes/Shared/Interactables/Pickup.tscn:35
+#: Scenes/Shared/Interactables/Pickup.tscn:36
 msgid "Pick up battery"
 msgstr ""
 
@@ -377,7 +397,7 @@ msgstr ""
 msgid "Press the test button"
 msgstr ""
 
-#: Code/Services/player_bindings.gd:13
+#: Code/Services/player_bindings.gd:14
 msgid "Put down item"
 msgstr ""
 
@@ -391,6 +411,10 @@ msgstr ""
 
 #: GameData/Dialogue/Station/robot.tres:14 GameData/Dialogue/Station/robot.tres:8
 msgid "ROBOT"
+msgstr ""
+
+#: Scenes/GUI/Screens/ItemInspection.tscn:128
+msgid "Reset view"
 msgstr ""
 
 #: Scenes/GUI/Screens/SettingsPanel.tscn:100
@@ -425,7 +449,7 @@ msgstr ""
 msgid "STATION AUTOMATION"
 msgstr ""
 
-#: Scenes/GUI/Screens/GameHUD.tscn:86
+#: Scenes/GUI/Screens/GameHUD.tscn:87
 msgid "Say hello to the scientist"
 msgstr ""
 
@@ -437,16 +461,16 @@ msgstr ""
 msgid "Settings"
 msgstr ""
 
-#: Scenes/GUI/Screens/GameHUD.tscn:154
+#: Scenes/GUI/Screens/GameHUD.tscn:164
 msgid "Sniff"
 msgstr ""
 
-#: Code/Services/player_bindings.gd:15
+#: Code/Services/player_bindings.gd:16
 msgid "Sniff (hold)"
 msgstr ""
 
-#: Scenes/GUI/Screens/GameHUD.tscn:209
-msgid "Sniffing: battery scent"
+#: Scenes/GUI/Screens/GameHUD.tscn:219 Scenes/GUI/Screens/Scripts/game_hud.gd:75
+msgid "Sniffing…"
 msgstr ""
 
 #: Scenes/Shared/Scripts/Interactions/socket_action.gd:6
@@ -497,7 +521,7 @@ msgstr ""
 msgid "There you are. Best colleague I've ever had. Very few complaints."
 msgstr ""
 
-#: Scenes/GUI/Screens/GameHUD.tscn:43
+#: Scenes/GUI/Screens/GameHUD.tscn:44
 msgid "Training room"
 msgstr ""
 
@@ -513,7 +537,7 @@ msgstr ""
 msgid "Unscheduled arrival. Please identify the responsible operator."
 msgstr ""
 
-#: Code/Services/player_bindings.gd:97
+#: Code/Services/player_bindings.gd:98
 msgid "Use a keyboard key or a mouse button."
 msgstr ""
 
@@ -537,7 +561,7 @@ msgstr ""
 msgid "Windowed"
 msgstr ""
 
-#: Scenes/GUI/Screens/Scripts/game_hud.gd:66 Scenes/GUI/Screens/Scripts/game_hud.gd:77
+#: Scenes/GUI/Screens/Scripts/game_hud.gd:71 Scenes/GUI/Screens/Scripts/game_hud.gd:83
 msgid "Woof!"
 msgstr ""
 
@@ -546,15 +570,24 @@ msgstr ""
 msgid "Woof!   [%s] Continue dialogue"
 msgstr ""
 
+#: Scenes/GUI/Screens/Scripts/game_hud.gd:33
+#, c-format
+msgid "[%s]  Inspect"
+msgstr ""
+
 #: Scenes/GUI/Screens/Scripts/game_hud.gd:32
 #, c-format
 msgid "[%s]  Put down"
 msgstr ""
 
-#: Scenes/GUI/Screens/GameHUD.tscn:120
+#: Scenes/GUI/Screens/GameHUD.tscn:132
+msgid "[I]  Inspect"
+msgstr ""
+
+#: Scenes/GUI/Screens/GameHUD.tscn:121
 msgid "[RMB]  Put down"
 msgstr ""
 
-#: Scenes/Shared/Interactables/Pickup.tscn:31
+#: Scenes/Shared/Interactables/Pickup.tscn:32
 msgid "battery"
 msgstr ""

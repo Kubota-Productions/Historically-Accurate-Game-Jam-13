@@ -183,7 +183,7 @@ func _scent_follows_pickups() -> void:
 	room.add_child(fresh)
 	Input.action_press(&"sniff")
 	await frames(3)
-	check(room.scent.active and fresh.scent_marker.visible, "New pickups take part in scent")
+	check(room.scent.active and room.scent.nearest_item() != null and not fresh.scent_marker.visible, "New pickups attract a local trail without highlighting the item")
 	room.carry.take(fresh)
 	check(not fresh.scent_marker.visible, "A carried item has no scent marker")
 	room.carry.drop()

@@ -1,0 +1,128 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Scenes/GUI/Screens/Scripts/item_inspection.gd" id="script"]
+
+[sub_resource type="Environment" id="environment"]
+background_mode = 1
+background_color = Color(0.045, 0.055, 0.07, 1)
+ambient_light_source = 3
+ambient_light_color = Color(0.75, 0.81, 1, 1)
+ambient_light_energy = 0.65
+
+[node name="ItemInspection" type="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+visible = false
+script = ExtResource("script")
+
+[node name="Backdrop" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color(0.025, 0.03, 0.04, 0.97)
+mouse_filter = 2
+
+[node name="Margin" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_bottom = 24
+mouse_filter = 2
+
+[node name="Layout" type="VBoxContainer" parent="Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+mouse_filter = 2
+
+[node name="Header" type="HBoxContainer" parent="Margin/Layout"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ItemTitle" type="Label" parent="Margin/Layout/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_type_variation = &"Subheading"
+mouse_filter = 2
+
+[node name="Close" type="Button" parent="Margin/Layout/Header"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Close"
+
+[node name="Description" type="Label" parent="Margin/Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+autowrap_mode = 2
+mouse_filter = 2
+
+[node name="Preview" type="SubViewportContainer" parent="Margin/Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+stretch = true
+mouse_filter = 0
+
+[node name="InspectionViewport" type="SubViewport" parent="Margin/Layout/Preview"]
+unique_name_in_owner = true
+size = Vector2i(800, 500)
+own_world_3d = true
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="Stage" type="Node3D" parent="Margin/Layout/Preview/InspectionViewport"]
+
+[node name="Environment" type="WorldEnvironment" parent="Margin/Layout/Preview/InspectionViewport/Stage"]
+environment = SubResource("environment")
+
+[node name="Light" type="DirectionalLight3D" parent="Margin/Layout/Preview/InspectionViewport/Stage"]
+rotation_degrees = Vector3(-30, -35, 0)
+light_energy = 1.4
+
+[node name="Fill" type="DirectionalLight3D" parent="Margin/Layout/Preview/InspectionViewport/Stage"]
+rotation_degrees = Vector3(20, 145, 0)
+light_energy = 0.5
+light_color = Color(0.7, 0.8, 1, 1)
+
+[node name="Pivot" type="Node3D" parent="Margin/Layout/Preview/InspectionViewport/Stage"]
+unique_name_in_owner = true
+
+[node name="InspectionCamera" type="Camera3D" parent="Margin/Layout/Preview/InspectionViewport/Stage"]
+unique_name_in_owner = true
+position = Vector3(0, 0, 4)
+current = true
+fov = 40.0
+near = 0.01
+far = 40.0
+
+[node name="PartHint" type="Label" parent="Margin/Layout"]
+unique_name_in_owner = true
+layout_mode = 2
+custom_minimum_size = Vector2(0, 28)
+horizontal_alignment = 1
+mouse_filter = 2
+
+[node name="Footer" type="HBoxContainer" parent="Margin/Layout"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Help" type="Label" parent="Margin/Layout/Footer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Drag to rotate · Scroll to zoom · Click a part · Esc to close"
+autowrap_mode = 2
+mouse_filter = 2
+
+[node name="Reset" type="Button" parent="Margin/Layout/Footer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Reset view"

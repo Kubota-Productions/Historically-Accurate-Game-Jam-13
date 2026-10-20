@@ -22,6 +22,7 @@ var preferences := GameSettings.new()
 @onready var settings: SettingsPanel = %SettingsPanel
 @onready var credits: CreditsScreen = %Credits
 @onready var completion: CompletionNotice = %CompletionNotice
+@onready var inspection: ItemInspection = %ItemInspection
 
 
 func _ready() -> void:
@@ -37,6 +38,7 @@ func _ready() -> void:
 	pause.menu_requested.connect(return_to_menu)
 	settings.close_requested.connect(close_settings)
 	completion.menu_requested.connect(return_to_menu)
+	inspection.closed.connect(_inspection_closed)
 	credits.finished.connect(return_to_menu)
 	dialogue.session.finished.connect(_on_dialogue_finished)
 	dialogue.session.line_changed.connect(_sync_context)
@@ -52,6 +54,9 @@ func _input(event: InputEvent) -> void:
 		return
 	if settings.visible and settings.consume_input(event):
 		get_viewport().set_input_as_handled()
+	elif inspection.visible:
+		if inspection.consume_input(event):
+			get_viewport().set_input_as_handled()
 	elif transitioning:
 		if event.is_pressed():
 			get_viewport().set_input_as_handled()
@@ -66,8 +71,12 @@ func _input(event: InputEvent) -> void:
 		get_viewport().set_input_as_handled()
 
 
+func _process(_delta: float) -> void:
+	hud.set_inspection_available(room.inspection_target() != null)
+
+
 func _notification(what: int) -> void:
-	if what == NOTIFICATION_APPLICATION_FOCUS_IN and mode == Mode.PLAYING and not transitioning:
+	if what == NOTIFICATION_APPLICATION_FOCUS_IN and mode == Mode.PLAYING and not transitioning and not inspection.visible:
 		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 
@@ -79,6 +88,7 @@ func pause_game() -> void:
 	if mode != Mode.PLAYING or transitioning:
 		return
 	mode = Mode.PAUSED
+	inspection.close()
 	get_tree().paused = true
 	hud.hide()
 	dialogue.hide()
@@ -161,6 +171,7 @@ func enter_room(definition: RoomDefinition) -> void:
 
 
 func _replace_room(definition: RoomDefinition) -> bool:
+	inspection.close()
 	var candidate := definition.instantiate()
 	world_host.add_child(candidate)
 	if not candidate.configured:
@@ -221,6 +232,7 @@ func _cancel_transition() -> void:
 
 
 func _hide_screens() -> void:
+	inspection.close()
 	credits.close()
 	menu.hide()
 	pause.hide()
@@ -241,7 +253,9 @@ func _cancel() -> void:
 
 func _play(event: InputEvent) -> bool:
 	var session := dialogue.session
-	if event.is_action_pressed(&"bark"):
+	if event.is_action_pressed(&"inspect") and not session.active:
+		inspect_item()
+	elif event.is_action_pressed(&"bark"):
 		if session.requires_bark():
 			session.advance(true)
 		else:
@@ -258,6 +272,23 @@ func _play(event: InputEvent) -> bool:
 	else:
 		return false
 	return true
+
+
+func inspect_item() -> bool:
+	if mode != Mode.PLAYING or transitioning or settings.visible or dialogue.session.active:
+		return false
+	var target := room.inspection_target()
+	if target == null or not inspection.open(target):
+		return false
+	hud.hide()
+	_sync_context()
+	return true
+
+
+func _inspection_closed() -> void:
+	if mode == Mode.PLAYING and not transitioning and not settings.visible:
+		hud.show()
+	_sync_context()
 
 
 func _bark() -> void:
@@ -278,6 +309,7 @@ func _on_dialogue_finished(finished: Dialogue) -> void:
 
 func _sync_context() -> void:
 	var playing := mode == Mode.PLAYING and not transitioning and not settings.visible
+	playing = playing and not inspection.visible
 	room.set_control_enabled(playing)
 	room.set_interactions_enabled(playing and not dialogue.session.active)
 	hud.set_dialogue_active(dialogue.session.active, dialogue.session.requires_bark())

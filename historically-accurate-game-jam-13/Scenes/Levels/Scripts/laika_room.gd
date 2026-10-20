@@ -75,6 +75,15 @@ func drop() -> void:
 		carry.drop()
 
 
+func inspection_target() -> Interactable:
+	if not interactor.enabled:
+		return null
+	if is_instance_valid(carry.item):
+		return carry.item if carry.item.allow_inspection else null
+	var candidate := interactor.target
+	return candidate if is_instance_valid(candidate) and candidate.enabled and candidate.allow_inspection and candidate.is_visible_in_tree() else null
+
+
 func interactables() -> Array[Interactable]:
 	var result: Array[Interactable] = []
 	for node: Node in get_tree().get_nodes_in_group(&"interactables"):
