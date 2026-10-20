@@ -48,4 +48,3 @@ mesh = SubResource("QuadMesh_ycdy4")
 [node name="ProjectionInput" type="SubViewport" parent="." unique_id=1493971111]
 own_world_3d = true
 use_hdr_2d = true
-scaling_3d_mode = 2

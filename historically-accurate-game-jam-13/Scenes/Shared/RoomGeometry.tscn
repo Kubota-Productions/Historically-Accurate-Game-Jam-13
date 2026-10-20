@@ -353,14 +353,22 @@ light_energy = 1.5
 shadow_enabled = true
 
 [node name="AreaLight3D" type="AreaLight3D" parent="." unique_id=686010686]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -2.9560432, 3.1631076, -0.5141486)
+transform = Transform3D(0.010133049, 4.3709147e-08, -0.9999487, 0.9999487, -4.4292967e-10, 0.010133049, 0, -1, -4.3711392e-08, -7.2263856, 1.5993733, 0.84915674)
+light_color = Color(0.7587638, 0.78472626, 0.8067923, 1)
+light_energy = 16.0
+light_indirect_energy = 1.285
+light_specular = 0.327
+area_size = Vector2(3.5333962, 5.0073433)
+
+[node name="AreaLight3D4" type="AreaLight3D" parent="." unique_id=2053598659]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 2.8765903, 3.1631076, -0.5141486)
 light_color = Color(0.92933506, 0.76310205, 0, 1)
 light_energy = 20.0
 light_specular = 0.0
 area_size = Vector2(0.35493565, 2.8440542)
 
-[node name="AreaLight3D4" type="AreaLight3D" parent="." unique_id=2053598659]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 2.8765903, 3.1631076, -0.5141486)
+[node name="AreaLight3D5" type="AreaLight3D" parent="." unique_id=147301163]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -2.8278935, 3.1631076, -0.5141486)
 light_color = Color(0.92933506, 0.76310205, 0, 1)
 light_energy = 20.0
 light_specular = 0.0
@@ -469,7 +477,7 @@ loop = true
 
 [node name="AreaLight3D" type="AreaLight3D" parent="TV" unique_id=2046849508]
 transform = Transform3D(-0.9999986, 0, 0.0016744137, 0, 1, 0, -0.0016744137, 0, -0.9999986, 0.036095142, 1.1182021, 0.32822704)
-light_energy = 3.612
+light_energy = 13.626
 
 [node name="Radio" parent="." unique_id=126451125 instance=ExtResource("18_nlns7")]
 transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -3.8812892, 0.8948834, 1.1467214)
@@ -489,7 +497,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -3.2
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1748892525]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5096823, 1.8632365, 3.0129442)
 light_color = Color(0.88756186, 0.5577113, 5.7756904e-07, 1)
-light_energy = 1.435
+light_energy = 5.027
 light_size = 0.231
 
 [node name="curtains" parent="." unique_id=1307932967 instance=ExtResource("21_e7yxf")]
