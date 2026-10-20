@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://calds42glsmh6"]
+
+[ext_resource type="Script" uid="uid://djghgf8bfy3dg" path="res://Scenes/Levels/Scripts/laika_room.gd" id="1_cxlh6"]
+[ext_resource type="PackedScene" uid="uid://bubn572blfd61" path="res://Assets/3D/Capsuleinterior.glb" id="3_fgxhm"]
+[ext_resource type="Texture2D" uid="uid://cl63pqhqnjng3" path="res://Assets/Textures/space.jpg" id="4_xrfbh"]
+[ext_resource type="PackedScene" uid="uid://c5xf5awwvo5et" path="res://Scenes/Player/FPSPlayer.tscn" id="7_pav4b"]
+
+[sub_resource type="Sky" id="Sky_i6ppp"]
+
+[sub_resource type="Environment" id="Environment_pmscr"]
+background_mode = 1
+sky = SubResource("Sky_i6ppp")
+ambient_light_source = 2
+ambient_light_color = Color(0.15624791, 0.32979086, 1, 1)
+ambient_light_energy = 0.22
+tonemap_mode = 4
+ssao_enabled = true
+ssao_radius = 0.55
+ssao_intensity = 3.45
+ssil_enabled = true
+ssil_radius = 3.77
+fog_light_color = Color(0.16564187, 0.21092632, 0.33305982, 1)
+fog_light_energy = 2.23
+fog_density = 0.0431
+fog_sky_affect = 0.259
+fog_height_density = 0.6713
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_824kv"]
+albedo_texture = ExtResource("4_xrfbh")
+emission_enabled = true
+emission_energy_multiplier = 2.5
+emission_texture = ExtResource("4_xrfbh")
+
+[node name="StationRoom" type="Node3D" unique_id=720021548 node_paths=PackedStringArray("rig", "menu_camera", "progress", "carry", "interactor", "scent")]
+script = ExtResource("1_cxlh6")
+rig = NodePath("Actors/Player/CameraHolder")
+menu_camera = NodePath("")
+progress = NodePath("")
+carry = NodePath("")
+interactor = NodePath("")
+scent = NodePath("")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=424648217]
+environment = SubResource("Environment_pmscr")
+
+[node name="Actors" type="Node3D" parent="." unique_id=1205687545]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+
+[node name="Player" parent="Actors" unique_id=290791286 instance=ExtResource("7_pav4b")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1826222, 3.998003)
+jump_height = 0.7
+auto_bhop = false
+body_radius = 0.22
+stand_height = 0.8
+crouch_height = 0.5
+max_step_height = 0.18
+max_drop_height = 0.25
+min_tread_depth = 0.2
+auto_crouch = false
+
+[node name="Capsuleinterior" parent="." unique_id=1686552929 instance=ExtResource("3_fgxhm")]
+transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=1792385788]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.16154647, 0.04640335)
+use_collision = true
+size = Vector3(1, 0.80773926, 2.3687134)
+
+[node name="CSGTorus3D" type="CSGTorus3D" parent="." unique_id=1723227378]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0.6551293, -0.61267173)
+inner_radius = 0.19601029
+sides = 32
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="." unique_id=917331471]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.111462235, -11.535787)
+material_override = SubResource("StandardMaterial3D_824kv")
+size = Vector3(9, 10, 1)
+
+[editable path="Actors/Player"]
