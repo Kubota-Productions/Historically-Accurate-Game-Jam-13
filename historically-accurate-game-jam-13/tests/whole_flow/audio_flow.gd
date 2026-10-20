@@ -17,6 +17,7 @@ class RecordingCue extends AudioCue:
 
 func run() -> void:
 	var shell := await boot_shell()
+	shell._replace_room(load("res://GameData/Rooms/station.tres"))
 	var profile := shell.audio.profile
 	check(profile.configuration_errors().is_empty(), "Audio profile matches the loaded FMOD banks")
 	check(FmodServer.check_event_path(profile.ui_confirm.event_name), "Aerial's confirmation event is loaded")
@@ -75,7 +76,7 @@ func run() -> void:
 	check(not malformed.configuration_errors().is_empty() and not malformed.play(), "Unknown FMOD labels are rejected before playback")
 	malformed.parameters = {&"unknown_parameter": 1.0}
 	check(not malformed.configuration_errors().is_empty(), "Unknown FMOD parameter names are reported")
-	var spatial := profile.pickup.duplicate(true) as AudioCue
+	var spatial := profile.bark.duplicate(true) as AudioCue
 	check(not spatial.play(), "A spatial cue requires a valid source")
 	check(spatial.play(shell.room.player), "Spatial cues can attach to a world source")
 	check(shell.room.camera.find_children("*", "FmodListener3D", false, false).size() == 1, "The active room has an FMOD listener on its player camera")

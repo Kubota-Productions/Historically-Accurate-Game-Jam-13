@@ -10,6 +10,7 @@ const ACTIONS: Dictionary[StringName, String] = {
 	&"right": "Move right",
 	&"jump": "Jump",
 	&"interact": "Interact",
+	&"inspect": "Inspect item",
 	&"drop": "Put down item",
 	&"bark": "Bark",
 	&"sniff": "Sniff (hold)",

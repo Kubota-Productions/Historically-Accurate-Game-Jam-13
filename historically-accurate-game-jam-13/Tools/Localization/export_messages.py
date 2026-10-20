@@ -13,7 +13,7 @@ STRING = f"(?:{TRIPLE}|{QUOTED})"
 DATA_FIELDS = "speaker|text|title|heading|label"
 SCENE_FIELDS = (
     "text|tooltip_text|caption|display_name|item_name|blocked_message|"
-    "completed_message|completed_prompt|empty_message|mismatch_message"
+    "completed_message|completed_prompt|empty_message|mismatch_message|inspection_title|inspection_description"
 )
 
 

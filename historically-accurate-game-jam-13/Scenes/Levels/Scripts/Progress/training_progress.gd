@@ -16,7 +16,7 @@ func _ready() -> void:
 
 
 func begin() -> void:
-	room.objective_changed.emit("Say hello to the scientist", "TRAINING  /  01", [])
+	room.objective_changed.emit("Listen to the scientist over the radio", "PREPARATION  /  02", [])
 	room.dialogue_requested.emit(GREETING)
 
 

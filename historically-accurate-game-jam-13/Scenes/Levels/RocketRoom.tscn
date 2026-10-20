@@ -5,6 +5,11 @@
 [ext_resource type="Texture2D" uid="uid://cl63pqhqnjng3" path="res://Assets/Textures/space.jpg" id="4_xrfbh"]
 [ext_resource type="PackedScene" uid="uid://c5xf5awwvo5et" path="res://Scenes/Player/FPSPlayer.tscn" id="7_pav4b"]
 
+[ext_resource type="Script" path="res://Scenes/Levels/Scripts/Progress/rocket_progress.gd" id="progress"]
+[ext_resource type="Script" path="res://Scenes/Player/Scripts/Components/carry_controller.gd" id="carry"]
+[ext_resource type="Script" path="res://Scenes/Player/Scripts/Components/player_interactor.gd" id="interactor"]
+[ext_resource type="Script" path="res://Scenes/Player/Scripts/Components/scent_controller.gd" id="scent"]
+
 [sub_resource type="Sky" id="Sky_i6ppp"]
 
 [sub_resource type="Environment" id="Environment_pmscr"]
@@ -31,14 +36,15 @@ emission_enabled = true
 emission_energy_multiplier = 2.5
 emission_texture = ExtResource("4_xrfbh")
 
-[node name="StationRoom" type="Node3D" unique_id=720021548 node_paths=PackedStringArray("rig", "menu_camera", "progress", "carry", "interactor", "scent")]
+[node name="RocketRoom" type="Node3D" unique_id=720021548 node_paths=PackedStringArray("rig", "menu_camera", "progress", "carry", "interactor", "scent")]
 script = ExtResource("1_cxlh6")
+movement_enabled = false
 rig = NodePath("Actors/Player/CameraHolder")
-menu_camera = NodePath("")
-progress = NodePath("")
-carry = NodePath("")
-interactor = NodePath("")
-scent = NodePath("")
+menu_camera = NodePath("Cameras/MenuCamera")
+progress = NodePath("Systems/Progress")
+carry = NodePath("Systems/Carry")
+interactor = NodePath("Systems/Interactor")
+scent = NodePath("Systems/Scent")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=424648217]
 environment = SubResource("Environment_pmscr")
@@ -75,5 +81,25 @@ sides = 32
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.111462235, -11.535787)
 material_override = SubResource("StandardMaterial3D_824kv")
 size = Vector3(9, 10, 1)
+
+[node name="Cameras" type="Node3D" parent="."]
+
+[node name="MenuCamera" type="Camera3D" parent="Cameras"]
+position = Vector3(0, 1.6, 1)
+
+[node name="Systems" type="Node" parent="."]
+
+[node name="Carry" type="Node" parent="Systems" node_paths=PackedStringArray("anchor")]
+script = ExtResource("carry")
+anchor = NodePath("../../Actors/Player/CameraHolder/Camera3D/Snout/MouthAnchor")
+
+[node name="Interactor" type="Node" parent="Systems"]
+script = ExtResource("interactor")
+
+[node name="Scent" type="Node" parent="Systems"]
+script = ExtResource("scent")
+
+[node name="Progress" type="Node" parent="Systems"]
+script = ExtResource("progress")
 
 [editable path="Actors/Player"]

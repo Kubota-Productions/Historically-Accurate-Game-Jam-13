@@ -2,12 +2,21 @@
 class_name Interactable
 extends StaticBody3D
 
+signal inspection_part_activated(part_id: StringName)
+
 @export var display_name: String
 @export var action: InteractionAction:
 	set(value):
 		action = value
 		update_configuration_warnings()
 @export var enabled: bool = true
+@export_group("Inspection")
+@export var allow_inspection: bool = false
+@export var inspection_scene: PackedScene
+@export var inspection_title: String
+@export_multiline var inspection_description: String
+
+var inspected_parts: Dictionary[StringName, bool] = {}
 
 
 func _enter_tree() -> void:

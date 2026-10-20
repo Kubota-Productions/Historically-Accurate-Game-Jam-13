@@ -112,15 +112,15 @@ func _bindings_survive_restart() -> void:
 	check(InputHints.key(&"interact") == "LMB" and InputHints.key(&"drop") == "RMB", "Conflicting saves keep the defaults")
 	bindings.restore(ConfigFile.new())
 	check(InputHints.key(&"interact") == "LMB", "Missing saves keep the defaults")
-	bindings.assign(&"forward", _key(KEY_I))
+	bindings.assign(&"forward", _key(KEY_S))
 	bindings.assign(&"backwards", _key(KEY_W))
 	bindings.save(config)
 	bindings.reset()
 	bindings.restore(config)
-	check(InputHints.key(&"forward") == "I" and InputHints.key(&"backwards") == "W", "Swapped keys survive a restart")
+	check(InputHints.key(&"forward") == "S" and InputHints.key(&"backwards") == "W", "Swapped keys survive a restart")
 	config.erase_section_key("bindings", "jump")
 	bindings.restore(config)
-	check(InputHints.key(&"forward") == "I" and InputHints.key(&"jump") == "Space", "A missing action falls back to its default alone")
+	check(InputHints.key(&"forward") == "S" and InputHints.key(&"jump") == "Space", "A missing action falls back to its default alone")
 	bindings.reset()
 
 

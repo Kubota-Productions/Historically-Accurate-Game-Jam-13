@@ -27,6 +27,7 @@ height = 0.18
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("point")
+allow_inspection = true
 item_id = &"battery"
 item_name = "battery"
 visual_root = NodePath("Visuals")
@@ -47,4 +48,4 @@ visible = false
 material_override = SubResource("glow")
 mesh = SubResource("scent")
 
-[node name="battery" parent="." unique_id=337002322 instance=ExtResource("3_63erd")]
+[node name="battery" parent="Visuals" unique_id=337002322 instance=ExtResource("3_63erd")]

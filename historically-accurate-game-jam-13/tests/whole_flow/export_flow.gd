@@ -24,6 +24,9 @@ func run() -> void:
 	await game.start_game()
 	check(game.room.control_enabled and game.dialogue.session.active, "Repacked game starts training and its greeting")
 	_finish_dialogue(game)
+	check(game.room.progress.has_flag(&"departure_ready"), "Introduction unlocks preparation")
+	await game.enter_room(load("res://GameData/Rooms/station.tres"))
+	_finish_dialogue(game)
 	check(game.room.progress.has_flag(&"fetch"), "Training greeting unlocks item collection")
 	for path: NodePath in [^"Pickups/Battery1/Item", ^"Pickups/Battery2/Item"]:
 		var item: PickupItem = game.room.get_node(path)
@@ -32,14 +35,12 @@ func run() -> void:
 	game.room.progress.handle_event(&"test")
 	_finish_dialogue(game)
 	check(game.room.progress.has_flag(&"departure_ready"), "Successful test unlocks departure")
-	await game.enter_room(load("res://GameData/Rooms/station.tres"))
-	check(game.room.progress is StationProgress and game.room.get_parent() == host, "Station transition preserves WorldHost and loads the next room")
-	_finish_dialogue(game)
-	game.room.dialogue_requested.emit(StationProgress.ROBOT)
-	_finish_dialogue(game)
-	check(game.completion.visible and game.room.control_enabled, "Station completion preserves player control")
+	await game.enter_room(load("res://GameData/Rooms/rocket.tres"))
+	check(game.room.progress is RocketProgress and game.room.get_parent() == host, "Rocket transition preserves WorldHost")
+	game.room.progress.flight_seconds = 0.05
+	check(await wait_for(func(): return game.mode == game.Mode.CREDITS and not game.transitioning), "Repacked game reaches credits")
 	await game.return_to_menu()
-	check(game.menu.visible and game.room.progress is TrainingProgress, "Repacked game returns to the menu and reloads training")
+	check(game.menu.visible and game.room.progress is OpeningProgress, "Repacked game returns to the menu and reloads training")
 	game.free()
 
 

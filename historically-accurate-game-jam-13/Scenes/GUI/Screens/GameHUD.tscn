@@ -5,6 +5,7 @@
 
 
 
+
 [node name="HUD" type="Control"]
 layout_mode = 1
 anchors_preset = 15
@@ -124,6 +125,15 @@ unique_name_in_owner = true
 visible = false
 horizontal_alignment = 2
 
+[node name="InspectHint" type="Label" parent="SafeArea/Layout/Footer/Actions"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "[I]  Inspect"
+mouse_filter = 2
+theme_type_variation = &"Small"
+horizontal_alignment = 2
+
 [node name="Cards" type="HBoxContainer" parent="SafeArea/Layout/Footer/Actions"]
 layout_mode = 2
 mouse_filter = 2
@@ -206,7 +216,7 @@ vertical_alignment = 1
 
 [node name="Scent" type="Label" parent="."]
 layout_mode = 1
-text = "Sniffing: battery scent"
+text = "Sniffing…"
 mouse_filter = 2
 theme_type_variation = &"Small"
 unique_name_in_owner = true

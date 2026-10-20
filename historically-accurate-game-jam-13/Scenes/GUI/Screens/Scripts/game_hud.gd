@@ -30,6 +30,7 @@ func _ready() -> void:
 
 func refresh_bindings() -> void:
 	%DropHint.text = tr("[%s]  Put down") % InputHints.key(&"drop")
+	%InspectHint.text = tr("[%s]  Inspect") % InputHints.key(&"inspect")
 	%PauseHint.text = tr("%s  ·  pause") % InputHints.key(&"ui_cancel")
 	for hint: ActionHint in action_hints:
 		hint.refresh()
@@ -56,6 +57,10 @@ func set_carrying(item_name: String) -> void:
 	%DropHint.visible = not item_name.is_empty()
 
 
+func set_inspection_available(available: bool) -> void:
+	%InspectHint.visible = available and not _dialogue_active
+
+
 func show_thought(text: String, seconds: float = thought_seconds) -> void:
 	thought.text = tr(text)
 	thought_panel.show()
@@ -67,6 +72,7 @@ func show_bark() -> void:
 
 
 func set_sniffing(active: bool) -> void:
+	scent.text = tr("Sniffing…")
 	scent.visible = active
 
 

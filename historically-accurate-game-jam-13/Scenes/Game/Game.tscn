@@ -15,6 +15,10 @@
 [ext_resource type="Script" uid="uid://dgawl0h78xl3k" path="res://Scenes/Game/Scripts/game_audio.gd" id="audio_script"]
 [ext_resource type="Resource" uid="uid://b0tva2fb3211b" path="res://GameData/Audio/game_audio.tres" id="audio_profile"]
 
+[ext_resource type="PackedScene" path="res://Scenes/GUI/Screens/Credits.tscn" id="credits"]
+
+[ext_resource type="PackedScene" path="res://Scenes/GUI/Screens/ItemInspection.tscn" id="inspection"]
+
 [node name="GameShell" type="Node"]
 process_mode = 3
 script = ExtResource("script")
@@ -72,6 +76,13 @@ visible = false
 [node name="CompletionNotice" parent="Interface/ScreenHost" instance=ExtResource("CompletionNotice")]
 unique_name_in_owner = true
 visible = false
+
+[node name="Credits" parent="Interface/ScreenHost" instance=ExtResource("credits")]
+unique_name_in_owner = true
+visible = false
+
+[node name="ItemInspection" parent="Interface/ScreenHost" instance=ExtResource("inspection")]
+unique_name_in_owner = true
 
 [node name="Transition" type="CanvasLayer" parent="."]
 layer = 20

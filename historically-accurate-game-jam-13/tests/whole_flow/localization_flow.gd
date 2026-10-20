@@ -28,7 +28,7 @@ func run() -> void:
 	var forward_key: InputEvent = InputMap.action_get_events(&"forward")[0]
 	check(shell.preferences.bindings.problem(&"interact", forward_key) == "Уже призначено: Рух уперед.", "Binding errors translate the template and inserted action")
 	shell.close_settings()
-	await shell.start_game()
+	await shell.enter_room(load("res://GameData/Rooms/station.tres"))
 	check(shell.dialogue.speaker.text == "ВЧЕНИЙ", "Dialogue speakers translate")
 	check(shell.dialogue.line.text == "Доброго ранку. Готова до гри?", "Dialogue text translates from constant content")
 	shell.dialogue.session.advance(true)

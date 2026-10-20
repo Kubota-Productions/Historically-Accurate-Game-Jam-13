@@ -25,15 +25,13 @@ func run() -> void:
 	var original_target: Node3D = gaze.target
 	var gaze_target := Marker3D.new()
 	room.add_child(gaze_target)
-	gaze_target.global_position = gaze.head.global_position + Vector3(1, -0.5, -1)
+	gaze_target.global_position = gaze.look_at.global_position + Vector3(1, 0, 0)
 	gaze.target = gaze_target
-	var head_rest: Basis = gaze.head.basis
-	var body_rest: Basis = gaze.torso.basis
 	gaze._process(0.5)
-	check(not gaze.head.basis.is_equal_approx(head_rest) and not gaze.torso.basis.is_equal_approx(body_rest), "The scientist follows nearby targets with head and restrained torso movement")
+	check(gaze.look_at.influence > 0.9, "The scientist follows a nearby target through the authored LookAtModifier")
 	gaze_target.global_position += Vector3(20, 0, 0)
 	gaze._process(2.0)
-	check(gaze.head.basis.is_equal_approx(head_rest), "The scientist returns to rest outside the follow range")
+	check(is_zero_approx(gaze.look_at.influence), "The scientist returns to rest outside the follow range")
 	gaze.target = original_target
 	gaze_target.queue_free()
 
