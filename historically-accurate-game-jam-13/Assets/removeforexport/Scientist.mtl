@@ -1,0 +1,14 @@
+# Blender 5.2.2 LTS MTL File: 'Scientist.blend'
+# www.blender.org
+
+newmtl scientisttextures
+Ka 1.000000 1.000000 1.000000
+Ks 0.500000 0.500000 0.500000
+Ni 1.500000
+d 1.000000
+illum 2
+map_Kd C:/Users/fract/Documents/GitHub/Historically-Accurate-Game-Jam-13/historically-accurate-game-jam-13/Assets/Textures/scientisttextures_Base_color.png
+map_Ns C:/Users/fract/Documents/GitHub/Historically-Accurate-Game-Jam-13/historically-accurate-game-jam-13/Assets/Textures/scientisttextures_Roughness.png
+map_refl C:/Users/fract/Documents/GitHub/Historically-Accurate-Game-Jam-13/historically-accurate-game-jam-13/Assets/Textures/scientisttextures_Metallic.png
+map_Ke C:/Users/fract/Documents/GitHub/Historically-Accurate-Game-Jam-13/historically-accurate-game-jam-13/Assets/Textures/scientisttextures_Emissive.png
+map_Bump -bm 1.000000 C:/Users/fract/Documents/GitHub/Historically-Accurate-Game-Jam-13/historically-accurate-game-jam-13/Assets/Textures/scientisttextures_Normal.png

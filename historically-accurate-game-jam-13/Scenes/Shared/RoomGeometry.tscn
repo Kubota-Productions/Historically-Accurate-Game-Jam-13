@@ -59,17 +59,17 @@ albedo_texture = ExtResource("4_q7t3c")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_68lgm"]
 albedo_texture = ExtResource("4_q7t3c")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_e7yxf"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_i6h3c"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_8u4yh"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_suh8w"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i6h3c"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2glmy"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_e7yxf")
+albedo_texture = SubResource("ViewportTexture_i6h3c")
 emission_enabled = true
-emission_texture = SubResource("ViewportTexture_8u4yh")
+emission_texture = SubResource("ViewportTexture_suh8w")
 
 [node name="RoomGeometry" type="Node3D" unique_id=64567375]
 
@@ -353,14 +353,22 @@ light_energy = 1.5
 shadow_enabled = true
 
 [node name="AreaLight3D" type="AreaLight3D" parent="." unique_id=686010686]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -2.9560432, 3.1631076, -0.5141486)
+transform = Transform3D(0.010133049, 4.3709147e-08, -0.9999487, 0.9999487, -4.4292967e-10, 0.010133049, 0, -1, -4.3711392e-08, -7.2263856, 1.5993733, 0.84915674)
+light_color = Color(0.7587638, 0.78472626, 0.8067923, 1)
+light_energy = 16.0
+light_indirect_energy = 1.285
+light_specular = 0.327
+area_size = Vector2(3.5333962, 5.0073433)
+
+[node name="AreaLight3D4" type="AreaLight3D" parent="." unique_id=2053598659]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 2.8765903, 3.1631076, -0.5141486)
 light_color = Color(0.92933506, 0.76310205, 0, 1)
 light_energy = 20.0
 light_specular = 0.0
 area_size = Vector2(0.35493565, 2.8440542)
 
-[node name="AreaLight3D4" type="AreaLight3D" parent="." unique_id=2053598659]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 2.8765903, 3.1631076, -0.5141486)
+[node name="AreaLight3D5" type="AreaLight3D" parent="." unique_id=147301163]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -2.8278935, 3.1631076, -0.5141486)
 light_color = Color(0.92933506, 0.76310205, 0, 1)
 light_energy = 20.0
 light_specular = 0.0
@@ -382,7 +390,7 @@ transform = Transform3D(1, 0, 1.7484555e-07, 0, 1, 0, -1.7484555e-07, 0, 1, 1.59
 transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 4.8530126, 0.24357176, 4.401869)
 
 [node name="Sputnik2" parent="." unique_id=2116042456 instance=ExtResource("7_qthh2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.2018585, 1.0110762, -0.56010485)
+transform = Transform3D(0.06, 0, 0, 0, 0.06, 0, 0, 0, 0.06, 4.377359, 0.97815275, -0.56010485)
 
 [node name="box" parent="." unique_id=1442432380 instance=ExtResource("9_oqgt3")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 4.5459976, 4.4703484e-08, 1.3805053)
@@ -406,7 +414,7 @@ transform = Transform3D(-0.25881904, 0, -0.9659258, 0, 1, 0, 0.9659258, 0, -0.25
 transform = Transform3D(0.98900276, 0, 0.14789787, 0, 1, 0, -0.14789787, 0, 0.98900276, -5.0854235, 0.50217426, 1.7052827)
 
 [node name="chair" parent="." unique_id=1643014150 instance=ExtResource("11_nlns7")]
-transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -4.223286, 0.00063071266, -0.86056024)
+transform = Transform3D(0.8660254, 0, 0.5, 0, 1, 0, -0.5, 0, 0.8660254, -4.223286, 0.00063071266, -0.7899468)
 
 [node name="chair6" parent="." unique_id=1892983457 instance=ExtResource("11_nlns7")]
 transform = Transform3D(-1, 0, 5.9604645e-08, 0, 1, 0, -5.9604645e-08, 0, -1, 3.584961, 0.00063071266, 0.15905803)
@@ -451,7 +459,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5597956, 3.0735383, 6.48904
 transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, -5.0594587, 0.0060003595, 3.1642828)
 
 [node name="Cube_002" parent="TV" index="3" unique_id=161229353]
-surface_material_override/0 = SubResource("StandardMaterial3D_i6h3c")
+surface_material_override/0 = SubResource("StandardMaterial3D_2glmy")
 
 [node name="SubViewport" type="SubViewport" parent="TV" unique_id=47504815]
 size = Vector2i(1017, 720)
@@ -469,7 +477,7 @@ loop = true
 
 [node name="AreaLight3D" type="AreaLight3D" parent="TV" unique_id=2046849508]
 transform = Transform3D(-0.9999986, 0, 0.0016744137, 0, 1, 0, -0.0016744137, 0, -0.9999986, 0.036095142, 1.1182021, 0.32822704)
-light_energy = 3.612
+light_energy = 13.626
 
 [node name="Radio" parent="." unique_id=126451125 instance=ExtResource("18_nlns7")]
 transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -3.8812892, 0.8948834, 1.1467214)
@@ -489,7 +497,7 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -3.2
 [node name="OmniLight3D" type="OmniLight3D" parent="." unique_id=1748892525]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5096823, 1.8632365, 3.0129442)
 light_color = Color(0.88756186, 0.5577113, 5.7756904e-07, 1)
-light_energy = 1.435
+light_energy = 5.027
 light_size = 0.231
 
 [node name="curtains" parent="." unique_id=1307932967 instance=ExtResource("21_e7yxf")]

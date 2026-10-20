@@ -1,31 +1,31 @@
 [gd_scene format=3 uid="uid://dr85yvfobvshq"]
 
-[ext_resource type="PackedScene" uid="uid://bubn572blfd61" path="res://Assets/3D/Capsuleinterior.glb" id="6_fewc6"]
-[ext_resource type="PackedScene" uid="uid://cqevbn685f0hl" path="res://Assets/3D/Scientist.blend" id="8_cry65"]
-[ext_resource type="PackedScene" uid="uid://1q60u2q0rsng" path="res://Assets/3D/Radio.glb" id="8_e0vr6"]
-[ext_resource type="Script" uid="uid://jivklbtxb5ki" path="res://Scenes/Shared/Scripts/asset_group.gd" id="asset_group"]
-[ext_resource type="Material" path="res://Resources/Materials/battery.tres" id="battery_material"]
-[ext_resource type="CylinderMesh" path="res://Resources/Meshes/battery.tres" id="battery_mesh"]
-[ext_resource type="Script" uid="uid://cf1trihm73fa8" path="res://Scenes/Player/Scripts/Components/carry_controller.gd" id="carry"]
-[ext_resource type="Script" uid="uid://b3m65drdibrfq" path="res://Code/Definitions/dialogue.gd" id="dialogue"]
-[ext_resource type="Script" uid="uid://ch5r6ochxlswn" path="res://Scenes/Shared/Scripts/Interactions/event_action.gd" id="event_action"]
-[ext_resource type="Script" uid="uid://cdj317frexgrl" path="res://Scenes/Shared/Scripts/Interactions/exit_action.gd" id="exit_action"]
-[ext_resource type="PackedScene" uid="uid://dh6skid14q762" path="res://Scenes/Shared/RoomGeometry.tscn" id="geo"]
-[ext_resource type="Script" uid="uid://dtn5af0ay3lfq" path="res://Scenes/Shared/Scripts/interactable.gd" id="interaction"]
-[ext_resource type="Script" uid="uid://dldd0m0xs50kq" path="res://Scenes/Player/Scripts/Components/player_interactor.gd" id="interactor"]
-[ext_resource type="Script" uid="uid://bjtks4i46texe" path="res://Scenes/Shared/Scripts/npc_gaze.gd" id="npc_gaze"]
-[ext_resource type="Script" uid="uid://cg8r4er8dq3cp" path="res://Scenes/Shared/Scripts/Interactions/pickup_action.gd" id="pickup_action"]
-[ext_resource type="PackedScene" uid="uid://c5nfmsbhocirn" path="res://Scenes/Shared/Interactables/Pickup.tscn" id="pickup_template"]
-[ext_resource type="PackedScene" uid="uid://c5xf5awwvo5et" path="res://Scenes/Player/FPSPlayer.tscn" id="player"]
-[ext_resource type="Script" uid="uid://cutknp5p5ykev" path="res://Scenes/Levels/Scripts/Progress/training_progress.gd" id="progress"]
-[ext_resource type="Resource" uid="uid://ded8y6qu7jwt" path="res://GameData/Dialogue/Training/reminder.tres" id="reminder"]
-[ext_resource type="Script" uid="uid://dhaw8y5svbuly" path="res://Scenes/Player/Scripts/Components/scent_controller.gd" id="scent"]
-[ext_resource type="Resource" uid="uid://c3eiee452temp" path="res://GameData/Dialogue/Training/scientist.tres" id="scientist"]
-[ext_resource type="Script" uid="uid://djghgf8bfy3dg" path="res://Scenes/Levels/Scripts/laika_room.gd" id="script"]
-[ext_resource type="Script" uid="uid://dt5pi0esgumvk" path="res://Scenes/Shared/Scripts/item_socket.gd" id="socket"]
-[ext_resource type="Script" uid="uid://dn21y4d7doo81" path="res://Scenes/Shared/Scripts/Interactions/socket_action.gd" id="socket_action"]
-[ext_resource type="Resource" path="res://GameData/Rooms/station.tres" id="station"]
-[ext_resource type="Script" uid="uid://w836qyrvck2g" path="res://Scenes/Shared/Scripts/Interactions/talk_action.gd" id="talk_action"]
+[ext_resource type="Script" uid="uid://djghgf8bfy3dg" path="res://Scenes/Levels/Scripts/laika_room.gd" id="1_ev2wu"]
+[ext_resource type="Script" uid="uid://jivklbtxb5ki" path="res://Scenes/Shared/Scripts/asset_group.gd" id="2_8uaqm"]
+[ext_resource type="Script" uid="uid://dtn5af0ay3lfq" path="res://Scenes/Shared/Scripts/interactable.gd" id="3_lkr16"]
+[ext_resource type="Resource" uid="uid://c3eiee452temp" path="res://GameData/Dialogue/Training/scientist.tres" id="4_5g2rs"]
+[ext_resource type="Script" uid="uid://b3m65drdibrfq" path="res://Code/Definitions/dialogue.gd" id="5_wocup"]
+[ext_resource type="Resource" uid="uid://ded8y6qu7jwt" path="res://GameData/Dialogue/Training/reminder.tres" id="6_wegjv"]
+[ext_resource type="Script" uid="uid://w836qyrvck2g" path="res://Scenes/Shared/Scripts/Interactions/talk_action.gd" id="7_2e0s7"]
+[ext_resource type="PackedScene" uid="uid://cqevbn685f0hl" path="res://Assets/3D/Scientist.blend" id="8_0wxnl"]
+[ext_resource type="Script" uid="uid://bjtks4i46texe" path="res://Scenes/Shared/Scripts/npc_gaze.gd" id="9_u0su1"]
+[ext_resource type="PackedScene" uid="uid://c5xf5awwvo5et" path="res://Scenes/Player/FPSPlayer.tscn" id="10_mrv77"]
+[ext_resource type="Resource" path="res://GameData/Rooms/station.tres" id="11_prjxm"]
+[ext_resource type="Script" uid="uid://cdj317frexgrl" path="res://Scenes/Shared/Scripts/Interactions/exit_action.gd" id="12_tu36h"]
+[ext_resource type="PackedScene" uid="uid://bubn572blfd61" path="res://Assets/3D/Capsuleinterior.glb" id="13_cxlne"]
+[ext_resource type="Script" uid="uid://ch5r6ochxlswn" path="res://Scenes/Shared/Scripts/Interactions/event_action.gd" id="14_usb0g"]
+[ext_resource type="Material" path="res://Resources/Materials/battery.tres" id="15_nklso"]
+[ext_resource type="CylinderMesh" path="res://Resources/Meshes/battery.tres" id="16_1ylpy"]
+[ext_resource type="Script" uid="uid://dt5pi0esgumvk" path="res://Scenes/Shared/Scripts/item_socket.gd" id="17_0lg0f"]
+[ext_resource type="Script" uid="uid://dn21y4d7doo81" path="res://Scenes/Shared/Scripts/Interactions/socket_action.gd" id="18_f5kaa"]
+[ext_resource type="PackedScene" uid="uid://c5nfmsbhocirn" path="res://Scenes/Shared/Interactables/Pickup.tscn" id="19_updqm"]
+[ext_resource type="Script" uid="uid://cg8r4er8dq3cp" path="res://Scenes/Shared/Scripts/Interactions/pickup_action.gd" id="20_n7d7x"]
+[ext_resource type="PackedScene" uid="uid://dh6skid14q762" path="res://Scenes/Shared/RoomGeometry.tscn" id="21_3aewj"]
+[ext_resource type="Script" uid="uid://cf1trihm73fa8" path="res://Scenes/Player/Scripts/Components/carry_controller.gd" id="22_tf8xu"]
+[ext_resource type="Script" uid="uid://dldd0m0xs50kq" path="res://Scenes/Player/Scripts/Components/player_interactor.gd" id="23_ij8m1"]
+[ext_resource type="Script" uid="uid://dhaw8y5svbuly" path="res://Scenes/Player/Scripts/Components/scent_controller.gd" id="24_teqd3"]
+[ext_resource type="Script" uid="uid://cutknp5p5ykev" path="res://Scenes/Levels/Scripts/Progress/training_progress.gd" id="25_v7fim"]
+[ext_resource type="PackedScene" uid="uid://1q60u2q0rsng" path="res://Assets/3D/Radio.glb" id="26_wgpwu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_p7fdx"]
 
@@ -44,18 +44,18 @@ ssao_radius = 0.55
 ssao_intensity = 3.45
 
 [sub_resource type="Resource" id="action_talk"]
-script = ExtResource("talk_action")
-dialogue = ExtResource("scientist")
-dialogue_when_flag = Dictionary[StringName, ExtResource("dialogue")]({
-&"fetch": ExtResource("reminder")
+script = ExtResource("7_2e0s7")
+dialogue = ExtResource("4_5g2rs")
+dialogue_when_flag = Dictionary[StringName, ExtResource("5_wocup")]({
+&"fetch": ExtResource("6_wegjv")
 })
 
 [sub_resource type="BoxShape3D" id="Shape_Scientist"]
 size = Vector3(0.8, 2, 0.65)
 
 [sub_resource type="Resource" id="action_exit"]
-script = ExtResource("exit_action")
-destination = ExtResource("station")
+script = ExtResource("12_tu36h")
+destination = ExtResource("11_prjxm")
 blocked_message = "He hasn't said it's bedtime yet."
 required_flag = &"departure_ready"
 
@@ -63,7 +63,7 @@ required_flag = &"departure_ready"
 size = Vector3(1.8, 1.4, 1.8)
 
 [sub_resource type="Resource" id="action_event"]
-script = ExtResource("event_action")
+script = ExtResource("14_usb0g")
 event = &"test"
 completed_flag = &"departure_ready"
 completed_prompt = "Test complete — enter the capsule"
@@ -93,17 +93,17 @@ albedo_color = Color(0.1, 0.1, 0.1, 1)
 roughness = 0.85
 
 [sub_resource type="Resource" id="action_socket"]
-script = ExtResource("socket_action")
+script = ExtResource("18_f5kaa")
 
 [sub_resource type="BoxShape3D" id="Shape_Stand"]
 size = Vector3(0.7419922, 0.5, 0.18)
 
 [sub_resource type="Resource" id="action_pickup"]
-script = ExtResource("pickup_action")
+script = ExtResource("20_n7d7x")
 required_flag = &"fetch"
 
 [node name="TrainingRoom" type="Node3D" unique_id=1175608443 node_paths=PackedStringArray("rig", "menu_camera", "progress", "carry", "interactor", "scent")]
-script = ExtResource("script")
+script = ExtResource("1_ev2wu")
 rig = NodePath("Actors/Player/CameraHolder")
 menu_camera = NodePath("Cameras/MenuCamera")
 progress = NodePath("Systems/Progress")
@@ -118,12 +118,12 @@ environment = SubResource("Environment_woyyl")
 
 [node name="Scientist" type="Node3D" parent="Actors" unique_id=1476362796]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.2, 1, -1.7)
-script = ExtResource("asset_group")
+script = ExtResource("2_8uaqm")
 
 [node name="Interaction" type="StaticBody3D" parent="Actors/Scientist" unique_id=622722933]
 collision_layer = 2
 collision_mask = 0
-script = ExtResource("interaction")
+script = ExtResource("3_lkr16")
 display_name = "Talk to the scientist"
 action = SubResource("action_talk")
 
@@ -133,10 +133,10 @@ shape = SubResource("Shape_Scientist")
 
 [node name="Visuals" type="Node3D" parent="Actors/Scientist" unique_id=1192772824]
 
-[node name="Scientist" parent="Actors/Scientist/Visuals" unique_id=1906525048 instance=ExtResource("8_cry65")]
-transform = Transform3D(-0.99048114, 0, 0.13764901, 0, 1, 0, -0.13764901, 0, -0.99048114, -0.013805628, -0.9722022, 4.577817)
+[node name="Scientist" parent="Actors/Scientist/Visuals" unique_id=1906525048 instance=ExtResource("8_0wxnl")]
+transform = Transform3D(-0.9841124, 0, -0.17754693, 0, 1, 0, 0.17754693, 0, -0.9841124, 0.138268, -0.9722022, 4.5924973)
 
-[node name="Skeleton3D" parent="Actors/Scientist/Visuals/Scientist/metarig" parent_id_path=PackedInt32Array(1906525048, 1122362047) index="0" unique_id=818054644]
+[node name="Skeleton3D" parent="Actors/Scientist/Visuals/Scientist/metarig" parent_id_path=PackedInt32Array(1906525048, 1230302517) index="0" unique_id=1191629497]
 bones/0/position = Vector3(0, 0.55922335, -0.055200007)
 bones/3/rotation = Quaternion(0.06632985, 5.4106256e-18, 2.8473122e-17, 0.9977978)
 bones/4/rotation = Quaternion(0.14149326, -0.032950487, -0.09400088, 0.98491514)
@@ -168,12 +168,15 @@ primary_damp_threshold = 1.0
 secondary_limit_angle = 0.8548623
 secondary_damp_threshold = 1.0
 
+[node name="AnimationPlayer" parent="Actors/Scientist/Visuals/Scientist" index="1" unique_id=727690820]
+autoplay = &"metarigAction"
+
 [node name="Gaze" type="Node" parent="Actors/Scientist" unique_id=1408834466 node_paths=PackedStringArray("look_at", "target")]
-script = ExtResource("npc_gaze")
+script = ExtResource("9_u0su1")
 look_at = NodePath("../Visuals/Scientist/metarig/Skeleton3D/LookAtModifier3D")
 target = NodePath("../../Player/CameraHolder/Camera3D")
 
-[node name="Player" parent="Actors" unique_id=1572373258 instance=ExtResource("player")]
+[node name="Player" parent="Actors" unique_id=1572373258 instance=ExtResource("10_mrv77")]
 unique_name_in_owner = true
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -3, 0.05, -0.4000001)
 walk_speed = 3.0
@@ -191,30 +194,30 @@ auto_crouch = false
 
 [node name="Capsule" type="Node3D" parent="Props" unique_id=138636470]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4000001, 0.7, -4.2)
-script = ExtResource("asset_group")
+script = ExtResource("2_8uaqm")
 
 [node name="Entry" type="StaticBody3D" parent="Props/Capsule" unique_id=1936290419]
 collision_layer = 2
 collision_mask = 0
-script = ExtResource("interaction")
+script = ExtResource("3_lkr16")
 display_name = "Enter the capsule"
 action = SubResource("action_exit")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Capsule/Entry" unique_id=1114403120]
 shape = SubResource("Shape_Capsule")
 
-[node name="Capsuleinterior" parent="Props/Capsule" unique_id=1887169797 instance=ExtResource("6_fewc6")]
+[node name="Capsuleinterior" parent="Props/Capsule" unique_id=1887169797 instance=ExtResource("13_cxlne")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07104087, -0.699209, 0.0034897327)
 
 [node name="Bench" type="Node3D" parent="Props" unique_id=2014685995]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8, 0, 0.8)
-script = ExtResource("asset_group")
+script = ExtResource("2_8uaqm")
 
 [node name="TestButton" type="StaticBody3D" parent="Props" unique_id=1161809611]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.07204, 0.34, 2.2232976)
 collision_layer = 2
 collision_mask = 0
-script = ExtResource("interaction")
+script = ExtResource("3_lkr16")
 display_name = "Press test button"
 action = SubResource("action_event")
 
@@ -234,7 +237,7 @@ mesh = SubResource("Mesh_Button21")
 
 [node name="TrainingStand" type="Node3D" parent="Props" unique_id=947639964]
 transform = Transform3D(-0.99874634, 0, 0.050059393, 0, 1, 0, -0.050059393, 0, -0.99874634, -4.465189, -1.1920929e-07, 3.2418947)
-script = ExtResource("asset_group")
+script = ExtResource("2_8uaqm")
 
 [node name="Base" type="CSGBox3D" parent="Props/TrainingStand" unique_id=1992540166]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.37739205, 0.3, 1.9073486e-06)
@@ -255,8 +258,8 @@ material = SubResource("Black")
 
 [node name="Cell1" type="MeshInstance3D" parent="Props/TrainingStand" unique_id=1601568874]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.505249, 0.39999998, 0.42875195)
-material_override = ExtResource("battery_material")
-mesh = ExtResource("battery_mesh")
+material_override = ExtResource("15_nklso")
+mesh = ExtResource("16_1ylpy")
 
 [node name="Socket2" type="CSGBox3D" parent="Props/TrainingStand" unique_id=1047024528]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13263273, 0.40000013, 0.4049921)
@@ -266,14 +269,14 @@ material = SubResource("Black")
 [node name="Cell2" type="MeshInstance3D" parent="Props/TrainingStand" unique_id=244582401]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.32, 0.4, 0.45)
 visible = false
-material_override = ExtResource("battery_material")
-mesh = ExtResource("battery_mesh")
+material_override = ExtResource("15_nklso")
+mesh = ExtResource("16_1ylpy")
 
 [node name="Slots" type="StaticBody3D" parent="Props/TrainingStand" unique_id=586983255 node_paths=PackedStringArray("indicators")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0.5)
 collision_layer = 2
 collision_mask = 0
-script = ExtResource("socket")
+script = ExtResource("17_0lg0f")
 indicators = [NodePath("../Cell1"), NodePath("../Cell2")]
 display_name = "Inspect battery slots"
 action = SubResource("action_socket")
@@ -286,16 +289,16 @@ shape = SubResource("Shape_Stand")
 
 [node name="Battery1" type="Node3D" parent="Pickups" unique_id=485123626]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -5.5336685, 0.03646353, 1.1)
-script = ExtResource("asset_group")
+script = ExtResource("2_8uaqm")
 
-[node name="Item" parent="Pickups/Battery1" unique_id=1944776722 instance=ExtResource("pickup_template")]
+[node name="Item" parent="Pickups/Battery1" unique_id=1944776722 instance=ExtResource("19_updqm")]
 action = SubResource("action_pickup")
 
 [node name="Battery2" type="Node3D" parent="Pickups" unique_id=37616360]
 transform = Transform3D(-4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0, 1, 3.791601, 0.061664738, -3.9400933)
-script = ExtResource("asset_group")
+script = ExtResource("2_8uaqm")
 
-[node name="Item" parent="Pickups/Battery2" unique_id=347655913 instance=ExtResource("pickup_template")]
+[node name="Item" parent="Pickups/Battery2" unique_id=347655913 instance=ExtResource("19_updqm")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.9802322e-08, 0.6897025, -0.63793755)
 action = SubResource("action_pickup")
 
@@ -309,25 +312,25 @@ fov = 65.0
 
 [node name="Hints" type="Node3D" parent="." unique_id=1626669768]
 
-[node name="Geometry" parent="." unique_id=248054898 instance=ExtResource("geo")]
+[node name="Geometry" parent="." unique_id=248054898 instance=ExtResource("21_3aewj")]
 
 [node name="Systems" type="Node" parent="." unique_id=1374609055]
 
 [node name="Carry" type="Node" parent="Systems" unique_id=191858046 node_paths=PackedStringArray("anchor")]
-script = ExtResource("carry")
+script = ExtResource("22_tf8xu")
 anchor = NodePath("../../Actors/Player/CameraHolder/Camera3D/Snout/MouthAnchor")
 
 [node name="Interactor" type="Node" parent="Systems" unique_id=276215291]
-script = ExtResource("interactor")
+script = ExtResource("23_ij8m1")
 
 [node name="Scent" type="Node" parent="Systems" unique_id=180158891]
-script = ExtResource("scent")
+script = ExtResource("24_teqd3")
 
 [node name="Progress" type="Node" parent="Systems" unique_id=1053304331 node_paths=PackedStringArray("socket")]
-script = ExtResource("progress")
+script = ExtResource("25_v7fim")
 socket = NodePath("../../Props/TrainingStand/Slots")
 
-[node name="Radio" parent="." unique_id=126451125 instance=ExtResource("8_e0vr6")]
+[node name="Radio" parent="." unique_id=126451125 instance=ExtResource("26_wgpwu")]
 transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -3.8412855, 0.8948834, 1.0073051)
 
 [editable path="Actors/Scientist/Visuals/Scientist"]

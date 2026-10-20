@@ -2,6 +2,7 @@ extends "res://tests/support/flow_test.gd"
 
 const ROOMS := "res://GameData/Rooms/"
 const DIALOGUES := "res://GameData/Dialogue/"
+const AUDIO := "res://GameData/Audio/"
 const TEMPLATES := "res://Scenes/Shared/Interactables/"
 
 
@@ -17,6 +18,11 @@ func run() -> void:
 		root.add_child(template)
 		check(template.configuration_errors().is_empty(), "%s is ready to place: %s" % [path.get_file(), template.configuration_errors()])
 		template.free()
+	for path: String in _resources(AUDIO, ".tres"):
+		var audio: Resource = load(path)
+		if audio is AudioCue or audio is GameAudioProfile:
+			var errors: PackedStringArray = audio.configuration_errors()
+			check(errors.is_empty(), "%s audio configuration is valid: %s" % [path.get_file(), errors])
 	for action: StringName in PlayerBindings.ACTIONS:
 		check(InputMap.action_get_events(action).size() == 1, "Input %s has exactly one default binding" % action)
 
@@ -33,6 +39,9 @@ func _room_is_valid(definition: RoomDefinition) -> void:
 	for target: Interactable in room.interactables():
 		var errors := target.configuration_errors(room)
 		check(errors.is_empty(), "%s/%s is valid: %s" % [room.name, room.get_path_to(target), errors])
+	for audio: AudioSignal in room.find_children("*", "AudioSignal", true, false):
+		var errors := audio.configuration_errors()
+		check(errors.is_empty(), "%s/%s audio is valid: %s" % [room.name, room.get_path_to(audio), errors])
 	room.free()
 
 

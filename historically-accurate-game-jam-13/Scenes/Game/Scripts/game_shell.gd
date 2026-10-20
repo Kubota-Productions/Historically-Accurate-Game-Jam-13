@@ -10,6 +10,7 @@ var room: LaikaRoom
 var transitioning: bool = false
 var preferences := GameSettings.new()
 
+@onready var audio: GameAudio = $Audio
 @onready var transition: ScreenTransition = %ScreenTransition
 @onready var world_host: Node3D = %WorldHost
 @onready var projection: ScreenspaceProjection = %WorldPresentation
@@ -37,7 +38,7 @@ func _ready() -> void:
 	completion.menu_requested.connect(return_to_menu)
 	dialogue.session.finished.connect(_on_dialogue_finished)
 	dialogue.session.line_changed.connect(_sync_context)
-	dialogue.session.bark_requested.connect(hud.show_bark)
+	dialogue.session.bark_requested.connect(_bark)
 	_replace_room(first_room)
 	_apply_preferences()
 	menu.open()
@@ -165,6 +166,7 @@ func _replace_room(definition: RoomDefinition) -> bool:
 	room.objective_changed.connect(hud.set_objective)
 	room.prompt_changed.connect(hud.set_prompt)
 	room.carrying_changed.connect(hud.set_carrying)
+	audio.bind_room(room)
 	room.thought_requested.connect(hud.show_thought)
 	room.sniffing_changed.connect(hud.set_sniffing)
 	room.dialogue_requested.connect(_open_dialogue)
@@ -211,7 +213,7 @@ func _play(event: InputEvent) -> bool:
 		if session.requires_bark():
 			session.advance(true)
 		else:
-			hud.show_bark()
+			_bark()
 			if session.active:
 				dialogue.show_bark_feedback()
 	elif event.is_action_pressed(&"interact"):
@@ -224,6 +226,12 @@ func _play(event: InputEvent) -> bool:
 	else:
 		return false
 	return true
+
+
+func _bark() -> void:
+	hud.show_bark()
+	if audio.profile:
+		audio.play(audio.profile.bark, room.player)
 
 
 func _open_dialogue(next: Dialogue) -> void:
@@ -243,6 +251,7 @@ func _sync_context() -> void:
 
 
 func _apply_preferences(_id: StringName = &"") -> void:
+	audio.apply_settings(preferences)
 	dog_vision.visible = preferences.get_value(&"dog_vision")
 	projection.enabled = preferences.get_value(&"panini_projection")
 	room.rig.mouse_sensitivity = preferences.get_value(&"sensitivity")

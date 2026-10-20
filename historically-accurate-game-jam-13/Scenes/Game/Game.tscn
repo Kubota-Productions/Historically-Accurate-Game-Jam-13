@@ -1,21 +1,19 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://Scenes/Game/Scripts/game_shell.gd" id="script"]
-[ext_resource type="Theme" path="res://Resources/Themes/laika_theme.tres" id="theme"]
-[ext_resource type="PackedScene" path="res://Scenes/GUI/Screens/MainMenu.tscn" id="MainMenu"]
+[ext_resource type="Script" uid="uid://c6w4ymoqjxb0t" path="res://Scenes/Game/Scripts/game_shell.gd" id="script"]
+[ext_resource type="Theme" uid="uid://cqfpbku7lqlal" path="res://Resources/Themes/laika_theme.tres" id="theme"]
+[ext_resource type="PackedScene" uid="uid://ddsb6j1yih3tp" path="res://Scenes/GUI/Screens/MainMenu.tscn" id="MainMenu"]
 [ext_resource type="PackedScene" path="res://Scenes/GUI/Screens/GameHUD.tscn" id="HUD"]
 [ext_resource type="PackedScene" path="res://Scenes/GUI/Components/DialoguePanel.tscn" id="Dialogue"]
 [ext_resource type="PackedScene" path="res://Scenes/GUI/Screens/PauseMenu.tscn" id="PauseMenu"]
-[ext_resource type="PackedScene" path="res://Scenes/GUI/Screens/SettingsPanel.tscn" id="SettingsPanel"]
+[ext_resource type="PackedScene" uid="uid://cfx6qh38su8o3" path="res://Scenes/GUI/Screens/SettingsPanel.tscn" id="SettingsPanel"]
 [ext_resource type="PackedScene" path="res://Scenes/GUI/Components/DogVisionFilter.tscn" id="DogVisionFilter"]
 [ext_resource type="PackedScene" path="res://Scenes/GUI/Components/CompletionNotice.tscn" id="CompletionNotice"]
-
-
-
-[ext_resource type="PackedScene" path="res://Scenes/GUI/Components/screenspace_projection/screenspace_projection.tscn" id="projection"]
-
-[ext_resource type="Script" path="res://Scenes/Game/Scripts/screen_transition.gd" id="transition_script"]
+[ext_resource type="PackedScene" uid="uid://7l5j66jr6abv" path="res://Scenes/GUI/Components/screenspace_projection/screenspace_projection.tscn" id="projection"]
+[ext_resource type="Script" uid="uid://bjjig2yekiife" path="res://Scenes/Game/Scripts/screen_transition.gd" id="transition_script"]
 [ext_resource type="Resource" path="res://GameData/Rooms/training.tres" id="first_room"]
+[ext_resource type="Script" uid="uid://dgawl0h78xl3k" path="res://Scenes/Game/Scripts/game_audio.gd" id="audio_script"]
+[ext_resource type="Resource" uid="uid://b0tva2fb3211b" path="res://GameData/Audio/game_audio.tres" id="audio_profile"]
 
 [node name="GameShell" type="Node"]
 process_mode = 3
@@ -29,6 +27,11 @@ enabled = false
 [node name="WorldHost" type="Node3D" parent="WorldPresentation/ProjectionInput"]
 unique_name_in_owner = true
 process_mode = 1
+
+[node name="Audio" type="Node" parent="." node_paths=PackedStringArray("ui_root")]
+script = ExtResource("audio_script")
+profile = ExtResource("audio_profile")
+ui_root = NodePath("../Interface/ScreenHost")
 
 [node name="DogVisionFilter" parent="." instance=ExtResource("DogVisionFilter")]
 unique_name_in_owner = true
@@ -105,3 +108,5 @@ unique_name_in_owner = true
 script = ExtResource("transition_script")
 fade = NodePath("../Transition/Fade")
 title = NodePath("../Transition/Fade/TransitionTitle")
+
+[editable path="WorldPresentation"]

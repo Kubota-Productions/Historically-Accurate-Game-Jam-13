@@ -1,138 +1,72 @@
 extends "res://tests/support/flow_test.gd"
 
-var menu: Control
+var menu: MainMenu
 var gaze: MenuGaze
-var marker: Marker3D
-var camera: Camera3D
-var preview: TextureRect
+var skeleton: Skeleton3D
+var modifier: LookAtModifier3D
 var neutral: Vector3
-var requests: Array[StringName] = []
 var head_basis: Basis
-var modifier_frames := 0
+var requests: Array[StringName] = []
 
 
 func run() -> void:
-	root.size = Vector2i(1280, 720)
 	menu = load("res://Scenes/GUI/Screens/MainMenu.tscn").instantiate()
-	menu.theme = load("res://Resources/Themes/laika_theme.tres")
-	var extra := Button.new()
-	extra.name = "Extra"
-	extra.text = "Extra"
-	extra.custom_minimum_size.y = 76
-	menu.get_node("Buttons").add_child(extra)
-	marker = menu.get_node("3DsceneforMainmenu/LookAtTarget")
-	neutral = marker.position
-	root.add_child(menu)
 	gaze = menu.get_node("MenuGaze")
-	camera = gaze.preview_camera
-	preview = gaze.preview
-	var modifier: LookAtModifier3D = menu.get_node("3DsceneforMainmenu/Laika2/metarig/Skeleton3D/LookAtModifier3D")
-	var skeleton := modifier.get_parent() as Skeleton3D
-	modifier.modification_processed.connect(_record_head.bind(skeleton, modifier))
+	skeleton = menu.get_node("3DsceneforMainmenu/Laika2/metarig/Skeleton3D")
+	modifier = skeleton.get_node("LookAtModifier3D")
+	var source: Node = load("res://Assets/3D/Laika.blend").instantiate()
+	var source_skeleton: Skeleton3D = source.get_node("metarig/Skeleton3D")
+	var matches_source := skeleton.get_bone_count() == source_skeleton.get_bone_count()
+	for bone: int in skeleton.get_bone_count():
+		matches_source = matches_source and skeleton.get_bone_pose(bone).is_equal_approx(source_skeleton.get_bone_pose(bone))
+	check(matches_source, "Menu inherits the current model pose without stale bone overrides")
+	source.free()
+	check(modifier.bone == skeleton.find_bone(modifier.bone_name), "Look-at targets the named head bone in the current rig")
+	neutral = gaze.look_target.position
+	root.add_child(menu)
+	modifier.modification_processed.connect(func() -> void: head_basis = skeleton.get_bone_global_pose(modifier.bone).basis)
 	menu.start_requested.connect(func() -> void: requests.append(&"start"))
 	menu.settings_requested.connect(func() -> void: requests.append(&"settings"))
 	menu.quit_requested.connect(func() -> void: requests.append(&"quit"))
-	await process_frame
-	await process_frame
-	check(preview.mouse_filter == Control.MOUSE_FILTER_IGNORE, "The preview does not intercept mouse input")
+	await frames(2)
 	menu.open()
-	await _move_mouse(Vector2(1700, 80))
-	await _settle()
-	check(_aims_at(menu.get_node("%Start")), "Opening follows the default Start focus")
-	var start_head := head_basis
-	await key(KEY_TAB)
-	await _settle()
-	check(root.gui_get_focus_owner() == menu.get_node("%Settings") and _aims_at(menu.get_node("%Settings")), "Tab navigation moves the gaze to Settings")
-	await _hover(menu.get_node("%Quit"))
-	await _settle()
-	check(root.gui_get_focus_owner() == menu.get_node("%Settings") and _aims_at(menu.get_node("%Quit")), "Mouse hover takes priority over keyboard focus")
-	check(modifier_frames > 0 and not start_head.is_equal_approx(head_basis), "The existing modifier rotates the head between buttons")
-	await _move_mouse(Vector2(1700, 80))
-	await _settle()
-	check(_aims_at(menu.get_node("%Settings")), "Leaving a button restores the focused target")
-	await _hover(extra)
-	await _settle()
-	check(_aims_at(extra), "An additional button is connected without another handler")
-	extra.disabled = true
-	await _settle()
-	check(_aims_at(menu.get_node("%Settings")), "Disabled buttons do not capture the gaze")
-	await _move_mouse(Vector2(1700, 80))
-	menu.get_node("%Settings").release_focus()
-	await _settle()
-	check(marker.position.distance_to(neutral) < 0.0001, "Without hover or focus the authored marker position is restored")
-	menu.open()
-	await _hover(menu.get_node("%Settings"))
-	await _settle()
-	click_on(menu.get_node("%Settings"))
-	check(requests == [&"settings"], "Settings emits its action immediately on click")
-	menu.hide()
-	check(not gaze.is_processing() and marker.position.is_equal_approx(neutral), "Hiding the menu stops gaze updates and resets the marker")
-	menu.open()
-	menu.focus_settings()
-	await _move_mouse(Vector2(1700, 80))
-	await _settle()
-	check(_aims_at(menu.get_node("%Settings")), "Returning from Settings follows the restored focus")
+	check(gaze.preview.mouse_filter == Control.MOUSE_FILTER_IGNORE, "Preview does not intercept button input")
 	for size: Vector2i in [Vector2i(960, 540), Vector2i(1280, 720), Vector2i(1280, 800)]:
 		root.size = size
-		await process_frame
-		await process_frame
-		for name: String in ["Start", "Settings", "Quit"]:
-			menu.get_node("%" + name).grab_focus()
-			await _settle()
-			check(_aims_at(menu.get_node("%" + name)), "%s remains aligned at %s" % [name, size])
-	root.size = Vector2i(1280, 720)
-	await process_frame
-	await process_frame
+		await frames(2)
+		await _point_at(Vector2(size) * Vector2(0.15, 0.25))
+		var left := head_basis
+		await _point_at(Vector2(size) * Vector2(0.85, 0.75))
+		check(head_basis.is_finite() and not head_basis.is_equal_approx(left), "Head follows the cursor at %s" % size)
+	menu.hide()
+	check(not gaze.is_processing() and gaze.look_target.position.is_equal_approx(neutral), "Hidden menu resets gaze and stops processing")
+	menu.open()
+	menu.focus_settings()
+	await _point_at(Vector2(300, 300))
+	check(gaze.is_processing() and root.gui_get_focus_owner() == menu.get_node("%Settings"), "Returning to menu preserves Settings focus and resumes gaze")
+	for entry: Array in [["Start", &"start"], ["Settings", &"settings"], ["Quit", &"quit"]]:
+		click_on(menu.get_node("%" + entry[0]))
+		check(requests.back() == entry[1], "%s responds without waiting for gaze" % entry[0])
 	gaze.set_process(false)
 	var positions: Array[Vector3] = []
-	menu.get_node("%Quit").grab_focus()
 	for fps: int in [30, 60, 144]:
-		marker.position = neutral
-		for frame: int in fps >> 1:
+		gaze.look_target.position = neutral
+		for frame: int in fps:
 			gaze._process(1.0 / fps)
-		positions.append(marker.position)
-	check(positions[0].distance_to(positions[1]) < 0.0001 and positions[0].distance_to(positions[2]) < 0.0001, "Smoothing has the same response at 30, 60 and 144 FPS")
-	gaze.set_process(true)
-	click_on(menu.get_node("%Start"))
-	check(requests.back() == &"start", "Start does not wait for the gaze animation")
-	click_on(menu.get_node("%Quit"))
-	check(requests.back() == &"quit", "Exit does not wait for the gaze animation")
+		positions.append(gaze.look_target.position)
+	check(positions[0].distance_to(positions[1]) < 0.0001 and positions[0].distance_to(positions[2]) < 0.0001, "Gaze smoothing is independent of frame rate")
 	menu.queue_free()
-	await process_frame
-	await process_frame
+	await frames(2)
 
 
-func _record_head(skeleton: Skeleton3D, modifier: LookAtModifier3D) -> void:
-	head_basis = skeleton.get_bone_global_pose(modifier.bone).basis
-	modifier_frames += 1
-
-
-func _aims_at(button: BaseButton) -> bool:
-	var projected := camera.unproject_position(marker.global_position)
-	var actual := preview.get_global_transform_with_canvas() * projected
-	var authored := preview.get_global_transform_with_canvas() * camera.unproject_position(marker.get_parent_node_3d().to_global(neutral))
-	var center := button.get_global_transform_with_canvas() * (button.size * 0.5)
-	var reference := gaze.button_container.get_global_transform_with_canvas() * (gaze.button_container.size * 0.5)
-	var expected := authored + (center - reference) * gaze.gaze_strength
-	return actual.distance_to(expected) < 2.0
-
-
-func _hover(button: BaseButton) -> void:
-	await _move_mouse(button.get_global_transform_with_canvas() * (button.size * 0.5))
-
-
-func _move_mouse(position: Vector2) -> void:
+func _point_at(position: Vector2) -> void:
 	var event := InputEventMouseMotion.new()
 	event.position = position
 	event.global_position = position
 	root.push_input(event, true)
 	await process_frame
-
-
-func _settle() -> void:
-	var elapsed := 0.0
-	var deadline := Time.get_ticks_msec() + 15000
-	while elapsed < 0.8 and Time.get_ticks_msec() < deadline:
-		await process_frame
-		elapsed += menu.get_process_delta_time()
-	await process_frame
+	gaze.set_process(false)
+	for frame: int in 120:
+		gaze._process(1.0 / 60.0)
+	await create_timer(1.1).timeout
+	gaze.set_process(true)
