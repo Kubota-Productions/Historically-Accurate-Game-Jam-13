@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b3m65drdibrfq" path="res://Code/Definitions/dialogue.gd" id="5_i3m6a"]
 [ext_resource type="PackedScene" uid="uid://disg0jtdehinu" path="res://Scenes/Shared/level2geometry.tscn" id="8_i3m6a"]
+[ext_resource type="Script" uid="uid://e8nxanhxw4p6" path="res://Scenes/Levels/inspector_controller.gd" id="13_f2vhc"]
 [ext_resource type="PackedScene" uid="uid://skidw5yqd85a" path="res://Assets/3D/Sputnik2.glb" id="13_pmscr"]
 [ext_resource type="Script" uid="uid://jivklbtxb5ki" path="res://Scenes/Shared/Scripts/asset_group.gd" id="asset_group"]
 [ext_resource type="Script" uid="uid://cf1trihm73fa8" path="res://Scenes/Player/Scripts/Components/carry_controller.gd" id="carry"]
@@ -180,6 +181,9 @@ script = ExtResource("scent")
 
 [node name="Progress" type="Node" parent="Systems" unique_id=1026926729]
 script = ExtResource("progress")
+
+[node name="Inspector" type="Node3D" parent="Systems" unique_id=297150834]
+script = ExtResource("13_f2vhc")
 
 [node name="Sputnik2" parent="." unique_id=1262135004 instance=ExtResource("13_pmscr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2228343, -0.15201926, -4.674501)
