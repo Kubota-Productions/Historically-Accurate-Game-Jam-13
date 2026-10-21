@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://bwudmkeu0yprs"]
+
+[ext_resource type="Script" uid="uid://dtn5af0ay3lfq" path="res://Scenes/Shared/Scripts/interactable.gd" id="1_1rke2"]
+[ext_resource type="Script" uid="uid://bptx7ryw12stq" path="res://Code/Definitions/interaction_action.gd" id="2_7g7w5"]
+[ext_resource type="Script" uid="uid://c4wxsd5dybfj1" path="res://Scenes/Shared/Scripts/inspection_part.gd" id="3_13uxr"]
+[ext_resource type="PackedScene" uid="uid://1q60u2q0rsng" path="res://Assets/3D/Radio.glb" id="4_h7pds"]
+
+[sub_resource type="Resource" id="Resource_oldnu"]
+script = ExtResource("2_7g7w5")
+metadata/_custom_type_script = "uid://bptx7ryw12stq"
+
+[sub_resource type="PackedScene" id="PackedScene_2cvck"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_vcty2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8qx0u"]
+
+[node name="RadioInspectable" type="Node3D" unique_id=668370796]
+
+[node name="Interactable" type="StaticBody3D" parent="." unique_id=2063116070]
+script = ExtResource("1_1rke2")
+display_name = "Radio"
+action = SubResource("Resource_oldnu")
+allow_inspection = true
+inspection_scene = SubResource("PackedScene_2cvck")
+metadata/_custom_type_script = "uid://dtn5af0ay3lfq"
+
+[node name="PowerSwitch" type="StaticBody3D" parent="Interactable" unique_id=2040734566]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01, 0)
+script = ExtResource("3_13uxr")
+part_id = &"034"
+metadata/_custom_type_script = "uid://c4wxsd5dybfj1"
+
+[node name="PowerSwitchShape" type="CollisionShape3D" parent="Interactable/PowerSwitch" unique_id=896211348]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02886653, 0.0834353, -0.0033695698)
+shape = SubResource("BoxShape3D_vcty2")
+
+[node name="Area3D" type="Area3D" parent="Interactable/PowerSwitch" unique_id=931904191]
+
+[node name="VolumeKnob" type="StaticBody3D" parent="Interactable" unique_id=679688348]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.025194086, 0.06987934, -0.0014975443)
+script = ExtResource("3_13uxr")
+metadata/_custom_type_script = "uid://c4wxsd5dybfj1"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable/VolumeKnob" unique_id=1683698152]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0027397275, -0.0023021623, -0.0030272007)
+shape = SubResource("BoxShape3D_8qx0u")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Interactable" unique_id=141397944]
+
+[node name="Radio" parent="Interactable" unique_id=622311665 instance=ExtResource("4_h7pds")]

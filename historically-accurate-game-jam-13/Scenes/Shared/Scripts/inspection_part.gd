@@ -1,13 +1,13 @@
-@tool
-class_name InspectionPart
+@tool # Huh? This isn't a familiar ...
+class_name InspectionPart # Instantiate class
 extends StaticBody3D
 
-@export var part_id: StringName
-@export var caption: String = "Open"
-@export var animation_player: AnimationPlayer
-@export var animation: StringName
+@export var part_id: StringName # Label parts
+@export var caption: String = "Open" # Caption
+@export var animation_player: AnimationPlayer # Selectable animation player
+@export var animation: StringName # Keyword for animation
 
-var activated: bool = false
+var activated: bool = false # State
 
 
 func reveal(instant: bool = false) -> void:
