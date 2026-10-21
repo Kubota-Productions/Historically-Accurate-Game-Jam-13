@@ -195,10 +195,10 @@ script = ExtResource("24_teqd3")
 [node name="Progress" type="Node" parent="Systems" unique_id=1053304331]
 script = ExtResource("25_v7fim")
 
-[node name="Radio" parent="." unique_id=126451125 instance=ExtResource("26_wgpwu")]
+[node name="Radio" parent="." unique_id=622311665 instance=ExtResource("26_wgpwu")]
 transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -3.8412855, 0.8948834, 1.0073051)
 
-[node name="Interaction" type="StaticBody3D" parent="Radio" unique_id=2030868299]
+[node name="Interaction" type="StaticBody3D" parent="Radio" unique_id=1995410615]
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("3_lkr16")
@@ -207,7 +207,7 @@ action = SubResource("Resource_oldnu")
 allow_inspection = true
 inspection_scene = ExtResource("20_sonli")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Radio/Interaction" unique_id=646320176]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Radio/Interaction" unique_id=1346328051]
 shape = SubResource("Shape_Scientist")
 
 [editable path="Actors/Scientist/Visuals/Scientist"]
