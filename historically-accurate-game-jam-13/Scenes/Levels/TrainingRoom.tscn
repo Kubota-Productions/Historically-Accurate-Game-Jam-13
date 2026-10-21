@@ -13,7 +13,6 @@
 [ext_resource type="PackedScene" uid="uid://c5xf5awwvo5et" path="res://Scenes/Player/FPSPlayer.tscn" id="10_mrv77"]
 [ext_resource type="Resource" path="res://GameData/Rooms/station.tres" id="11_prjxm"]
 [ext_resource type="Script" uid="uid://cdj317frexgrl" path="res://Scenes/Shared/Scripts/Interactions/exit_action.gd" id="12_tu36h"]
-[ext_resource type="PackedScene" uid="uid://bubn572blfd61" path="res://Assets/3D/Capsuleinterior.glb" id="13_cxlne"]
 [ext_resource type="Script" uid="uid://bptx7ryw12stq" path="res://Code/Definitions/interaction_action.gd" id="19_na43p"]
 [ext_resource type="PackedScene" uid="uid://bwudmkeu0yprs" path="res://Scenes/GUI/InspectableObjects/RadioInspectable.tscn" id="20_sonli"]
 [ext_resource type="PackedScene" uid="uid://dh6skid14q762" path="res://Scenes/Shared/RoomGeometry.tscn" id="21_3aewj"]
@@ -185,7 +184,7 @@ auto_crouch = false
 [node name="Props" type="Node3D" parent="." unique_id=1851964304]
 
 [node name="Capsule" type="Node3D" parent="Props" unique_id=138636470]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.4000001, 0.7, -4.2)
+transform = Transform3D(-0.9659258, 0, 0.25881913, 0, 1, 0, -0.25881913, 0, -0.9659258, -4.1753635, 0.7, 3.0191088)
 script = ExtResource("2_8uaqm")
 
 [node name="Entry" type="StaticBody3D" parent="Props/Capsule" unique_id=1936290419]
@@ -197,9 +196,6 @@ action = SubResource("action_exit")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Capsule/Entry" unique_id=1114403120]
 shape = SubResource("Shape_Capsule")
-
-[node name="Capsuleinterior" parent="Props/Capsule" unique_id=1887169797 instance=ExtResource("13_cxlne")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.07104087, -0.699209, 0.0034897327)
 
 [node name="Bench" type="Node3D" parent="Props" unique_id=2014685995]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.8, 0, 0.8)
