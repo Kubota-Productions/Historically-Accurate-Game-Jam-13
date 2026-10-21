@@ -1,6 +1,12 @@
 [gd_scene format=3 uid="uid://ddsb6j1yih3tp"]
 
+[ext_resource type="Texture2D" uid="uid://rbsc8wcobjv0" path="res://Scenes/GUI/UItextures/Play1.png" id="2_lprgq"]
 [ext_resource type="PackedScene" uid="uid://bk05boen1qcte" path="res://Scenes/GUI/Screens/3DsceneforMainmenu.tscn" id="2_umqoa"]
+[ext_resource type="Texture2D" uid="uid://bcyhiyw472pbn" path="res://Scenes/GUI/UItextures/Play2.png" id="3_4msfr"]
+[ext_resource type="Texture2D" uid="uid://8v3thiatxkvu" path="res://Scenes/GUI/UItextures/Settings1.png" id="4_4fnib"]
+[ext_resource type="Texture2D" uid="uid://d0xuapu2w36r2" path="res://Scenes/GUI/UItextures/Settings2.png" id="5_jce2j"]
+[ext_resource type="Texture2D" uid="uid://hnk2gqqjcdvy" path="res://Scenes/GUI/UItextures/Exit1.png" id="6_13vhb"]
+[ext_resource type="Texture2D" uid="uid://bt4uskxa04aae" path="res://Scenes/GUI/UItextures/Exit2.png" id="7_jqhwc"]
 [ext_resource type="Script" uid="uid://bt47yuh6gbqge" path="res://Scenes/GUI/Screens/Scripts/menu_gaze.gd" id="gaze"]
 [ext_resource type="Script" uid="uid://dwixigtwg37r1" path="res://Scenes/GUI/Screens/Scripts/main_menu.gd" id="script"]
 
@@ -42,42 +48,44 @@ text = "LAIKA"
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.07
-anchor_top = 0.52
+anchor_top = 0.483
 anchor_right = 0.34
 anchor_bottom = 0.821
-offset_top = -140.0
-offset_right = 6.1035156e-05
-offset_bottom = -185.08002
+offset_top = -498.52002
+offset_right = -147.4
+offset_bottom = 173.44
 grow_vertical = 2
 mouse_filter = 2
-theme_override_constants/separation = 175
+theme_override_constants/separation = -18
 
-[node name="Start" type="Button" parent="Buttons" unique_id=1853046747]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 76)
+[node name="VBoxContainer" type="VBoxContainer" parent="Buttons" unique_id=438035687]
 layout_mode = 2
-mouse_default_cursor_shape = 2
-theme_type_variation = &"NavigationButton"
-text = "Start"
-alignment = 0
 
-[node name="Settings" type="Button" parent="Buttons" unique_id=648577923]
+[node name="Start" type="TextureButton" parent="Buttons/VBoxContainer" unique_id=1104798628]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 76)
 layout_mode = 2
-mouse_default_cursor_shape = 2
-theme_type_variation = &"NavigationButton"
-text = "Settings"
-alignment = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("2_lprgq")
+texture_hover = ExtResource("3_4msfr")
 
-[node name="Quit" type="Button" parent="Buttons" unique_id=399327425]
+[node name="Settings" type="TextureButton" parent="Buttons/VBoxContainer" unique_id=504603154]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 76)
 layout_mode = 2
-mouse_default_cursor_shape = 2
-theme_type_variation = &"NavigationButton"
-text = "Exit"
-alignment = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+texture_normal = ExtResource("4_4fnib")
+texture_hover = ExtResource("5_jce2j")
+
+[node name="Quit" type="TextureButton" parent="Buttons/VBoxContainer" unique_id=153554118]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+texture_normal = ExtResource("6_13vhb")
+texture_hover = ExtResource("7_jqhwc")
 
 [node name="3DsceneforMainmenu" parent="." unique_id=298057427 instance=ExtResource("2_umqoa")]
 
