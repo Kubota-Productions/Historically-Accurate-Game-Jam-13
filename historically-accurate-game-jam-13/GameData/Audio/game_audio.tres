@@ -22,7 +22,7 @@ resource_name = "Footstep"
 script = ExtResource("cue")
 event_name = "event:/SFX/footstep"
 parameters = Dictionary[StringName, Variant]({
-&"character": "human"
+&"character": "dog"
 })
 metadata/_custom_type_script = "uid://ci5clk13um3mp"
 

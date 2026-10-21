@@ -46,6 +46,7 @@ func _ready() -> void:
 	_replace_room(first_room)
 	_apply_preferences()
 	menu.open()
+	audio.set_menu_active(true)
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 
 
@@ -138,6 +139,7 @@ func return_to_menu() -> void:
 	_replace_room(first_room)
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	menu.open()
+	audio.set_menu_active(true)
 	await transition.reveal()
 	if not is_inside_tree():
 		return
@@ -148,6 +150,7 @@ func enter_room(definition: RoomDefinition) -> void:
 	if transitioning:
 		return
 	transitioning = true
+	audio.set_menu_active(false)
 	room.set_control_enabled(false)
 	await transition.cover(definition.title)
 	if not is_inside_tree():
@@ -226,6 +229,7 @@ func _cancel_transition() -> void:
 	transition.clear()
 	_hide_screens()
 	menu.open()
+	audio.set_menu_active(true)
 	room.set_control_enabled(false)
 	room.menu_camera.make_current()
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
