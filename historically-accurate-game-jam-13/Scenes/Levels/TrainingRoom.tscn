@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" uid="uid://djghgf8bfy3dg" path="res://Scenes/Levels/Scripts/laika_room.gd" id="1_ev2wu"]
 [ext_resource type="Script" uid="uid://jivklbtxb5ki" path="res://Scenes/Shared/Scripts/asset_group.gd" id="2_8uaqm"]
+[ext_resource type="Shader" uid="uid://b4en6ka5nfcem" path="res://Resources/Shaders/dither.gdshader" id="2_na43p"]
 [ext_resource type="Script" uid="uid://dtn5af0ay3lfq" path="res://Scenes/Shared/Scripts/interactable.gd" id="3_lkr16"]
+[ext_resource type="Texture2D" uid="uid://8cqbsu2jp0du" path="res://Resources/Shaders/bayer16tile2.png" id="3_sonli"]
 [ext_resource type="Resource" uid="uid://c3eiee452temp" path="res://GameData/Dialogue/Training/scientist.tres" id="4_5g2rs"]
 [ext_resource type="Script" uid="uid://b3m65drdibrfq" path="res://Code/Definitions/dialogue.gd" id="5_x03vk"]
 [ext_resource type="Script" uid="uid://w836qyrvck2g" path="res://Scenes/Shared/Scripts/Interactions/talk_action.gd" id="7_2e0s7"]
@@ -37,6 +39,33 @@ ssao_enabled = true
 ssao_radius = 0.55
 ssao_intensity = 3.45
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_ah1bl"]
+flip_faces = true
+orientation = 2
+
+[sub_resource type="Gradient" id="Gradient_cyvlh"]
+offsets = PackedFloat32Array(0, 0.18061674, 1)
+colors = PackedColorArray(0.12245094, 0.00017981649, 0.31626332, 1, 5.053729e-07, 0.13986629, 0.41122162, 1, 0.9376434, 0.8761628, 7.70092e-07, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_sonli"]
+gradient = SubResource("Gradient_cyvlh")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_na43p"]
+render_priority = 0
+shader = ExtResource("2_na43p")
+shader_parameter/dither_tex = ExtResource("3_sonli")
+shader_parameter/dither_size = 5.8750002315625
+shader_parameter/color_tex = SubResource("GradientTexture1D_sonli")
+shader_parameter/palette_strength = 0.666000031635
+shader_parameter/bit_depth = 3
+shader_parameter/contrast = 1.3070000620825
+shader_parameter/offset = 0.025000048687499943
+shader_parameter/alpha = 1.0
+shader_parameter/depth_fade_enabled = false
+shader_parameter/depth_fade_near = 0.0
+shader_parameter/depth_fade_far = 50.0
+shader_parameter/depth_fade_invert = false
+
 [sub_resource type="Resource" id="action_talk"]
 script = ExtResource("7_2e0s7")
 dialogue = ExtResource("4_5g2rs")
@@ -68,6 +97,14 @@ scent = NodePath("Systems/Scent")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=703950945]
 environment = SubResource("Environment_woyyl")
+
+[node name="shaderhost" type="Node3D" parent="." unique_id=1733845990]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="shaderhost" unique_id=1722320864]
+cast_shadow = 0
+extra_cull_margin = 16384.0
+mesh = SubResource("PlaneMesh_ah1bl")
+surface_material_override/0 = SubResource("ShaderMaterial_na43p")
 
 [node name="Actors" type="Node3D" parent="." unique_id=937397120]
 
