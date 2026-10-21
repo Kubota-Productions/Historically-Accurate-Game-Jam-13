@@ -6,13 +6,13 @@
 [sub_resource type="Resource" id="Resource_lk10b"]
 resource_name = "Bark"
 script = ExtResource("cue")
-event_name = "event:/SFX/bark"
+event_name = "event:/SFX/bark_3d"
 metadata/_custom_type_script = "uid://ci5clk13um3mp"
 
 [sub_resource type="Resource" id="drop"]
-resource_name = "Drop confirmation"
+resource_name = "Drop"
 script = ExtResource("cue")
-event_name = "event:/UI/ui_confirm"
+event_name = "event:/UI/ui_confirm_2d"
 parameters = Dictionary[StringName, Variant]({
 &"character": "dog"
 })
@@ -20,32 +20,38 @@ parameters = Dictionary[StringName, Variant]({
 [sub_resource type="Resource" id="Resource_0r58e"]
 resource_name = "Footstep"
 script = ExtResource("cue")
-event_name = "event:/SFX/footstep"
+event_name = "event:/SFX/footstep_3d"
 parameters = Dictionary[StringName, Variant]({
 &"character": "dog"
 })
 metadata/_custom_type_script = "uid://ci5clk13um3mp"
 
 [sub_resource type="Resource" id="install"]
-resource_name = "Install confirmation"
+resource_name = "Install"
 script = ExtResource("cue")
-event_name = "event:/UI/ui_confirm"
+event_name = "event:/UI/ui_confirm_2d"
 parameters = Dictionary[StringName, Variant]({
 &"character": "dog"
 })
 
 [sub_resource type="Resource" id="pickup"]
-resource_name = "Pickup confirmation"
+resource_name = "Pickup"
 script = ExtResource("cue")
-event_name = "event:/UI/ui_confirm"
+event_name = "event:/UI/ui_confirm_2d"
 parameters = Dictionary[StringName, Variant]({
 &"character": "dog"
 })
 
-[sub_resource type="Resource" id="human_confirm"]
-resource_name = "UI confirmation"
+[sub_resource type="Resource" id="Resource_2ylot"]
+resource_name = "Sniff"
 script = ExtResource("cue")
-event_name = "event:/UI/ui_confirm"
+event_name = "event:/SFX/sniff_3d"
+metadata/_custom_type_script = "uid://ci5clk13um3mp"
+
+[sub_resource type="Resource" id="human_confirm"]
+resource_name = "UI Confirm"
+script = ExtResource("cue")
+event_name = "event:/UI/ui_confirm_2d"
 parameters = Dictionary[StringName, Variant]({
 &"character": "human"
 })
@@ -58,3 +64,4 @@ drop = SubResource("drop")
 install = SubResource("install")
 bark = SubResource("Resource_lk10b")
 footstep = SubResource("Resource_0r58e")
+sniff = SubResource("Resource_2ylot")

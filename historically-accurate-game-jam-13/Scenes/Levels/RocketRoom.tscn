@@ -101,4 +101,19 @@ script = ExtResource("scent")
 [node name="Progress" type="Node" parent="Systems" unique_id=98549241]
 script = ExtResource("progress")
 
+[node name="StaticAudio" type="Node" parent="." unique_id=779431072]
+
+[node name="SpacecraftAmbSequence" type="FmodEventEmitter2D" parent="StaticAudio" unique_id=961339916]
+event_name = "event:/Ambience/spacecraft_scene3_2d"
+event_guid = "{a66ffb2e-a22b-42d7-ac3d-f6bfc6532cbf}"
+autoplay = true
+fmod_parameters/state/id = 4755014653822408095
+fmod_parameters/state = "default"
+fmod_parameters/state/labels = PackedStringArray("default", "heating", "dying")
+fmod_parameters/state/variant_type = 4
+
+[node name="CreditsMusic" type="FmodEventEmitter2D" parent="StaticAudio" unique_id=591974752]
+event_name = "event:/Music/credits_music_2d"
+event_guid = "{b9056b39-16d9-4e83-85e3-ae24b7ee3917}"
+
 [editable path="Actors/Player"]

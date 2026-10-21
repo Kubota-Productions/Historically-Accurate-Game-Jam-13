@@ -58,7 +58,7 @@ shader_parameter/color_tex = SubResource("GradientTexture1D_na43p")
 shader_parameter/palette_strength = 0.666000031635
 shader_parameter/bit_depth = 3
 shader_parameter/contrast = 1.3070000620825
-shader_parameter/offset = 0.025000048687499943
+shader_parameter/offset = 0.02500004868749994
 shader_parameter/alpha = 1.0
 shader_parameter/depth_fade_enabled = false
 shader_parameter/depth_fade_near = 0.0
@@ -242,5 +242,27 @@ inspection_scene = ExtResource("20_sonli")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Radio/Interaction" unique_id=1346328051]
 shape = SubResource("Shape_Scientist")
+
+[node name="RadioEventEmitter3D" type="FmodEventEmitter3D" parent="Radio" unique_id=1139919310]
+event_name = "event:/Ambience/radio_scene1_3d"
+event_guid = "{4d84b4a9-9595-403d-b2af-f4f5048a0792}"
+autoplay = true
+volume = 0.3
+
+[node name="StaticAudio" type="Node" parent="." unique_id=843299143]
+
+[node name="Fan1EventEmitter3D" type="FmodEventEmitter3D" parent="StaticAudio" unique_id=807465836]
+event_name = "event:/Ambience/fan_scene1_3d"
+event_guid = "{8e6fd512-c017-4284-8c2c-727856e4e05b}"
+autoplay = true
+volume = 0.2
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4719677, 2.8977547, 1.4252696)
+
+[node name="Fan2EventEmitter3D" type="FmodEventEmitter3D" parent="StaticAudio" unique_id=1858878242]
+event_name = "event:/Ambience/fan_scene1_3d"
+event_guid = "{8e6fd512-c017-4284-8c2c-727856e4e05b}"
+autoplay = true
+volume = 0.2
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3819964, 2.8977547, 1.4252696)
 
 [editable path="Actors/Scientist/Visuals/Scientist"]
