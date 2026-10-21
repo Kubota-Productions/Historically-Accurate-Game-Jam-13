@@ -16,7 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://cgsqb6wwgbf01" path="res://Assets/3D/lightbulb.glb" id="15_suh8w"]
 [ext_resource type="PackedScene" uid="uid://dtddpu68vu75b" path="res://Assets/3D/prefabs/tv.tscn" id="16_oqgt3"]
 [ext_resource type="VideoStream" uid="uid://dws72uqti6s0n" path="res://Assets/video/shot_1576.ogv" id="17_byvsu"]
-[ext_resource type="PackedScene" uid="uid://1q60u2q0rsng" path="res://Assets/3D/Radio.glb" id="18_nlns7"]
 [ext_resource type="PackedScene" uid="uid://ce8txlty5appu" path="res://Assets/3D/couch.glb" id="19_byvsu"]
 [ext_resource type="PackedScene" uid="uid://belncwb8tod5s" path="res://Assets/3D/painting.glb" id="20_nlns7"]
 [ext_resource type="PackedScene" uid="uid://d3qmn1svkahmw" path="res://Assets/3D/curtains.glb" id="21_e7yxf"]
@@ -59,17 +58,17 @@ albedo_texture = ExtResource("4_q7t3c")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_68lgm"]
 albedo_texture = ExtResource("4_q7t3c")
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_8u4yh"]
+viewport_path = NodePath("SubViewport")
+
 [sub_resource type="ViewportTexture" id="ViewportTexture_i6h3c"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_suh8w"]
-viewport_path = NodePath("SubViewport")
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2glmy"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_suh8w"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_i6h3c")
+albedo_texture = SubResource("ViewportTexture_8u4yh")
 emission_enabled = true
-emission_texture = SubResource("ViewportTexture_suh8w")
+emission_texture = SubResource("ViewportTexture_i6h3c")
 
 [node name="RoomGeometry" type="Node3D" unique_id=64567375]
 
@@ -459,7 +458,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5597956, 3.0735383, 6.48904
 transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, -5.0594587, 0.0060003595, 3.1642828)
 
 [node name="Cube_002" parent="TV" index="3" unique_id=161229353]
-surface_material_override/0 = SubResource("StandardMaterial3D_2glmy")
+surface_material_override/0 = SubResource("StandardMaterial3D_suh8w")
 
 [node name="SubViewport" type="SubViewport" parent="TV" unique_id=47504815]
 size = Vector2i(1017, 720)
@@ -478,9 +477,6 @@ loop = true
 [node name="AreaLight3D" type="AreaLight3D" parent="TV" unique_id=2046849508]
 transform = Transform3D(-0.9999986, 0, 0.0016744137, 0, 1, 0, -0.0016744137, 0, -0.9999986, 0.036095142, 1.1182021, 0.32822704)
 light_energy = 13.626
-
-[node name="Radio" parent="." unique_id=126451125 instance=ExtResource("18_nlns7")]
-transform = Transform3D(0.70710677, 0, 0.70710677, 0, 1, 0, -0.70710677, 0, 0.70710677, -3.8812892, 0.8948834, 1.1467214)
 
 [node name="couch" parent="." unique_id=326456060 instance=ExtResource("19_byvsu")]
 transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, -2.2486079, 0.006150067, 3.194522)

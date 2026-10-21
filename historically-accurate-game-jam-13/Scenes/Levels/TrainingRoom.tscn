@@ -91,7 +91,7 @@ shape = SubResource("Shape_Scientist")
 [node name="Scientist" parent="Actors/Scientist/Visuals" unique_id=1906525048 instance=ExtResource("8_0wxnl")]
 transform = Transform3D(-0.9841124, 0, -0.17754693, 0, 1, 0, 0.17754693, 0, -0.9841124, 0.138268, -0.9722022, 4.5924973)
 
-[node name="Skeleton3D" parent="Actors/Scientist/Visuals/Scientist/metarig" parent_id_path=PackedInt32Array(1906525048, 964089630) index="0" unique_id=861043925]
+[node name="Skeleton3D" parent="Actors/Scientist/Visuals/Scientist/metarig" parent_id_path=PackedInt32Array(1906525048, 1230302517) index="0" unique_id=1191629497]
 bones/0/position = Vector3(0, 0.55922335, -0.055200007)
 bones/3/rotation = Quaternion(0.06632985, 5.4106256e-18, 2.8473122e-17, 0.9977978)
 bones/4/rotation = Quaternion(0.14149326, -0.032950487, -0.09400088, 0.98491514)
@@ -123,7 +123,7 @@ primary_damp_threshold = 1.0
 secondary_limit_angle = 0.8548623
 secondary_damp_threshold = 1.0
 
-[node name="AnimationPlayer" parent="Actors/Scientist/Visuals/Scientist" index="1" unique_id=1647213205]
+[node name="AnimationPlayer" parent="Actors/Scientist/Visuals/Scientist" index="1" unique_id=727690820]
 autoplay = &"metarigAction"
 
 [node name="Gaze" type="Node" parent="Actors/Scientist" unique_id=1408834466 node_paths=PackedStringArray("look_at", "target")]

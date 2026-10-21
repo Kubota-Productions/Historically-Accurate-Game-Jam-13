@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://mokss1mnis5i"]
+
+[ext_resource type="PackedScene" uid="uid://d1rcfok6o7hbp" path="res://Assets/3D/battery.glb" id="1_tflxq"]
+
+[node name="Batteryinspect" type="Node3D" unique_id=821930521]
+
+[node name="battery" parent="." unique_id=337002322 instance=ExtResource("1_tflxq")]
