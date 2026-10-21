@@ -7,10 +7,13 @@ const CUSTOM_UI_GROUP := &"custom_ui_audio"
 
 @export var ui_root: Control
 @export var profile: GameAudioProfile
+@export var menu_music: FmodEventEmitter2D
+@export_range(0.1, 5.0, 0.05) var footstep_distance: float = 0.8
 
 var _sound_vca: FmodVCA
 var _music_vca: FmodVCA
 var _listener: FmodListener3D
+var _menu_active: bool = false
 
 
 func _ready() -> void:
@@ -44,6 +47,38 @@ func bind_room(room: LaikaRoom) -> void:
 	room.carry.stored.connect(play.bind(profile.install, room.player).unbind(1))
 	_listener = FmodListener3D.new()
 	room.camera.add_child(_listener)
+	var footsteps := FootstepTracker.new()
+	footsteps.name = "Footsteps"
+	footsteps.player = room.player
+	footsteps.step_distance = footstep_distance
+	footsteps.step_requested.connect(play.bind(profile.footstep, room.player))
+	room.player.add_child(footsteps)
+
+
+func set_menu_active(enabled: bool) -> void:
+	if enabled == _menu_active:
+		return
+	_menu_active = enabled
+	if menu_music == null:
+		return
+	if not enabled:
+		menu_music.stop()
+		return
+	var errors := menu_music_configuration_errors()
+	if not errors.is_empty():
+		push_warning("GameAudio: " + "; ".join(errors))
+		return
+	menu_music.play()
+
+
+func menu_music_configuration_errors() -> PackedStringArray:
+	if menu_music == null or menu_music.event_name.is_empty():
+		return ["MenuMusic: assign a background music event."]
+	if not FmodServer.check_event_path(menu_music.event_name):
+		return ["MenuMusic: event is missing from the loaded FMOD banks."]
+	if FmodServer.get_event(menu_music.event_name).is_3d():
+		return ["MenuMusic: export this event as 2D in FMOD and rebuild the banks; spatial music is not started."]
+	return []
 
 
 func play(cue: AudioCue, source: Node3D = null) -> bool:
