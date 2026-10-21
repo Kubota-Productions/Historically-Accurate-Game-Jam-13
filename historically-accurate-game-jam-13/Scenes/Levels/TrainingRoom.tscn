@@ -46,7 +46,7 @@ orientation = 2
 offsets = PackedFloat32Array(0, 0.18061674, 1)
 colors = PackedColorArray(0.12245094, 0.00017981649, 0.31626332, 1, 5.053729e-07, 0.13986629, 0.41122162, 1, 0.9376434, 0.8761628, 7.70092e-07, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_sonli"]
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_na43p"]
 gradient = SubResource("Gradient_cyvlh")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_na43p"]
@@ -54,7 +54,7 @@ render_priority = 0
 shader = ExtResource("2_na43p")
 shader_parameter/dither_tex = ExtResource("3_sonli")
 shader_parameter/dither_size = 5.8750002315625
-shader_parameter/color_tex = SubResource("GradientTexture1D_sonli")
+shader_parameter/color_tex = SubResource("GradientTexture1D_na43p")
 shader_parameter/palette_strength = 0.666000031635
 shader_parameter/bit_depth = 3
 shader_parameter/contrast = 1.3070000620825
@@ -184,7 +184,7 @@ auto_crouch = false
 [node name="Props" type="Node3D" parent="." unique_id=1851964304]
 
 [node name="Capsule" type="Node3D" parent="Props" unique_id=138636470]
-transform = Transform3D(-0.9659258, 0, 0.25881913, 0, 1, 0, -0.25881913, 0, -0.9659258, -4.1753635, 0.7, 3.0191088)
+transform = Transform3D(-0.9659258, 0, 0.25881913, 0, 1, 0, -0.25881913, 0, -0.9659258, -4.0526133, 0.7, 3.0191088)
 script = ExtResource("2_8uaqm")
 
 [node name="Entry" type="StaticBody3D" parent="Props/Capsule" unique_id=1936290419]
