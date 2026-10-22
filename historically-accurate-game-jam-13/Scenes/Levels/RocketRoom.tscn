@@ -52,7 +52,7 @@ environment = SubResource("Environment_pmscr")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
 
 [node name="Player" parent="Actors" unique_id=290791286 instance=ExtResource("7_pav4b")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1826222, 3.998003)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.22443575, 3.998003)
 jump_height = 0.7
 auto_bhop = false
 body_radius = 0.22

@@ -17,6 +17,8 @@ General/banks_path="res://Assets/Audio/fmod"
 config/name="Historically Accurate GameJam 13"
 run/main_scene="res://Scenes/Game/Game.tscn"
 config/features=PackedStringArray("4.7", "Forward Plus")
+boot_splash/image="uid://b1jh26p66s3n1"
+boot_splash/minimum_display_time=2000
 
 [autoload]
 

@@ -29,13 +29,11 @@ transform = Transform3D(-0.9475268, 0.29244632, 0.12910491, -0.20046951, -0.2289
 [node name="Laika2" parent="." unique_id=28737398 instance=ExtResource("1_pojo2")]
 transform = Transform3D(0.85896003, 0, 0.51204294, 0, 1, 0, -0.51204294, 0, 0.85896003, -0.364, -0.482, 13.017)
 
-[node name="Skeleton3D" parent="Laika2/metarig" parent_id_path=PackedInt32Array(28737398, 1525879223) index="0" unique_id=1979672956]
-
-[node name="LookAtModifier3D" type="LookAtModifier3D" parent="Laika2/metarig/Skeleton3D" index="2" unique_id=1237842664]
+[node name="LookAtModifier3D" type="LookAtModifier3D" parent="Laika2/metarig/Skeleton3D" parent_id_path=PackedInt32Array(28737398, 2126339302) index="2" unique_id=1237842664]
 transform = Transform3D(-0.9950095, 0, -2.1241183, 0, 2.3456178, 0, 2.1241183, 0, -0.9950095, 27.367641, 1.0954036, 13.611566)
 target_node = NodePath("../../../../LookAtTarget")
 bone_name = "spine.011"
-bone = 11
+bone = 25
 forward_axis = 2
 primary_rotation_axis = 0
 duration = 1.0
@@ -47,7 +45,7 @@ primary_damp_threshold = 1.0
 secondary_limit_angle = 0.49480084
 secondary_damp_threshold = 1.0
 
-[node name="AnimationPlayer" parent="Laika2" index="3" unique_id=888311987]
+[node name="AnimationPlayer" parent="Laika2" index="3" unique_id=450922234]
 autoplay = &"metarigAction"
 
 [node name="LookAtTarget" type="Marker3D" parent="." unique_id=1491252049]
