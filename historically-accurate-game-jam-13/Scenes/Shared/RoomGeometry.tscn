@@ -59,17 +59,17 @@ albedo_texture = ExtResource("4_q7t3c")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_68lgm"]
 albedo_texture = ExtResource("4_q7t3c")
 
-[sub_resource type="ViewportTexture" id="ViewportTexture_8u4yh"]
-viewport_path = NodePath("SubViewport")
-
 [sub_resource type="ViewportTexture" id="ViewportTexture_i6h3c"]
 viewport_path = NodePath("SubViewport")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_suh8w"]
+[sub_resource type="ViewportTexture" id="ViewportTexture_suh8w"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2glmy"]
 resource_local_to_scene = true
-albedo_texture = SubResource("ViewportTexture_8u4yh")
+albedo_texture = SubResource("ViewportTexture_i6h3c")
 emission_enabled = true
-emission_texture = SubResource("ViewportTexture_i6h3c")
+emission_texture = SubResource("ViewportTexture_suh8w")
 
 [node name="RoomGeometry" type="Node3D" unique_id=64567375]
 
@@ -184,10 +184,81 @@ size = Vector3(7, 4.2, 0.25)
 material = SubResource("Wall")
 
 [node name="Surface10" type="CSGBox3D" parent="Architecture/Walls/Back" unique_id=628319623]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 3.1999998, -1.3131484)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1.6999998, -1.439928)
 material_override = SubResource("StandardMaterial3D_hulpg")
 use_collision = true
-size = Vector3(1, 2, 0.25)
+size = Vector3(1, 5, 0.25)
+material = SubResource("Wall")
+
+[node name="Surface16" type="CSGBox3D" parent="Architecture/Walls/Back" unique_id=1769892074]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 3.3718138, -1.3131484)
+material_override = SubResource("StandardMaterial3D_hulpg")
+use_collision = true
+size = Vector3(1, 1.6563721, 0.25)
+material = SubResource("Wall")
+
+[node name="Surface15" type="CSGBox3D" parent="Architecture/Walls/Back" unique_id=1007862023]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5612793, 1.6999998, 2.2012558)
+visible = false
+material_override = SubResource("StandardMaterial3D_hulpg")
+use_collision = true
+size = Vector3(2.8774414, 5, 4.7211914)
+material = SubResource("Wall")
+
+[node name="Surface16" type="CSGBox3D" parent="Architecture/Walls/Back/Surface15" unique_id=1778484753]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.9650879, 0, 1.3500671)
+material_override = SubResource("StandardMaterial3D_hulpg")
+use_collision = true
+size = Vector3(4.510254, 5, 2.0210571)
+material = SubResource("Wall")
+
+[node name="Surface19" type="CSGBox3D" parent="Architecture/Walls/Back/Surface15" unique_id=2057705017]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.394226, 0, -2.9112072)
+material_override = SubResource("StandardMaterial3D_hulpg")
+use_collision = true
+size = Vector3(2.282837, 5, 1.5223732)
+material = SubResource("Wall")
+
+[node name="Surface21" type="CSGBox3D" parent="Architecture/Walls/Back/Surface15" unique_id=2090203053]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2749155, 0, -3.5073767)
+material_override = SubResource("StandardMaterial3D_hulpg")
+use_collision = true
+size = Vector3(2.282837, 5, 0.33003426)
+material = SubResource("Wall")
+
+[node name="Surface20" type="CSGBox3D" parent="Architecture/Walls/Back/Surface15" unique_id=1442361860]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.09848, 0, 4.3653235)
+material_override = SubResource("StandardMaterial3D_hulpg")
+use_collision = true
+size = Vector3(0.8743286, 5, 3.0030336)
+material = SubResource("Wall")
+
+[node name="Surface22" type="CSGBox3D" parent="Architecture/Walls/Back/Surface15" unique_id=2121819602]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.6251693, 0, 3.0932856)
+material_override = SubResource("StandardMaterial3D_hulpg")
+use_collision = true
+size = Vector3(0.8743286, 5, 3.0030336)
+material = SubResource("Wall")
+
+[node name="Surface23" type="CSGBox3D" parent="Architecture/Walls/Back/Surface15" unique_id=452525688]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.1879897, 0, 9.07242)
+material_override = SubResource("StandardMaterial3D_hulpg")
+use_collision = true
+size = Vector3(3.7486877, 5, 3.0030336)
+material = SubResource("Wall")
+
+[node name="Surface17" type="CSGBox3D" parent="Architecture/Walls/Back/Surface15" unique_id=283433682]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.3674927, 0, 0.7813568)
+material_override = SubResource("StandardMaterial3D_hulpg")
+use_collision = true
+size = Vector3(2.7215576, 5, 3.1584778)
+material = SubResource("Wall")
+
+[node name="Surface18" type="CSGBox3D" parent="Architecture/Walls/Back/Surface15" unique_id=1636398782]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.700165, 0.83032227, 0.4132614)
+material_override = SubResource("StandardMaterial3D_hulpg")
+use_collision = true
+size = Vector3(2.0562134, 3.3393555, 3.8946686)
 material = SubResource("Wall")
 
 [node name="LowerBand" type="CSGBox3D" parent="Architecture/Walls/Back" unique_id=1772379671]
@@ -384,7 +455,7 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -6.2
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 3.3207855, 0.24357176, 9.866312)
 
 [node name="Door2" parent="." unique_id=635419536 instance=ExtResource("6_ot1y2")]
-transform = Transform3D(1, 0, 1.7484555e-07, 0, 1, 0, -1.7484555e-07, 0, 1, 1.5961742, 0.24357176, -1.2000077)
+transform = Transform3D(1, 0, 1.7484555e-07, 0, 1, 0, -1.7484555e-07, 0, 1, 1.5961742, 0.24357176, -1.2416534)
 
 [node name="Door3" parent="." unique_id=508184910 instance=ExtResource("6_ot1y2")]
 transform = Transform3D(1.3113416e-07, 0, -1, 0, 1, 0, 1, 0, 1.3113416e-07, 4.8530126, 0.24357176, 4.401869)
@@ -459,7 +530,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5597956, 3.0735383, 6.48904
 transform = Transform3D(-0.50000006, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, -0.50000006, -5.0594587, 0.0060003595, 3.1642828)
 
 [node name="Cube_002" parent="TV" index="3" unique_id=161229353]
-surface_material_override/0 = SubResource("StandardMaterial3D_suh8w")
+surface_material_override/0 = SubResource("StandardMaterial3D_2glmy")
 
 [node name="SubViewport" type="SubViewport" parent="TV" unique_id=47504815]
 size = Vector2i(1017, 720)
