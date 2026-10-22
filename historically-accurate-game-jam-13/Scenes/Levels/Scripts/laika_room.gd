@@ -19,6 +19,7 @@ signal completed
 @export var carry: CarryController
 @export var interactor: PlayerInteractor
 @export var scent: ScentController
+@export var static_audio: Node 
 
 var player: FPSPlayer:
 	get: return rig.player
@@ -50,6 +51,7 @@ func begin() -> void:
 	camera.make_current()
 	set_control_enabled(true)
 	progress.begin()
+	start_ambience()
 
 
 func set_control_enabled(enabled: bool) -> void:
@@ -103,3 +105,10 @@ func configuration_errors() -> PackedStringArray:
 	if progress:
 		errors.append_array(progress.configuration_errors())
 	return errors
+
+
+func start_ambience() -> void:
+	if !static_audio:
+		return
+	for emitter in static_audio.get_children():
+		emitter.play()

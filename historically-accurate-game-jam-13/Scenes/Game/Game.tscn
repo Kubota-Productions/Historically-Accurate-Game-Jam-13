@@ -37,7 +37,8 @@ profile = ExtResource("audio_profile")
 menu_music = NodePath("MenuMusic")
 
 [node name="MenuMusic" type="FmodEventEmitter2D" parent="Audio" unique_id=1402160676]
-event_guid = "{00000000-0000-0000-0000-000000000000}"
+event_name = "event:/Music/main_menu_music_2d"
+event_guid = "{7e76bf9d-0de3-4b8d-96a1-6dead696aee3}"
 attached = false
 
 [node name="DogVisionFilter" parent="." unique_id=1953602472 instance=ExtResource("DogVisionFilter")]
@@ -82,6 +83,13 @@ layout_mode = 1
 unique_name_in_owner = true
 visible = false
 layout_mode = 0
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 920.0
+offset_bottom = 96.0
+grow_horizontal = 1
 
 [node name="Credits" parent="Interface/ScreenHost" unique_id=1740746836 instance=ExtResource("credits")]
 unique_name_in_owner = true

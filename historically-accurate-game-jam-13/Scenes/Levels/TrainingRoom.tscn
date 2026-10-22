@@ -85,7 +85,7 @@ size = Vector3(1.8, 1.4, 1.8)
 script = ExtResource("19_na43p")
 metadata/_custom_type_script = "uid://bptx7ryw12stq"
 
-[node name="TrainingRoom" type="Node3D" unique_id=1175608443 node_paths=PackedStringArray("rig", "menu_camera", "progress", "carry", "interactor", "scent")]
+[node name="TrainingRoom" type="Node3D" unique_id=1175608443 node_paths=PackedStringArray("rig", "menu_camera", "progress", "carry", "interactor", "scent", "static_audio")]
 script = ExtResource("1_ev2wu")
 rig = NodePath("Actors/Player/CameraHolder")
 menu_camera = NodePath("Cameras/MenuCamera")
@@ -93,6 +93,7 @@ progress = NodePath("Systems/Progress")
 carry = NodePath("Systems/Carry")
 interactor = NodePath("Systems/Interactor")
 scent = NodePath("Systems/Scent")
+static_audio = NodePath("StaticAudio")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=703950945]
 environment = SubResource("Environment_woyyl")
@@ -127,7 +128,7 @@ shape = SubResource("Shape_Scientist")
 [node name="Scientist" parent="Actors/Scientist/Visuals" unique_id=1906525048 instance=ExtResource("8_0wxnl")]
 transform = Transform3D(-0.9841124, 0, -0.17754693, 0, 1, 0, 0.17754693, 0, -0.9841124, 0.138268, -0.9722022, 4.5924973)
 
-[node name="Skeleton3D" parent="Actors/Scientist/Visuals/Scientist/metarig" parent_id_path=PackedInt32Array(1906525048, 1230302517) index="0" unique_id=1191629497]
+[node name="Skeleton3D" parent="Actors/Scientist/Visuals/Scientist/metarig" parent_id_path=PackedInt32Array(1906525048, 260736732) index="0" unique_id=1232426949]
 bones/0/position = Vector3(0, 0.55922335, -0.055200007)
 bones/3/rotation = Quaternion(0.06632985, 5.4106256e-18, 2.8473122e-17, 0.9977978)
 bones/4/rotation = Quaternion(0.14149326, -0.032950487, -0.09400088, 0.98491514)
@@ -159,7 +160,7 @@ primary_damp_threshold = 1.0
 secondary_limit_angle = 0.8548623
 secondary_damp_threshold = 1.0
 
-[node name="AnimationPlayer" parent="Actors/Scientist/Visuals/Scientist" index="1" unique_id=727690820]
+[node name="AnimationPlayer" parent="Actors/Scientist/Visuals/Scientist" index="1" unique_id=339605212]
 autoplay = &"metarigAction"
 
 [node name="Gaze" type="Node" parent="Actors/Scientist" unique_id=1408834466 node_paths=PackedStringArray("look_at", "target")]
@@ -243,25 +244,23 @@ inspection_scene = ExtResource("20_sonli")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Radio/Interaction" unique_id=1346328051]
 shape = SubResource("Shape_Scientist")
 
-[node name="RadioEventEmitter3D" type="FmodEventEmitter3D" parent="Radio" unique_id=1139919310]
+[node name="StaticAudio" type="Node" parent="." unique_id=843299143]
+
+[node name="TvEventEmitter3D" type="FmodEventEmitter3D" parent="StaticAudio" unique_id=1139919310]
 event_name = "event:/Ambience/radio_scene1_3d"
 event_guid = "{4d84b4a9-9595-403d-b2af-f4f5048a0792}"
-autoplay = true
 volume = 0.3
-
-[node name="StaticAudio" type="Node" parent="." unique_id=843299143]
+transform = Transform3D(0.7071067, 0, 0.7071067, 0, 1, 0, -0.7071067, 0, 0.7071067, -5.0414877, 1.0576473, 3.06743)
 
 [node name="Fan1EventEmitter3D" type="FmodEventEmitter3D" parent="StaticAudio" unique_id=807465836]
 event_name = "event:/Ambience/fan_scene1_3d"
 event_guid = "{8e6fd512-c017-4284-8c2c-727856e4e05b}"
-autoplay = true
 volume = 0.2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4719677, 2.8977547, 1.4252696)
 
 [node name="Fan2EventEmitter3D" type="FmodEventEmitter3D" parent="StaticAudio" unique_id=1858878242]
 event_name = "event:/Ambience/fan_scene1_3d"
 event_guid = "{8e6fd512-c017-4284-8c2c-727856e4e05b}"
-autoplay = true
 volume = 0.2
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.3819964, 2.8977547, 1.4252696)
 

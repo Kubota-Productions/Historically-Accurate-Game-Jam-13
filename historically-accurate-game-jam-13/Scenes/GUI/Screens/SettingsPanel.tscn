@@ -62,7 +62,7 @@ theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 metadata/_tab_index = 0
 
-[node name="Scroll" type="ScrollContainer" parent="Panel/Body/Tabs/Video"]
+[node name="Scroll" type="ScrollContainer" parent="Panel/Body/Tabs/Video" unique_id=105839582]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
@@ -73,39 +73,51 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 12
 
-[node name="WindowModeRow" type="HBoxContainer" parent="Panel/Body/Tabs/Video/Scroll/Content"]
+[node name="WindowModeRow" type="HBoxContainer" parent="Panel/Body/Tabs/Video/Scroll/Content" unique_id=1743288065]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Title" type="Label" parent="Panel/Body/Tabs/Video/Scroll/Content/WindowModeRow"]
+[node name="Title" type="Label" parent="Panel/Body/Tabs/Video/Scroll/Content/WindowModeRow" unique_id=1191694217]
 custom_minimum_size = Vector2(260, 0)
 layout_mode = 2
 text = "Window mode"
 
-[node name="WindowMode" type="OptionButton" parent="Panel/Body/Tabs/Video/Scroll/Content/WindowModeRow"]
+[node name="WindowMode" type="OptionButton" parent="Panel/Body/Tabs/Video/Scroll/Content/WindowModeRow" unique_id=1207565005]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
+selected = 0
+item_count = 3
+popup/item_0/text = "Windowed"
+popup/item_0/id = 0
+popup/item_1/text = "Borderless fullscreen"
+popup/item_1/id = 1
+popup/item_2/text = "Fullscreen"
+popup/item_2/id = 2
 
-[node name="ResolutionRow" type="HBoxContainer" parent="Panel/Body/Tabs/Video/Scroll/Content"]
+[node name="ResolutionRow" type="HBoxContainer" parent="Panel/Body/Tabs/Video/Scroll/Content" unique_id=1752710235]
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="Title" type="Label" parent="Panel/Body/Tabs/Video/Scroll/Content/ResolutionRow"]
+[node name="Title" type="Label" parent="Panel/Body/Tabs/Video/Scroll/Content/ResolutionRow" unique_id=1317512103]
 custom_minimum_size = Vector2(260, 0)
 layout_mode = 2
 text = "Resolution"
 
-[node name="Resolution" type="OptionButton" parent="Panel/Body/Tabs/Video/Scroll/Content/ResolutionRow"]
+[node name="Resolution" type="OptionButton" parent="Panel/Body/Tabs/Video/Scroll/Content/ResolutionRow" unique_id=1149106892]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 48)
 layout_mode = 2
 size_flags_horizontal = 3
+selected = 0
+item_count = 1
+popup/item_0/text = "1280 × 720"
+popup/item_0/id = 0
 
-[node name="VideoRows" type="VBoxContainer" parent="Panel/Body/Tabs/Video/Scroll/Content"]
+[node name="VideoRows" type="VBoxContainer" parent="Panel/Body/Tabs/Video/Scroll/Content" unique_id=1013351756]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 12
@@ -165,7 +177,7 @@ theme_override_constants/margin_right = 0
 theme_override_constants/margin_bottom = 0
 metadata/_tab_index = 1
 
-[node name="Scroll" type="ScrollContainer" parent="Panel/Body/Tabs/Audio"]
+[node name="Scroll" type="ScrollContainer" parent="Panel/Body/Tabs/Audio" unique_id=298415674]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
@@ -176,7 +188,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_constants/separation = 12
 
-[node name="AudioRows" type="VBoxContainer" parent="Panel/Body/Tabs/Audio/Scroll/Content"]
+[node name="AudioRows" type="VBoxContainer" parent="Panel/Body/Tabs/Audio/Scroll/Content" unique_id=2029011572]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 12
@@ -195,7 +207,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 12
 
-[node name="ControlRows" type="VBoxContainer" parent="Panel/Body/Tabs/Controls/Content"]
+[node name="ControlRows" type="VBoxContainer" parent="Panel/Body/Tabs/Controls/Content" unique_id=521759646]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 12
@@ -248,8 +260,7 @@ layout_mode = 2
 size_flags_horizontal = 8
 text = "Back"
 
-
-[node name="RevertTimer" type="Timer" parent="."]
+[node name="RevertTimer" type="Timer" parent="." unique_id=1942825915]
 unique_name_in_owner = true
 wait_time = 15.0
 one_shot = true
