@@ -1,13 +1,16 @@
 [gd_scene format=3 uid="uid://dsb614rtuh4w4"]
 
+[ext_resource type="Shader" uid="uid://b4en6ka5nfcem" path="res://Resources/Shaders/dither.gdshader" id="2_m0aub"]
+[ext_resource type="Texture2D" uid="uid://8cqbsu2jp0du" path="res://Resources/Shaders/bayer16tile2.png" id="3_1s32y"]
 [ext_resource type="PackedScene" uid="uid://disg0jtdehinu" path="res://Scenes/Shared/level2geometry.tscn" id="8_i3m6a"]
 [ext_resource type="PackedScene" uid="uid://skidw5yqd85a" path="res://Assets/3D/Sputnik2.glb" id="13_pmscr"]
-[ext_resource type="Script" uid="uid://jivklbtxb5ki" path="res://Scenes/Shared/Scripts/asset_group.gd" id="asset_group"]
+[ext_resource type="PackedScene" uid="uid://s3jwersf0fmj" path="res://Assets/3D/prefabs/chair.tscn" id="22_1s32y"]
 [ext_resource type="Script" uid="uid://cf1trihm73fa8" path="res://Scenes/Player/Scripts/Components/carry_controller.gd" id="carry"]
-[ext_resource type="Script" uid="uid://dtn5af0ay3lfq" path="res://Scenes/Shared/Scripts/interactable.gd" id="interaction"]
+[ext_resource type="Script" uid="uid://cdj317frexgrl" path="res://Scenes/Shared/Scripts/Interactions/exit_action.gd" id="exit"]
 [ext_resource type="Script" uid="uid://dldd0m0xs50kq" path="res://Scenes/Player/Scripts/Components/player_interactor.gd" id="interactor"]
 [ext_resource type="PackedScene" uid="uid://c5xf5awwvo5et" path="res://Scenes/Player/FPSPlayer.tscn" id="player"]
 [ext_resource type="Script" uid="uid://c2vrwl3576sbw" path="res://Scenes/Levels/Scripts/Progress/station_progress.gd" id="progress"]
+[ext_resource type="Resource" path="res://GameData/Rooms/rocket.tres" id="rocket"]
 [ext_resource type="Script" uid="uid://dhaw8y5svbuly" path="res://Scenes/Player/Scripts/Components/scent_controller.gd" id="scent"]
 [ext_resource type="Script" uid="uid://djghgf8bfy3dg" path="res://Scenes/Levels/Scripts/laika_room.gd" id="script"]
 [ext_resource type="Script" uid="uid://jivklbtxb5ki" path="res://Scenes/Shared/Scripts/asset_group.gd" id="task_2_8uaqm"]
@@ -19,8 +22,6 @@
 [ext_resource type="Script" uid="uid://dn21y4d7doo81" path="res://Scenes/Shared/Scripts/Interactions/socket_action.gd" id="task_18_f5kaa"]
 [ext_resource type="PackedScene" uid="uid://c5nfmsbhocirn" path="res://Scenes/Shared/Interactables/Pickup.tscn" id="task_19_updqm"]
 [ext_resource type="Script" uid="uid://cg8r4er8dq3cp" path="res://Scenes/Shared/Scripts/Interactions/pickup_action.gd" id="task_20_n7d7x"]
-[ext_resource type="Resource" path="res://GameData/Rooms/rocket.tres" id="rocket"]
-[ext_resource type="Script" path="res://Scenes/Shared/Scripts/Interactions/exit_action.gd" id="exit"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_i3m6a"]
 sky_top_color = Color(0, 0.20792857, 0.44104502, 1)
@@ -50,6 +51,33 @@ fog_light_energy = 2.23
 fog_density = 0.0431
 fog_sky_affect = 0.259
 fog_height_density = 0.6713
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_h1c1u"]
+flip_faces = true
+orientation = 2
+
+[sub_resource type="Gradient" id="Gradient_kj30l"]
+offsets = PackedFloat32Array(0, 0.18061674, 1)
+colors = PackedColorArray(0.12245094, 0.00017981649, 0.31626332, 1, 5.053729e-07, 0.13986629, 0.41122162, 1, 0.9376434, 0.8761628, 7.70092e-07, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_sonli"]
+gradient = SubResource("Gradient_kj30l")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uacqf"]
+render_priority = 0
+shader = ExtResource("2_m0aub")
+shader_parameter/dither_tex = ExtResource("3_1s32y")
+shader_parameter/dither_size = 5.8750002315625
+shader_parameter/color_tex = SubResource("GradientTexture1D_sonli")
+shader_parameter/palette_strength = 0.666000031635
+shader_parameter/bit_depth = 3
+shader_parameter/contrast = 1.3070000620825
+shader_parameter/offset = 0.025000048687499943
+shader_parameter/alpha = 1.0
+shader_parameter/depth_fade_enabled = false
+shader_parameter/depth_fade_near = 0.0
+shader_parameter/depth_fade_far = 50.0
+shader_parameter/depth_fade_invert = false
 
 [sub_resource type="StandardMaterial3D" id="Green"]
 albedo_color = Color(0.217, 0.217, 0.217, 1)
@@ -95,18 +123,18 @@ script = ExtResource("task_18_f5kaa")
 [sub_resource type="BoxShape3D" id="task_Shape_Stand"]
 size = Vector3(0.7419922, 0.5, 0.18)
 
-[sub_resource type="Resource" id="task_action_pickup"]
-script = ExtResource("task_20_n7d7x")
-required_flag = &"fetch"
-
 [sub_resource type="Resource" id="launch_exit"]
 script = ExtResource("exit")
 destination = ExtResource("rocket")
-required_flag = &"departure_ready"
 blocked_message = "Finish the battery test before boarding."
+required_flag = &"departure_ready"
 
 [sub_resource type="BoxShape3D" id="launch_shape"]
-size = Vector3(1.4, 1.4, 1.0)
+size = Vector3(1.4, 1.4, 1)
+
+[sub_resource type="Resource" id="task_action_pickup"]
+script = ExtResource("task_20_n7d7x")
+required_flag = &"fetch"
 
 [node name="StationRoom" type="Node3D" unique_id=720021548 node_paths=PackedStringArray("rig", "menu_camera", "progress", "carry", "interactor", "scent")]
 script = ExtResource("script")
@@ -119,6 +147,14 @@ scent = NodePath("Systems/Scent")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=424648217]
 environment = SubResource("Environment_pmscr")
+
+[node name="shaderhost" type="Node3D" parent="." unique_id=930788205]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="shaderhost" unique_id=2091546653]
+cast_shadow = 0
+extra_cull_margin = 16384.0
+mesh = SubResource("PlaneMesh_h1c1u")
+surface_material_override/0 = SubResource("ShaderMaterial_uacqf")
 
 [node name="Actors" type="Node3D" parent="." unique_id=1205687545]
 
@@ -139,7 +175,7 @@ auto_crouch = false
 
 [node name="LeftConsole" type="Node3D" parent="Props" unique_id=1886352046]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0, -2)
-script = ExtResource("asset_group")
+script = ExtResource("task_2_8uaqm")
 
 [node name="Body" type="CSGBox3D" parent="Props/LeftConsole" unique_id=567709482]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
@@ -154,7 +190,7 @@ material = SubResource("Black")
 
 [node name="RightConsole" type="Node3D" parent="Props" unique_id=1638511498]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, -2)
-script = ExtResource("asset_group")
+script = ExtResource("task_2_8uaqm")
 
 [node name="Body" type="CSGBox3D" parent="Props/RightConsole" unique_id=1250875108]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 0)
@@ -166,6 +202,97 @@ material = SubResource("Green")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0.45)
 size = Vector3(1.1, 0.55, 0.04)
 material = SubResource("Black")
+
+[node name="TestButton" type="StaticBody3D" parent="Props" unique_id=2069618690]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.34, 0.2)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("task_3_lkr16")
+display_name = "Press test button"
+action = SubResource("task_action_event")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/TestButton" unique_id=699635002]
+shape = SubResource("task_Shape_TestButton")
+
+[node name="Pedestal" type="CSGBox3D" parent="Props/TestButton" unique_id=779422490]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+use_collision = true
+size = Vector3(0.45, 0.6, 0.45)
+material = SubResource("task_Green")
+
+[node name="Button" type="MeshInstance3D" parent="Props/TestButton" unique_id=398603993]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29, 0)
+material_override = SubResource("task_Red")
+mesh = SubResource("task_Mesh_Button21")
+
+[node name="TrainingStand" type="Node3D" parent="Props" unique_id=374567011]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
+script = ExtResource("task_2_8uaqm")
+
+[node name="Base" type="CSGBox3D" parent="Props/TrainingStand" unique_id=1766159241]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.37739205, 0.3, 1.9073486e-06)
+use_collision = true
+size = Vector3(0.84521484, 0.6, 0.8)
+material = SubResource("task_Green")
+
+[node name="Top" type="CSGBox3D" parent="Props/TrainingStand" unique_id=275048960]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.33383703, 0.62, 0)
+use_collision = true
+size = Vector3(0.8676758, 0.08, 1)
+material = SubResource("task_Cream")
+
+[node name="Socket1" type="CSGBox3D" parent="Props/TrainingStand" unique_id=1081250230]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.53105164, 0.4, 0.40221643)
+size = Vector3(0.4, 0.32, 0.04)
+material = SubResource("task_Black")
+
+[node name="Cell1" type="MeshInstance3D" parent="Props/TrainingStand" unique_id=903358990]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.505249, 0.39999998, 0.42875195)
+material_override = ExtResource("task_15_nklso")
+mesh = ExtResource("task_16_1ylpy")
+
+[node name="Socket2" type="CSGBox3D" parent="Props/TrainingStand" unique_id=719717793]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13263273, 0.40000013, 0.4049921)
+size = Vector3(0.28935546, 0.32, 0.04)
+material = SubResource("task_Black")
+
+[node name="Cell2" type="MeshInstance3D" parent="Props/TrainingStand" unique_id=311567416]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.32, 0.4, 0.45)
+visible = false
+material_override = ExtResource("task_15_nklso")
+mesh = ExtResource("task_16_1ylpy")
+
+[node name="Slots" type="StaticBody3D" parent="Props/TrainingStand" unique_id=1706886502 node_paths=PackedStringArray("indicators")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0.5)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("task_17_0lg0f")
+indicators = [NodePath("../Cell1"), NodePath("../Cell2")]
+display_name = "Inspect battery slots"
+action = SubResource("task_action_socket")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/TrainingStand/Slots" unique_id=502162830]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.32900333, 0, -4.7683716e-07)
+shape = SubResource("task_Shape_Stand")
+
+[node name="Capsule" type="Node3D" parent="Props" unique_id=931401281]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2, 0.7, -2.7)
+
+[node name="Entry" type="StaticBody3D" parent="Props/Capsule" unique_id=608520727]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("task_3_lkr16")
+display_name = "Board the capsule"
+action = SubResource("launch_exit")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Capsule/Entry" unique_id=65156824]
+shape = SubResource("launch_shape")
+
+[node name="BoardingLabel" type="Label3D" parent="Props/Capsule" unique_id=388546306]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
+pixel_size = 0.004
+text = "CAPSULE"
+font_size = 36
 
 [node name="Cameras" type="Node3D" parent="." unique_id=1768350952]
 
@@ -206,111 +333,23 @@ socket = NodePath("../../Props/TrainingStand/Slots")
 [node name="Sputnik2" parent="." unique_id=1262135004 instance=ExtResource("13_pmscr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2228343, -0.15201926, -4.674501)
 
-[node name="TestButton" type="StaticBody3D" parent="Props"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.34, 0.2)
-collision_layer = 2
-collision_mask = 0
-script = ExtResource("task_3_lkr16")
-display_name = "Press test button"
-action = SubResource("task_action_event")
+[node name="Pickups" type="Node3D" parent="." unique_id=1859537818]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/TestButton"]
-shape = SubResource("task_Shape_TestButton")
-
-[node name="Pedestal" type="CSGBox3D" parent="Props/TestButton"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
-use_collision = true
-size = Vector3(0.45, 0.6, 0.45)
-material = SubResource("task_Green")
-
-[node name="Button" type="MeshInstance3D" parent="Props/TestButton"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29, 0)
-material_override = SubResource("task_Red")
-mesh = SubResource("task_Mesh_Button21")
-
-[node name="TrainingStand" type="Node3D" parent="Props"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.5)
-script = ExtResource("task_2_8uaqm")
-
-[node name="Base" type="CSGBox3D" parent="Props/TrainingStand"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.37739205, 0.3, 1.9073486e-06)
-use_collision = true
-size = Vector3(0.84521484, 0.6, 0.8)
-material = SubResource("task_Green")
-
-[node name="Top" type="CSGBox3D" parent="Props/TrainingStand"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.33383703, 0.62, 0)
-use_collision = true
-size = Vector3(0.8676758, 0.08, 1)
-material = SubResource("task_Cream")
-
-[node name="Socket1" type="CSGBox3D" parent="Props/TrainingStand"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.53105164, 0.4, 0.40221643)
-size = Vector3(0.4, 0.32, 0.04)
-material = SubResource("task_Black")
-
-[node name="Cell1" type="MeshInstance3D" parent="Props/TrainingStand"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.505249, 0.39999998, 0.42875195)
-material_override = ExtResource("task_15_nklso")
-mesh = ExtResource("task_16_1ylpy")
-
-[node name="Socket2" type="CSGBox3D" parent="Props/TrainingStand"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13263273, 0.40000013, 0.4049921)
-size = Vector3(0.28935546, 0.32, 0.04)
-material = SubResource("task_Black")
-
-[node name="Cell2" type="MeshInstance3D" parent="Props/TrainingStand"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.32, 0.4, 0.45)
-visible = false
-material_override = ExtResource("task_15_nklso")
-mesh = ExtResource("task_16_1ylpy")
-
-[node name="Slots" type="StaticBody3D" parent="Props/TrainingStand" node_paths=PackedStringArray("indicators")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0.5)
-collision_layer = 2
-collision_mask = 0
-script = ExtResource("task_17_0lg0f")
-indicators = [NodePath("../Cell1"), NodePath("../Cell2")]
-display_name = "Inspect battery slots"
-action = SubResource("task_action_socket")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/TrainingStand/Slots"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.32900333, 0, -4.7683716e-07)
-shape = SubResource("task_Shape_Stand")
-
-[node name="Pickups" type="Node3D" parent="."]
-
-[node name="Battery1" type="Node3D" parent="Pickups"]
+[node name="Battery1" type="Node3D" parent="Pickups" unique_id=1666076484]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8, 0.12, 2.5)
 script = ExtResource("task_2_8uaqm")
 
-[node name="Item" parent="Pickups/Battery1" instance=ExtResource("task_19_updqm")]
+[node name="Item" parent="Pickups/Battery1" unique_id=251464543 instance=ExtResource("task_19_updqm")]
 action = SubResource("task_action_pickup")
 
-[node name="Battery2" type="Node3D" parent="Pickups"]
+[node name="Battery2" type="Node3D" parent="Pickups" unique_id=1708278907]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.65, 0.12, 1.8)
 script = ExtResource("task_2_8uaqm")
 
-[node name="Item" parent="Pickups/Battery2" instance=ExtResource("task_19_updqm")]
+[node name="Item" parent="Pickups/Battery2" unique_id=697485222 instance=ExtResource("task_19_updqm")]
 action = SubResource("task_action_pickup")
 
-[node name="Capsule" type="Node3D" parent="Props"]
-position = Vector3(-1.2, 0.7, -2.7)
-
-[node name="Entry" type="StaticBody3D" parent="Props/Capsule"]
-collision_layer = 2
-collision_mask = 0
-script = ExtResource("interaction")
-display_name = "Board the capsule"
-action = SubResource("launch_exit")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Props/Capsule/Entry"]
-shape = SubResource("launch_shape")
-
-[node name="BoardingLabel" type="Label3D" parent="Props/Capsule"]
-position = Vector3(0, 1.1, 0)
-text = "CAPSULE"
-font_size = 36
-pixel_size = 0.004
+[node name="chair" parent="." unique_id=1643014150 instance=ExtResource("22_1s32y")]
+transform = Transform3D(0.1945672, 0, 0.9808892, 0, 1, 0, -0.9808892, 0, 0.1945672, 6.3409977, 6.62602, 3.6514611)
 
 [editable path="Actors/Player"]

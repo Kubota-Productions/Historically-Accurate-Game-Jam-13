@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://disg0jtdehinu"]
 
 [ext_resource type="Script" uid="uid://jivklbtxb5ki" path="res://Scenes/Shared/Scripts/asset_group.gd" id="1_8jqxk"]
+[ext_resource type="PackedScene" uid="uid://cgsqb6wwgbf01" path="res://Assets/3D/lightbulb.glb" id="2_upuyq"]
 [ext_resource type="PackedScene" uid="uid://cp7fk3x64u3co" path="res://Assets/3D/env.glb" id="4_2utqg"]
 
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_274ny"]
@@ -59,6 +60,52 @@ script = ExtResource("1_8jqxk")
 
 [node name="Lighting" type="Node3D" parent="." unique_id=2034293636]
 script = ExtResource("1_8jqxk")
+
+[node name="lightbulb2" parent="." unique_id=841340257 instance=ExtResource("2_upuyq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.31194, 3.0735383, 7.3933735)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="lightbulb2" unique_id=116088408]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+light_color = Color(0.9479646, 0.7603645, 0, 1)
+light_energy = 10.361
+light_indirect_energy = 5.027
+light_specular = 2.195
+spot_range = 18.149721
+
+[node name="lightbulb3" parent="." unique_id=1726415480 instance=ExtResource("2_upuyq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.31194, 3.0735383, -0.9082298)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="lightbulb3" unique_id=1052823845]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+light_color = Color(0.9479646, 0.7603645, 0, 1)
+light_energy = 10.361
+light_indirect_energy = 5.027
+light_specular = 2.195
+spot_range = 18.149721
+
+[node name="lightbulb4" parent="." unique_id=228979676 instance=ExtResource("2_upuyq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.070086, 1.7437353, -0.9082298)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="lightbulb4" unique_id=2041411911]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+light_color = Color(0.9479646, 0.7603645, 0, 1)
+light_energy = 10.361
+light_indirect_energy = 5.027
+light_specular = 2.195
+spot_range = 18.149721
+spot_angle = 36.966873
+
+[node name="lightbulb5" parent="." unique_id=388609802 instance=ExtResource("2_upuyq")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.912313, 1.7437353, -0.9082298)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="lightbulb5" unique_id=212719455]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+light_color = Color(0.9479646, 0.7603645, 0, 1)
+light_energy = 10.361
+light_indirect_energy = 5.027
+light_specular = 2.195
+spot_range = 18.149721
+spot_angle = 27.467876
 
 [node name="env" parent="." unique_id=111720708 instance=ExtResource("4_2utqg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.9007344, -0.18965074, -0.76474094)

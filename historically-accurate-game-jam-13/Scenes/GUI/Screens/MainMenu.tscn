@@ -33,6 +33,21 @@ mouse_filter = 2
 texture = SubResource("ViewportTexture_ah1bl")
 stretch_mode = 2
 
+[node name="Title2" type="Label" parent="." unique_id=2060692932]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.07
+anchor_top = 0.08
+anchor_right = 0.38
+anchor_bottom = 0.08
+offset_left = 311.6
+offset_top = 61.6
+offset_right = 871.18994
+offset_bottom = 277.6
+theme_type_variation = &"Display"
+theme_override_font_sizes/font_size = 44
+text = "Laika: The little curly one"
+
 [node name="Title" type="Label" parent="." unique_id=1974482244]
 layout_mode = 1
 anchors_preset = -1
@@ -40,36 +55,23 @@ anchor_left = 0.07
 anchor_top = 0.08
 anchor_right = 0.38
 anchor_bottom = 0.08
+offset_left = -113.399994
+offset_top = -104.4
+offset_right = 102.400024
+offset_bottom = 111.6
 theme_type_variation = &"Display"
-theme_override_font_sizes/font_size = 88
-text = "LAIKA"
+theme_override_font_sizes/font_size = 158
+text = "Kudryavka"
 
-[node name="Buttons" type="VBoxContainer" parent="." unique_id=1601803437]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.07
-anchor_top = 0.483
-anchor_right = 0.34
-anchor_bottom = 0.821
-offset_top = -498.52002
-offset_right = -147.4
-offset_bottom = 173.44
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/separation = -18
+[node name="settingsizing" type="CenterContainer" parent="." unique_id=567000237]
+layout_mode = 0
+offset_left = 376.00003
+offset_top = 404.00003
+offset_right = 727.0
+offset_bottom = 755.0
+scale = Vector2(0.85030043, 0.85030043)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Buttons" unique_id=438035687]
-layout_mode = 2
-
-[node name="Start" type="TextureButton" parent="Buttons/VBoxContainer" unique_id=1104798628]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture_normal = ExtResource("2_lprgq")
-texture_hover = ExtResource("3_4msfr")
-
-[node name="Settings" type="TextureButton" parent="Buttons/VBoxContainer" unique_id=504603154]
+[node name="Settings" type="TextureButton" parent="settingsizing" unique_id=504603154]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -78,7 +80,15 @@ size_flags_stretch_ratio = 0.0
 texture_normal = ExtResource("4_4fnib")
 texture_hover = ExtResource("5_jce2j")
 
-[node name="Quit" type="TextureButton" parent="Buttons/VBoxContainer" unique_id=153554118]
+[node name="exitsizing" type="CenterContainer" parent="." unique_id=1032213381]
+layout_mode = 0
+offset_left = 182.0
+offset_top = 625.0
+offset_right = 553.0
+offset_bottom = 996.0
+scale = Vector2(0.68, 0.68)
+
+[node name="Quit" type="TextureButton" parent="exitsizing" unique_id=153554118]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 4
@@ -86,6 +96,36 @@ size_flags_vertical = 4
 size_flags_stretch_ratio = 0.0
 texture_normal = ExtResource("6_13vhb")
 texture_hover = ExtResource("7_jqhwc")
+
+[node name="Buttons" type="VBoxContainer" parent="." unique_id=1601803437]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.07
+anchor_top = 0.483
+anchor_right = 0.34
+anchor_bottom = 0.821
+offset_left = -84.20999
+offset_top = -251.49002
+offset_right = 103.390015
+offset_bottom = 109.47015
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = -18
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Buttons" unique_id=438035687]
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Buttons/VBoxContainer" unique_id=1333874555]
+layout_mode = 2
+
+[node name="Start" type="TextureButton" parent="Buttons/VBoxContainer/HBoxContainer" unique_id=1104798628]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("2_lprgq")
+texture_hover = ExtResource("3_4msfr")
 
 [node name="3DsceneforMainmenu" parent="." unique_id=298057427 instance=ExtResource("2_umqoa")]
 

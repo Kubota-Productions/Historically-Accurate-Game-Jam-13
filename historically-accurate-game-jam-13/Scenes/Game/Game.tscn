@@ -1,56 +1,53 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cp2l33bsabtxb"]
 
-[ext_resource type="Script" uid="uid://c6w4ymoqjxb0t" path="res://Scenes/Game/Scripts/game_shell.gd" id="script"]
-[ext_resource type="Theme" uid="uid://cqfpbku7lqlal" path="res://Resources/Themes/laika_theme.tres" id="theme"]
-[ext_resource type="PackedScene" uid="uid://ddsb6j1yih3tp" path="res://Scenes/GUI/Screens/MainMenu.tscn" id="MainMenu"]
-[ext_resource type="PackedScene" path="res://Scenes/GUI/Screens/GameHUD.tscn" id="HUD"]
-[ext_resource type="PackedScene" path="res://Scenes/GUI/Components/DialoguePanel.tscn" id="Dialogue"]
-[ext_resource type="PackedScene" path="res://Scenes/GUI/Screens/PauseMenu.tscn" id="PauseMenu"]
-[ext_resource type="PackedScene" uid="uid://cfx6qh38su8o3" path="res://Scenes/GUI/Screens/SettingsPanel.tscn" id="SettingsPanel"]
-[ext_resource type="PackedScene" path="res://Scenes/GUI/Components/DogVisionFilter.tscn" id="DogVisionFilter"]
-[ext_resource type="PackedScene" path="res://Scenes/GUI/Components/CompletionNotice.tscn" id="CompletionNotice"]
-[ext_resource type="PackedScene" uid="uid://7l5j66jr6abv" path="res://Scenes/GUI/Components/screenspace_projection/screenspace_projection.tscn" id="projection"]
-[ext_resource type="Script" uid="uid://bjjig2yekiife" path="res://Scenes/Game/Scripts/screen_transition.gd" id="transition_script"]
-[ext_resource type="Resource" path="res://GameData/Rooms/training.tres" id="first_room"]
-[ext_resource type="Script" uid="uid://dgawl0h78xl3k" path="res://Scenes/Game/Scripts/game_audio.gd" id="audio_script"]
 [ext_resource type="Resource" uid="uid://b0tva2fb3211b" path="res://GameData/Audio/game_audio.tres" id="audio_profile"]
-
+[ext_resource type="Script" uid="uid://dgawl0h78xl3k" path="res://Scenes/Game/Scripts/game_audio.gd" id="audio_script"]
+[ext_resource type="PackedScene" path="res://Scenes/GUI/Components/CompletionNotice.tscn" id="CompletionNotice"]
 [ext_resource type="PackedScene" path="res://Scenes/GUI/Screens/Credits.tscn" id="credits"]
-
+[ext_resource type="PackedScene" path="res://Scenes/GUI/Components/DialoguePanel.tscn" id="Dialogue"]
+[ext_resource type="PackedScene" path="res://Scenes/GUI/Components/DogVisionFilter.tscn" id="DogVisionFilter"]
+[ext_resource type="Resource" path="res://GameData/Rooms/training.tres" id="first_room"]
+[ext_resource type="PackedScene" path="res://Scenes/GUI/Screens/GameHUD.tscn" id="HUD"]
 [ext_resource type="PackedScene" path="res://Scenes/GUI/Screens/ItemInspection.tscn" id="inspection"]
+[ext_resource type="PackedScene" uid="uid://ddsb6j1yih3tp" path="res://Scenes/GUI/Screens/MainMenu.tscn" id="MainMenu"]
+[ext_resource type="PackedScene" path="res://Scenes/GUI/Screens/PauseMenu.tscn" id="PauseMenu"]
+[ext_resource type="PackedScene" uid="uid://7l5j66jr6abv" path="res://Scenes/GUI/Components/screenspace_projection/screenspace_projection.tscn" id="projection"]
+[ext_resource type="Script" uid="uid://c6w4ymoqjxb0t" path="res://Scenes/Game/Scripts/game_shell.gd" id="script"]
+[ext_resource type="PackedScene" uid="uid://cfx6qh38su8o3" path="res://Scenes/GUI/Screens/SettingsPanel.tscn" id="SettingsPanel"]
+[ext_resource type="Theme" uid="uid://cqfpbku7lqlal" path="res://Resources/Themes/laika_theme.tres" id="theme"]
+[ext_resource type="Script" uid="uid://bjjig2yekiife" path="res://Scenes/Game/Scripts/screen_transition.gd" id="transition_script"]
 
-[node name="GameShell" type="Node"]
+[node name="GameShell" type="Node" unique_id=571221472]
 process_mode = 3
 script = ExtResource("script")
 first_room = ExtResource("first_room")
 
-[node name="WorldPresentation" parent="." instance=ExtResource("projection")]
+[node name="WorldPresentation" parent="." unique_id=1074614527 instance=ExtResource("projection")]
 unique_name_in_owner = true
 enabled = false
 
-[node name="WorldHost" type="Node3D" parent="WorldPresentation/ProjectionInput"]
+[node name="WorldHost" type="Node3D" parent="WorldPresentation/ProjectionInput" parent_id_path=PackedInt32Array(1074614527, 1493971111) index="0" unique_id=814319079]
 unique_name_in_owner = true
 process_mode = 1
 
-[node name="Audio" type="Node" parent="." node_paths=PackedStringArray("ui_root", "menu_music")]
+[node name="Audio" type="Node" parent="." unique_id=1251086899 node_paths=PackedStringArray("ui_root", "menu_music")]
 script = ExtResource("audio_script")
-profile = ExtResource("audio_profile")
 ui_root = NodePath("../Interface/ScreenHost")
+profile = ExtResource("audio_profile")
 menu_music = NodePath("MenuMusic")
 
-[node name="MenuMusic" type="FmodEventEmitter2D" parent="Audio"]
-event_name = "event:/Music/soundtrack_main_menu"
+[node name="MenuMusic" type="FmodEventEmitter2D" parent="Audio" unique_id=1402160676]
+event_guid = "{00000000-0000-0000-0000-000000000000}"
 attached = false
-allow_fadeout = true
 
-[node name="DogVisionFilter" parent="." instance=ExtResource("DogVisionFilter")]
+[node name="DogVisionFilter" parent="." unique_id=1953602472 instance=ExtResource("DogVisionFilter")]
 unique_name_in_owner = true
 
-[node name="Interface" type="CanvasLayer" parent="."]
+[node name="Interface" type="CanvasLayer" parent="." unique_id=1729990515]
 layer = 10
 
-[node name="ScreenHost" type="Control" parent="Interface"]
-layout_mode = 1
+[node name="ScreenHost" type="Control" parent="Interface" unique_id=387734752]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -59,68 +56,68 @@ grow_vertical = 2
 mouse_filter = 2
 theme = ExtResource("theme")
 
-[node name="MainMenu" parent="Interface/ScreenHost" instance=ExtResource("MainMenu")]
+[node name="MainMenu" parent="Interface/ScreenHost" unique_id=632383403 instance=ExtResource("MainMenu")]
 unique_name_in_owner = true
-visible = true
+layout_mode = 1
 
-[node name="HUD" parent="Interface/ScreenHost" instance=ExtResource("HUD")]
-unique_name_in_owner = true
-visible = false
-
-[node name="Dialogue" parent="Interface/ScreenHost" instance=ExtResource("Dialogue")]
+[node name="HUD" parent="Interface/ScreenHost" unique_id=1159066808 instance=ExtResource("HUD")]
 unique_name_in_owner = true
 visible = false
 
-[node name="PauseMenu" parent="Interface/ScreenHost" instance=ExtResource("PauseMenu")]
+[node name="Dialogue" parent="Interface/ScreenHost" unique_id=664990300 instance=ExtResource("Dialogue")]
+unique_name_in_owner = true
+visible = false
+anchors_preset = -1
+
+[node name="PauseMenu" parent="Interface/ScreenHost" unique_id=817457369 instance=ExtResource("PauseMenu")]
 unique_name_in_owner = true
 visible = false
 
-[node name="SettingsPanel" parent="Interface/ScreenHost" instance=ExtResource("SettingsPanel")]
+[node name="SettingsPanel" parent="Interface/ScreenHost" unique_id=1855115066 instance=ExtResource("SettingsPanel")]
 unique_name_in_owner = true
 visible = false
+layout_mode = 1
 
-[node name="CompletionNotice" parent="Interface/ScreenHost" instance=ExtResource("CompletionNotice")]
+[node name="CompletionNotice" parent="Interface/ScreenHost" unique_id=1234288645 instance=ExtResource("CompletionNotice")]
 unique_name_in_owner = true
 visible = false
+layout_mode = 0
 
-[node name="Credits" parent="Interface/ScreenHost" instance=ExtResource("credits")]
+[node name="Credits" parent="Interface/ScreenHost" unique_id=1740746836 instance=ExtResource("credits")]
 unique_name_in_owner = true
 visible = false
+layout_mode = 1
 
-[node name="ItemInspection" parent="Interface/ScreenHost" instance=ExtResource("inspection")]
+[node name="ItemInspection" parent="Interface/ScreenHost" unique_id=2137716814 instance=ExtResource("inspection")]
 unique_name_in_owner = true
 
-[node name="Transition" type="CanvasLayer" parent="."]
+[node name="Transition" type="CanvasLayer" parent="." unique_id=570654121]
 layer = 20
 
-[node name="Fade" type="ColorRect" parent="Transition"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Fade" type="ColorRect" parent="Transition" unique_id=1969489565]
 unique_name_in_owner = true
 visible = false
-color = Color(0.08, 0.08, 0.08, 1)
-mouse_filter = 0
-
-[node name="TransitionTitle" type="Label" parent="Transition/Fade"]
-layout_mode = 1
-text = ""
-mouse_filter = 2
-theme_type_variation = &"Subheading"
-unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+color = Color(0.08, 0.08, 0.08, 1)
+
+[node name="TransitionTitle" type="Label" parent="Transition/Fade" unique_id=558267121]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("theme")
+theme_type_variation = &"Subheading"
 horizontal_alignment = 1
 vertical_alignment = 1
-theme = ExtResource("theme")
 
-[node name="ScreenTransition" type="Node" parent="." node_paths=PackedStringArray("fade", "title")]
+[node name="ScreenTransition" type="Node" parent="." unique_id=355194199 node_paths=PackedStringArray("fade", "title")]
 unique_name_in_owner = true
 script = ExtResource("transition_script")
 fade = NodePath("../Transition/Fade")
