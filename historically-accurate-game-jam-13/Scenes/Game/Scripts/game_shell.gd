@@ -296,7 +296,7 @@ func _inspection_closed() -> void:
 
 
 func _bark() -> void:
-	hud.show_bark()
+#	hud.show_bark()
 	if audio.profile:
 		audio.play(audio.profile.bark, room.player)
 

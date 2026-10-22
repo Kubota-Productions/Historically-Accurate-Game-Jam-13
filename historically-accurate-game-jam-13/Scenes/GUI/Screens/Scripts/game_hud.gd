@@ -67,8 +67,8 @@ func show_thought(text: String, seconds: float = thought_seconds) -> void:
 	thought_timer.start(seconds)
 
 
-func show_bark() -> void:
-	show_thought("Woof!", bark_seconds)
+#func show_bark() -> void:
+#	show_thought("Woof!", bark_seconds)
 
 
 func set_sniffing(active: bool) -> void:
