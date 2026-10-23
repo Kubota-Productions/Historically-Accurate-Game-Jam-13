@@ -128,7 +128,7 @@ jobs:
           test -f "$PROJECT_PATH/addons/fmod/libs/linux/libGodotFmod.linux.template_release.x86_64.so"
           test -f "$PROJECT_PATH/addons/fmod/libs/linux/libfmod.so.14"
           test -f "$PROJECT_PATH/addons/fmod/libs/linux/libfmodstudio.so.14"
-          test -f "$PROJECT_PATH/Assets/Audio/fmod/Build/Desktop/Master.bank"
+          test -f "$PROJECT_PATH/Assets/Audio/fmod/Master.bank"
           python3 -m unittest discover -s "$PROJECT_PATH/Tools/Localization" -p "test_*.py" -v
 
   fast-specs-macos:
@@ -153,7 +153,7 @@ jobs:
           test -f "$PROJECT_PATH/addons/fmod/libs/macos/libGodotFmod.macos.template_release.framework/libGodotFmod.macos.template_release"
           test -f "$PROJECT_PATH/addons/fmod/libs/macos/libfmod.dylib"
           test -f "$PROJECT_PATH/addons/fmod/libs/macos/libfmodstudio.dylib"
-          test -f "$PROJECT_PATH/Assets/Audio/fmod/Build/Desktop/Master.bank"
+          test -f "$PROJECT_PATH/Assets/Audio/fmod/Master.bank"
           python3 -m unittest discover -s "$PROJECT_PATH/Tools/Localization" -p "test_*.py" -v
 
   fast-specs-windows:
@@ -179,7 +179,7 @@ jobs:
             "$env:PROJECT_PATH/addons/fmod/libs/windows/libGodotFmod.windows.template_release.x86_64.dll",
             "$env:PROJECT_PATH/addons/fmod/libs/windows/fmod.dll",
             "$env:PROJECT_PATH/addons/fmod/libs/windows/fmodstudio.dll",
-            "$env:PROJECT_PATH/Assets/Audio/fmod/Build/Desktop/Master.bank"
+            "$env:PROJECT_PATH/Assets/Audio/fmod/Master.bank"
           )
           foreach ($item in $required) {
             if (-not (Test-Path $item)) {
