@@ -1,0 +1,1083 @@
+name: Release Game
+
+on:
+  push:
+    branches:
+      - master
+      - main
+    tags:
+      - 'v*'
+      - '[0-9]*'
+  workflow_dispatch:
+    inputs:
+      tag_name:
+        description: 'Release Tag Name (e.g. v0.1.0, or leave empty for latest)'
+        required: false
+        default: ''
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+env:
+  PROJECT_PATH: historically-accurate-game-jam-13
+  GAME_NAME: historically-accurate-game-jam-13
+  GODOT_VERSION: 4.7-stable
+  GODOT_TEMPLATE_DIR: 4.7.stable
+  BLENDER_VERSION: 5.2.2
+
+jobs:
+  # =========================================================================
+  # COLUMN 1: INITIALIZATION & FAST SPECIFICATION CHECKS
+  # =========================================================================
+
+  init-release:
+    name: Initialize Release Metadata
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      tag_name: ${{ steps.meta.outputs.tag_name }}
+      release_title: ${{ steps.meta.outputs.release_title }}
+      godot_version: ${{ steps.meta.outputs.godot_version }}
+      template_dir: ${{ steps.meta.outputs.template_dir }}
+      game_name: ${{ steps.meta.outputs.game_name }}
+      project_path: ${{ steps.meta.outputs.project_path }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: true
+
+      - name: Compute Release Metadata
+        id: meta
+        shell: bash
+        run: |
+          GODOT_VER="${GODOT_VERSION:-4.7-stable}"
+          TEMPLATE_DIR="${GODOT_TEMPLATE_DIR:-4.7.stable}"
+          GAME_NAME="${GAME_NAME:-historically-accurate-game-jam-13}"
+          PROJ_PATH="${PROJECT_PATH:-historically-accurate-game-jam-13}"
+
+          echo "godot_version=$GODOT_VER" >> "$GITHUB_OUTPUT"
+          echo "template_dir=$TEMPLATE_DIR" >> "$GITHUB_OUTPUT"
+          echo "game_name=$GAME_NAME" >> "$GITHUB_OUTPUT"
+          echo "project_path=$PROJ_PATH" >> "$GITHUB_OUTPUT"
+
+          INPUT_TAG="${{ github.event.inputs.tag_name }}"
+          REF_TYPE="${{ github.ref_type }}"
+          REF_NAME="${{ github.ref_name }}"
+
+          if [ -n "$INPUT_TAG" ]; then
+            TAG="$INPUT_TAG"
+            TITLE="Release $TAG"
+          elif [ "$REF_TYPE" = "tag" ]; then
+            TAG="$REF_NAME"
+            TITLE="Release $TAG"
+          else
+            TAG="latest"
+            TITLE="Latest Release (${GITHUB_SHA::7})"
+          fi
+
+          echo "tag_name=$TAG" >> "$GITHUB_OUTPUT"
+          echo "release_title=$TITLE" >> "$GITHUB_OUTPUT"
+          echo "Release Tag: $TAG"
+          echo "Release Title: $TITLE"
+
+      - name: Publish Metadata Step Summary
+        if: always()
+        shell: bash
+        run: |
+          if [ -n "$GITHUB_STEP_SUMMARY" ]; then
+            echo "## 📋 Release Initialization Metadata" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "| Parameter | Value |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| :--- | :--- |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| **Release Tag** | \`${{ steps.meta.outputs.tag_name }}\` |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| **Release Title** | ${{ steps.meta.outputs.release_title }} |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| **Game Name** | \`${{ steps.meta.outputs.game_name }}\` |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| **Project Path** | \`${{ steps.meta.outputs.project_path }}\` |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| **Godot Target** | \`${{ steps.meta.outputs.godot_version }}\` |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| **Audio Engine** | \`FMOD GDExtension (Native Host Build)\` |" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+  fast-specs-linux:
+    name: Fast Specs (Linux)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify FMOD Linux Libraries & Run Fast Specs
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f "$PROJECT_PATH/addons/fmod/fmod.gdextension"
+          test -f "$PROJECT_PATH/addons/fmod/libs/linux/libGodotFmod.linux.editor.x86_64.so"
+          test -f "$PROJECT_PATH/addons/fmod/libs/linux/libGodotFmod.linux.template_release.x86_64.so"
+          test -f "$PROJECT_PATH/addons/fmod/libs/linux/libfmod.so.14"
+          test -f "$PROJECT_PATH/addons/fmod/libs/linux/libfmodstudio.so.14"
+          test -f "$PROJECT_PATH/Assets/Audio/fmod/Build/Desktop/Master.bank"
+          python3 -m unittest discover -s "$PROJECT_PATH/Tools/Localization" -p "test_*.py" -v
+
+  fast-specs-macos:
+    name: Fast Specs (macOS)
+    runs-on: macos-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify FMOD macOS Libraries & Run Fast Specs
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f "$PROJECT_PATH/addons/fmod/fmod.gdextension"
+          test -f "$PROJECT_PATH/addons/fmod/libs/macos/libGodotFmod.macos.editor.framework/libGodotFmod.macos.editor"
+          test -f "$PROJECT_PATH/addons/fmod/libs/macos/libGodotFmod.macos.template_release.framework/libGodotFmod.macos.template_release"
+          test -f "$PROJECT_PATH/addons/fmod/libs/macos/libfmod.dylib"
+          test -f "$PROJECT_PATH/addons/fmod/libs/macos/libfmodstudio.dylib"
+          test -f "$PROJECT_PATH/Assets/Audio/fmod/Build/Desktop/Master.bank"
+          python3 -m unittest discover -s "$PROJECT_PATH/Tools/Localization" -p "test_*.py" -v
+
+  fast-specs-windows:
+    name: Fast Specs (Windows)
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify FMOD Windows Libraries & Run Fast Specs
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $required = @(
+            "$env:PROJECT_PATH/addons/fmod/fmod.gdextension",
+            "$env:PROJECT_PATH/addons/fmod/libs/windows/libGodotFmod.windows.editor.x86_64.dll",
+            "$env:PROJECT_PATH/addons/fmod/libs/windows/libGodotFmod.windows.template_release.x86_64.dll",
+            "$env:PROJECT_PATH/addons/fmod/libs/windows/fmod.dll",
+            "$env:PROJECT_PATH/addons/fmod/libs/windows/fmodstudio.dll",
+            "$env:PROJECT_PATH/Assets/Audio/fmod/Build/Desktop/Master.bank"
+          )
+          foreach ($item in $required) {
+            if (-not (Test-Path $item)) {
+              Write-Error "Missing required FMOD file: $item"
+              exit 1
+            }
+          }
+          python -m unittest discover -s "$env:PROJECT_PATH/Tools/Localization" -p "test_*.py" -v
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+  # =========================================================================
+  # COLUMN 2: NATIVE HOST ENGINE & FMOD RELEASE BUILDS
+  # =========================================================================
+
+  build-core-linux:
+    name: Build Core Engine (Linux)
+    needs: [init-release, fast-specs-linux]
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Install Linux Audio & Build Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential gcc wget unzip curl zip xz-utils \
+            libasound2-dev libpulse-dev libfontconfig1 \
+            libx11-6 libxcursor1 libxinerama1 libxi6 libxrandr2 libxrender1 \
+            libxkbcommon0 libsm6 libice6 libxxf86vm1 libxfixes3 libgl1 libegl1
+
+      - name: Cache Godot Engine, Templates & Blender (Linux)
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/godot-ci-downloads
+            ~/.local/share/godot/export_templates/${{ needs.init-release.outputs.template_dir }}
+          key: godot-linux-${{ needs.init-release.outputs.godot_version }}-blender-${{ env.BLENDER_VERSION }}
+
+      - name: Setup Godot Engine, Templates & Blender (Linux)
+        shell: bash
+        run: |
+          set -euo pipefail
+          GODOT_VER="${{ needs.init-release.outputs.godot_version }}"
+          TPL_DIR="${{ needs.init-release.outputs.template_dir }}"
+          BLENDER_VER="${BLENDER_VERSION:-5.2.2}"
+          CACHE_DIR="$HOME/.cache/godot-ci-downloads"
+          TPL_DEST="$HOME/.local/share/godot/export_templates/$TPL_DIR"
+          GODOT_CFG_DIR="$HOME/.config/godot"
+          mkdir -p "$CACHE_DIR" "$TPL_DEST" "$GODOT_CFG_DIR"
+
+          if [ ! -f "$CACHE_DIR/Godot_v${GODOT_VER}_linux.x86_64.zip" ]; then
+            curl -fL "https://github.com/godotengine/godot-builds/releases/download/${GODOT_VER}/Godot_v${GODOT_VER}_linux.x86_64.zip" \
+              -o "$CACHE_DIR/Godot_v${GODOT_VER}_linux.x86_64.zip"
+          fi
+          unzip -q -o "$CACHE_DIR/Godot_v${GODOT_VER}_linux.x86_64.zip" -d .
+          mv "Godot_v${GODOT_VER}_linux.x86_64" ./godot
+          chmod +x ./godot
+
+          if [ ! -f "$TPL_DEST/linux_release.x86_64" ]; then
+            if [ ! -f "$CACHE_DIR/Godot_v${GODOT_VER}_export_templates.tpz" ]; then
+              curl -fL "https://github.com/godotengine/godot-builds/releases/download/${GODOT_VER}/Godot_v${GODOT_VER}_export_templates.tpz" \
+                -o "$CACHE_DIR/Godot_v${GODOT_VER}_export_templates.tpz"
+            fi
+            unzip -q -o "$CACHE_DIR/Godot_v${GODOT_VER}_export_templates.tpz" -d "$CACHE_DIR/tpl_extract"
+            mv "$CACHE_DIR/tpl_extract/templates/"* "$TPL_DEST/"
+            rm -rf "$CACHE_DIR/tpl_extract"
+          fi
+
+          BLENDER_DIR="$CACHE_DIR/blender-${BLENDER_VER}-linux-x64"
+          if [ ! -x "$BLENDER_DIR/blender" ]; then
+            if [ ! -f "$CACHE_DIR/blender-${BLENDER_VER}-linux-x64.tar.xz" ]; then
+              curl -fL "https://download.blender.org/release/Blender5.2/blender-${BLENDER_VER}-linux-x64.tar.xz" \
+                -o "$CACHE_DIR/blender-${BLENDER_VER}-linux-x64.tar.xz"
+            fi
+            tar -xf "$CACHE_DIR/blender-${BLENDER_VER}-linux-x64.tar.xz" -C "$CACHE_DIR"
+            rm -f "$CACHE_DIR/blender-${BLENDER_VER}-linux-x64.tar.xz"
+          fi
+          "$BLENDER_DIR/blender" --version
+
+          printf '[gd_resource type="EditorSettings" format=3]\n\n[resource]\nfilesystem/import/blender/blender_path = "%s/blender"\n' "$BLENDER_DIR" > "$GODOT_CFG_DIR/editor_settings-4.7.tres"
+          cp -f "$GODOT_CFG_DIR/editor_settings-4.7.tres" "$GODOT_CFG_DIR/editor_settings-4.tres"
+
+          echo "$(pwd)" >> "$GITHUB_PATH"
+          ./godot --version
+
+      - name: Import Project & Export Linux Release Binary (with FMOD)
+        shell: bash
+        run: |
+          set -euo pipefail
+          GAME_NAME="${{ needs.init-release.outputs.game_name }}"
+          PROJ_PATH="${{ needs.init-release.outputs.project_path }}"
+          FMOD_LINUX_DIR="$(pwd)/$PROJ_PATH/addons/fmod/libs/linux"
+          export LD_LIBRARY_PATH="${FMOD_LINUX_DIR}:${LD_LIBRARY_PATH:-}"
+
+          # Pre-register FMOD GDExtension so Godot loads libGodotFmod before compiling @tool autoloads
+          mkdir -p "$PROJ_PATH/.godot"
+          echo "res://addons/fmod/fmod.gdextension" > "$PROJ_PATH/.godot/extension_list.cfg"
+
+          mkdir -p bin/linux
+          OUT_BIN="$(pwd)/bin/linux/${GAME_NAME}.x86_64"
+
+          echo "Importing Godot project on Linux host with FMOD editor plugin & Blender..."
+          ./godot --headless --path "$PROJ_PATH" --import
+
+          echo "Exporting Linux release build with embedded PCK..."
+          ./godot --headless --path "$PROJ_PATH" --export-release "Linux" "$OUT_BIN"
+
+          # Ensure companion FMOD release shared libraries are staged alongside the exported binary
+          cp -f "$FMOD_LINUX_DIR/libGodotFmod.linux.template_release.x86_64.so" bin/linux/
+          cp -f "$FMOD_LINUX_DIR/libfmod.so.14" bin/linux/
+          cp -f "$FMOD_LINUX_DIR/libfmodstudio.so.14" bin/linux/
+          chmod +x "$OUT_BIN" bin/linux/*.so*
+
+          ls -lh bin/linux/
+
+      - name: Upload Core Binaries (Linux)
+        uses: actions/upload-artifact@v4
+        with:
+          name: core-binaries-linux
+          path: bin/linux/
+
+  build-core-macos:
+    name: Build Core Engine (macOS)
+    needs: [init-release, fast-specs-macos]
+    runs-on: macos-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Cache Godot Engine, Templates & Blender (macOS)
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache/godot-ci-downloads
+            ~/Library/Application Support/Godot/export_templates/${{ needs.init-release.outputs.template_dir }}
+          key: godot-macos-${{ needs.init-release.outputs.godot_version }}-blender-${{ env.BLENDER_VERSION }}
+
+      - name: Setup Godot Engine, Templates & Blender (macOS)
+        shell: bash
+        run: |
+          set -euo pipefail
+          GODOT_VER="${{ needs.init-release.outputs.godot_version }}"
+          TPL_DIR="${{ needs.init-release.outputs.template_dir }}"
+          BLENDER_VER="${BLENDER_VERSION:-5.2.2}"
+          CACHE_DIR="$HOME/.cache/godot-ci-downloads"
+          GODOT_SUPPORT_DIR="$HOME/Library/Application Support/Godot"
+          TPL_DEST="$GODOT_SUPPORT_DIR/export_templates/$TPL_DIR"
+          mkdir -p "$CACHE_DIR" "$TPL_DEST"
+
+          if [ ! -f "$CACHE_DIR/Godot_v${GODOT_VER}_macos.universal.zip" ]; then
+            curl -fL "https://github.com/godotengine/godot-builds/releases/download/${GODOT_VER}/Godot_v${GODOT_VER}_macos.universal.zip" \
+              -o "$CACHE_DIR/Godot_v${GODOT_VER}_macos.universal.zip"
+          fi
+          unzip -q -o "$CACHE_DIR/Godot_v${GODOT_VER}_macos.universal.zip" -d .
+          xattr -dr com.apple.quarantine "Godot.app" 2>/dev/null || true
+          printf '#!/usr/bin/env bash\nexec "%s/Godot.app/Contents/MacOS/Godot" "$@"\n' "$(pwd)" > ./godot
+          chmod +x ./godot
+
+          if [ ! -f "$TPL_DEST/macos.zip" ]; then
+            if [ ! -f "$CACHE_DIR/Godot_v${GODOT_VER}_export_templates.tpz" ]; then
+              curl -fL "https://github.com/godotengine/godot-builds/releases/download/${GODOT_VER}/Godot_v${GODOT_VER}_export_templates.tpz" \
+                -o "$CACHE_DIR/Godot_v${GODOT_VER}_export_templates.tpz"
+            fi
+            unzip -q -o "$CACHE_DIR/Godot_v${GODOT_VER}_export_templates.tpz" -d "$CACHE_DIR/tpl_extract"
+            mv "$CACHE_DIR/tpl_extract/templates/"* "$TPL_DEST/"
+            rm -rf "$CACHE_DIR/tpl_extract"
+          fi
+
+          BLENDER_APP="$CACHE_DIR/Blender.app"
+          if [ ! -x "$BLENDER_APP/Contents/MacOS/Blender" ]; then
+            DMG_PATH="$CACHE_DIR/blender-${BLENDER_VER}-macos-arm64.dmg"
+            if [ ! -f "$DMG_PATH" ]; then
+              curl -fL "https://download.blender.org/release/Blender5.2/blender-${BLENDER_VER}-macos-arm64.dmg" \
+                -o "$DMG_PATH"
+            fi
+            MNT_DIR="/tmp/blender_mnt_$$"
+            mkdir -p "$MNT_DIR"
+            hdiutil attach "$DMG_PATH" -nobrowse -quiet -mountpoint "$MNT_DIR"
+            rm -rf "$BLENDER_APP"
+            cp -R "$MNT_DIR/Blender.app" "$BLENDER_APP"
+            hdiutil detach "$MNT_DIR" -quiet || true
+            rm -rf "$MNT_DIR"
+            rm -f "$DMG_PATH"
+          fi
+          xattr -cr "$BLENDER_APP" 2>/dev/null || true
+          "$BLENDER_APP/Contents/MacOS/Blender" --version
+
+          printf '[gd_resource type="EditorSettings" format=3]\n\n[resource]\nfilesystem/import/blender/blender_path = "%s/Contents/MacOS/Blender"\n' "$BLENDER_APP" > "$GODOT_SUPPORT_DIR/editor_settings-4.7.tres"
+          cp -f "$GODOT_SUPPORT_DIR/editor_settings-4.7.tres" "$GODOT_SUPPORT_DIR/editor_settings-4.tres"
+
+          echo "$(pwd)" >> "$GITHUB_PATH"
+          ./godot --version
+
+      - name: Import Project & Export macOS Release Bundle (with FMOD)
+        shell: bash
+        run: |
+          set -euo pipefail
+          GAME_NAME="${{ needs.init-release.outputs.game_name }}"
+          PROJ_PATH="${{ needs.init-release.outputs.project_path }}"
+          FMOD_MAC_DIR="$(pwd)/$PROJ_PATH/addons/fmod/libs/macos"
+
+          # Clear quarantine flags and ad-hoc sign FMOD macOS editor/release dylibs & frameworks
+          xattr -cr "$FMOD_MAC_DIR" 2>/dev/null || true
+          codesign --force --deep --sign - "$FMOD_MAC_DIR/libfmod.dylib" 2>/dev/null || true
+          codesign --force --deep --sign - "$FMOD_MAC_DIR/libfmodL.dylib" 2>/dev/null || true
+          codesign --force --deep --sign - "$FMOD_MAC_DIR/libfmodstudio.dylib" 2>/dev/null || true
+          codesign --force --deep --sign - "$FMOD_MAC_DIR/libfmodstudioL.dylib" 2>/dev/null || true
+          codesign --force --deep --sign - "$FMOD_MAC_DIR/libGodotFmod.macos.editor.framework" 2>/dev/null || true
+          codesign --force --deep --sign - "$FMOD_MAC_DIR/libGodotFmod.macos.template_release.framework" 2>/dev/null || true
+
+          # Pre-register FMOD GDExtension so Godot loads libGodotFmod before compiling @tool autoloads
+          mkdir -p "$PROJ_PATH/.godot"
+          echo "res://addons/fmod/fmod.gdextension" > "$PROJ_PATH/.godot/extension_list.cfg"
+
+          mkdir -p bin/macos
+          OUT_APP="$(pwd)/bin/macos/${GAME_NAME}.app"
+
+          echo "Importing Godot project on macOS host with FMOD editor plugin & Blender..."
+          ./godot --headless --path "$PROJ_PATH" --import
+
+          echo "Exporting macOS universal release bundle..."
+          ./godot --headless --path "$PROJ_PATH" --export-release "macOS" "$OUT_APP"
+
+          # Verify FMOD libraries are bundled inside the .app Frameworks directory
+          FW_DIR="$OUT_APP/Contents/Frameworks"
+          mkdir -p "$FW_DIR"
+          if [ ! -f "$FW_DIR/libfmod.dylib" ]; then
+            cp -f "$FMOD_MAC_DIR/libfmod.dylib" "$FW_DIR/"
+          fi
+          if [ ! -f "$FW_DIR/libfmodstudio.dylib" ]; then
+            cp -f "$FMOD_MAC_DIR/libfmodstudio.dylib" "$FW_DIR/"
+          fi
+          if [ ! -d "$FW_DIR/libGodotFmod.macos.template_release.framework" ]; then
+            cp -R "$FMOD_MAC_DIR/libGodotFmod.macos.template_release.framework" "$FW_DIR/"
+          fi
+
+          xattr -cr "$OUT_APP" 2>/dev/null || true
+          codesign --force --deep --sign - "$OUT_APP" 2>/dev/null || true
+          ls -la "$OUT_APP/Contents" "$OUT_APP/Contents/MacOS" "$OUT_APP/Contents/Frameworks"
+
+      - name: Upload Core Binaries (macOS)
+        uses: actions/upload-artifact@v4
+        with:
+          name: core-binaries-macos
+          path: bin/macos/
+
+  build-core-windows:
+    name: Build Core Engine (Windows)
+    needs: [init-release, fast-specs-windows]
+    runs-on: windows-latest
+    timeout-minutes: 20
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Cache Godot Engine, Templates & Blender (Windows)
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~\AppData\Local\godot-ci-downloads
+            ~\AppData\Roaming\Godot\export_templates\${{ needs.init-release.outputs.template_dir }}
+          key: godot-windows-${{ needs.init-release.outputs.godot_version }}-blender-${{ env.BLENDER_VERSION }}
+
+      - name: Setup Godot Engine, Templates & Blender (Windows)
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $godotVer = "${{ needs.init-release.outputs.godot_version }}"
+          $tplDir = "${{ needs.init-release.outputs.template_dir }}"
+          $blenderVer = if ($env:BLENDER_VERSION) { $env:BLENDER_VERSION } else { "5.2.2" }
+          $cacheDir = Join-Path $env:LOCALAPPDATA "godot-ci-downloads"
+          $godotCfgDir = Join-Path $env:APPDATA "Godot"
+          $tplDest = Join-Path $godotCfgDir "export_templates\$tplDir"
+          New-Item -ItemType Directory -Force -Path $cacheDir | Out-Null
+          New-Item -ItemType Directory -Force -Path $tplDest | Out-Null
+
+          $editorZip = Join-Path $cacheDir "Godot_v${godotVer}_win64.exe.zip"
+          if (-not (Test-Path $editorZip)) {
+            Write-Host "Downloading Godot $godotVer Windows editor..."
+            curl.exe -fL "https://github.com/godotengine/godot-builds/releases/download/$godotVer/Godot_v${godotVer}_win64.exe.zip" -o $editorZip
+          }
+          Expand-Archive -Path $editorZip -DestinationPath "." -Force
+          $godotBin = Get-ChildItem -Path "." -Filter "Godot_v*_win64.exe" | Where-Object { $_.Name -notmatch "console" } | Select-Object -First 1
+          $godotConsoleBin = Get-ChildItem -Path "." -Filter "Godot_v*_win64_console.exe" | Select-Object -First 1
+          if (-not $godotBin -or -not $godotConsoleBin) {
+            Write-Error "Could not locate Godot GUI and console executables!"
+            exit 1
+          }
+          Copy-Item $godotBin.FullName "./godot.exe" -Force
+          Copy-Item $godotConsoleBin.FullName "./godot_console.exe" -Force
+
+          $winReleaseTpl = Join-Path $tplDest "windows_release_x86_64.exe"
+          if (-not (Test-Path $winReleaseTpl)) {
+            $tpzPath = Join-Path $cacheDir "Godot_v${godotVer}_export_templates.tpz"
+            if (-not (Test-Path $tpzPath)) {
+              Write-Host "Downloading Godot $godotVer export templates..."
+              curl.exe -fL "https://github.com/godotengine/godot-builds/releases/download/$godotVer/Godot_v${godotVer}_export_templates.tpz" -o $tpzPath
+            }
+            $tpzZip = Join-Path $cacheDir "Godot_v${godotVer}_export_templates.zip"
+            Copy-Item $tpzPath $tpzZip -Force
+            $extractDir = Join-Path $cacheDir "tpl_extract"
+            Expand-Archive -Path $tpzZip -DestinationPath $extractDir -Force
+            Get-ChildItem -Path (Join-Path $extractDir "templates") | Move-Item -Destination $tplDest -Force
+            Remove-Item $extractDir -Recurse -Force -ErrorAction SilentlyContinue
+            Remove-Item $tpzZip -Force -ErrorAction SilentlyContinue
+          }
+
+          $blenderDir = Join-Path $cacheDir "blender-${blenderVer}-windows-x64"
+          $blenderExe = Join-Path $blenderDir "blender.exe"
+          if (-not (Test-Path $blenderExe)) {
+            $blenderZip = Join-Path $cacheDir "blender-${blenderVer}-windows-x64.zip"
+            if (-not (Test-Path $blenderZip)) {
+              Write-Host "Downloading Blender $blenderVer for Windows..."
+              curl.exe -fL "https://download.blender.org/release/Blender5.2/blender-${blenderVer}-windows-x64.zip" -o $blenderZip
+            }
+            Expand-Archive -Path $blenderZip -DestinationPath $cacheDir -Force
+            Remove-Item $blenderZip -Force -ErrorAction SilentlyContinue
+          }
+          & $blenderExe --version
+          $blenderPathSlash = $blenderExe -replace '\\', '/'
+          $editorSettingsContent = @(
+            '[gd_resource type="EditorSettings" format=3]',
+            '',
+            '[resource]',
+            "filesystem/import/blender/blender_path = `"$blenderPathSlash`""
+          ) -join "`n"
+          Set-Content -Path (Join-Path $godotCfgDir "editor_settings-4.7.tres") -Value $editorSettingsContent -Encoding utf8
+          Set-Content -Path (Join-Path $godotCfgDir "editor_settings-4.tres") -Value $editorSettingsContent -Encoding utf8
+
+          $godotExePath = (Resolve-Path "./godot_console.exe").Path
+          "GODOT_BIN=$godotExePath" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+          (Get-Location).Path | Out-File -FilePath $env:GITHUB_PATH -Append -Encoding utf8
+          ./godot_console.exe --version
+
+      - name: Import Project & Export Windows Release Binary (with FMOD)
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $gameName = "${{ needs.init-release.outputs.game_name }}"
+          $projPath = "${{ needs.init-release.outputs.project_path }}"
+          $fmodWinDir = (Resolve-Path "$projPath/addons/fmod/libs/windows").Path
+          $env:PATH = "$fmodWinDir;$env:PATH"
+
+          # Pre-register FMOD GDExtension so Godot loads libGodotFmod before compiling @tool autoloads
+          New-Item -ItemType Directory -Force -Path "$projPath/.godot" | Out-Null
+          Set-Content -Path "$projPath/.godot/extension_list.cfg" -Value "res://addons/fmod/fmod.gdextension" -Encoding ascii
+
+          New-Item -ItemType Directory -Force -Path "bin/windows" | Out-Null
+          $outExe = Join-Path (Resolve-Path "bin/windows").Path "$gameName.exe"
+
+          Write-Host "Importing Godot project on Windows host with FMOD editor plugin & Blender..."
+          ./godot_console.exe --headless --path $projPath --import
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+          Write-Host "Exporting Windows release build with embedded PCK..."
+          ./godot_console.exe --headless --path $projPath --export-release "Windows Desktop" $outExe
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+          # Ensure companion FMOD release DLLs are staged alongside the exported executable
+          Copy-Item "$fmodWinDir/libGodotFmod.windows.template_release.x86_64.dll" "bin/windows/" -Force
+          Copy-Item "$fmodWinDir/fmod.dll" "bin/windows/" -Force
+          Copy-Item "$fmodWinDir/fmodstudio.dll" "bin/windows/" -Force
+
+          Get-ChildItem "bin/windows" | Select-Object Name, Length
+
+      - name: Upload Core Binaries (Windows)
+        uses: actions/upload-artifact@v4
+        with:
+          name: core-binaries-windows
+          path: bin/windows/
+
+  # =========================================================================
+  # COLUMN 3: ENGINE TEST SUITES & STANDALONE SINGLE-EXECUTABLE PACKAGING
+  # =========================================================================
+
+  test-engine-linux:
+    name: Test Engine & Editor (Linux)
+    needs: [init-release, build-core-linux]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Download Core Binaries (Linux)
+        uses: actions/download-artifact@v4
+        with:
+          name: core-binaries-linux
+          path: bin/linux
+      - name: Verify Exported Linux Artifacts & Embedded FMOD Banks
+        shell: bash
+        run: |
+          set -euo pipefail
+          GAME_NAME="${{ needs.init-release.outputs.game_name }}"
+          test -f "bin/linux/${GAME_NAME}.x86_64"
+          test -f "bin/linux/libGodotFmod.linux.template_release.x86_64.so"
+          test -f "bin/linux/libfmod.so.14"
+          test -f "bin/linux/libfmodstudio.so.14"
+          grep -aq "Master.bank" "bin/linux/${GAME_NAME}.x86_64"
+          grep -aq "Master.strings.bank" "bin/linux/${GAME_NAME}.x86_64"
+          echo "Verified embedded PCK contains FMOD bank assets in bin/linux/${GAME_NAME}.x86_64"
+
+  test-engine-macos:
+    name: Test Engine & Editor (macOS)
+    needs: [init-release, build-core-macos]
+    runs-on: macos-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Download Core Binaries (macOS)
+        uses: actions/download-artifact@v4
+        with:
+          name: core-binaries-macos
+          path: bin/macos
+      - name: Verify Exported macOS Bundle & Embedded FMOD Banks
+        shell: bash
+        run: |
+          set -euo pipefail
+          GAME_NAME="${{ needs.init-release.outputs.game_name }}"
+          APP_DIR="bin/macos/${GAME_NAME}.app"
+          test -d "$APP_DIR"
+          test -f "$APP_DIR/Contents/Frameworks/libfmod.dylib"
+          test -f "$APP_DIR/Contents/Frameworks/libfmodstudio.dylib"
+          PCK_FILE=$(find "$APP_DIR/Contents/Resources" -name "*.pck" | head -n 1)
+          test -n "$PCK_FILE"
+          grep -aq "Master.bank" "$PCK_FILE"
+          grep -aq "Master.strings.bank" "$PCK_FILE"
+          echo "Verified macOS .app bundle contains FMOD Frameworks and bank assets in $PCK_FILE"
+
+  test-engine-windows:
+    name: Test Engine & Editor (Windows)
+    needs: [init-release, build-core-windows]
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Download Core Binaries (Windows)
+        uses: actions/download-artifact@v4
+        with:
+          name: core-binaries-windows
+          path: bin/windows
+      - name: Verify Exported Windows Artifacts & Embedded FMOD Banks
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $gameName = "${{ needs.init-release.outputs.game_name }}"
+          $exePath = "bin/windows/$gameName.exe"
+          if (-not (Test-Path $exePath)) { throw "Missing $exePath" }
+          if (-not (Test-Path "bin/windows/libGodotFmod.windows.template_release.x86_64.dll")) { throw "Missing libGodotFmod DLL" }
+          if (-not (Test-Path "bin/windows/fmod.dll")) { throw "Missing fmod.dll" }
+          if (-not (Test-Path "bin/windows/fmodstudio.dll")) { throw "Missing fmodstudio.dll" }
+          python -c "
+          import pathlib
+          data = pathlib.Path('$exePath').read_bytes()
+          assert b'Master.bank' in data, 'Master.bank missing from embedded PCK!'
+          assert b'Master.strings.bank' in data, 'Master.strings.bank missing from embedded PCK!'
+          print('Verified embedded PCK contains FMOD bank assets in $exePath')
+          "
+
+  build-consumers-linux:
+    name: Build Consumers & Single Executable (Linux)
+    needs: [init-release, build-core-linux]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Install Linux Runtime & Compiler Dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential gcc zip libasound2-dev libpulse-dev libfontconfig1 libx11-6 libxcursor1 libxinerama1 libxi6 libxrandr2 libxrender1 libgl1
+      - name: Download Core Binaries (Linux)
+        uses: actions/download-artifact@v4
+        with:
+          name: core-binaries-linux
+          path: bin/linux
+      - name: Stage Standalone Single Executable & Archive (Linux)
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          GAME_NAME="${{ needs.init-release.outputs.game_name }}"
+          PROJ_PATH="${{ needs.init-release.outputs.project_path }}"
+          chmod +x "bin/linux/${GAME_NAME}.x86_64" bin/linux/*.so*
+
+          # 1. Build true standalone single-file Linux executable (bundles game + FMOD .so libraries)
+          python3 "$PROJ_PATH/Tools/bundle_single_executable.py" \
+            --input-dir "bin/linux" \
+            --entry "${GAME_NAME}.x86_64" \
+            --output "dist/${GAME_NAME}-linux-x86_64" \
+            --platform linux
+          chmod +x "dist/${GAME_NAME}-linux-x86_64"
+
+          # 2. Smoke test the standalone single executable from an isolated directory
+          SMOKE_DIR="$(mktemp -d)"
+          cp "dist/${GAME_NAME}-linux-x86_64" "$SMOKE_DIR/"
+          echo "Running headless boot smoke test on isolated standalone Linux single executable..."
+          (cd "$SMOKE_DIR" && "./${GAME_NAME}-linux-x86_64" --headless --quit-after 50)
+          rm -rf "$SMOKE_DIR"
+          echo "dist/${GAME_NAME}-linux-x86_64 passed headless boot smoke test!"
+
+          # 3. Also stage complete zip distribution
+          (cd bin/linux && zip -r "../../dist/${GAME_NAME}-linux.zip" .)
+          ls -lh dist/
+      - name: Upload Consumer Packages Artifact (Linux)
+        uses: actions/upload-artifact@v4
+        with:
+          name: consumer-packages-linux
+          path: dist/
+
+  build-consumers-macos:
+    name: Build Consumers & Single Executable (macOS)
+    needs: [init-release, build-core-macos]
+    runs-on: macos-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Download Core Binaries (macOS)
+        uses: actions/download-artifact@v4
+        with:
+          name: core-binaries-macos
+          path: bin/macos
+      - name: Stage Standalone Single Executable & Archive (macOS)
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          GAME_NAME="${{ needs.init-release.outputs.game_name }}"
+          PROJ_PATH="${{ needs.init-release.outputs.project_path }}"
+          APP_DIR="bin/macos/${GAME_NAME}.app"
+
+          # Restore executable permissions lost during artifact upload/download
+          chmod -R +x "$APP_DIR/Contents/MacOS"
+          find "$APP_DIR/Contents/Frameworks" -type f -exec chmod +x {} + 2>/dev/null || true
+          xattr -cr "$APP_DIR" 2>/dev/null || true
+          codesign --force --deep --sign - "$APP_DIR" 2>/dev/null || true
+
+          MACOS_BIN_NAME=$(ls -1 "$APP_DIR/Contents/MacOS" | head -n 1)
+          ENTRY_REL="${GAME_NAME}.app/Contents/MacOS/${MACOS_BIN_NAME}"
+
+          # 1. Build true standalone single-file macOS universal executable (bundles .app + FMOD Frameworks)
+          python3 "$PROJ_PATH/Tools/bundle_single_executable.py" \
+            --input-dir "bin/macos" \
+            --entry "$ENTRY_REL" \
+            --output "dist/${GAME_NAME}-macos-universal" \
+            --platform macos
+          chmod +x "dist/${GAME_NAME}-macos-universal"
+
+          # 2. Smoke test the standalone single executable from an isolated directory
+          SMOKE_DIR="$(mktemp -d)"
+          cp "dist/${GAME_NAME}-macos-universal" "$SMOKE_DIR/"
+          echo "Running headless boot smoke test on isolated standalone macOS single executable..."
+          (cd "$SMOKE_DIR" && "./${GAME_NAME}-macos-universal" --headless --quit-after 50)
+          rm -rf "$SMOKE_DIR"
+          echo "dist/${GAME_NAME}-macos-universal passed headless boot smoke test!"
+
+          # 3. Also stage complete .app zip archive
+          (cd bin/macos && ditto -c -k --sequesterRsrc --keepParent "${GAME_NAME}.app" "../../dist/${GAME_NAME}-macos.zip")
+          ls -lh dist/
+      - name: Upload Consumer Packages Artifact (macOS)
+        uses: actions/upload-artifact@v4
+        with:
+          name: consumer-packages-macos
+          path: dist/
+
+  build-consumers-windows:
+    name: Build Consumers & Single Executable (Windows)
+    needs: [init-release, build-core-windows]
+    runs-on: windows-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+      - name: Download Core Binaries (Windows)
+        uses: actions/download-artifact@v4
+        with:
+          name: core-binaries-windows
+          path: bin/windows
+      - name: Stage Standalone Single Executable & Archive (Windows)
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          New-Item -ItemType Directory -Force -Path "dist" | Out-Null
+          $gameName = "${{ needs.init-release.outputs.game_name }}"
+          $projPath = "${{ needs.init-release.outputs.project_path }}"
+
+          # 1. Build true standalone single-file Windows executable (bundles .exe + embedded PCK + FMOD DLLs)
+          python "$projPath/Tools/bundle_single_executable.py" `
+            --input-dir "bin/windows" `
+            --entry "$gameName.exe" `
+            --output "dist/$gameName-windows-x86_64.exe" `
+            --platform windows
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+          Copy-Item "dist/$gameName-windows-x86_64.exe" "dist/$gameName.exe" -Force
+
+          # 2. Smoke test the standalone single executable from an isolated directory (with zero DLLs beside it)
+          $smokeDir = Join-Path $env:TEMP ("smoke_win_" + [guid]::NewGuid().ToString("N"))
+          New-Item -ItemType Directory -Force -Path $smokeDir | Out-Null
+          $isolatedExe = Join-Path $smokeDir "$gameName-windows-x86_64.exe"
+          Copy-Item "dist/$gameName-windows-x86_64.exe" $isolatedExe -Force
+
+          Write-Host "Running headless boot smoke test on isolated standalone Windows single executable..."
+          $proc = Start-Process -FilePath $isolatedExe -ArgumentList @("--headless", "--quit-after", "50") -WorkingDirectory $smokeDir -Wait -NoNewWindow -PassThru
+          Remove-Item $smokeDir -Recurse -Force -ErrorAction SilentlyContinue
+          if ($proc.ExitCode -ne 0) {
+            Write-Error "CRITICAL: Standalone Windows executable failed headless boot smoke test (exit code: $($proc.ExitCode))!"
+            exit 1
+          }
+          Write-Host "dist/$gameName-windows-x86_64.exe passed headless boot smoke test!"
+
+          # 3. Also stage complete zip distribution containing executable + FMOD DLLs
+          Compress-Archive -Path "bin/windows/*" -DestinationPath "dist/$gameName-windows.zip" -Force
+          Get-ChildItem "dist" | Select-Object Name, Length
+      - name: Upload Consumer Packages Artifact (Windows)
+        uses: actions/upload-artifact@v4
+        with:
+          name: consumer-packages-windows
+          path: dist/
+
+  # =========================================================================
+  # COLUMN 4: PLATFORM PACKAGING & STEP SUMMARIES
+  # =========================================================================
+
+  package-linux-release:
+    name: Package Linux Release (x86_64)
+    needs: [init-release, test-engine-linux, build-consumers-linux]
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Download Consumer Packages (Linux)
+        uses: actions/download-artifact@v4
+        with:
+          name: consumer-packages-linux
+          path: bin/linux
+      - name: Publish Linux Build Step Summary
+        if: always()
+        shell: bash
+        run: |
+          if [ -n "$GITHUB_STEP_SUMMARY" ]; then
+            count=$(find bin/linux -maxdepth 1 -type f | wc -l)
+            echo "## 🚀 Game Release Build Status — Linux (x86_64)" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "| Overall Status | Platform | Target Godot | Artifact Count |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| :---: | :---: | :---: | :---: |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| 🟢 **ALL PHASES PASSED** | **Linux (x86_64)** | \`${{ needs.init-release.outputs.godot_version }}\` | **$count** |" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "### 📊 Release Build Phases Tracked" >> "$GITHUB_STEP_SUMMARY"
+            echo "| Status | Phase Tag | Phase Name | Category |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| :---: | :--- | :--- | :--- |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| ✅ | \`[BUILD:EXPORT]\` | Native Host Godot Release Export + FMOD Banks | Build |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| ✅ | \`[TEST:SPECS]\` | Bank & Localization Integrity Verification | Test |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| ✅ | \`[PACKAGE:SINGLE_EXE]\` | Standalone Single-Executable Bundle & Smoke Test | Package |" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "<details open><summary><b>📦 Built Linux Release Deliverables</b></summary>" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "| Artifact File | Size |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| :--- | :---: |" >> "$GITHUB_STEP_SUMMARY"
+            for f in bin/linux/*; do
+              if [ -f "$f" ]; then
+                echo "| \`$(basename "$f")\` | $(du -h "$f" | cut -f1) |" >> "$GITHUB_STEP_SUMMARY"
+              fi
+            done
+            echo "</details>" >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Upload Linux Staging Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-linux-artifacts
+          path: bin/linux/
+
+  package-macos-release:
+    name: Package macOS Release (Universal)
+    needs: [init-release, test-engine-macos, build-consumers-macos]
+    runs-on: macos-latest
+    timeout-minutes: 10
+    steps:
+      - name: Download Consumer Packages (macOS)
+        uses: actions/download-artifact@v4
+        with:
+          name: consumer-packages-macos
+          path: bin/macos
+      - name: Publish macOS Build Step Summary
+        if: always()
+        shell: bash
+        run: |
+          if [ -n "$GITHUB_STEP_SUMMARY" ]; then
+            count=$(find bin/macos -maxdepth 1 -type f | wc -l)
+            echo "## 🚀 Game Release Build Status — macOS (Universal)" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "| Overall Status | Platform | Target Godot | Artifact Count |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| :---: | :---: | :---: | :---: |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| 🟢 **ALL PHASES PASSED** | **macOS (Universal)** | \`${{ needs.init-release.outputs.godot_version }}\` | **$count** |" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "### 📊 Release Build Phases Tracked" >> "$GITHUB_STEP_SUMMARY"
+            echo "| Status | Phase Tag | Phase Name | Category |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| :---: | :--- | :--- | :--- |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| ✅ | \`[BUILD:EXPORT]\` | Native Host Godot Release Export + FMOD Frameworks | Build |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| ✅ | \`[TEST:SPECS]\` | Bank & Localization Integrity Verification | Test |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| ✅ | \`[PACKAGE:SINGLE_EXE]\` | Standalone Single-Executable Bundle & Smoke Test | Package |" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "<details open><summary><b>📦 Built macOS Release Deliverables</b></summary>" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "| Artifact File | Size |" >> "$GITHUB_STEP_SUMMARY"
+            echo "| :--- | :---: |" >> "$GITHUB_STEP_SUMMARY"
+            for f in bin/macos/*; do
+              if [ -f "$f" ]; then
+                echo "| \`$(basename "$f")\` | $(du -h "$f" | cut -f1) |" >> "$GITHUB_STEP_SUMMARY"
+              fi
+            done
+            echo "</details>" >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - name: Upload macOS Staging Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-macos-artifacts
+          path: bin/macos/
+
+  package-windows-release:
+    name: Package Windows Release (x86_64)
+    needs: [init-release, test-engine-windows, build-consumers-windows]
+    runs-on: windows-latest
+    timeout-minutes: 10
+    steps:
+      - name: Download Consumer Packages (Windows)
+        uses: actions/download-artifact@v4
+        with:
+          name: consumer-packages-windows
+          path: bin/windows
+      - name: Publish Windows Build Step Summary
+        if: always()
+        shell: pwsh
+        run: |
+          if ($env:GITHUB_STEP_SUMMARY) {
+            $artifacts = @()
+            if (Test-Path "bin/windows") {
+              $artifacts = Get-ChildItem "bin/windows" | Where-Object { -not $_.PSIsContainer }
+            }
+            $artRows = ($artifacts | ForEach-Object { "| ``$($_.Name)`` | $([math]::Round($_.Length / 1MB, 2)) MB |" }) -join "`n"
+            $summaryLines = @(
+              "## 🚀 Game Release Build Status — Windows (x86_64)",
+              "",
+              "| Overall Status | Platform | Target Godot | Artifact Count |",
+              "| :---: | :---: | :---: | :---: |",
+              "| 🟢 **ALL PHASES PASSED** | **Windows (x86_64)** | ``${{ needs.init-release.outputs.godot_version }}`` | **$($artifacts.Count)** |",
+              "",
+              "### 📊 Release Build Phases Tracked",
+              "| Status | Phase Tag | Phase Name | Category |",
+              "| :---: | :--- | :--- | :--- |",
+              "| ✅ | ``[BUILD:EXPORT]`` | Native Host Godot Release Export + FMOD DLLs | Build |",
+              "| ✅ | ``[TEST:SPECS]`` | Bank & Localization Integrity Verification | Test |",
+              "| ✅ | ``[PACKAGE:SINGLE_EXE]`` | Standalone Single-Executable Bundle & Smoke Test | Package |",
+              "",
+              "<details open><summary><b>📦 Built Windows Release Deliverables ($($artifacts.Count) files)</b></summary>",
+              "",
+              "| Artifact File | Size |",
+              "| :--- | :---: |",
+              $artRows,
+              "",
+              "</details>"
+            )
+            $summary = $summaryLines -join "`n"
+            $summary | Out-File -FilePath $env:GITHUB_STEP_SUMMARY -Append -Encoding utf8
+          }
+      - name: Upload Windows Staging Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-windows-artifacts
+          path: bin/windows/
+
+  # =========================================================================
+  # COLUMN 5: UNIFIED RELEASE FINALIZATION & PUBLICATION
+  # =========================================================================
+
+  finalize-release:
+    name: Finalize & Publish Unified Release
+    needs: [init-release, package-windows-release, package-linux-release, package-macos-release]
+    if: always() && !cancelled() && (needs.package-windows-release.result == 'success' || needs.package-linux-release.result == 'success' || needs.package-macos-release.result == 'success')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Download Windows Artifacts
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: release-windows-artifacts
+          path: staging/windows
+
+      - name: Download Linux Artifacts
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: release-linux-artifacts
+          path: staging/linux
+
+      - name: Download macOS Artifacts
+        continue-on-error: true
+        uses: actions/download-artifact@v4
+        with:
+          name: release-macos-artifacts
+          path: staging/macos
+
+      - name: Collect & Stage All Release Files
+        shell: bash
+        run: |
+          DIST_DIR="dist"
+          mkdir -p "$DIST_DIR"
+          [ -d "staging/windows" ] && cp -r staging/windows/* "$DIST_DIR/" 2>/dev/null || true
+          [ -d "staging/linux" ] && cp -r staging/linux/* "$DIST_DIR/" 2>/dev/null || true
+          [ -d "staging/macos" ] && cp -r staging/macos/* "$DIST_DIR/" 2>/dev/null || true
+
+          chmod +x "$DIST_DIR/"*-linux-* "$DIST_DIR/"*-macos-* 2>/dev/null || true
+
+          echo "Release Assets Staged:"
+          ls -la "$DIST_DIR"
+          (cd "$DIST_DIR" && ls -1 | grep -v '^checksums.txt$' | xargs -r sha256sum > checksums.txt 2>/dev/null || true)
+          find "$DIST_DIR" -type f -empty -delete
+
+      - name: Clean Previous Release & Refresh Latest Tag
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="${{ needs.init-release.outputs.tag_name }}"
+          echo "Clobbering previous '$TAG' release and tag if present..."
+          gh release delete "$TAG" --repo "${{ github.repository }}" --yes --cleanup-tag 2>/dev/null || true
+          git tag -d "$TAG" 2>/dev/null || true
+          git push origin ":refs/tags/$TAG" 2>/dev/null || true
+          git tag -f "$TAG" "${{ github.sha }}"
+          git push origin "refs/tags/$TAG" --force
+
+      - name: Generate Descriptive Release Notes
+        shell: bash
+        run: |
+          GAME_NAME="${{ needs.init-release.outputs.game_name }}"
+          GODOT_VER="${{ needs.init-release.outputs.godot_version }}"
+          cat << EOF > release_body.md
+          ## Historically Accurate GameJam 13 — Release Notes
+
+          ### 📦 Standalone Single-Executable Builds (Self-Contained with FMOD)
+          - **\`${GAME_NAME}-windows-x86_64.exe\`** / **\`${GAME_NAME}.exe\`**: Standalone single-file executable for **Windows (x86_64)** (bundles embedded PCK + FMOD runtime DLLs).
+          - **\`${GAME_NAME}-linux-x86_64\`**: Standalone single-file executable for **Linux (x86_64)** (bundles embedded PCK + FMOD shared libraries).
+          - **\`${GAME_NAME}-macos-universal\`**: Standalone single-file executable for **macOS (Universal)** (bundles \`.app\` + FMOD Frameworks).
+
+          ### 🗂️ Complete Archive Packages
+          - **\`${GAME_NAME}-windows.zip\`**: Complete distribution archive for **Windows (x86_64)**.
+          - **\`${GAME_NAME}-linux.zip\`**: Complete distribution archive for **Linux (x86_64)**.
+          - **\`${GAME_NAME}-macos.zip\`**: Complete \`.app\` bundle archive for **macOS (Universal)**.
+
+          ### 🔧 Engine & Audio Compatibility
+          - **Target Godot Engine**: \`${GODOT_VER}\` (Jolt Physics)
+          - **Audio Engine**: FMOD Studio GDExtension (native host export with embedded \`.bank\` assets)
+
+          ### 🔒 Integrity Checksums
+          Refer to \`checksums.txt\` for SHA-256 validation of all distributed binaries.
+          EOF
+
+      - name: Publish Release Assets
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ needs.init-release.outputs.tag_name }}
+          target_commitish: ${{ github.sha }}
+          name: ${{ needs.init-release.outputs.release_title }}
+          body_path: release_body.md
+          files: dist/*
+          draft: false
+          prerelease: false
+          make_latest: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish Release Finalization Step Summary
+        if: always()
+        shell: bash
+        run: |
+          if [ -n "$GITHUB_STEP_SUMMARY" ] && [ -f "release_body.md" ]; then
+            cat release_body.md >> "$GITHUB_STEP_SUMMARY"
+          fi
