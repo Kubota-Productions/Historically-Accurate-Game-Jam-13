@@ -50,7 +50,7 @@ colors = PackedColorArray(0.12245094, 0.00017981649, 0.31626332, 1, 5.053729e-07
 gradient = SubResource("Gradient_cyvlh")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_na43p"]
-render_priority = 0
+render_priority = 1
 shader = ExtResource("2_na43p")
 shader_parameter/dither_tex = ExtResource("3_sonli")
 shader_parameter/dither_size = 5.8750002315625
@@ -128,7 +128,7 @@ shape = SubResource("Shape_Scientist")
 [node name="Scientist" parent="Actors/Scientist/Visuals" unique_id=1906525048 instance=ExtResource("8_0wxnl")]
 transform = Transform3D(-0.9841124, 0, -0.17754693, 0, 1, 0, 0.17754693, 0, -0.9841124, 0.138268, -0.9722022, 4.5924973)
 
-[node name="Skeleton3D" parent="Actors/Scientist/Visuals/Scientist/metarig" parent_id_path=PackedInt32Array(1906525048, 260736732) index="0" unique_id=1232426949]
+[node name="Skeleton3D" parent="Actors/Scientist/Visuals/Scientist/metarig" parent_id_path=PackedInt32Array(1906525048, 1859008093) index="0" unique_id=1748964721]
 bones/0/position = Vector3(0, 0.55922335, -0.055200007)
 bones/3/rotation = Quaternion(0.06632985, 5.4106256e-18, 2.8473122e-17, 0.9977978)
 bones/4/rotation = Quaternion(0.14149326, -0.032950487, -0.09400088, 0.98491514)
@@ -160,7 +160,7 @@ primary_damp_threshold = 1.0
 secondary_limit_angle = 0.8548623
 secondary_damp_threshold = 1.0
 
-[node name="AnimationPlayer" parent="Actors/Scientist/Visuals/Scientist" index="1" unique_id=339605212]
+[node name="AnimationPlayer" parent="Actors/Scientist/Visuals/Scientist" index="1" unique_id=74232475]
 autoplay = &"metarigAction"
 
 [node name="Gaze" type="Node" parent="Actors/Scientist" unique_id=1408834466 node_paths=PackedStringArray("look_at", "target")]

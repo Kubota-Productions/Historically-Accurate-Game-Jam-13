@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dh5ulj2200t7d"
 path.s3tc="res://.godot/imported/shelf_furniture_Normal_OpenGL.png-33a7e80f2a79ea44c9757adf5f5bbe9e.s3tc.ctex"
+path.etc2="res://.godot/imported/shelf_furniture_Normal_OpenGL.png-33a7e80f2a79ea44c9757adf5f5bbe9e.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://Assets/3D/shelf_furniture_Normal_OpenGL.png"
-dest_files=["res://.godot/imported/shelf_furniture_Normal_OpenGL.png-33a7e80f2a79ea44c9757adf5f5bbe9e.s3tc.ctex"]
+dest_files=["res://.godot/imported/shelf_furniture_Normal_OpenGL.png-33a7e80f2a79ea44c9757adf5f5bbe9e.s3tc.ctex", "res://.godot/imported/shelf_furniture_Normal_OpenGL.png-33a7e80f2a79ea44c9757adf5f5bbe9e.etc2.ctex"]
 
 [params]
 

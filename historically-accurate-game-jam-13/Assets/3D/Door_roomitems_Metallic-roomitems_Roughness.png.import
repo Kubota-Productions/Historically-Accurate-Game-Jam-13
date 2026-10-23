@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bcfp1ogkbxr2u"
 path.s3tc="res://.godot/imported/Door_roomitems_Metallic-roomitems_Roughness.png-909fdd8eff45046f038239216dc03e63.s3tc.ctex"
+path.etc2="res://.godot/imported/Door_roomitems_Metallic-roomitems_Roughness.png-909fdd8eff45046f038239216dc03e63.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://Assets/3D/Door_roomitems_Metallic-roomitems_Roughness.png"
-dest_files=["res://.godot/imported/Door_roomitems_Metallic-roomitems_Roughness.png-909fdd8eff45046f038239216dc03e63.s3tc.ctex"]
+dest_files=["res://.godot/imported/Door_roomitems_Metallic-roomitems_Roughness.png-909fdd8eff45046f038239216dc03e63.s3tc.ctex", "res://.godot/imported/Door_roomitems_Metallic-roomitems_Roughness.png-909fdd8eff45046f038239216dc03e63.etc2.ctex"]
 
 [params]
 

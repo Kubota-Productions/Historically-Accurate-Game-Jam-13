@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://urqaswso1voa"
 path.s3tc="res://.godot/imported/couch_furniture_Base_color.png-279c9904a2140a1c11db6c623dbe196c.s3tc.ctex"
+path.etc2="res://.godot/imported/couch_furniture_Base_color.png-279c9904a2140a1c11db6c623dbe196c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://Assets/3D/couch_furniture_Base_color.png"
-dest_files=["res://.godot/imported/couch_furniture_Base_color.png-279c9904a2140a1c11db6c623dbe196c.s3tc.ctex"]
+dest_files=["res://.godot/imported/couch_furniture_Base_color.png-279c9904a2140a1c11db6c623dbe196c.s3tc.ctex", "res://.godot/imported/couch_furniture_Base_color.png-279c9904a2140a1c11db6c623dbe196c.etc2.ctex"]
 
 [params]
 

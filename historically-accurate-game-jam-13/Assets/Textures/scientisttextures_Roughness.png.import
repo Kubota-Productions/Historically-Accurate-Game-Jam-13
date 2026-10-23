@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://by3arrxcq4m2c"
 path.s3tc="res://.godot/imported/scientisttextures_Roughness.png-2f39ad380d1f7be0973c57f9aa15e454.s3tc.ctex"
+path.etc2="res://.godot/imported/scientisttextures_Roughness.png-2f39ad380d1f7be0973c57f9aa15e454.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Assets/Textures/scientisttextures_Roughness.png"
-dest_files=["res://.godot/imported/scientisttextures_Roughness.png-2f39ad380d1f7be0973c57f9aa15e454.s3tc.ctex"]
+dest_files=["res://.godot/imported/scientisttextures_Roughness.png-2f39ad380d1f7be0973c57f9aa15e454.s3tc.ctex", "res://.godot/imported/scientisttextures_Roughness.png-2f39ad380d1f7be0973c57f9aa15e454.etc2.ctex"]
 
 [params]
 

@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bdo7rulncot4i"
 path.s3tc="res://.godot/imported/furniture_Roughness.png-687ae7bfec3709fbeb50b34a89230695.s3tc.ctex"
+path.etc2="res://.godot/imported/furniture_Roughness.png-687ae7bfec3709fbeb50b34a89230695.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Assets/Textures/furniture_Roughness.png"
-dest_files=["res://.godot/imported/furniture_Roughness.png-687ae7bfec3709fbeb50b34a89230695.s3tc.ctex"]
+dest_files=["res://.godot/imported/furniture_Roughness.png-687ae7bfec3709fbeb50b34a89230695.s3tc.ctex", "res://.godot/imported/furniture_Roughness.png-687ae7bfec3709fbeb50b34a89230695.etc2.ctex"]
 
 [params]
 

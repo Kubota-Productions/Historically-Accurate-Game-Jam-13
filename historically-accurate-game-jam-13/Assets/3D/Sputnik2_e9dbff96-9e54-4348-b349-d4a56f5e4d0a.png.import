@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cafwayswls0ma"
 path.s3tc="res://.godot/imported/Sputnik2_e9dbff96-9e54-4348-b349-d4a56f5e4d0a.png-84c14c3d15c52d3f7778108da89b292c.s3tc.ctex"
+path.etc2="res://.godot/imported/Sputnik2_e9dbff96-9e54-4348-b349-d4a56f5e4d0a.png-84c14c3d15c52d3f7778108da89b292c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://Assets/3D/Sputnik2_e9dbff96-9e54-4348-b349-d4a56f5e4d0a.png"
-dest_files=["res://.godot/imported/Sputnik2_e9dbff96-9e54-4348-b349-d4a56f5e4d0a.png-84c14c3d15c52d3f7778108da89b292c.s3tc.ctex"]
+dest_files=["res://.godot/imported/Sputnik2_e9dbff96-9e54-4348-b349-d4a56f5e4d0a.png-84c14c3d15c52d3f7778108da89b292c.s3tc.ctex", "res://.godot/imported/Sputnik2_e9dbff96-9e54-4348-b349-d4a56f5e4d0a.png-84c14c3d15c52d3f7778108da89b292c.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://civkk3xboh802"
 path.s3tc="res://.godot/imported/whiteboard_roomitems_Normal.png-4b6a1c82230765cb793b6bc655133f08.s3tc.ctex"
+path.etc2="res://.godot/imported/whiteboard_roomitems_Normal.png-4b6a1c82230765cb793b6bc655133f08.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://Assets/3D/whiteboard_roomitems_Normal.png"
-dest_files=["res://.godot/imported/whiteboard_roomitems_Normal.png-4b6a1c82230765cb793b6bc655133f08.s3tc.ctex"]
+dest_files=["res://.godot/imported/whiteboard_roomitems_Normal.png-4b6a1c82230765cb793b6bc655133f08.s3tc.ctex", "res://.godot/imported/whiteboard_roomitems_Normal.png-4b6a1c82230765cb793b6bc655133f08.etc2.ctex"]
 
 [params]
 

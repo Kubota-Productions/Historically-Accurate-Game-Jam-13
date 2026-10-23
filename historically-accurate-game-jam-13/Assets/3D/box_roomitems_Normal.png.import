@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bole4cc4cycmd"
 path.s3tc="res://.godot/imported/box_roomitems_Normal.png-cee2bd9468c24c435944f3a86b8dff13.s3tc.ctex"
+path.etc2="res://.godot/imported/box_roomitems_Normal.png-cee2bd9468c24c435944f3a86b8dff13.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://Assets/3D/box_roomitems_Normal.png"
-dest_files=["res://.godot/imported/box_roomitems_Normal.png-cee2bd9468c24c435944f3a86b8dff13.s3tc.ctex"]
+dest_files=["res://.godot/imported/box_roomitems_Normal.png-cee2bd9468c24c435944f3a86b8dff13.s3tc.ctex", "res://.godot/imported/box_roomitems_Normal.png-cee2bd9468c24c435944f3a86b8dff13.etc2.ctex"]
 
 [params]
 

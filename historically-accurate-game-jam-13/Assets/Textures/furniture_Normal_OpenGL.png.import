@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c8idrvmktqat4"
 path.s3tc="res://.godot/imported/furniture_Normal_OpenGL.png-4fb32ba784157c98f90620b13807ee80.s3tc.ctex"
+path.etc2="res://.godot/imported/furniture_Normal_OpenGL.png-4fb32ba784157c98f90620b13807ee80.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Assets/Textures/furniture_Normal_OpenGL.png"
-dest_files=["res://.godot/imported/furniture_Normal_OpenGL.png-4fb32ba784157c98f90620b13807ee80.s3tc.ctex"]
+dest_files=["res://.godot/imported/furniture_Normal_OpenGL.png-4fb32ba784157c98f90620b13807ee80.s3tc.ctex", "res://.godot/imported/furniture_Normal_OpenGL.png-4fb32ba784157c98f90620b13807ee80.etc2.ctex"]
 
 [params]
 

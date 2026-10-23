@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://dg35f6dpxep1l"
 path.s3tc="res://.godot/imported/whiteboard_roomitems_Base_color.png-a4784a8791af858161511292ab2da231.s3tc.ctex"
+path.etc2="res://.godot/imported/whiteboard_roomitems_Base_color.png-a4784a8791af858161511292ab2da231.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://Assets/3D/whiteboard_roomitems_Base_color.png"
-dest_files=["res://.godot/imported/whiteboard_roomitems_Base_color.png-a4784a8791af858161511292ab2da231.s3tc.ctex"]
+dest_files=["res://.godot/imported/whiteboard_roomitems_Base_color.png-a4784a8791af858161511292ab2da231.s3tc.ctex", "res://.godot/imported/whiteboard_roomitems_Base_color.png-a4784a8791af858161511292ab2da231.etc2.ctex"]
 
 [params]
 

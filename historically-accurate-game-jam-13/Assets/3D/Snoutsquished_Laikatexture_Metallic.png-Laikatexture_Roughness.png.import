@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bj2uf6lixp8xf"
 path.s3tc="res://.godot/imported/Snoutsquished_Laikatexture_Metallic.png-Laikatexture_Roughness.png-9a6b2542620d55fdb7cd3cd2b352d5f8.s3tc.ctex"
+path.etc2="res://.godot/imported/Snoutsquished_Laikatexture_Metallic.png-Laikatexture_Roughness.png-9a6b2542620d55fdb7cd3cd2b352d5f8.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://Assets/3D/Snoutsquished_Laikatexture_Metallic.png-Laikatexture_Roughness.png"
-dest_files=["res://.godot/imported/Snoutsquished_Laikatexture_Metallic.png-Laikatexture_Roughness.png-9a6b2542620d55fdb7cd3cd2b352d5f8.s3tc.ctex"]
+dest_files=["res://.godot/imported/Snoutsquished_Laikatexture_Metallic.png-Laikatexture_Roughness.png-9a6b2542620d55fdb7cd3cd2b352d5f8.s3tc.ctex", "res://.godot/imported/Snoutsquished_Laikatexture_Metallic.png-Laikatexture_Roughness.png-9a6b2542620d55fdb7cd3cd2b352d5f8.etc2.ctex"]
 
 [params]
 

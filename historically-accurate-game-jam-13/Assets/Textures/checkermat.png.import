@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bfid7u0y7y80p"
 path.s3tc="res://.godot/imported/checkermat.png-b5d89438b50cc8fa796d58ae0257c6c7.s3tc.ctex"
+path.etc2="res://.godot/imported/checkermat.png-b5d89438b50cc8fa796d58ae0257c6c7.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Assets/Textures/checkermat.png"
-dest_files=["res://.godot/imported/checkermat.png-b5d89438b50cc8fa796d58ae0257c6c7.s3tc.ctex"]
+dest_files=["res://.godot/imported/checkermat.png-b5d89438b50cc8fa796d58ae0257c6c7.s3tc.ctex", "res://.godot/imported/checkermat.png-b5d89438b50cc8fa796d58ae0257c6c7.etc2.ctex"]
 
 [params]
 

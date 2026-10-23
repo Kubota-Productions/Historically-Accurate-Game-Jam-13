@@ -95,6 +95,11 @@ uniform float depth_fade_far  : hint_range(0.0, 1000.0) = 50.0;
 // fades out far away).
 uniform bool depth_fade_invert = false;
 
+// If true, fragments with no rendered geometry in the depth
+// buffer are discarded so transparent SubViewport backgrounds
+// stay transparent.
+uniform bool discard_empty_depth = false;
+
 
 // ============================================================
 // VERTEX
@@ -135,15 +140,27 @@ void fragment()
     // ========================================================
 
     vec3 screen_color =
-        texture(
+        textureLod(
             SCREEN_TEXTURE,
-            pixel_uv
+            pixel_uv,
+            0.0
         ).rgb;
 
 
     // ========================================================
     // DEPTH -> LINEAR VIEW DISTANCE
     // ========================================================
+
+    float surface_depth =
+        texture(
+            DEPTH_TEXTURE,
+            SCREEN_UV
+        ).r;
+
+    if (discard_empty_depth && surface_depth <= 0.0)
+    {
+        discard;
+    }
 
     // Sample the depth buffer at the same (pixelated) UV so the
     // depth-based fade steps in sync with the dither grid rather
@@ -153,6 +170,43 @@ void fragment()
             DEPTH_TEXTURE,
             pixel_uv
         ).r;
+
+    if (discard_empty_depth && raw_depth <= 0.0)
+    {
+        const vec2 fallback_offsets[8] = vec2[8](
+            vec2(0.5, 0.85),
+            vec2(0.5, 0.15),
+            vec2(0.15, 0.5),
+            vec2(0.85, 0.5),
+            vec2(0.15, 0.85),
+            vec2(0.85, 0.85),
+            vec2(0.15, 0.15),
+            vec2(0.85, 0.15)
+        );
+        for (int i = 0; i < 8; i++)
+        {
+            vec2 fallback_uv =
+                (pixel_grid + fallback_offsets[i])
+                * dither_size
+                / screen_size;
+            float fallback_depth =
+                texture(
+                    DEPTH_TEXTURE,
+                    fallback_uv
+                ).r;
+            if (fallback_depth > 0.0)
+            {
+                screen_color =
+                    textureLod(
+                        SCREEN_TEXTURE,
+                        fallback_uv,
+                        0.0
+                    ).rgb;
+                raw_depth = fallback_depth;
+                break;
+            }
+        }
+    }
 
     // Reconstruct view-space position from depth, then take its
     // (positive) distance from the camera along the view axis.

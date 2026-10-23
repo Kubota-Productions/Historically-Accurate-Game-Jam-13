@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://ypwf4onb14m8"
 path.s3tc="res://.godot/imported/whiteboard_roomitems_Metallic-roomitems_Roughness.png-188cafa22c044c6e8647b66f4a7b623b.s3tc.ctex"
+path.etc2="res://.godot/imported/whiteboard_roomitems_Metallic-roomitems_Roughness.png-188cafa22c044c6e8647b66f4a7b623b.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://Assets/3D/whiteboard_roomitems_Metallic-roomitems_Roughness.png"
-dest_files=["res://.godot/imported/whiteboard_roomitems_Metallic-roomitems_Roughness.png-188cafa22c044c6e8647b66f4a7b623b.s3tc.ctex"]
+dest_files=["res://.godot/imported/whiteboard_roomitems_Metallic-roomitems_Roughness.png-188cafa22c044c6e8647b66f4a7b623b.s3tc.ctex", "res://.godot/imported/whiteboard_roomitems_Metallic-roomitems_Roughness.png-188cafa22c044c6e8647b66f4a7b623b.etc2.ctex"]
 
 [params]
 

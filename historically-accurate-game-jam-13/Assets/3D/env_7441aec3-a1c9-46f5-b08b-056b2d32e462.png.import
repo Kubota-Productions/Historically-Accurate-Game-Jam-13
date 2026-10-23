@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://c1t0leiwysous"
 path.s3tc="res://.godot/imported/env_7441aec3-a1c9-46f5-b08b-056b2d32e462.png-a3abe1f641ef83ca2e4de803268b3b10.s3tc.ctex"
+path.etc2="res://.godot/imported/env_7441aec3-a1c9-46f5-b08b-056b2d32e462.png-a3abe1f641ef83ca2e4de803268b3b10.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://Assets/3D/env_7441aec3-a1c9-46f5-b08b-056b2d32e462.png"
-dest_files=["res://.godot/imported/env_7441aec3-a1c9-46f5-b08b-056b2d32e462.png-a3abe1f641ef83ca2e4de803268b3b10.s3tc.ctex"]
+dest_files=["res://.godot/imported/env_7441aec3-a1c9-46f5-b08b-056b2d32e462.png-a3abe1f641ef83ca2e4de803268b3b10.s3tc.ctex", "res://.godot/imported/env_7441aec3-a1c9-46f5-b08b-056b2d32e462.png-a3abe1f641ef83ca2e4de803268b3b10.etc2.ctex"]
 
 [params]
 

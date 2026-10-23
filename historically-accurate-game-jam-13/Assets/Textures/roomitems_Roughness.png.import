@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bbcha060wepgf"
 path.s3tc="res://.godot/imported/roomitems_Roughness.png-a65b09cfdfcc4df31bb4c589ad3fb562.s3tc.ctex"
+path.etc2="res://.godot/imported/roomitems_Roughness.png-a65b09cfdfcc4df31bb4c589ad3fb562.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Assets/Textures/roomitems_Roughness.png"
-dest_files=["res://.godot/imported/roomitems_Roughness.png-a65b09cfdfcc4df31bb4c589ad3fb562.s3tc.ctex"]
+dest_files=["res://.godot/imported/roomitems_Roughness.png-a65b09cfdfcc4df31bb4c589ad3fb562.s3tc.ctex", "res://.godot/imported/roomitems_Roughness.png-a65b09cfdfcc4df31bb4c589ad3fb562.etc2.ctex"]
 
 [params]
 

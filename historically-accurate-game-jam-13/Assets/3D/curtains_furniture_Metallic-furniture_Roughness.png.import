@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://esb0fuek5ds3"
 path.s3tc="res://.godot/imported/curtains_furniture_Metallic-furniture_Roughness.png-d1963e102715d9c62fca70e00c123820.s3tc.ctex"
+path.etc2="res://.godot/imported/curtains_furniture_Metallic-furniture_Roughness.png-d1963e102715d9c62fca70e00c123820.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://Assets/3D/curtains_furniture_Metallic-furniture_Roughness.png"
-dest_files=["res://.godot/imported/curtains_furniture_Metallic-furniture_Roughness.png-d1963e102715d9c62fca70e00c123820.s3tc.ctex"]
+dest_files=["res://.godot/imported/curtains_furniture_Metallic-furniture_Roughness.png-d1963e102715d9c62fca70e00c123820.s3tc.ctex", "res://.godot/imported/curtains_furniture_Metallic-furniture_Roughness.png-d1963e102715d9c62fca70e00c123820.etc2.ctex"]
 
 [params]
 

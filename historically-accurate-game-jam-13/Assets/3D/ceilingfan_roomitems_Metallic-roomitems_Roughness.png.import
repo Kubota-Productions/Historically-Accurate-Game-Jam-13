@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b63nbqd0xry5d"
 path.s3tc="res://.godot/imported/ceilingfan_roomitems_Metallic-roomitems_Roughness.png-8793a274d17d81a73976b9aae771552f.s3tc.ctex"
+path.etc2="res://.godot/imported/ceilingfan_roomitems_Metallic-roomitems_Roughness.png-8793a274d17d81a73976b9aae771552f.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://Assets/3D/ceilingfan_roomitems_Metallic-roomitems_Roughness.png"
-dest_files=["res://.godot/imported/ceilingfan_roomitems_Metallic-roomitems_Roughness.png-8793a274d17d81a73976b9aae771552f.s3tc.ctex"]
+dest_files=["res://.godot/imported/ceilingfan_roomitems_Metallic-roomitems_Roughness.png-8793a274d17d81a73976b9aae771552f.s3tc.ctex", "res://.godot/imported/ceilingfan_roomitems_Metallic-roomitems_Roughness.png-8793a274d17d81a73976b9aae771552f.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://briuaai77tr3o"
 path.s3tc="res://.godot/imported/Sputnik2_furniture_Normal_OpenGL.png-3bb2aaec9d88a3a1e1e52c0d8d720ed7.s3tc.ctex"
+path.etc2="res://.godot/imported/Sputnik2_furniture_Normal_OpenGL.png-3bb2aaec9d88a3a1e1e52c0d8d720ed7.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://Assets/3D/Sputnik2_furniture_Normal_OpenGL.png"
-dest_files=["res://.godot/imported/Sputnik2_furniture_Normal_OpenGL.png-3bb2aaec9d88a3a1e1e52c0d8d720ed7.s3tc.ctex"]
+dest_files=["res://.godot/imported/Sputnik2_furniture_Normal_OpenGL.png-3bb2aaec9d88a3a1e1e52c0d8d720ed7.s3tc.ctex", "res://.godot/imported/Sputnik2_furniture_Normal_OpenGL.png-3bb2aaec9d88a3a1e1e52c0d8d720ed7.etc2.ctex"]
 
 [params]
 

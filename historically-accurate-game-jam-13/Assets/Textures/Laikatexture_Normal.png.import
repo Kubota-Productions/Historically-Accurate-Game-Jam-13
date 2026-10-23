@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b0r14qgukpx78"
 path.s3tc="res://.godot/imported/Laikatexture_Normal.png-2a670d79aeba5292f6c392a7e9d075c2.s3tc.ctex"
+path.etc2="res://.godot/imported/Laikatexture_Normal.png-2a670d79aeba5292f6c392a7e9d075c2.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://Assets/Textures/Laikatexture_Normal.png"
-dest_files=["res://.godot/imported/Laikatexture_Normal.png-2a670d79aeba5292f6c392a7e9d075c2.s3tc.ctex"]
+dest_files=["res://.godot/imported/Laikatexture_Normal.png-2a670d79aeba5292f6c392a7e9d075c2.s3tc.ctex", "res://.godot/imported/Laikatexture_Normal.png-2a670d79aeba5292f6c392a7e9d075c2.etc2.ctex"]
 
 [params]
 

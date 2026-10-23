@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bu4c6bnoyvxfl"
 path.s3tc="res://.godot/imported/dresser_furniture_Metallic-furniture_Roughness.png-3260f370b15cf495928a4b776acf5195.s3tc.ctex"
+path.etc2="res://.godot/imported/dresser_furniture_Metallic-furniture_Roughness.png-3260f370b15cf495928a4b776acf5195.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://Assets/3D/dresser_furniture_Metallic-furniture_Roughness.png"
-dest_files=["res://.godot/imported/dresser_furniture_Metallic-furniture_Roughness.png-3260f370b15cf495928a4b776acf5195.s3tc.ctex"]
+dest_files=["res://.godot/imported/dresser_furniture_Metallic-furniture_Roughness.png-3260f370b15cf495928a4b776acf5195.s3tc.ctex", "res://.godot/imported/dresser_furniture_Metallic-furniture_Roughness.png-3260f370b15cf495928a4b776acf5195.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://0cf16t3y47mx"
 path.s3tc="res://.godot/imported/shelf_furniture_Base_color.png-62785409339c4789429d0df703c1e4c4.s3tc.ctex"
+path.etc2="res://.godot/imported/shelf_furniture_Base_color.png-62785409339c4789429d0df703c1e4c4.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://Assets/3D/shelf_furniture_Base_color.png"
-dest_files=["res://.godot/imported/shelf_furniture_Base_color.png-62785409339c4789429d0df703c1e4c4.s3tc.ctex"]
+dest_files=["res://.godot/imported/shelf_furniture_Base_color.png-62785409339c4789429d0df703c1e4c4.s3tc.ctex", "res://.godot/imported/shelf_furniture_Base_color.png-62785409339c4789429d0df703c1e4c4.etc2.ctex"]
 
 [params]
 

@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://cr3d5xlp88fiu"
 path.s3tc="res://.godot/imported/Sputnik2_furniture_Metallic.png-furniture_Roughness.png-23e57fe4ac4a3ddcf8f08d9115bbb83c.s3tc.ctex"
+path.etc2="res://.godot/imported/Sputnik2_furniture_Metallic.png-furniture_Roughness.png-23e57fe4ac4a3ddcf8f08d9115bbb83c.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://Assets/3D/Sputnik2_furniture_Metallic.png-furniture_Roughness.png"
-dest_files=["res://.godot/imported/Sputnik2_furniture_Metallic.png-furniture_Roughness.png-23e57fe4ac4a3ddcf8f08d9115bbb83c.s3tc.ctex"]
+dest_files=["res://.godot/imported/Sputnik2_furniture_Metallic.png-furniture_Roughness.png-23e57fe4ac4a3ddcf8f08d9115bbb83c.s3tc.ctex", "res://.godot/imported/Sputnik2_furniture_Metallic.png-furniture_Roughness.png-23e57fe4ac4a3ddcf8f08d9115bbb83c.etc2.ctex"]
 
 [params]
 
