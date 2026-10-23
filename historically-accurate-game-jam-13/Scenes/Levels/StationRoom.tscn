@@ -53,10 +53,6 @@ fog_density = 0.0431
 fog_sky_affect = 0.259
 fog_height_density = 0.6713
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_h1c1u"]
-flip_faces = true
-orientation = 2
-
 [sub_resource type="Gradient" id="Gradient_kj30l"]
 offsets = PackedFloat32Array(0, 0.18061674, 1)
 colors = PackedColorArray(0.12245094, 0.00017981649, 0.31626332, 1, 5.053729e-07, 0.13986629, 0.41122162, 1, 0.9376434, 0.8761628, 7.70092e-07, 1)
@@ -65,7 +61,7 @@ colors = PackedColorArray(0.12245094, 0.00017981649, 0.31626332, 1, 5.053729e-07
 gradient = SubResource("Gradient_kj30l")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uacqf"]
-render_priority = 0
+render_priority = 7
 shader = ExtResource("2_m0aub")
 shader_parameter/dither_tex = ExtResource("3_1s32y")
 shader_parameter/dither_size = 5.8750002315625
@@ -79,6 +75,11 @@ shader_parameter/depth_fade_enabled = false
 shader_parameter/depth_fade_near = 0.0
 shader_parameter/depth_fade_far = 50.0
 shader_parameter/depth_fade_invert = false
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_h1c1u"]
+material = SubResource("ShaderMaterial_uacqf")
+flip_faces = true
+orientation = 2
 
 [sub_resource type="StandardMaterial3D" id="Green"]
 albedo_color = Color(0.217, 0.217, 0.217, 1)
@@ -255,12 +256,11 @@ visible = false
 material_override = ExtResource("task_15_nklso")
 mesh = ExtResource("task_16_1ylpy")
 
-[node name="Slots" type="StaticBody3D" parent="Props/TrainingStand" unique_id=1706886502 node_paths=PackedStringArray("indicators")]
+[node name="Slots" type="StaticBody3D" parent="Props/TrainingStand" unique_id=1706886502]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0.5)
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("task_17_0lg0f")
-indicators = [NodePath("../Cell1"), NodePath("../Cell2")]
 display_name = "Inspect battery slots"
 action = SubResource("task_action_socket")
 
@@ -343,10 +343,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8, 0.12, 2.5)
 script = ExtResource("task_2_8uaqm")
 
 [node name="Item" parent="Pickups/Battery1" unique_id=251464543 instance=ExtResource("task_19_updqm")]
+transform = Transform3D(-4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 0, 0, 1, 8.909399, -0.2591996, -4.0594993)
 action = SubResource("task_action_pickup")
 
 [node name="Battery2" type="Node3D" parent="Pickups" unique_id=1708278907]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.65, 0.12, 1.8)
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 6.5884233, -0.2577318, 7.375432)
 script = ExtResource("task_2_8uaqm")
 
 [node name="Item" parent="Pickups/Battery2" unique_id=697485222 instance=ExtResource("task_19_updqm")]
