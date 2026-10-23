@@ -616,7 +616,10 @@ jobs:
           test -d "$APP_DIR"
           test -f "$APP_DIR/Contents/Frameworks/libfmod.dylib"
           test -f "$APP_DIR/Contents/Frameworks/libfmodstudio.dylib"
-          PCK_FILE=$(find "$APP_DIR/Contents/Resources" -name "*.pck" | head -n 1)
+          PCK_FILE=$(find "$APP_DIR/Contents/Resources" -name "*.pck" 2>/dev/null | head -n 1 || true)
+          if [ -z "$PCK_FILE" ]; then
+            PCK_FILE=$(find "$APP_DIR/Contents/MacOS" -type f | head -n 1)
+          fi
           test -n "$PCK_FILE"
           grep -aq "Master.bank" "$PCK_FILE"
           grep -aq "Master.strings.bank" "$PCK_FILE"
