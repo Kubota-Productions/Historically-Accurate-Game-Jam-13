@@ -5,6 +5,10 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: Scenes/GUI/Screens/Credits.tscn:68
+msgid "\nthis game was made by:\nFractals - Visuals\nAerial - Music & Audio\nRyvle - UI\nVi (Vladyslav) - programming \nSol.Vin - programming \nSystem Synger - programming assistance"
+msgstr ""
+
 #: Scenes/Levels/Scripts/Progress/training_progress.gd:54
 #, c-format
 msgid "%d / %d BATTERIES"
@@ -41,19 +45,23 @@ msgstr ""
 msgid "02  /  ONE LAST EXERCISE"
 msgstr ""
 
+#: GameData/Rooms/liftoff.tres:8 GameData/Rooms/liftoff.tres:9
+msgid "03  /  LIFTOFF"
+msgstr ""
+
 #: GameData/Rooms/rocket.tres:8
-msgid "03  /  LAIKA"
+msgid "04  /  LAIKA"
 msgstr ""
 
 #: GameData/Rooms/rocket.tres:9
-msgid "03  /  ORBIT"
+msgid "04  /  ORBIT"
 msgstr ""
 
-#: Scenes/GUI/Screens/Credits.tscn:58 Scenes/GUI/Screens/Scripts/credits.gd:62
+#: Scenes/GUI/Screens/Scripts/credits.gd:66
 msgid "A very good dog."
 msgstr ""
 
-#: Scenes/GUI/Screens/SettingsPanel.tscn:212
+#: Scenes/GUI/Screens/SettingsPanel.tscn:224
 msgid "Action"
 msgstr ""
 
@@ -62,7 +70,7 @@ msgstr ""
 msgid "Already assigned to %s."
 msgstr ""
 
-#: Scenes/GUI/Screens/SettingsPanel.tscn:124
+#: Scenes/GUI/Screens/SettingsPanel.tscn:136
 msgid "Apply display settings"
 msgstr ""
 
@@ -74,7 +82,7 @@ msgstr ""
 msgid "Audio"
 msgstr ""
 
-#: Scenes/GUI/Screens/SettingsPanel.tscn:249
+#: Scenes/GUI/Screens/SettingsPanel.tscn:261
 msgid "Back"
 msgstr ""
 
@@ -86,7 +94,7 @@ msgstr ""
 msgid "Bark to answer"
 msgstr ""
 
-#: Scenes/GUI/Screens/SettingsPanel.tscn:218
+#: Scenes/GUI/Screens/SettingsPanel.tscn:230
 msgid "Binding"
 msgstr ""
 
@@ -94,7 +102,7 @@ msgstr ""
 msgid "Binding updated."
 msgstr ""
 
-#: Scenes/Levels/StationRoom.tscn:304
+#: Scenes/Levels/StationRoom.tscn:283
 msgid "Board the capsule"
 msgstr ""
 
@@ -110,7 +118,7 @@ msgstr ""
 msgid "Bring two batteries to the training stand"
 msgstr ""
 
-#: Scenes/Levels/StationRoom.tscn:312
+#: Scenes/Levels/StationRoom.tscn:293
 msgid "CAPSULE"
 msgstr ""
 
@@ -138,7 +146,7 @@ msgstr ""
 msgid "Continue dialogue"
 msgstr ""
 
-#: Scenes/Levels/TrainingRoom.tscn:151
+#: Scenes/Levels/TrainingRoom.tscn:195
 msgid "Continue to preparation"
 msgstr ""
 
@@ -182,19 +190,15 @@ msgstr ""
 msgid "Escape is reserved for going back. Choose another key."
 msgstr ""
 
-#: Scenes/GUI/Screens/MainMenu.tscn:79
-msgid "Exit"
-msgstr ""
-
 #: GameData/Dialogue/Training/greeting.tres:15
 msgid "Find two batteries and bring them to the low training stand. One at a time. Follow your nose!"
 msgstr ""
 
-#: Scenes/Levels/StationRoom.tscn:106
+#: Scenes/Levels/StationRoom.tscn:129
 msgid "Finish the battery test before boarding."
 msgstr ""
 
-#: Scenes/GUI/Screens/Credits.tscn:49 Scenes/GUI/Screens/Scripts/credits.gd:61
+#: Scenes/GUI/Screens/Credits.tscn:59 Scenes/GUI/Screens/Scripts/credits.gd:65
 msgid "For Laika"
 msgstr ""
 
@@ -214,7 +218,7 @@ msgstr ""
 msgid "Good morning, little cosmonaut. Ready for our game?"
 msgstr ""
 
-#: Scenes/Levels/TrainingRoom.tscn:47
+#: Scenes/Levels/TrainingRoom.tscn:78
 msgid "He hasn't said it's bedtime yet."
 msgstr ""
 
@@ -223,11 +227,15 @@ msgstr ""
 msgid "In your teeth: %s"
 msgstr ""
 
+#: Scenes/Levels/TrainingRoom.tscn:239
+msgid "Inpect the Radio"
+msgstr ""
+
 #: Scenes/Shared/Interactables/Socket.tscn:13
 msgid "Inspect battery slot"
 msgstr ""
 
-#: Scenes/Levels/StationRoom.tscn:274
+#: Scenes/Levels/StationRoom.tscn:269
 msgid "Inspect battery slots"
 msgstr ""
 
@@ -243,11 +251,11 @@ msgstr ""
 msgid "Jump"
 msgstr ""
 
-#: Scenes/GUI/Screens/SettingsPanel.tscn:151
+#: Scenes/GUI/Screens/SettingsPanel.tscn:163
 msgid "Keep"
 msgstr ""
 
-#: Scenes/GUI/Screens/SettingsPanel.tscn:140
+#: Scenes/GUI/Screens/SettingsPanel.tscn:152
 msgid "Keep these display settings?"
 msgstr ""
 
@@ -256,12 +264,20 @@ msgstr ""
 msgid "Keep these display settings? Reverting in %d s."
 msgstr ""
 
-#: Scenes/GUI/Screens/MainMenu.tscn:39 Scenes/Levels/Scripts/Progress/rocket_progress.gd:16
+#: Scenes/GUI/Screens/MainMenu.tscn:74
+msgid "Kudryavka"
+msgstr ""
+
+#: Scenes/Levels/Scripts/Progress/rocket_progress.gd:16
 msgid "LAIKA"
 msgstr ""
 
-#: Code/Utils/input_hints.gd:6 Scenes/GUI/Components/ActionHint.tscn:27 Scenes/GUI/Components/BindingRow.tscn:23
+#: Code/Utils/input_hints.gd:6 Scenes/GUI/Components/ActionHint.tscn:26 Scenes/GUI/Components/BindingRow.tscn:23
 msgid "LMB"
+msgstr ""
+
+#: Scenes/GUI/Screens/MainMenu.tscn:58
+msgid "Laika: The little curly one"
 msgstr ""
 
 #: Scenes/Levels/Scripts/Progress/opening_progress.gd:9
@@ -280,7 +296,7 @@ msgstr ""
 msgid "MMB"
 msgstr ""
 
-#: Scenes/GUI/Screens/Scripts/credits.gd:64
+#: Scenes/GUI/Screens/Scripts/credits.gd:68
 msgid "Made by"
 msgstr ""
 
@@ -340,11 +356,11 @@ msgstr ""
 msgid "Open"
 msgstr ""
 
-#: Scenes/Shared/Inspection/ExampleReceiver.tscn:66
+#: Scenes/GUI/InspectableObjects/ExampleReceiver.tscn:66
 msgid "Open battery cover"
 msgstr ""
 
-#: Scenes/Levels/StationRoom.tscn:184
+#: Scenes/Levels/StationRoom.tscn:310
 msgid "PREPARATION"
 msgstr ""
 
@@ -389,7 +405,7 @@ msgstr ""
 msgid "Press button"
 msgstr ""
 
-#: Scenes/Levels/StationRoom.tscn:214
+#: Scenes/Levels/StationRoom.tscn:209
 msgid "Press test button"
 msgstr ""
 
@@ -413,15 +429,19 @@ msgstr ""
 msgid "ROBOT"
 msgstr ""
 
+#: Scenes/GUI/InspectableObjects/RadioInspectable.tscn:22
+msgid "Radio"
+msgstr ""
+
 #: Scenes/GUI/Screens/ItemInspection.tscn:128
 msgid "Reset view"
 msgstr ""
 
-#: Scenes/GUI/Screens/SettingsPanel.tscn:100
+#: Scenes/GUI/Screens/SettingsPanel.tscn:108
 msgid "Resolution"
 msgstr ""
 
-#: Scenes/GUI/Screens/SettingsPanel.tscn:242
+#: Scenes/GUI/Screens/SettingsPanel.tscn:254
 msgid "Restore default controls"
 msgstr ""
 
@@ -429,15 +449,15 @@ msgstr ""
 msgid "Resume"
 msgstr ""
 
-#: Scenes/GUI/Screens/Credits.tscn:70
+#: Scenes/GUI/Screens/Credits.tscn:87
 msgid "Return to menu"
 msgstr ""
 
-#: Scenes/GUI/Screens/Scripts/credits.gd:68
+#: Scenes/GUI/Screens/Scripts/credits.gd:72
 msgid "Returning to the main menu…"
 msgstr ""
 
-#: Scenes/GUI/Screens/SettingsPanel.tscn:157
+#: Scenes/GUI/Screens/SettingsPanel.tscn:169
 msgid "Revert"
 msgstr ""
 
@@ -457,7 +477,7 @@ msgstr ""
 msgid "Select a binding, then press a key or mouse button. Esc cancels."
 msgstr ""
 
-#: Scenes/GUI/Screens/MainMenu.tscn:70 Scenes/GUI/Screens/PauseMenu.tscn:66 Scenes/GUI/Screens/SettingsPanel.tscn:48
+#: Scenes/GUI/Screens/PauseMenu.tscn:66 Scenes/GUI/Screens/SettingsPanel.tscn:48
 msgid "Settings"
 msgstr ""
 
@@ -481,10 +501,6 @@ msgstr ""
 msgid "Sound volume"
 msgstr ""
 
-#: Scenes/GUI/Screens/MainMenu.tscn:61
-msgid "Start"
-msgstr ""
-
 #: Scenes/Levels/Scripts/Progress/training_progress.gd:30
 msgid "TRAINING COMPLETE"
 msgstr ""
@@ -493,11 +509,11 @@ msgstr ""
 msgid "Talk"
 msgstr ""
 
-#: Scenes/Levels/TrainingRoom.tscn:75
+#: Scenes/Levels/TrainingRoom.tscn:119
 msgid "Talk to the scientist"
 msgstr ""
 
-#: Scenes/Levels/StationRoom.tscn:66
+#: Scenes/Levels/StationRoom.tscn:98
 msgid "Test complete — enter the capsule"
 msgstr ""
 
@@ -505,7 +521,7 @@ msgstr ""
 msgid "Test complete. Time to get into the capsule."
 msgstr ""
 
-#: Scenes/GUI/Screens/Scripts/credits.gd:67
+#: Scenes/GUI/Screens/Scripts/credits.gd:71
 msgid "Thank you for playing"
 msgstr ""
 
@@ -561,7 +577,7 @@ msgstr ""
 msgid "Windowed"
 msgstr ""
 
-#: Scenes/GUI/Screens/Scripts/game_hud.gd:71 Scenes/GUI/Screens/Scripts/game_hud.gd:83
+#: Scenes/GUI/Screens/Scripts/game_hud.gd:83
 msgid "Woof!"
 msgstr ""
 

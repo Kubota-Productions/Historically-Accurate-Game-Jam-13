@@ -12,7 +12,7 @@
 [ext_resource type="Script" uid="uid://dldd0m0xs50kq" path="res://Scenes/Player/Scripts/Components/player_interactor.gd" id="interactor"]
 [ext_resource type="PackedScene" uid="uid://c5xf5awwvo5et" path="res://Scenes/Player/FPSPlayer.tscn" id="player"]
 [ext_resource type="Script" uid="uid://c2vrwl3576sbw" path="res://Scenes/Levels/Scripts/Progress/station_progress.gd" id="progress"]
-[ext_resource type="Resource" path="res://GameData/Rooms/rocket.tres" id="rocket"]
+[ext_resource type="Resource" path="res://GameData/Rooms/liftoff.tres" id="rocket"]
 [ext_resource type="Script" uid="uid://dhaw8y5svbuly" path="res://Scenes/Player/Scripts/Components/scent_controller.gd" id="scent"]
 [ext_resource type="Script" uid="uid://djghgf8bfy3dg" path="res://Scenes/Levels/Scripts/laika_room.gd" id="script"]
 [ext_resource type="Script" uid="uid://jivklbtxb5ki" path="res://Scenes/Shared/Scripts/asset_group.gd" id="task_2_8uaqm"]

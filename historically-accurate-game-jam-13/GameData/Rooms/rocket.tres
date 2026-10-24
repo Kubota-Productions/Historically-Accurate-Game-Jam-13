@@ -1,9 +1,9 @@
-[gd_resource type="Resource" script_class="RoomDefinition" format=3]
+[gd_resource type="Resource" script_class="RoomDefinition" format=3 uid="uid://cajdxbdu0p7hv"]
 
-[ext_resource type="Script" path="res://Code/Definitions/room_definition.gd" id="room"]
+[ext_resource type="Script" uid="uid://c3i6pc64xwl4a" path="res://Code/Definitions/room_definition.gd" id="room"]
 
 [resource]
 script = ExtResource("room")
 scene_path = "res://Scenes/Levels/RocketRoom.tscn"
-title = "03  /  LAIKA"
-heading = "03  /  ORBIT"
+title = "04  /  LAIKA"
+heading = "04  /  ORBIT"

@@ -102,7 +102,7 @@ func resume_game() -> void:
 	get_tree().paused = false
 	mode = Mode.PLAYING
 	pause.hide()
-	hud.show()
+	hud.visible = room.hud_enabled
 	dialogue.visible = dialogue.session.active
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	_sync_context()
@@ -167,7 +167,7 @@ func enter_room(definition: RoomDefinition) -> void:
 	await get_tree().create_timer(transition.intro_pause_seconds).timeout
 	if not is_inside_tree():
 		return
-	hud.show()
+	hud.visible = room.hud_enabled
 	transitioning = false
 	room.begin()
 	_sync_context()
@@ -256,6 +256,8 @@ func _cancel() -> void:
 
 
 func _play(event: InputEvent) -> bool:
+	if not room.control_enabled:
+		return false
 	var session := dialogue.session
 	if event.is_action_pressed(&"inspect") and not session.active:
 		inspect_item()
@@ -291,7 +293,7 @@ func inspect_item() -> bool:
 
 func _inspection_closed() -> void:
 	if mode == Mode.PLAYING and not transitioning and not settings.visible:
-		hud.show()
+		hud.visible = room.hud_enabled
 	_sync_context()
 
 

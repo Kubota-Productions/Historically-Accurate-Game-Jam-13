@@ -15,11 +15,7 @@ Aerial
 System Synger
 ryvle
 Vi (Vladyslav)
-
-STILL NEED THE REST OF THE CREDITS FROM TEAM
-
-UI DESIGNER - Ryvle
-DEVOPS/QA - sol.vin"
+sol.vin"
 
 [node name="Background" type="ColorRect" parent="." unique_id=170400908]
 layout_mode = 1

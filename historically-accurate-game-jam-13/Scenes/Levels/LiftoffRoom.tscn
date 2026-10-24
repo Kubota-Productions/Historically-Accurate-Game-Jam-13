@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://5rqkpqjfigfg"]
+
+[ext_resource type="Script" uid="uid://djghgf8bfy3dg" path="res://Scenes/Levels/Scripts/laika_room.gd" id="1_5oxce"]
+[ext_resource type="VideoStream" uid="uid://bunwk45m6la3q" path="res://Assets/video/rocket.ogv" id="1_rx2u3"]
+[ext_resource type="Script" uid="uid://cf1trihm73fa8" path="res://Scenes/Player/Scripts/Components/carry_controller.gd" id="2_kqok1"]
+[ext_resource type="PackedScene" uid="uid://c5xf5awwvo5et" path="res://Scenes/Player/FPSPlayer.tscn" id="2_lveo5"]
+[ext_resource type="Script" uid="uid://dldd0m0xs50kq" path="res://Scenes/Player/Scripts/Components/player_interactor.gd" id="3_50reu"]
+[ext_resource type="Script" uid="uid://dhaw8y5svbuly" path="res://Scenes/Player/Scripts/Components/scent_controller.gd" id="4_tabph"]
+[ext_resource type="Script" uid="uid://dgfkc1q1k2072" path="res://Scenes/Levels/Scripts/Progress/liftoff_progress.gd" id="5_3pyyw"]
+[ext_resource type="Resource" uid="uid://cajdxbdu0p7hv" path="res://GameData/Rooms/rocket.tres" id="6_rocket"]
+
+[node name="LiftoffRoom" type="Node3D" unique_id=1481707262 node_paths=PackedStringArray("rig", "menu_camera", "progress", "carry", "interactor", "scent")]
+script = ExtResource("1_5oxce")
+movement_enabled = false
+actions_enabled = false
+hud_enabled = false
+rig = NodePath("Actors/Player/CameraHolder")
+menu_camera = NodePath("Cameras/MenuCamera")
+progress = NodePath("Systems/Progress")
+carry = NodePath("Systems/Carry")
+interactor = NodePath("Systems/Interactor")
+scent = NodePath("Systems/Scent")
+metadata/_custom_type_script = "uid://djghgf8bfy3dg"
+
+[node name="Systems" type="Node" parent="." unique_id=1040275703]
+
+[node name="Carry" type="Node" parent="Systems" unique_id=1312536275 node_paths=PackedStringArray("anchor")]
+script = ExtResource("2_kqok1")
+anchor = NodePath("../../Actors/Player/CameraHolder/Camera3D/Snout/MouthAnchor")
+
+[node name="Interactor" type="Node" parent="Systems" unique_id=219114714]
+script = ExtResource("3_50reu")
+
+[node name="Scent" type="Node" parent="Systems" unique_id=404326295]
+script = ExtResource("4_tabph")
+
+[node name="Progress" type="Node" parent="Systems" unique_id=161700668 node_paths=PackedStringArray("video")]
+script = ExtResource("5_3pyyw")
+video = NodePath("../../VideoStreamPlayer")
+destination = ExtResource("6_rocket")
+
+[node name="Actors" type="Node3D" parent="." unique_id=506651120]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+
+[node name="Player" parent="Actors" unique_id=1514709304 instance=ExtResource("2_lveo5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.22443575, 3.998003)
+jump_height = 0.7
+auto_bhop = false
+body_radius = 0.22
+stand_height = 0.8
+crouch_height = 0.5
+max_step_height = 0.18
+max_drop_height = 0.25
+min_tread_depth = 0.2
+auto_crouch = false
+
+[node name="Snout" parent="Actors/Player/CameraHolder/Camera3D" parent_id_path=PackedInt32Array(1514709304, 359298848) index="1" unique_id=1966567727]
+visible = false
+
+[node name="CanvasLayer" parent="Actors/Player" index="2" unique_id=918273645]
+visible = false
+
+[node name="SubViewport" parent="Actors/Player/CanvasLayer/SubViewportContainer" parent_id_path=PackedInt32Array(1514709304, 918273646) index="0" unique_id=918273647]
+render_target_update_mode = 0
+
+[node name="Camera3D" parent="Actors/Player/CanvasLayer/SubViewportContainer/SubViewport" index="0" unique_id=918273648]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8244357, -0.001996994)
+
+[node name="Cameras" type="Node3D" parent="." unique_id=315371582]
+
+[node name="MenuCamera" type="Camera3D" parent="Cameras" unique_id=1934657567]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 1)
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=1672711494]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stream = ExtResource("1_rx2u3")
+autoplay = true
+expand = true
+
+[editable path="Actors/Player"]
+[editable path="Actors/Player/CameraHolder/Camera3D/Snout"]
