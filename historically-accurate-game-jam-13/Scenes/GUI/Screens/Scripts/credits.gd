@@ -7,22 +7,34 @@ signal finished
 @export_multiline var team: String = "Fractals\nAerial\nSystem Synger\nryvle\nVi (Vladyslav)"
 
 var page: int = 0
-var elapsed: float = 0.0
 var active: bool = false
 
 @onready var heading: Label = %Heading
 @onready var body: Label = %Body
 @onready var menu_button: Button = %ReturnToMenu
 
+var timer : SceneTreeTimer
 
 func _ready() -> void:
 	menu_button.pressed.connect(finish)
 	close()
 
+func create_page_timer():
+	timer = get_tree().create_timer(page_seconds)
+	timer.timeout.connect(next_page)
+
+func next_page():
+	print("HELLO")
+	page += 1
+	if page >= 3:
+		finish()
+	else:
+		create_page_timer()
+
 
 func open() -> void:
+	create_page_timer()
 	page = 0
-	elapsed = 0.0
 	active = true
 	_show_page()
 	show()
@@ -44,16 +56,8 @@ func finish() -> void:
 func _process(delta: float) -> void:
 	if not active:
 		return
-	elapsed += delta
-	if elapsed < page_seconds:
-		return
-	elapsed = 0.0
-	page += 1
-	if page >= 3:
-		finish()
-	else:
-		_show_page()
-
+	_show_page()
+		
 
 func _show_page() -> void:
 	match page:

@@ -10,6 +10,16 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("script")
+team = "Fractals
+Aerial
+System Synger
+ryvle
+Vi (Vladyslav)
+
+STILL NEED THE REST OF THE CREDITS FROM TEAM
+
+UI DESIGNER - Ryvle
+DEVOPS/QA - sol.vin"
 
 [node name="Background" type="ColorRect" parent="." unique_id=170400908]
 layout_mode = 1
