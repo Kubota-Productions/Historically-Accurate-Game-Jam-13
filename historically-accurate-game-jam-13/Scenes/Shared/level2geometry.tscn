@@ -217,6 +217,12 @@ layers = 3
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.26272845, 9.810884, -1.6268682)
 layers = 3
 
+[node name="AreaLight3D12" type="AreaLight3D" parent="." unique_id=1059183351]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, -1.0690813, 1.4773555, -0.8548764)
+layers = 3
+light_color = Color(0, 0.87052155, 0.8705213, 1)
+light_energy = 4.87
+
 [node name="AreaLight3D3" type="AreaLight3D" parent="." unique_id=1705477455]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.26272845, 16.237156, -2.5730138)
 layers = 3

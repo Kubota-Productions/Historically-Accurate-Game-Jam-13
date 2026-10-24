@@ -3,6 +3,7 @@
 [ext_resource type="Shader" uid="uid://b4en6ka5nfcem" path="res://Resources/Shaders/dither.gdshader" id="2_m0aub"]
 [ext_resource type="Texture2D" uid="uid://8cqbsu2jp0du" path="res://Resources/Shaders/bayer16tile2.png" id="3_1s32y"]
 [ext_resource type="PackedScene" uid="uid://disg0jtdehinu" path="res://Scenes/Shared/level2geometry.tscn" id="8_i3m6a"]
+[ext_resource type="Material" uid="uid://sjtl4laf4v3y" path="res://Assets/materials/redlight.tres" id="8_kj30l"]
 [ext_resource type="PackedScene" uid="uid://skidw5yqd85a" path="res://Assets/3D/Sputnik2.glb" id="13_pmscr"]
 [ext_resource type="PackedScene" uid="uid://bubn572blfd61" path="res://Assets/3D/Capsuleinterior.glb" id="20_h1c1u"]
 [ext_resource type="PackedScene" uid="uid://s3jwersf0fmj" path="res://Assets/3D/prefabs/chair.tscn" id="22_1s32y"]
@@ -75,6 +76,7 @@ shader_parameter/depth_fade_enabled = false
 shader_parameter/depth_fade_near = 0.0
 shader_parameter/depth_fade_far = 50.0
 shader_parameter/depth_fade_invert = false
+shader_parameter/discard_empty_depth = false
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_h1c1u"]
 material = SubResource("ShaderMaterial_uacqf")
@@ -100,10 +102,6 @@ size = Vector3(0.48, 0.5, 0.48)
 
 [sub_resource type="StandardMaterial3D" id="task_Green"]
 albedo_color = Color(0.217, 0.217, 0.217, 1)
-roughness = 0.85
-
-[sub_resource type="StandardMaterial3D" id="task_Red"]
-albedo_color = Color(0.337, 0.337, 0.337, 1)
 roughness = 0.85
 
 [sub_resource type="CylinderMesh" id="task_Mesh_Button21"]
@@ -176,6 +174,12 @@ max_drop_height = 0.25
 min_tread_depth = 0.2
 auto_crouch = false
 
+[node name="Camera3D" parent="Actors/Player/CameraHolder" parent_id_path=PackedInt32Array(290791286, 73516174) index="0" unique_id=359298848]
+cull_mask = 1048575
+
+[node name="Camera3D" parent="Actors/Player/CanvasLayer/SubViewportContainer/SubViewport" parent_id_path=PackedInt32Array(290791286, 918273647) index="0" unique_id=918273648]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.65, 3.6)
+
 [node name="Props" type="Node3D" parent="." unique_id=1767283693]
 
 [node name="LeftConsole" type="Node3D" parent="Props" unique_id=1886352046]
@@ -198,7 +202,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, -2)
 script = ExtResource("task_2_8uaqm")
 
 [node name="TestButton" type="StaticBody3D" parent="Props" unique_id=2069618690]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0.34, 0.2)
+transform = Transform3D(1, 0, 0, 0, 0.5830381, -0.8124448, 0, 0.8124448, 0.5830381, 1.5, 0.21991196, 0.2)
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("task_3_lkr16")
@@ -216,7 +220,7 @@ material = SubResource("task_Green")
 
 [node name="Button" type="MeshInstance3D" parent="Props/TestButton" unique_id=398603993]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.29, 0)
-material_override = SubResource("task_Red")
+material_override = ExtResource("8_kj30l")
 mesh = SubResource("task_Mesh_Button21")
 
 [node name="TrainingStand" type="Node3D" parent="Props" unique_id=374567011]
@@ -242,6 +246,7 @@ material = SubResource("task_Black")
 
 [node name="Cell1" type="MeshInstance3D" parent="Props/TrainingStand" unique_id=903358990]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.505249, 0.39999998, 0.42875195)
+visible = false
 material_override = ExtResource("task_15_nklso")
 mesh = ExtResource("task_16_1ylpy")
 
@@ -357,3 +362,4 @@ action = SubResource("task_action_pickup")
 transform = Transform3D(0.1945672, 0, 0.9808892, 0, 1, 0, -0.9808892, 0, 0.1945672, 6.3409977, 6.62602, 3.6514611)
 
 [editable path="Actors/Player"]
+[editable path="Actors/Player/CameraHolder/Camera3D/Snout"]
